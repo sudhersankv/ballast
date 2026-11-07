@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ballast. live</title>
+<meta name="description" content="The live ballast. training run: every case as it lands, the loop log, and full traces.">
+<meta name="theme-color" content="#04110C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2304110C'/%3E%3Ctext x='9' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='%23E8FFF4'%3Eb%3C/text%3E%3Crect x='40' y='37' width='9' height='9' fill='%236CFFC0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("ballast-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="/" aria-label="ballast. home">ballast<span>.</span></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="/#genome">Genome</a>
+    <a href="/#how">The loop</a>
+    <a href="/#stack-sec">Stack</a>
+    <a href="/live" class="live-link" aria-current="page"><span class="live-dot" aria-hidden="true"></span>Live</a>
+  </nav>
+  <div class="top-right">
+    <span class="light" id="status" role="status" aria-live="polite" data-level="idle"><i></i><b>Connecting</b></span>
+  </div>
+</header>
+
+<main id="main" class="live-main">
+  <section class="live-head">
+    <div>
+      <h1 class="sec-h">Live training run</h1>
+      <p class="sec-sub" id="live-sub">Each case appears when the agent finishes it. Open a tile for the full trace.</p>
+    </div>
+    <div class="seg" role="group" aria-label="Database">
+      <button data-db="ballast_dev" aria-pressed="true">ballast_dev</button>
+      <button data-db="ballast" aria-pressed="false">ballast</button>
+    </div>
+  </section>
+
+  <section class="live-top">
+    <div class="panel prog">
+      <p class="prog-k" id="prog-k">Waiting for the first run</p>
+      <div class="prog-row">
+        <span class="prog-num" id="prog-num">0<small>/0</small></span>
+        <div class="prog-tally">
+          <span class="t-pass"><b id="t-pass">0</b> passed</span>
+          <span class="t-fail"><b id="t-fail">0</b> failed</span>
+          <span class="t-mean">mean <b id="t-mean">–</b></span>
+        </div>
+      </div>
+      <div class="prog-bar" aria-hidden="true"><span id="prog-bar"></span></div>
+      <p class="prog-meta" id="prog-meta"></p>
+    </div>
+    <div class="panel vers">
+      <h2 class="panel-h">Playbook versions</h2>
+      <p class="panel-sub">Open a version for its YAML, diff, gate metrics and compliance verdict.</p>
+      <ul class="ver-list" id="ver-list"><li class="muted">No versions yet.</li></ul>
+    </div>
+  </section>
+
+  <section class="live-body">
+    <div class="panel cases">
+      <h2 class="panel-h">Cases</h2>
+      <p class="panel-sub">One tile per case, grouped by version and set. <span class="key"><i class="k-pass"></i>passed <i class="k-fail"></i>failed <i class="k-run"></i>running <i class="k-wait"></i>queued</span></p>
+      <div id="blocks" class="blocks"><p class="muted">No runs in this session yet.</p></div>
+    </div>
+    <div class="panel logp">
+      <div class="log-head">
+        <h2 class="panel-h">Loop log</h2>
+        <label class="follow"><input type="checkbox" id="follow" checked> Follow</label>
+      </div>
+      <ol class="log" id="log" aria-live="off"></ol>
+    </div>
+  </section>
+
+  <section class="panel snapp" aria-labelledby="snap-h" style="margin-top:16px">
+    <h2 class="panel-h" id="snap-h">Snap gates</h2>
+    <p class="panel-sub">SubQ Snap scores each new life event before the agent runs: rules at risk, playbook coverage, re-run or not. The rule checker still decides pass or fail.</p>
+    <div style="overflow-x:auto"><table class="gates-t" id="gates"><tbody><tr><td class="muted">No life events in the last 24 hours.</td></tr></tbody></table></div>
+  </section>
+</main>
+
+<dialog id="sheet" class="sheet wide" aria-labelledby="sheet-title">
+  <div class="sheet-inner">
+    <button class="close" id="sheet-close">Close</button>
+    <div id="sheet-body"></div>
+  </div>
+</dialog>
+
+<script src="/static/live.js"></script>
+</body>
+</html>
