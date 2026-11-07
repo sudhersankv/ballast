@@ -27,7 +27,8 @@ ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 
 COLLECTIONS = ("playbooks", "generations", "runs", "drift_events", "clients", "life_events",
-               "drift_analysis", "benchmarks", "loop_log")
+               "drift_analysis", "benchmarks", "loop_log",
+               "journey_playbooks", "journey_steps", "journey_summaries")
 FALLBACK_DIR = ROOT / "runs" / "store"
 
 
