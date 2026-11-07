@@ -38,17 +38,72 @@ STACKS = {
              "label": "Muse (Spark 1.3 agent, Wonder 1.0 mentor)"},
     "subq": {"agent": "subq/subq-preview", "mentor": "subq", "analyst": "subq", "snap": True,
              "label": "SubQ (Preview agent + mentor, Snap gates)"},
+    "gemini": {"agent": "google/gemini-3.8-flash", "mentor": "gemini", "analyst": "gemini", "snap": False,
+               "label": "Gemini 3.8 Flash (agent + mentor; also the reviewer: self-review caveat)"},
+    "mixed": {"agent": "meta/muse-spark-1.3", "mentor": "subq", "analyst": "subq", "snap": False,
+              "label": "Mixed (Muse Spark agent, SubQ Preview mentor)"},
 }
 REPEATS = int(os.environ.get("BENCH_REPEATS", "3"))
 GENERATIONS = int(os.environ.get("BENCH_GENERATIONS", "3"))
 WORKERS = int(os.environ.get("BENCH_WORKERS", "8"))
+DATA = os.environ.get("BENCH_DATA", "core")          # core (60 cases) | stress (300 harder cases)
+PHASE = os.environ.get("BENCH_PHASE", "1")
+DO_DRIFT = os.environ.get("BENCH_DRIFT", "1") == "1"
+JOURNEY_IDS = [j for j in os.environ.get("BENCH_JOURNEYS", "").split(",") if j]
 MIN_GAIN = 0.02
+SPLIT_SEED = 2026
+
+
+def db_name(stack: str) -> str:
+    return f"ballast_bench_{stack}" if PHASE == "1" else f"ballast_bench{PHASE}_{stack}"
+
+
+def case_family(case_id: str, events: list[str] | None = None, fs: bool = False) -> str:
+    """Event family for per-family reporting (events_catalog families; FS crises separate)."""
+    if fs:
+        return "fs_crisis"
+    sys.path.insert(0, str(ROOT / "scenarios"))
+    try:
+        from events_catalog import CATALOG
+    except Exception:
+        CATALOG = {}
+    for t in events or []:
+        fam = (CATALOG.get(t) or {}).get("family")
+        if fam:
+            return fam
+    core = {"layoff": "employment", "job_change": "employment", "marriage": "family", "child": "family",
+            "divorce": "family", "inheritance": "windfall", "market_drop": "market"}
+    for t in events or []:
+        if t in core:
+            return core[t]
+    return "no_event"
+
+
+def stress_split() -> dict:
+    """Fixed, stratified 60/60 practice/test split of the stress cases (same for every stack)."""
+    man = json.loads((ROOT / "scenarios" / "cases" / "stress_manifest.json").read_text(encoding="utf-8"))
+    fams: dict[str, list[str]] = {}
+    family = {}
+    for cid, m in sorted(man.items()):
+        f = case_family(cid, m.get("types") or [], bool(m.get("fs")))
+        family[cid] = f
+        fams.setdefault(f, []).append(cid)
+    rng = random.Random(SPLIT_SEED)
+    practice, test = [], []
+    for f in sorted(fams):
+        ids = fams[f][:]
+        rng.shuffle(ids)
+        for i, cid in enumerate(ids):
+            (practice if i % 2 == 0 else test).append(cid)
+    rng.shuffle(practice)
+    rng.shuffle(test)
+    return {"practice": sorted(practice[:60]), "test": sorted(test[:60]), "family": family}
 
 
 def configure(stack: str) -> None:
     c = STACKS[stack]
     os.environ.update({
-        "MONGODB_DB": f"ballast_bench_{stack}", "BALLAST_MODEL": c["agent"],
+        "MONGODB_DB": db_name(stack), "BALLAST_MODEL": c["agent"],
         "MENTOR_PROVIDER": c["mentor"], "ANALYST_PROVIDER": c["analyst"], "REVIEWER_PROVIDER": "gemini",
         "JOURNEY_BASE_PLAYBOOK": str(GENERIC), "SUBQ_MODEL": os.environ.get("SUBQ_MODEL", "subq-preview"),
     })
@@ -67,8 +122,26 @@ def run_stack(stack: str) -> None:
     from loop import case_dirs, failures_for_mentor, log, store
     from run_case import run_case
 
-    work = ROOT / "runs" / "bench" / stack
+    work = ROOT / "runs" / f"bench{PHASE}" / stack
     work.mkdir(parents=True, exist_ok=True)
+    split = stress_split() if DATA == "stress" else None
+    stress_root = ROOT / "scenarios" / "cases" / "stress"
+
+    def dirs_for(set_name: str) -> list[Path]:
+        if split and set_name in ("practice", "test"):
+            return [stress_root / cid for cid in split[set_name]]
+        return case_dirs(set_name)
+
+    def family_of(case_id: str, case_dir: str) -> str:
+        if split and case_id in split["family"]:
+            return split["family"][case_id]
+        try:
+            return case_family(case_id, [e["type"] for e in load_case(case_dir)["events"]])
+        except Exception:
+            return "unknown"
+
+    if split:
+        (work / "split.json").write_text(json.dumps(split, indent=1), encoding="utf-8")
     cost = {"mentor_tokens_in": 0, "mentor_tokens_out": 0, "mentor_seconds": 0.0, "mentor_calls": 0}
     t_start = time.time()
 
@@ -80,7 +153,7 @@ def run_stack(stack: str) -> None:
         store.save_playbook(v, parent, text, (yaml.safe_load(text) or {}).get("changelog", ""), status)
 
     def run_set(v: int, set_name: str, repeats: int = 1, dirs=None, arm: str = "main") -> list[dict]:
-        dirs = dirs if dirs is not None else case_dirs(set_name)
+        dirs = dirs if dirs is not None else dirs_for(set_name)
         jobs = [(d, r) for r in range(repeats) for d in dirs]
 
         def one(job):
@@ -92,9 +165,10 @@ def run_stack(stack: str) -> None:
             except Exception as e:
                 chk["backtest"] = {"error": f"{e.__class__.__name__}: {e}"}
             doc = store.log_run(v, set_name, run, chk)
-            store.upsert("runs", {"run_id": doc["run_id"]}, {"rep": r, "arm": arm, "stack": stack})
+            fam = family_of(chk["case_id"], str(d))
+            store.upsert("runs", {"run_id": doc["run_id"]}, {"rep": r, "arm": arm, "stack": stack, "family": fam})
             return {"case_dir": str(d), "case_id": chk["case_id"], "rep": r, "run": run, "check": chk,
-                    "run_id": doc["run_id"]}
+                    "run_id": doc["run_id"], "family": fam}
 
         with ThreadPoolExecutor(WORKERS) as ex:
             return list(ex.map(one, jobs))
@@ -189,8 +263,11 @@ def run_stack(stack: str) -> None:
     # ---- start journeys in the background (independent of fleet training) -------------
     journey_results: list[dict] = []
 
+    journey.WORK = ROOT / "runs" / f"journeys{PHASE}"
+
     def journeys_thread():
-        ids = sorted(p.name for p in journey.JOURNEYS.iterdir() if p.is_dir() and p.name.startswith("j-"))
+        ids = JOURNEY_IDS or sorted(p.name for p in journey.JOURNEYS.iterdir()
+                                    if p.is_dir() and p.name.startswith("j-") and p.name <= "j-006")
         with ThreadPoolExecutor(len(ids)) as ex:
             journey_results.extend(ex.map(journey.run_journey, ids))
 
@@ -204,9 +281,9 @@ def run_stack(stack: str) -> None:
     v0_test = run_set(0, "test", REPEATS)
     v0_prac = run_set(0, "practice")
     v0_reg = run_set(0, "regression")
-    v0_drift = run_set(0, "drift")
+    v0_drift = run_set(0, "drift") if DO_DRIFT else []
     S = {"test": summarize(v0_test), "practice": summarize(v0_prac),
-         "regression": summarize(v0_reg), "drift": summarize(v0_drift)}
+         "regression": summarize(v0_reg), "drift": summarize(v0_drift) if v0_drift else summarize(v0_reg)}
     log(f"[bench {stack}] v0 test {S['test']['pass_rate']:.2f} pass, mean {S['test']['mean_score']:.3f} | "
         f"practice {S['practice']['pass_rate']:.2f} | regression {S['regression']['pass_rate']:.2f} | drift {S['drift']['pass_rate']:.2f}")
     store.log_generation({"version": 0, "parent": None, "mode": "baseline",
@@ -235,7 +312,7 @@ def run_stack(stack: str) -> None:
         flips = [c for c, p in pr["case_pass"].items() if p and not crs["case_pass"].get(c, True)]
         confirmed = []
         for c in flips:
-            d = [x for x in case_dirs("regression") if x.name == c]
+            d = [x for x in dirs_for("regression") if x.name == c]
             ec = run_set(cand_v, "regression", 2, d, arm=mode)
             ep = run_set(cur, "regression", 2, d, arm=mode)
             c_ok = sum(x["check"]["passed"] for x in ec + [r for r in cr if r["case_id"] == c]) >= 2
@@ -317,7 +394,10 @@ def run_stack(stack: str) -> None:
         next_v += 1
 
     # ---- e. drift on the final shipped version ------------------------------------------------
-    final_drift = run_set(cur, "drift", 1, arm="drift") if cur != 0 else v0_drift
+    if DO_DRIFT:
+        final_drift = run_set(cur, "drift", 1, arm="drift") if cur != 0 else v0_drift
+    else:
+        final_drift = cur_test
     final_test_s = summarize(cur_test)
     trusted = trusted_rules_from([r["check"] for r in cur_test])
     report = drift_level([r["check"] for r in final_drift], final_test_s["mean_score"], trusted)
@@ -365,7 +445,23 @@ def run_stack(stack: str) -> None:
 
     # ---- f. summary -----------------------------------------------------------------------------
     pb_final = yaml.safe_load(cur_text)
+
+    def per_family(v0_results, final_results):
+        out = {}
+        for tag, rs in (("v0", v0_results), ("final", final_results)):
+            groups: dict[str, list] = {}
+            for r in rs:
+                groups.setdefault(r.get("family") or "unknown", []).append(r)
+            for f, g in groups.items():
+                s_ = summarize(g)
+                out.setdefault(f, {})[tag] = {"n_cases": s_["n_cases"], "pass_rate": s_["pass_rate"],
+                                               "mean_score": s_["mean_score"],
+                                               "top_fail": sorted(s_["rule_fail_count"].items(), key=lambda kv: -kv[1])[:3]}
+        return out
+
     summary = {
+        "phase": PHASE, "data": DATA, "families": per_family(v0_test, cur_test),
+        "drift_ran": DO_DRIFT,
         "stack": stack, "label": STACKS[stack]["label"], "agent_model": STACKS[stack]["agent"],
         "mentor": STACKS[stack]["mentor"], "reviewer": "gemini", "repeats": REPEATS,
         "v0": {k: slim(v) for k, v in S.items()},

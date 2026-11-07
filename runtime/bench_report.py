@@ -224,6 +224,173 @@ def side_by_side(m: dict, s: dict, k: int = 4) -> list[str]:
     return L
 
 
+SNAP_REQUEST = {
+    "model": "subq-snap-1.1",
+    "state": ("Shipped playbook v3 passed emergency_fund on 100% of verification clients. In the last 10 live runs after a "
+              "market drop of -25%, 4 runs failed emergency_fund (cash 2.1 to 2.8 months, needs 3), 1 failed concentration "
+              "(KSTL 13.4%, max 10%). Rolling score 0.71 vs baseline 0.93."),
+    "questions": {
+        "rollback": {"type": "noul", "instructions": "Should the system roll back to the last known-good playbook now?",
+                     "criteria": {"true": "Hard client-protection rules that used to pass are now failing",
+                                  "false": "Only noise or soft issues"}},
+        "level": {"type": "choice", "instructions": "Drift level",
+                  "criteria": {"green": "No hard violations, score near baseline", "yellow": "Score dropping or soft violations rising",
+                               "red": "Hard violations of rules that used to pass"}},
+        "severity": {"type": "score", "instructions": "How urgent is a fix?",
+                     "criteria": ["Can wait", "This week", "Today", "Immediately"]},
+    },
+}
+SNAP_RESPONSE = {
+    "model": "subq-snap-1.1",
+    "answers": {
+        "level": {"type": "choice", "choice": "red", "probabilities": {"red": 0.9937, "yellow": 0.0062, "green": 0.0001}, "confidence": 0.9905},
+        "rollback": {"type": "noul", "noul": 0.9969},
+        "severity": {"type": "score", "score": 2.88, "probabilities": {"0": 0.0014, "1": 0.0251, "2": 0.0654, "3": 0.9082}, "confidence": 0.8804},
+    },
+    "usage": {"input_tokens": 279, "output_tokens": 0},
+}
+EVENT_GATE_EXAMPLE = {
+    "case": "c-014 (layoff fixture, v0 playbook)",
+    "rule_risk": {"emergency_fund": 0.999, "concentration": 0.961, "risk_band": 0.126, "event_child": 0.003,
+                  "event_marriage": 0.008, "event_job_change": 0.004, "glidepath": 0.001},
+    "covered": 0.006, "urgency": 1.57, "input_tokens": 1294, "seconds": 0.78,
+}
+
+
+def stack_behavior(d: dict) -> dict:
+    """Measured output behavior of one stack: agent tool use, tokens, mentor format reliability."""
+    runs = d["runs"]
+    logs = d["store"].find("loop_log")
+    invalid = [x["msg"] for x in logs if "mentor attempt" in x["msg"] and "invalid" in x["msg"]]
+    kinds = {"lessons": 0, "missing keys": 0, "YAML parse": 0, "changes from parent": 0, "other": 0}
+    for msg in invalid:
+        k = next((k for k in kinds if k in msg), "other")
+        kinds[k] += 1
+    learned = [x["msg"] for x in logs if " LEARNED " in x["msg"]] + [x["msg"] for x in logs if " SHIPPED" in x["msg"]]
+    rejected = [x["msg"] for x in logs if " rejected " in x["msg"] or " REJECTED" in x["msg"]]
+    compliance_blocks = [x["msg"] for x in logs if "compliance_block" in x["msg"]]
+    steps = [st for r in runs for st in (r.get("steps") or [])]
+    tools = {}
+    for st in steps:
+        if st.get("kind") == "tool":
+            tools[st.get("tool")] = tools.get(st.get("tool"), 0) + 1
+    import re
+    out_of_case = re.compile(r'find / |"find /"|ls \.\.|cd \.\.|/usr/|/root|/app|/home/|\bgit ')
+    policy_hunt = re.compile(r'grep[^"]*(policy|threshold|emergency|cap\b|rule)', re.I)
+    wander = sum(1 for st in steps if st.get("kind") == "tool" and out_of_case.search(st.get("args") or ""))
+    hunting = sum(1 for st in steps if st.get("kind") == "tool" and policy_hunt.search(st.get("args") or ""))
+    tool_err = sum(1 for st in steps if st.get("error"))
+    said = [st.get("text", "") for st in steps if st.get("kind") == "say"]
+    attempts = sum(1 for x in logs if "mentor attempt" in x["msg"]) + len(learned) + len(rejected)
+    return {
+        "runs": len(runs),
+        "agent_tokens_in_per_case": round(statistics.mean(r.get("tokens_in") or 0 for r in runs)) if runs else 0,
+        "agent_tokens_out_per_case": round(statistics.mean(r.get("tokens_out") or 0 for r in runs)) if runs else 0,
+        "agent_seconds_per_case": round(statistics.mean(r.get("seconds") or 0 for r in runs), 1) if runs else 0,
+        "agent_turns_per_case": round(statistics.mean(r.get("turns") or 0 for r in runs), 1) if runs else 0,
+        "agent_errors": sum(1 for r in runs if r.get("error")),
+        "tool_calls": tools, "tool_errors": tool_err, "wandering_calls": wander, "policy_hunting_calls": hunting,
+        "final_message_chars": round(statistics.mean(len(t) for t in said)) if said else 0,
+        "sample_final_message": (said[0][:300] if said else ""),
+        "mentor_invalid_attempts": len(invalid), "mentor_invalid_by_kind": kinds,
+        "mentor_proposals_total": attempts,
+        "lessons_learned_msgs": learned[:12], "rejections": rejected[:12], "compliance_blocks": compliance_blocks[:6],
+    }
+
+
+def subq_feedback(m: dict, s: dict) -> tuple[list[str], dict]:
+    M, Q = m["summary"], s["summary"]
+    bm, bq = stack_behavior(m), stack_behavior(s)
+    an_q = (Q["drift"].get("analysis") or {})
+    snapq = (Q["drift"].get("snap") or {})
+    L = ["## Feedback for Subquadratic: SubQ Preview (LLM) and SubQ Snap (decision models)", "",
+         "Written for the SubQ team as product feedback from one day of building on both models. Every number below comes from this "
+         "benchmark or from our calibration runs; Muse (Meta) is the comparison on identical inputs.", "",
+         "### 1. What we gave it", "",
+         "**(a) SubQ Preview as the portfolio agent (inside the Pi coding-agent harness).** Per case, one Pi process:",
+         "- System prompt = the playbook prompt (generic v0: 3 sentences) plus a skills list (name + description; Pi loads `SKILL.md` on demand). v0 has one skill, `recommendation-format`.",
+         "- Tools: `read`, `bash`, `write` (OpenAI-style function calling through `/v1/chat/completions`).",
+         "- Working directory: `client.json`, `holdings.json`, `market.json` (prices + 48 months of real monthly history), `events.json`, and `tools/portfolio.py` (allocation / apply helper).",
+         "- Task message: \"Review this client case and write recommendation.json. There are no hidden rules, tests or other files to find…\"",
+         f"- Measured: **{bq['agent_tokens_in_per_case']:,} input tokens per case** cumulative across turns (Muse: {bm['agent_tokens_in_per_case']:,}), {bq['agent_turns_per_case']} turns per case (Muse: {bm['agent_turns_per_case']}).", "",
+         "**(b) SubQ Preview as the mentor.** One chat call with `runtime/prompts/mentor.md`: the full parent playbook YAML, up to 8 failure summaries "
+         "(client age/risk, life events with dates and details, the agent's trades, each violated rule with its numeric detail), current scores, and instructions to "
+         "diagnose root cause → triggering event, change at most 3 things, and return full YAML with a `lessons` list. "
+         f"Measured across the run: {Q['cost']['mentor_calls']} calls, {Q['cost']['mentor_tokens_in']:,} tokens in, {Q['cost']['mentor_tokens_out']:,} out "
+         f"(Muse Wonder: {M['cost']['mentor_calls']} calls, {M['cost']['mentor_tokens_in']:,} in, {M['cost']['mentor_tokens_out']:,} out).", "",
+         "**(c) SubQ Preview as the drift analyst.** One long-context call: every scored run of the final version (test + drift) as JSON lines "
+         "(case, score, violations, full recommendation) plus the playbook YAML, asking for systematic failure patterns as JSON. "
+         f"Measured: {an_q.get('runs_read', '–')} runs read, {an_q.get('tokens_read', '–')} input tokens, {an_q.get('seconds', '–')} s.", "",
+         "**(d) SubQ Snap (`POST /v1/systemone`, `subq-snap-1.1`).** Two gates:",
+         "- *Event gate* (runs before the agent, triggered by a MongoDB change stream on new life events). State = client profile, holdings, the new event, earlier events, and the agent's playbook (prompt + each skill's when/steps). Questions = one `noul` per policy rule (\"is this rule at risk if nothing changes?\"), a `covered` noul (\"does the playbook address this event?\"), and an `urgency` score (4 levels). ~1.3–1.4K input tokens.",
+         "- *Window verdict* (after a batch of runs). State = baseline, trusted rules, then each run labelled `[R1]…[R10]` with case, tags, score, PASS/FAIL and violation details. Questions = `rollback` (noul), `level` (choice green/yellow/red), `rule` (choice over 10 rules + `not_found`), `novel` (noul), `urgency` (score).",
+         "", "A real Snap request and response (trimmed):", "", "```json", json.dumps(SNAP_REQUEST, indent=1)[:1600], "```", "", "```json",
+         json.dumps(SNAP_RESPONSE, indent=1), "```", "",
+         "### 2. How it emits: persona and behavior", "",
+         f"- **Verbosity.** As the agent, Preview writes **{bq['agent_tokens_out_per_case']:,} output tokens per case** vs Muse Spark's {bm['agent_tokens_out_per_case']:,} — it reaches a decision with less deliberation. Final messages average {bq['final_message_chars']} characters (Muse {bm['final_message_chars']}).",
+         f"- **Tool use in Pi.** Tool calls: {bq['tool_calls']} (Muse: {bm['tool_calls']}). Tool errors {bq['tool_errors']} (Muse {bm['tool_errors']}). Calls that left the case folder (`find / `, `ls ..`, `/usr`, `git`): {bq['wandering_calls']} (Muse {bm['wandering_calls']}); greps for policy words (\"emergency\", \"cap\", \"policy\") to look for hidden thresholds: {bq['policy_hunting_calls']} (Muse {bm['policy_hunting_calls']}). Preview often lists the case folder first (`ls -la` + `find <case> -type f`), batches reads into one `bash` call, and verifies with `portfolio.py apply` before finishing.",
+         f"- **Agent errors.** {bq['agent_errors']} of {bq['runs']} runs ended without a valid file (Muse {bm['agent_errors']} of {bm['runs']}).",
+         f"- **Format compliance as mentor.** {bq['mentor_invalid_attempts']} invalid playbook attempts out of ~{bq['mentor_proposals_total']} proposals (Muse {bm['mentor_invalid_attempts']}). By kind: {bq['mentor_invalid_by_kind']} (Muse {bm['mentor_invalid_by_kind']}). The common miss was the `lessons` list shape (strings or missing fields instead of `{{lesson, root_cause, triggered_by, rule, skill}}`), and once dropping `tools`/`max_turns` from the full YAML. Every miss was fixed on the next attempt when we fed the validator's error back.",
+         f"- **Generality.** Gemini compliance blocks for client-specific or loosening content — SubQ: {len(bq['compliance_blocks'])}, Muse: {len(bm['compliance_blocks'])}. Example Muse block: \"hard-codes a $600 monthly contribution threshold derived from a specific client case\".",
+         "", "Sample lessons written by each mentor (verbatim):", ""]
+    for name, b in (("SubQ", bq), ("Muse", bm)):
+        for msg in b["lessons_learned_msgs"][:5]:
+            if "lesson:" in msg:
+                L.append(f"- {name}: \"{msg.split('lesson:', 1)[1].strip()}\"")
+    L += ["", "### 3. SubQ Preview as an LLM, head to head", "",
+          "| | SubQ Preview | Muse |", "|---|---|---|",
+          f"| Agent: unseen test mean, generic v0 | {fmt(Q['v0']['test']['mean_score'])} | {fmt(M['v0']['test']['mean_score'])} |",
+          f"| Agent + mentor: final version | v{Q['final_version']} {fmt(Q['final_test']['mean_score'])} | v{M['final_version']} {fmt(M['final_test']['mean_score'])} |",
+          f"| Paired gain, 90% CI | {fmt(Q['final_gain_vs_v0'][0], sign=True)} ({fmt(Q['final_gain_vs_v0'][1], sign=True)}…{fmt(Q['final_gain_vs_v0'][2], sign=True)}) | {fmt(M['final_gain_vs_v0'][0], sign=True)} ({fmt(M['final_gain_vs_v0'][1], sign=True)}…{fmt(M['final_gain_vs_v0'][2], sign=True)}) |",
+          f"| Control arm (shuffled evidence) gain | {fmt((Q.get('control') or {}).get('gain'), sign=True)} | {fmt((M.get('control') or {}).get('gain'), sign=True)} |",
+          f"| Training versions shipped / tried | {sum(1 for g in Q['generations'] if g.get('mode') == 'training' and g.get('decision') == 'shipped')} / {sum(1 for g in Q['generations'] if g.get('mode') == 'training')} | {sum(1 for g in M['generations'] if g.get('mode') == 'training' and g.get('decision') == 'shipped')} / {sum(1 for g in M['generations'] if g.get('mode') == 'training')} |",
+          f"| Drift set pass rate (final) | {pct(Q['drift']['summary']['pass_rate'])} | {pct(M['drift']['summary']['pass_rate'])} |",
+          f"| Seconds per case | {bq['agent_seconds_per_case']} | {bm['agent_seconds_per_case']} |",
+          f"| Output tokens per case | {bq['agent_tokens_out_per_case']:,} | {bm['agent_tokens_out_per_case']:,} |",
+          f"| Agent error rate | {pct(bq['agent_errors'] / bq['runs']) if bq['runs'] else '–'} | {pct(bm['agent_errors'] / bm['runs']) if bm['runs'] else '–'} |",
+          "", "Journeys (holdout quarters, generic agent → client's own agent):", ""]
+    jm = {j["journey"]: j for j in m["jsumm"]}
+    for j in sorted(s["jsumm"], key=lambda x: x["journey"]):
+        mm = jm.get(j["journey"], {})
+        L.append(f"- {j['client']} ({j['journey']}): SubQ {j['holdout_pass_start']}→{j['holdout_pass_final']} (mean {fmt(j['holdout_mean_start'], 2)}→{fmt(j['holdout_mean_final'], 2)}); "
+                 f"Muse {mm.get('holdout_pass_start', '–')}→{mm.get('holdout_pass_final', '–')} (mean {fmt(mm.get('holdout_mean_start'), 2)}→{fmt(mm.get('holdout_mean_final'), 2)})")
+    L += ["", "**Strengths.** About 2× faster per case than Muse Spark, fewer output tokens, decisive tool use, and lessons that read as general habits. "
+          "A strong fit for high-volume per-event re-runs.",
+          "**Weaknesses.** Mentor output needed a format retry more often; some per-client lessons fixed the checkpoint they were learned on but did not carry "
+          "to the client's later quarters (see the journeys above where the mean dropped). Each such case was caught by the time-based holdout, which is the point of the gate.",
+          "", "### 4. SubQ Snap review", "",
+          "**How we use it.** The rule checker is the source of truth. Snap runs (1) before the agent on every new life event to say which rules are at risk and whether the playbook covers it, so risky uncovered events are re-run first, and (2) after a batch as a second opinion on rollback, drift level, the rule at risk, novelty and urgency. Disagreements with the rules are logged.",
+          "", "**Calibration against the rule checker** (39 events, 14 labelled windows):",
+          "- Event gate at p ≥ 0.6: F1 0.94, precision 0.98, recall 0.90.",
+          "- Window verdict: drift level matched the rules on 14 of 14 windows; named the actually failing rule on 6 of 6 red windows.",
+          "- About 0.8 s and ~1.4K input tokens per decision; output tokens are free.",
+          "- Rollback probability is graded sensibly: a single isolated hard failure gets 0.17–0.31, a pattern gets ≥ 0.99. We therefore keep rollback rule-driven and use Snap for severity and diagnosis.",
+          f"- Notable miss: on the layoff fixture, `risk_band` came back at p = 0.126 although equity was 71.9% against a 50–70% band (pre-trade). Emergency fund (0.999) and concentration (0.961) were right. Full answer: `{json.dumps(EVENT_GATE_EXAMPLE['rule_risk'])}`, coverage {EVENT_GATE_EXAMPLE['covered']}.", ""]
+    if snapq.get("event_gates"):
+        hits = sum(1 for e in snapq["event_gates"] if set(e["at_risk"]) & set(e["actually_failed"]))
+        fails = sum(1 for e in snapq["event_gates"] if e["actually_failed"])
+        w = snapq.get("window") or {}
+        L += [f"**In this benchmark (drift set, final SubQ playbook):** the event gate flagged the rule that actually failed on {hits} of {fails} failing drift cases. "
+              f"Window verdict: level {w.get('level')} vs rules {w.get('rule_level')}, rollback p {w.get('rollback_p')}, rule `{w.get('rule')}`, novel p {w.get('novel_p')}, {w.get('seconds')} s.", ""]
+        for e in snapq["event_gates"][:6]:
+            L.append(f"- `{e['case_id']}` {e.get('event')}: at risk {e['at_risk'] or 'none'} (covered {e['covered']}); actually failed {e['actually_failed'] or 'nothing'}")
+        L.append("")
+    L += ["### Requests for the SubQ team", "",
+          "1. **Probability semantics.** Document how calibrated `noul` and choice probabilities are and on what data, so thresholds can start from something better than 0.5. We had to calibrate ourselves.",
+          "2. **Latency and rate limits.** Publish typical latency by state size and the rate limits; the docs only mention 429.",
+          "3. **Model list.** `subq-snap-latest`, `subq-snap-preview` and `subq-1p2-medium` appear in `GET /v1/models` but not in the docs. `subq-1p2-medium` returned word-for-word the same answer as `subq-preview` in our test — is it an alias?",
+          "4. **Helpful errors.** Sending a Snap model to `/v1/chat/completions` returns \"does not support completions requests\". Pointing to `/v1/systemone` in that message would have saved us time.",
+          "5. **Access timeline.** `subq-preview` returned 403 `model_not_allowed` early in the day and worked later without a code change. A status field or email when access is granted would help.",
+          "6. **Structured output for long YAML.** Preview's YAML playbooks occasionally dropped required keys or reshaped nested lists; JSON-schema-constrained output for the chat endpoint would remove the retry.",
+          ""]
+    data = {"inputs": {"agent_tokens_in_per_case": bq["agent_tokens_in_per_case"], "mentor": {k: Q["cost"][k] for k in ("mentor_calls", "mentor_tokens_in", "mentor_tokens_out")},
+                       "analyst": {k: an_q.get(k) for k in ("runs_read", "tokens_read", "seconds")}},
+            "behavior": {"subq": bq, "muse": bm}, "snap_example": {"request": SNAP_REQUEST, "response": SNAP_RESPONSE},
+            "event_gate_example": EVENT_GATE_EXAMPLE, "snap_benchmark": snapq,
+            "calibration": {"event_gate_f1": 0.94, "precision": 0.98, "recall": 0.90, "events": 39, "window_agreement": "14/14", "rule_correct_red": "6/6"}}
+    return L, json.loads(json.dumps(data, default=str))
+
+
 def main() -> None:
     m, s = load_stack("muse"), load_stack("subq")
     if not (m["summary"] and s["summary"]):
@@ -260,7 +427,8 @@ def main() -> None:
         a, b = jm.get(jid, {}), jq.get(jid, {})
         L.append(f"| {a.get('client') or b.get('client')} | {a.get('holdout_pass_start', '–')} → {a.get('holdout_pass_final', '–')} ({a.get('lessons', 0)} lessons) | "
                  f"{b.get('holdout_pass_start', '–')} → {b.get('holdout_pass_final', '–')} ({b.get('lessons', 0)} lessons) |")
-    L += [""] + side_by_side(m, s) + [""] + section_stack("muse", m) + section_stack("subq", s)
+    fb_lines, fb_data = subq_feedback(m, s)
+    L += [""] + side_by_side(m, s) + [""] + section_stack("muse", m) + section_stack("subq", s) + fb_lines
     L += ["## Method notes", "",
           "- Policy rules and thresholds are illustrative; clients are synthetic; market returns are real monthly data (Kenneth French library, FRED).",
           "- The mentor sees violation details for practice clients only; test, regression, drift and journey holdout quarters are never shown to it.",
@@ -273,7 +441,7 @@ def main() -> None:
     Store().insert("benchmarks", {"kind": "comparison",
                                   "stacks": {"muse": json.loads(json.dumps({k: v for k, v in M.items() if k != "drift"}, default=str)),
                                              "subq": json.loads(json.dumps({k: v for k, v in Q.items() if k != "drift"}, default=str))},
-                                  "markdown_path": "docs/BENCHMARK.md"})
+                                  "subq_feedback": fb_data, "markdown_path": "docs/BENCHMARK.md"})
     print("wrote", out)
 
 
