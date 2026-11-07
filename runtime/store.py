@@ -28,7 +28,7 @@ load_dotenv(ROOT / ".env")
 
 COLLECTIONS = ("playbooks", "generations", "runs", "drift_events", "clients", "life_events",
                "drift_analysis", "benchmarks", "loop_log",
-               "journey_playbooks", "journey_steps", "journey_summaries", "journeys")
+               "journey_playbooks", "journey_steps", "journey_summaries", "journeys", "jobs")
 FALLBACK_DIR = ROOT / "runs" / "store"
 
 

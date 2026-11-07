@@ -63,6 +63,13 @@ def write_models_json(agent_dir: Path) -> None:
             "apiKey": "$MUSE_API_KEY",
             "models": [{"id": os.environ.get("MUSE_MODEL") or "muse"}],
         }
+    if os.environ.get("SUBQ_API_KEY"):
+        providers["subq"] = {
+            "baseUrl": os.environ.get("SUBQ_BASE_URL") or "https://api.subq.ai/v1",
+            "api": "openai-completions",
+            "apiKey": "$SUBQ_API_KEY",
+            "models": [{"id": os.environ.get("SUBQ_MODEL") or "subq-preview"}],
+        }
     (agent_dir / "models.json").write_text(json.dumps({"providers": providers}, indent=2), encoding="utf-8")
 
 
@@ -90,7 +97,10 @@ def _sandbox_user() -> bool:
     return subprocess.run(["id", "agent"], capture_output=True).returncode == 0
 
 
-def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> dict:
+def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_step=None,
+             model: str | None = None) -> dict:
+    """on_step(step_dict) is called as each tool call / message lands (for live streaming).
+    model overrides BALLAST_MODEL / the playbook's model for this run only (thread-safe)."""
     playbook = yaml.safe_load(Path(playbook_path).read_text(encoding="utf-8"))
     case_dir_p = Path(case_dir)
     case_id = case_dir_p.name
@@ -116,12 +126,12 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
     # filesystem instead of deciding. The playbook prompt is the whole system prompt.
     # --system-prompt takes literal text (only --append-system-prompt reads files).
     cmd += ["--system-prompt", prompt_path.read_text(encoding="utf-8"), "--tools", tools,
-            "--model", resolve_model(playbook), TASK]
+            "--model", (model or resolve_model(playbook)), TASK]
 
     TRACES.mkdir(parents=True, exist_ok=True)
     trace_path = TRACES / f"{case_id}-v{playbook.get('version', 'x')}-{int(time.time())}.jsonl"
     # Minimal env: the agent never sees Mongo/Fly/other secrets.
-    keep = ("PATH", "LANG", "MUSE_API_KEY", "GEMINI_API_KEY")
+    keep = ("PATH", "LANG", "MUSE_API_KEY", "GEMINI_API_KEY", "SUBQ_API_KEY")
     env = {k: os.environ[k] for k in keep if k in os.environ}
     env["PI_CODING_AGENT_DIR"] = str(agent_dir)
     if _sandbox_user():
@@ -162,6 +172,8 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
                     text = " ".join(c.get("text", "") for c in content if isinstance(c, dict))
                     steps[-1]["result"] = clip(text)
                     steps[-1]["error"] = bool(ev.get("isError"))
+                    if on_step:
+                        on_step(steps[-1])
                 if kind == "message_end" and (ev.get("message") or {}).get("role") == "assistant":
                     a, b = _usage(ev)
                     tin, tout = tin + a, tout + b
@@ -169,6 +181,8 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
                                     if isinstance(c, dict) and c.get("type") == "text").strip()
                     if said:
                         steps.append({"turn": turns, "kind": "say", "text": clip(said, 600)})
+                        if on_step:
+                            on_step(steps[-1])
                 elif kind == "turn_end":
                     turns += 1
                     if turns >= max_turns:
@@ -198,7 +212,7 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
     shutil.rmtree(tmp, ignore_errors=True)
     if not keep_workdir:
         shutil.rmtree(work.parent, ignore_errors=True)
-    return {"case_id": case_id, "model": resolve_model(playbook),
+    return {"case_id": case_id, "model": (model or resolve_model(playbook)),
             "recommendation": recommendation, "turns": turns,
             "tokens_in": tin, "tokens_out": tout, "seconds": seconds,
             "trace_path": str(trace_path), "error": error, "steps": steps[:60]}
