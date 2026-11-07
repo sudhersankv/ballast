@@ -1,0 +1,28 @@
+{
+  "client_id": "c-042",
+  "name": "Fiona Sorensen",
+  "age": 49,
+  "state": "VA",
+  "occupation": "regional sales manager",
+  "employment_status": "unemployed",
+  "marital_status": "single",
+  "annual_income": 386000,
+  "monthly_expenses": 15650,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.29,
+    "cash": 0.06
+  },
+  "monthly_contribution": 3900,
+  "employer": "Kestrel Freight (KSTL)",
+  "notes": "KSTL shares accumulated from RSU vesting and the ESPP. Laid off Oct 08; severance paid as a lump sum to an outside checking account."
+}

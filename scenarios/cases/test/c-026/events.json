@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-16",
+      "details": {
+        "severance": 42200,
+        "severance_weeks": 10,
+        "tenure_years": 10,
+        "employer": "Stellan Retail",
+        "last_day": "2026-09-16",
+        "cobra_monthly_premium": 1490
+      }
+    }
+  ]
+}

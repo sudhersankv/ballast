@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-08",
+      "details": {
+        "severance": 35900,
+        "severance_weeks": 10,
+        "tenure_years": 7,
+        "employer": "Pinebrook Media",
+        "last_day": "2026-09-08",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

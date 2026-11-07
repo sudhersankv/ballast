@@ -1,0 +1,30 @@
+{
+  "client_id": "c-022",
+  "name": "Lucia Beaumont",
+  "age": 35,
+  "state": "VA",
+  "occupation": "registered nurse",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 107000,
+  "monthly_expenses": 6150,
+  "dependents": 2,
+  "risk_score": 2,
+  "horizon_years": 30,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2056
+    },
+    {
+      "type": "education",
+      "target_year": 2035
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.41,
+    "cash": 0.14
+  },
+  "monthly_contribution": 950
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "c-004",
+  "name": "Tyrone Patel",
+  "age": 38,
+  "state": "OH",
+  "occupation": "data scientist",
+  "employment_status": "unemployed",
+  "marital_status": "married",
+  "annual_income": 154000,
+  "monthly_expenses": 8350,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 27,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2053
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.29,
+    "cash": 0.06
+  },
+  "monthly_contribution": 2000,
+  "notes": "Laid off Sep 26; severance paid as a lump sum to an outside checking account. Newborn at home; one parent on unpaid leave until January."
+}

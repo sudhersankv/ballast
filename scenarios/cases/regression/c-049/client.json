@@ -1,0 +1,30 @@
+{
+  "client_id": "c-049",
+  "name": "Tessa Mbeki",
+  "age": 49,
+  "state": "NC",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 351000,
+  "monthly_expenses": 14350,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    },
+    {
+      "type": "education",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 3450
+}

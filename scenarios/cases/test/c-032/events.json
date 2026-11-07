@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-08-16",
+      "details": {
+        "severance": 12400,
+        "severance_weeks": 11,
+        "tenure_years": 11,
+        "employer": "Copperline Mfg",
+        "last_day": "2026-08-16",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e2",
+      "type": "child",
+      "date": "2026-08-17",
+      "details": {
+        "child_name": "Leo",
+        "birth_date": "2026-08-17",
+        "adoption": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "divorce",
+      "date": "2026-09-29",
+      "details": {
+        "final_date": "2026-09-29",
+        "assets_transferred_usd": 166000,
+        "custody": "shared",
+        "child_support_monthly": 1000
+      }
+    },
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2026-10-09",
+      "details": {
+        "new_income": 196500,
+        "previous_income": 166500,
+        "new_employer": "Tidewell Energy",
+        "start_date": "2026-10-09",
+        "employer_401k_match_pct": 5
+      }
+    }
+  ]
+}

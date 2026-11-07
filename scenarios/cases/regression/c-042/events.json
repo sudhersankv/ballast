@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-10-08",
+      "details": {
+        "severance": 14800,
+        "severance_weeks": 2,
+        "tenure_years": 2,
+        "employer": "Kestrel Freight (KSTL)",
+        "last_day": "2026-10-08",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

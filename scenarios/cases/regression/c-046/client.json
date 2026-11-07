@@ -1,0 +1,27 @@
+{
+  "client_id": "c-046",
+  "name": "Omar Gallagher",
+  "age": 53,
+  "state": "TN",
+  "occupation": "UX designer",
+  "employment_status": "unemployed",
+  "marital_status": "single",
+  "annual_income": 98500,
+  "monthly_expenses": 7000,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.16,
+    "cash": 0.04
+  },
+  "monthly_contribution": 1250,
+  "notes": "Laid off Aug 27; severance paid as a lump sum to an outside checking account."
+}

@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-26",
+      "details": {
+        "severance": 5900,
+        "severance_weeks": 2,
+        "tenure_years": 2,
+        "employer": "Vectrix Systems",
+        "last_day": "2026-09-26",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e2",
+      "type": "child",
+      "date": "2026-10-14",
+      "details": {
+        "child_name": "Zara",
+        "birth_date": "2026-10-14",
+        "adoption": false
+      }
+    }
+  ]
+}

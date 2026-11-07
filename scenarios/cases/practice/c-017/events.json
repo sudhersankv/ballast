@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-10-14",
+      "details": {
+        "spouse_name": "Victor Chen",
+        "spouse_age": 34,
+        "spouse_annual_income": 134000,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

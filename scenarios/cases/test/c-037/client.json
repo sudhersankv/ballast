@@ -1,0 +1,21 @@
+{
+  "client_id": "c-037",
+  "name": "Aisha Holloway",
+  "age": 69,
+  "state": "IL",
+  "occupation": "retired registered nurse",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 111000,
+  "monthly_expenses": 7000,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 21,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.77,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

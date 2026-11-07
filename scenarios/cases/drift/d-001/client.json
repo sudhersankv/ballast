@@ -1,0 +1,27 @@
+{
+  "client_id": "d-001",
+  "name": "Yasmin Brennan",
+  "age": 45,
+  "state": "FL",
+  "occupation": "UX designer",
+  "employment_status": "employed",
+  "marital_status": "divorced",
+  "annual_income": 105500,
+  "monthly_expenses": 6600,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.42,
+    "cash": 0.03
+  },
+  "monthly_contribution": 1000,
+  "notes": "Holdings shown are after the court-ordered transfer to the former spouse."
+}

@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-08-04",
+      "details": {
+        "amount": 82000,
+        "source": "estate of a grandparent",
+        "form": "cash",
+        "deposited_to": "CASH",
+        "deposit_date": "2026-08-04"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "child",
+      "date": "2026-08-10",
+      "details": {
+        "child_name": "Ava",
+        "birth_date": "2026-08-10",
+        "adoption": true
+      }
+    }
+  ]
+}

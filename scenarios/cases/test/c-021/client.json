@@ -1,0 +1,26 @@
+{
+  "client_id": "c-021",
+  "name": "Abigail Achebe",
+  "age": 36,
+  "state": "MN",
+  "occupation": "registered nurse",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 82000,
+  "monthly_expenses": 6200,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 29,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2055
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.06,
+    "cash": 0.14
+  },
+  "monthly_contribution": 900
+}

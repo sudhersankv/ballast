@@ -1,0 +1,27 @@
+{
+  "client_id": "c-007",
+  "name": "Diego Achebe",
+  "age": 38,
+  "state": "CA",
+  "occupation": "police sergeant",
+  "employment_status": "unemployed",
+  "marital_status": "married",
+  "annual_income": 113500,
+  "monthly_expenses": 7450,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 27,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2053
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.26,
+    "cash": 0.19
+  },
+  "monthly_contribution": 1450,
+  "notes": "Laid off Sep 13; severance paid as a lump sum to an outside checking account."
+}

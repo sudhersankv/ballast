@@ -1,0 +1,26 @@
+{
+  "client_id": "c-028",
+  "name": "Desmond Iyer",
+  "age": 38,
+  "state": "NJ",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 215000,
+  "monthly_expenses": 11150,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 27,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2053
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.09,
+    "cash": 0.16
+  },
+  "monthly_contribution": 2550
+}

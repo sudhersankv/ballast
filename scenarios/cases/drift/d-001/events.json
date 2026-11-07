@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "divorce",
+      "date": "2026-10-05",
+      "details": {
+        "final_date": "2026-10-05",
+        "assets_transferred_usd": 182000,
+        "custody": null,
+        "child_support_monthly": 0
+      }
+    }
+  ]
+}

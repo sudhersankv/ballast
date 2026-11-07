@@ -1,0 +1,30 @@
+{
+  "client_id": "c-018",
+  "name": "Samuel Ramirez",
+  "age": 35,
+  "state": "WA",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 295500,
+  "monthly_expenses": 12200,
+  "dependents": 0,
+  "risk_score": 5,
+  "horizon_years": 30,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2056
+    },
+    {
+      "type": "home_purchase",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.9,
+    "bond": 0.02,
+    "cash": 0.08
+  },
+  "monthly_contribution": 2350
+}

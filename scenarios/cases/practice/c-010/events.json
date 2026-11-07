@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "child",
+      "date": "2026-09-03",
+      "details": {
+        "child_name": "Ava",
+        "birth_date": "2026-09-03",
+        "adoption": false
+      }
+    }
+  ]
+}

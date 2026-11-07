@@ -1,0 +1,31 @@
+{
+  "client_id": "c-010",
+  "name": "Trevor Lundgren",
+  "age": 41,
+  "state": "FL",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 234000,
+  "monthly_expenses": 10600,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 24,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2050
+    },
+    {
+      "type": "education",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.32,
+    "cash": 0.08
+  },
+  "monthly_contribution": 2000,
+  "notes": "Newborn at home; one parent on unpaid leave until January."
+}

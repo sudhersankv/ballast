@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-10-15",
+      "details": {
+        "new_income": 209000,
+        "previous_income": 186500,
+        "new_employer": "Halvorsen Group",
+        "start_date": "2026-10-15",
+        "employer_401k_match_pct": 4
+      }
+    }
+  ]
+}

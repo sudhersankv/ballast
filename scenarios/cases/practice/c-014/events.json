@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-09-28",
+      "details": {
+        "new_income": 198500,
+        "previous_income": 246000,
+        "new_employer": "Corvane Analytics",
+        "start_date": "2026-09-28",
+        "employer_401k_match_pct": 3
+      }
+    }
+  ]
+}

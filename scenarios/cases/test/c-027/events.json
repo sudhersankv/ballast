@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-08-06",
+      "details": {
+        "new_income": 106500,
+        "previous_income": 132000,
+        "new_employer": "Mesa Ridge Schools",
+        "start_date": "2026-08-06",
+        "employer_401k_match_pct": 3
+      }
+    }
+  ]
+}

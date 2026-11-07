@@ -1,0 +1,21 @@
+{
+  "client_id": "c-009",
+  "name": "Nadia Chen",
+  "age": 70,
+  "state": "TX",
+  "occupation": "retired elementary school teacher",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 63000,
+  "monthly_expenses": 5150,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.58,
+    "cash": 0.07
+  },
+  "monthly_contribution": 0.0
+}

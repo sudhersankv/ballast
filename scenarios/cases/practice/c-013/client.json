@@ -1,0 +1,27 @@
+{
+  "client_id": "c-013",
+  "name": "Marcus Achebe",
+  "age": 36,
+  "state": "GA",
+  "occupation": "pharmacist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 202500,
+  "monthly_expenses": 10650,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 29,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2055
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.06,
+    "cash": 0.19
+  },
+  "monthly_contribution": 2400,
+  "notes": "Newborn at home; one parent on unpaid leave until January."
+}

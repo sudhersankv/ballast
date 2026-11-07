@@ -1,0 +1,26 @@
+{
+  "client_id": "c-050",
+  "name": "Rosa Delgado",
+  "age": 46,
+  "state": "FL",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 150500,
+  "monthly_expenses": 8250,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.32,
+    "cash": 0.03
+  },
+  "monthly_contribution": 800
+}

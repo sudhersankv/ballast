@@ -1,0 +1,26 @@
+{
+  "client_id": "c-045",
+  "name": "Arjun Marchetti",
+  "age": 44,
+  "state": "CA",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 142500,
+  "monthly_expenses": 7850,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 21,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2047
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.45,
+    "cash": 0.1
+  },
+  "monthly_contribution": 1800
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "d-006",
+  "name": "Omar Patel",
+  "age": 50,
+  "state": "WA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 175500,
+  "monthly_expenses": 9950,
+  "dependents": 0,
+  "risk_score": 5,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.9,
+    "bond": 0.02,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1600,
+  "notes": "Inheritance proceeds were deposited into the brokerage cash sweep."
+}

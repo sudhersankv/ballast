@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-08-05",
+      "details": {
+        "spouse_name": "Diego Lundgren",
+        "spouse_age": 37,
+        "spouse_annual_income": 86000,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "c-032",
+  "name": "Leila Patel",
+  "age": 37,
+  "state": "TN",
+  "occupation": "paralegal",
+  "employment_status": "unemployed",
+  "marital_status": "married",
+  "annual_income": 58500,
+  "monthly_expenses": 4800,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2054
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.32,
+    "cash": 0.13
+  },
+  "monthly_contribution": 550,
+  "notes": "Laid off Aug 16; severance paid as a lump sum to an outside checking account. Newborn at home; one parent on unpaid leave until January."
+}

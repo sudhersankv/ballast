@@ -1,0 +1,27 @@
+{
+  "client_id": "d-002",
+  "name": "Nadia Ferreira",
+  "age": 54,
+  "state": "IL",
+  "occupation": "electrical engineer",
+  "employment_status": "unemployed",
+  "marital_status": "single",
+  "annual_income": 133500,
+  "monthly_expenses": 7650,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.35,
+    "cash": 0.1
+  },
+  "monthly_contribution": 1300,
+  "notes": "Laid off Oct 12; severance paid as a lump sum to an outside checking account."
+}

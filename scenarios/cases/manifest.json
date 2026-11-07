@@ -1,0 +1,529 @@
+{
+  "generated_as_of": "2026-11-01",
+  "seeds": {
+    "practice": 1001,
+    "test": 2002,
+    "regression": 3003,
+    "drift": 4004
+  },
+  "cases": {
+    "c-001": {
+      "set": "practice",
+      "archetype": "drifted_no_event",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 4
+    },
+    "c-002": {
+      "set": "practice",
+      "archetype": "marriage",
+      "tags": [
+        "marriage"
+      ],
+      "draws": 46
+    },
+    "c-003": {
+      "set": "practice",
+      "archetype": "age55_concentration",
+      "tags": [
+        "age55+",
+        "single_stock>10%",
+        "no_events"
+      ],
+      "draws": 2
+    },
+    "c-004": {
+      "set": "practice",
+      "archetype": "layoff+child",
+      "tags": [
+        "child",
+        "layoff"
+      ],
+      "draws": 3
+    },
+    "c-005": {
+      "set": "practice",
+      "archetype": "layoff_concentration",
+      "tags": [
+        "layoff",
+        "single_stock>10%"
+      ],
+      "draws": 3
+    },
+    "c-006": {
+      "set": "practice",
+      "archetype": "age55_stale_targets",
+      "tags": [
+        "age55+",
+        "single_stock",
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-007": {
+      "set": "practice",
+      "archetype": "layoff",
+      "tags": [
+        "layoff"
+      ],
+      "draws": 1
+    },
+    "c-008": {
+      "set": "practice",
+      "archetype": "steady",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-009": {
+      "set": "practice",
+      "archetype": "steady_55plus",
+      "tags": [
+        "age55+",
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-010": {
+      "set": "practice",
+      "archetype": "child",
+      "tags": [
+        "child"
+      ],
+      "draws": 69
+    },
+    "c-011": {
+      "set": "practice",
+      "archetype": "job_change_raise_drifted",
+      "tags": [
+        "job_change",
+        "single_stock"
+      ],
+      "draws": 5
+    },
+    "c-012": {
+      "set": "practice",
+      "archetype": "job_change_raise",
+      "tags": [
+        "job_change"
+      ],
+      "draws": 2
+    },
+    "c-013": {
+      "set": "practice",
+      "archetype": "child",
+      "tags": [
+        "child",
+        "single_stock"
+      ],
+      "draws": 37
+    },
+    "c-014": {
+      "set": "practice",
+      "archetype": "job_change_paycut",
+      "tags": [
+        "job_change"
+      ],
+      "draws": 2
+    },
+    "c-015": {
+      "set": "practice",
+      "archetype": "job_change+child",
+      "tags": [
+        "child",
+        "job_change"
+      ],
+      "draws": 13
+    },
+    "c-016": {
+      "set": "practice",
+      "archetype": "cash_short_no_event",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 2
+    },
+    "c-017": {
+      "set": "practice",
+      "archetype": "marriage",
+      "tags": [
+        "marriage"
+      ],
+      "draws": 32
+    },
+    "c-018": {
+      "set": "practice",
+      "archetype": "steady_aggressive",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 1896
+    },
+    "c-019": {
+      "set": "practice",
+      "archetype": "layoff",
+      "tags": [
+        "layoff",
+        "single_stock"
+      ],
+      "draws": 1
+    },
+    "c-020": {
+      "set": "practice",
+      "archetype": "steady",
+      "tags": [
+        "single_stock",
+        "no_events"
+      ],
+      "draws": 9
+    },
+    "c-021": {
+      "set": "test",
+      "archetype": "marriage+job_change",
+      "tags": [
+        "job_change",
+        "marriage"
+      ],
+      "draws": 52
+    },
+    "c-022": {
+      "set": "test",
+      "archetype": "cash_short_no_event",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 3
+    },
+    "c-023": {
+      "set": "test",
+      "archetype": "job_change+child",
+      "tags": [
+        "child",
+        "job_change"
+      ],
+      "draws": 21
+    },
+    "c-024": {
+      "set": "test",
+      "archetype": "layoff_concentration",
+      "tags": [
+        "layoff",
+        "single_stock>10%"
+      ],
+      "draws": 3
+    },
+    "c-025": {
+      "set": "test",
+      "archetype": "steady_55plus",
+      "tags": [
+        "age55+",
+        "no_events"
+      ],
+      "draws": 2
+    },
+    "c-026": {
+      "set": "test",
+      "archetype": "layoff",
+      "tags": [
+        "layoff"
+      ],
+      "draws": 4
+    },
+    "c-027": {
+      "set": "test",
+      "archetype": "job_change_paycut",
+      "tags": [
+        "job_change",
+        "single_stock"
+      ],
+      "draws": 5
+    },
+    "c-028": {
+      "set": "test",
+      "archetype": "marriage",
+      "tags": [
+        "marriage"
+      ],
+      "draws": 12
+    },
+    "c-029": {
+      "set": "test",
+      "archetype": "age55_stale_targets",
+      "tags": [
+        "age55+",
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-030": {
+      "set": "test",
+      "archetype": "child",
+      "tags": [
+        "child",
+        "single_stock"
+      ],
+      "draws": 1
+    },
+    "c-031": {
+      "set": "test",
+      "archetype": "steady_aggressive",
+      "tags": [
+        "single_stock",
+        "no_events"
+      ],
+      "draws": 447
+    },
+    "c-032": {
+      "set": "test",
+      "archetype": "layoff+child",
+      "tags": [
+        "child",
+        "layoff"
+      ],
+      "draws": 9
+    },
+    "c-033": {
+      "set": "test",
+      "archetype": "job_change_raise",
+      "tags": [
+        "job_change",
+        "single_stock"
+      ],
+      "draws": 4
+    },
+    "c-034": {
+      "set": "test",
+      "archetype": "drifted_no_event",
+      "tags": [
+        "single_stock",
+        "no_events"
+      ],
+      "draws": 3
+    },
+    "c-035": {
+      "set": "test",
+      "archetype": "child",
+      "tags": [
+        "child"
+      ],
+      "draws": 14
+    },
+    "c-036": {
+      "set": "test",
+      "archetype": "layoff_concentration",
+      "tags": [
+        "layoff",
+        "single_stock>10%"
+      ],
+      "draws": 2
+    },
+    "c-037": {
+      "set": "test",
+      "archetype": "steady_55plus",
+      "tags": [
+        "age55+",
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-038": {
+      "set": "test",
+      "archetype": "job_change_raise",
+      "tags": [
+        "job_change",
+        "single_stock"
+      ],
+      "draws": 511
+    },
+    "c-039": {
+      "set": "test",
+      "archetype": "age55_concentration",
+      "tags": [
+        "age55+",
+        "single_stock>10%",
+        "no_events"
+      ],
+      "draws": 2
+    },
+    "c-040": {
+      "set": "test",
+      "archetype": "steady",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-041": {
+      "set": "regression",
+      "archetype": "reg_steady_55plus",
+      "tags": [
+        "age55+",
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "c-042": {
+      "set": "regression",
+      "archetype": "reg_layoff_concentration",
+      "tags": [
+        "layoff",
+        "single_stock>10%"
+      ],
+      "draws": 1
+    },
+    "c-043": {
+      "set": "regression",
+      "archetype": "reg_marriage",
+      "tags": [
+        "marriage"
+      ],
+      "draws": 12
+    },
+    "c-044": {
+      "set": "regression",
+      "archetype": "reg_steady",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 8
+    },
+    "c-045": {
+      "set": "regression",
+      "archetype": "reg_band_breach",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 2
+    },
+    "c-046": {
+      "set": "regression",
+      "archetype": "reg_layoff_cash_thin",
+      "tags": [
+        "layoff"
+      ],
+      "draws": 2
+    },
+    "c-047": {
+      "set": "regression",
+      "archetype": "reg_child",
+      "tags": [
+        "child"
+      ],
+      "draws": 61
+    },
+    "c-048": {
+      "set": "regression",
+      "archetype": "reg_concentration",
+      "tags": [
+        "single_stock>10%",
+        "no_events"
+      ],
+      "draws": 2
+    },
+    "c-049": {
+      "set": "regression",
+      "archetype": "reg_job_raise",
+      "tags": [
+        "job_change"
+      ],
+      "draws": 1
+    },
+    "c-050": {
+      "set": "regression",
+      "archetype": "reg_cash_short",
+      "tags": [
+        "no_events"
+      ],
+      "draws": 1
+    },
+    "d-001": {
+      "set": "drift",
+      "archetype": "divorce",
+      "tags": [
+        "divorce"
+      ],
+      "draws": 1
+    },
+    "d-002": {
+      "set": "drift",
+      "archetype": "market_drop+layoff",
+      "tags": [
+        "layoff",
+        "market_drop"
+      ],
+      "draws": 6
+    },
+    "d-003": {
+      "set": "drift",
+      "archetype": "inheritance_large",
+      "tags": [
+        "inheritance",
+        "single_stock"
+      ],
+      "draws": 1
+    },
+    "d-004": {
+      "set": "drift",
+      "archetype": "divorce+job_change",
+      "tags": [
+        "divorce",
+        "job_change"
+      ],
+      "draws": 1
+    },
+    "d-005": {
+      "set": "drift",
+      "archetype": "divorce_concentration",
+      "tags": [
+        "divorce",
+        "single_stock>10%"
+      ],
+      "draws": 1
+    },
+    "d-006": {
+      "set": "drift",
+      "archetype": "inheritance",
+      "tags": [
+        "inheritance"
+      ],
+      "draws": 5
+    },
+    "d-007": {
+      "set": "drift",
+      "archetype": "market_drop_2020",
+      "tags": [
+        "market_drop"
+      ],
+      "draws": 17
+    },
+    "d-008": {
+      "set": "drift",
+      "archetype": "market_drop+concentration",
+      "tags": [
+        "market_drop",
+        "single_stock>10%"
+      ],
+      "draws": 3
+    },
+    "d-009": {
+      "set": "drift",
+      "archetype": "market_drop_2022",
+      "tags": [
+        "market_drop"
+      ],
+      "draws": 26
+    },
+    "d-010": {
+      "set": "drift",
+      "archetype": "inheritance+child",
+      "tags": [
+        "child",
+        "inheritance",
+        "single_stock"
+      ],
+      "draws": 61
+    }
+  }
+}

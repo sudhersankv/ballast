@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-08-27",
+      "details": {
+        "severance": 26500,
+        "severance_weeks": 14,
+        "tenure_years": 7,
+        "employer": "Copperline Mfg",
+        "last_day": "2026-08-27",
+        "cobra_monthly_premium": 810
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-10-19",
+      "details": {
+        "spouse_name": "Nadia Yilmaz",
+        "spouse_age": 40,
+        "spouse_annual_income": 125000,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

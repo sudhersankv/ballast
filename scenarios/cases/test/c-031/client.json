@@ -1,0 +1,30 @@
+{
+  "client_id": "c-031",
+  "name": "Camila Pemberton",
+  "age": 37,
+  "state": "CA",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 420000,
+  "monthly_expenses": 17150,
+  "dependents": 1,
+  "risk_score": 5,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2054
+    },
+    {
+      "type": "education",
+      "target_year": 2039
+    }
+  ],
+  "targets": {
+    "equity": 0.88,
+    "bond": 0.02,
+    "cash": 0.1
+  },
+  "monthly_contribution": 4950
+}

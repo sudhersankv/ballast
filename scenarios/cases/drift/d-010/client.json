@@ -1,0 +1,31 @@
+{
+  "client_id": "d-010",
+  "name": "Imani Delgado",
+  "age": 35,
+  "state": "FL",
+  "occupation": "paralegal",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 69000,
+  "monthly_expenses": 4800,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 30,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2056
+    },
+    {
+      "type": "education",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": -0.0,
+    "cash": 0.2
+  },
+  "monthly_contribution": 400,
+  "notes": "Inheritance proceeds were deposited into the brokerage cash sweep. Newborn at home; one parent on unpaid leave until January."
+}

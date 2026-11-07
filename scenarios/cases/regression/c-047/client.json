@@ -1,0 +1,27 @@
+{
+  "client_id": "c-047",
+  "name": "Connor Castellano",
+  "age": 37,
+  "state": "GA",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 111500,
+  "monthly_expenses": 6550,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2054
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.26,
+    "cash": 0.19
+  },
+  "monthly_contribution": 1000,
+  "notes": "Newborn at home; one parent on unpaid leave until January."
+}

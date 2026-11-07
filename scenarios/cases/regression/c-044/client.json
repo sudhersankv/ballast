@@ -1,0 +1,30 @@
+{
+  "client_id": "c-044",
+  "name": "Hannah Rasmussen",
+  "age": 45,
+  "state": "CA",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 107000,
+  "monthly_expenses": 6200,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    },
+    {
+      "type": "education",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.1,
+    "cash": 0.1
+  },
+  "monthly_contribution": 950
+}

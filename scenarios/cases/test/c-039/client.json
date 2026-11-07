@@ -1,0 +1,28 @@
+{
+  "client_id": "c-039",
+  "name": "Elena Rasmussen",
+  "age": 63,
+  "state": "IL",
+  "occupation": "solutions architect",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 119000,
+  "monthly_expenses": 7700,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 2,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2028
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.18,
+    "cash": 0.17
+  },
+  "monthly_contribution": 1400,
+  "employer": "Nimbex Cloud (NMBX)",
+  "notes": "NMBX shares accumulated from RSU vesting and the ESPP. Model portfolio last revisited in 2019."
+}

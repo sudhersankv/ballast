@@ -1,0 +1,31 @@
+{
+  "client_id": "c-035",
+  "name": "Brianna Iyer",
+  "age": 39,
+  "state": "NY",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 235500,
+  "monthly_expenses": 10700,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    },
+    {
+      "type": "education",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.41,
+    "cash": 0.19
+  },
+  "monthly_contribution": 1200,
+  "notes": "Newborn at home; one parent on unpaid leave until January."
+}

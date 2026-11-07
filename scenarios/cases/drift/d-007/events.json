@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2026-08-19",
+      "details": {
+        "us_equity_change_pct": -33.9,
+        "intl_equity_change_pct": -33.9,
+        "bond_change_pct": 0.0,
+        "peak_date": "2026-07-11",
+        "trough_date": "2026-08-19",
+        "historical_analog": "Feb-Mar 2020 COVID crash (S&P 500 -33.9%)"
+      }
+    }
+  ]
+}

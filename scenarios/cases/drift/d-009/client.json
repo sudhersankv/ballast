@@ -1,0 +1,26 @@
+{
+  "client_id": "d-009",
+  "name": "Tessa Ramirez",
+  "age": 46,
+  "state": "CA",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 276500,
+  "monthly_expenses": 13400,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.36,
+    "cash": 0.09
+  },
+  "monthly_contribution": 2050
+}

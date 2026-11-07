@@ -1,0 +1,30 @@
+{
+  "client_id": "c-038",
+  "name": "Ingrid Rasmussen",
+  "age": 37,
+  "state": "OH",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 186500,
+  "monthly_expenses": 10500,
+  "dependents": 2,
+  "risk_score": 5,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2054
+    },
+    {
+      "type": "education",
+      "target_year": 2039
+    }
+  ],
+  "targets": {
+    "equity": 0.9,
+    "bond": 0.01,
+    "cash": 0.09
+  },
+  "monthly_contribution": 2250
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "c-025",
+  "name": "Victor Achebe",
+  "age": 66,
+  "state": "CA",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 63500,
+  "monthly_expenses": 5200,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.35,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

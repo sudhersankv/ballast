@@ -1,0 +1,31 @@
+{
+  "client_id": "c-015",
+  "name": "Lucia Rasmussen",
+  "age": 39,
+  "state": "VA",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 384500,
+  "monthly_expenses": 16950,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    },
+    {
+      "type": "education",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.15,
+    "cash": 0.1
+  },
+  "monthly_contribution": 2500,
+  "notes": "Newborn at home; one parent on unpaid leave until January."
+}

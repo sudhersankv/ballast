@@ -1,0 +1,26 @@
+{
+  "client_id": "c-011",
+  "name": "Yasmin Fairbanks",
+  "age": 51,
+  "state": "OH",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 208000,
+  "monthly_expenses": 11550,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.26,
+    "cash": 0.09
+  },
+  "monthly_contribution": 2550
+}

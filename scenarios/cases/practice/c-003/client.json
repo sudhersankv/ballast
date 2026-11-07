@@ -1,0 +1,28 @@
+{
+  "client_id": "c-003",
+  "name": "Rafael Fairbanks",
+  "age": 62,
+  "state": "TX",
+  "occupation": "regional sales manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 206500,
+  "monthly_expenses": 9600,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 3,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2029
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.51,
+    "cash": 0.04
+  },
+  "monthly_contribution": 1350,
+  "employer": "Kestrel Freight (KSTL)",
+  "notes": "KSTL shares accumulated from RSU vesting and the ESPP. Model portfolio last revisited in 2019."
+}

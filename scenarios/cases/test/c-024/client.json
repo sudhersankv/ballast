@@ -1,0 +1,28 @@
+{
+  "client_id": "c-024",
+  "name": "Diego Kowalski",
+  "age": 54,
+  "state": "WA",
+  "occupation": "research scientist",
+  "employment_status": "unemployed",
+  "marital_status": "married",
+  "annual_income": 158500,
+  "monthly_expenses": 8700,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.34,
+    "cash": 0.06
+  },
+  "monthly_contribution": 1850,
+  "employer": "Helixar Therapeutics (HLXR)",
+  "notes": "HLXR shares accumulated from RSU vesting and the ESPP. Laid off Sep 12; severance paid as a lump sum to an outside checking account."
+}

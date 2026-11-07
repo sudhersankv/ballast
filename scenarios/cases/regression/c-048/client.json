@@ -1,0 +1,32 @@
+{
+  "client_id": "c-048",
+  "name": "Victor Novak",
+  "age": 46,
+  "state": "UT",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 192000,
+  "monthly_expenses": 10300,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    },
+    {
+      "type": "education",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.2,
+    "cash": 0.2
+  },
+  "monthly_contribution": 1850,
+  "employer": "Nimbex Cloud (NMBX)",
+  "notes": "NMBX shares accumulated from RSU vesting and the ESPP."
+}

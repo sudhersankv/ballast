@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-12",
+      "details": {
+        "severance": 30500,
+        "severance_weeks": 10,
+        "tenure_years": 10,
+        "employer": "Helixar Therapeutics (HLXR)",
+        "last_day": "2026-09-12",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

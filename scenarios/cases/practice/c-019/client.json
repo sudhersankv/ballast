@@ -1,0 +1,27 @@
+{
+  "client_id": "c-019",
+  "name": "Rosa Strand",
+  "age": 47,
+  "state": "MA",
+  "occupation": "data scientist",
+  "employment_status": "unemployed",
+  "marital_status": "single",
+  "annual_income": 186500,
+  "monthly_expenses": 9050,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.29,
+    "cash": 0.11
+  },
+  "monthly_contribution": 2350,
+  "notes": "Laid off Sep 08; severance paid as a lump sum to an outside checking account."
+}

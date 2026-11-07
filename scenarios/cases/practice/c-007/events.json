@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-13",
+      "details": {
+        "severance": 39300,
+        "severance_weeks": 18,
+        "tenure_years": 9,
+        "employer": "Alder & Finch",
+        "last_day": "2026-09-13",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

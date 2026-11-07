@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-08-19",
+      "details": {
+        "spouse_name": "Marcus Okafor",
+        "spouse_age": 40,
+        "spouse_annual_income": 57000,
+        "spouse_has_separate_accounts": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2026-09-21",
+      "details": {
+        "new_income": 101000,
+        "previous_income": 82000,
+        "new_employer": "Quillon Software",
+        "start_date": "2026-09-21",
+        "employer_401k_match_pct": 6
+      }
+    }
+  ]
+}

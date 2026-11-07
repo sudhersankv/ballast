@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-09-04",
+      "details": {
+        "new_income": 405000,
+        "previous_income": 351000,
+        "new_employer": "Brightwater Health",
+        "start_date": "2026-09-04",
+        "employer_401k_match_pct": 6
+      }
+    }
+  ]
+}

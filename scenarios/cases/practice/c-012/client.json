@@ -1,0 +1,26 @@
+{
+  "client_id": "c-012",
+  "name": "Victor Chen",
+  "age": 53,
+  "state": "CA",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 122000,
+  "monthly_expenses": 6700,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.23,
+    "cash": 0.17
+  },
+  "monthly_contribution": 700
+}

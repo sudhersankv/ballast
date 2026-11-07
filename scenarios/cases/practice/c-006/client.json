@@ -1,0 +1,27 @@
+{
+  "client_id": "c-006",
+  "name": "Darnell Iyer",
+  "age": 55,
+  "state": "VA",
+  "occupation": "registered nurse",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 103500,
+  "monthly_expenses": 6800,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.13,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1350,
+  "notes": "Model portfolio last revisited in 2019."
+}

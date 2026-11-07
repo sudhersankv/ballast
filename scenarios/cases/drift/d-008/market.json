@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-11-01",
+  "symbols": {
+    "US_EQ": {
+      "price": 209.35,
+      "class": "equity"
+    },
+    "INTL_EQ": {
+      "price": 49.26,
+      "class": "equity"
+    },
+    "BOND": {
+      "price": 72.8,
+      "class": "bond"
+    },
+    "HLXR": {
+      "price": 92.21,
+      "class": "equity",
+      "single_stock": true
+    },
+    "NMBX": {
+      "price": 26.81,
+      "class": "equity",
+      "single_stock": true
+    },
+    "KSTL": {
+      "price": 463.29,
+      "class": "equity",
+      "single_stock": true
+    },
+    "CASH": {
+      "price": 1.0,
+      "class": "cash"
+    }
+  }
+}

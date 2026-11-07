@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-08-06",
+      "details": {
+        "spouse_name": "Leila Mbeki",
+        "spouse_age": 24,
+        "spouse_annual_income": 150000,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

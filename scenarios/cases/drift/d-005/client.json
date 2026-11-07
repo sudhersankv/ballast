@@ -1,0 +1,28 @@
+{
+  "client_id": "d-005",
+  "name": "Mei Ramirez",
+  "age": 42,
+  "state": "MI",
+  "occupation": "regional sales manager",
+  "employment_status": "employed",
+  "marital_status": "divorced",
+  "annual_income": 316000,
+  "monthly_expenses": 11500,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 23,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2049
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.19,
+    "cash": 0.16
+  },
+  "monthly_contribution": 3650,
+  "employer": "Kestrel Freight (KSTL)",
+  "notes": "KSTL shares accumulated from RSU vesting and the ESPP. Holdings shown are after the court-ordered transfer to the former spouse."
+}

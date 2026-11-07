@@ -1,0 +1,28 @@
+{
+  "client_id": "d-008",
+  "name": "Darnell Yilmaz",
+  "age": 54,
+  "state": "CA",
+  "occupation": "supply-chain analyst",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 294500,
+  "monthly_expenses": 13250,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 3400,
+  "employer": "Kestrel Freight (KSTL)",
+  "notes": "KSTL shares accumulated from RSU vesting and the ESPP."
+}

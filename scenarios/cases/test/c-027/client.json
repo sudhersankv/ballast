@@ -1,0 +1,31 @@
+{
+  "client_id": "c-027",
+  "name": "Desmond Gallagher",
+  "age": 46,
+  "state": "MI",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 132000,
+  "monthly_expenses": 8200,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    },
+    {
+      "type": "education",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.09,
+    "cash": 0.16
+  },
+  "monthly_contribution": 1450,
+  "notes": "Took a lower-paying role with a shorter commute and better hours."
+}

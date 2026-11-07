@@ -1,0 +1,27 @@
+{
+  "client_id": "c-029",
+  "name": "Elena Nguyen",
+  "age": 55,
+  "state": "TN",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 95500,
+  "monthly_expenses": 5750,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.46,
+    "cash": 0.09
+  },
+  "monthly_contribution": 550,
+  "notes": "Model portfolio last revisited in 2019."
+}

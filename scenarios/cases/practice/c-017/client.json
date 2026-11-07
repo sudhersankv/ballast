@@ -1,0 +1,26 @@
+{
+  "client_id": "c-017",
+  "name": "Imani Holloway",
+  "age": 37,
+  "state": "PA",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 175000,
+  "monthly_expenses": 9750,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2054
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.25,
+    "cash": 0.2
+  },
+  "monthly_contribution": 1550
+}

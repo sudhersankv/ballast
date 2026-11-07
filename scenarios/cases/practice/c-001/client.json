@@ -1,0 +1,26 @@
+{
+  "client_id": "c-001",
+  "name": "Grant Sorensen",
+  "age": 50,
+  "state": "AZ",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 222500,
+  "monthly_expenses": 11150,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 1800
+}
