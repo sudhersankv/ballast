@@ -169,9 +169,9 @@ Runs after every agent run and over a rolling window. Interface (one record per 
 | --- | --- |
 | Green | No hard violations, and the rolling 10-run average is within 0.05 of baseline. |
 | Yellow | Rolling average dropped by 0.05 or more, or soft violations are rising. |
-| Red | A hard violation on a case type (event mix) that the shipped playbook passed in its verification run. |
+| Red | Any run in the window has a hard violation of a rule the shipped playbook passed 100% of the time in its verification run (`trusted_rules`). |
 
-**When drift is computed:** only in drift mode, measured against the last *shipped* playbook's verification baseline. During training, v0 is expected to fail about half the cases, so failures there are training signal, not drift.
+**When drift is computed:** only in drift mode, measured against the last *shipped* playbook's verification baseline. During training, v0 is expected to fail about half the cases, so failures there are training signal, not drift. Keying red on rules rather than case types means new event types (inheritance, market drop) still trip it. Exact thresholds are in [EVAL.md](EVAL.md) section 6, which is the source of truth for the checker.
 
 The `violations` list is the most important field: it is what Muse reads to fix the agent.
 
