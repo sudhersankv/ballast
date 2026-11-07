@@ -30,7 +30,10 @@ def _load(force_demo: bool = False):
         return SEED, "demo"
     if _cache["data"] is not None and time.time() - _cache["t"] < 5:
         return _cache["data"], _cache["source"]
-    data, source = SEED, "demo"
+    # Real data only. The story reads the first db in STORY_DB (comma-separated) that has playbooks + generations.
+    # Seed data is used only when a caller asks for ?demo=1. With nothing real yet, every collection is empty.
+    data, source = {c: [] for c in COLLS + OPTIONAL}, "none"
+    data["_db"] = None
     uri = os.environ.get("MONGODB_URI")
     if uri:
         try:
@@ -38,25 +41,30 @@ def _load(force_demo: bool = False):
                 from pymongo import MongoClient
 
                 _cache["client"] = MongoClient(uri, serverSelectionTimeoutMS=3000)
-            db = _cache["client"][os.environ.get("MONGODB_DB", "ballast")]
-            live = {c: list(db[c].find({}, {"_id": 0})) for c in COLLS + OPTIONAL}
-            if live["playbooks"] and live["generations"]:
-                # Optional collections fall back to seed individually so their panels never go blank.
-                for c in OPTIONAL:
-                    if not live[c]:
-                        live[c] = SEED.get(c, [])
-                data, source = live, "live"
+            for name in [x.strip() for x in os.environ.get("STORY_DB", "ballast_bench_muse,ballast_muse").split(",") if x.strip()]:
+                db = _cache["client"][name]
+                if not db.generations.find_one({}, {"_id": 1}):
+                    continue
+                live = {c: list(db[c].find({}, {"_id": 0, "steps": 0} if c == "runs" else {"_id": 0})) for c in COLLS + OPTIONAL}
+                if live["playbooks"] and live["generations"]:
+                    live["_db"] = name
+                    data, source = live, "live"
+                    break
         except Exception:
             pass
     _cache.update(t=time.time(), data=data, source=source)
     return data, source
 
 
+def _t(e: dict) -> str:
+    return str(e.get("time") or e.get("created_at") or "")
+
+
 def _shipped_current(gens, drift):
     """Current shipped version: last shipped generation, adjusted by the latest rollback/fix."""
     shipped = [g["version"] for g in sorted(gens, key=lambda g: g["created_at"]) if g["decision"] == "shipped"]
     cur = shipped[-1] if shipped else None
-    for d in sorted(drift, key=lambda d: d["time"]):
+    for d in sorted(drift, key=_t):
         if d["action"] in ("rollback", "shipped_fix"):
             cur = d["to_version"]
     return cur
@@ -72,14 +80,14 @@ def health(demo: int = 0):
 def overview(demo: int = 0):
     d, source = _load(bool(demo))
     gens = sorted(d["generations"], key=lambda g: g["version"])
-    drift = sorted(d["drift_events"], key=lambda e: e["time"])
+    drift = sorted(d["drift_events"], key=_t)
     cur = _shipped_current(gens, drift)
     by_v = {g["version"]: g for g in gens}
     base = by_v.get(0, gens[0] if gens else None)
     latest = by_v.get(cur)
-    light = drift[-1]["level"] if drift else "green"
+    light = next((e["level"] for e in reversed(drift) if e.get("action") != "event_gate"), "green")
     return {
-        "source": source,
+        "source": source, "db": d.get("_db"),
         "current_version": cur,
         "drift_level": light,
         "test_score": latest["test"]["mean_score"] if latest else None,
@@ -110,7 +118,7 @@ def versions(demo: int = 0):
             for x in r["violations"]:
                 by_rule[x["rule"]] = by_rule.get(x["rule"], 0) + 1
         out.append({**g, "changelog": p.get("changelog", ""), "status": p.get("status", g["decision"]),
-                    "violations_by_rule": by_rule})
+                    "violations_by_rule": by_rule, "test_runs": len(v_runs)})
     return out
 
 
@@ -133,7 +141,7 @@ def version_detail(v: int, demo: int = 0):
 @app.get("/api/drift")
 def drift(demo: int = 0):
     d, _ = _load(bool(demo))
-    return sorted(d["drift_events"], key=lambda e: e["time"])
+    return sorted(d["drift_events"], key=_t)
 
 
 @app.get("/api/clients")
@@ -282,10 +290,7 @@ def run_detail(run_id: str, db: str | None = None):
 
     name, r, c = _mongo_guard(q)
     if not r:
-        r = next((x for x in SEED["runs"] if x["run_id"] == run_id), None)
-        if not r:
-            raise HTTPException(404, f"No run {run_id} in {name}")
-        c = next((x for x in SEED["clients"] if x["client_id"] == r["case_id"]), None)
+        raise HTTPException(404, f"No run {run_id} in {name}")
     return {**r, "client": c, "db": name}
 
 
@@ -522,7 +527,7 @@ def architecture_page():
 def analysis(demo: int = 0):
     """SubQ long-context drift analyses (newest last)."""
     d, _ = _load(bool(demo))
-    return sorted(d.get("drift_analysis", []), key=lambda a: a["time"])
+    return sorted(d.get("drift_analysis", []), key=_t)
 
 
 # ---------------------------------------------------------------- lessons: what the agent has learned
@@ -652,7 +657,8 @@ def _real_journeys(name: str) -> list[dict]:
 def scoreboard(db: str | None = None):
     """The real training run's generations (practice / test / regression per version) for the hero instrument panel."""
     def q():
-        d, name = _db(db or os.environ.get("LIVE_DB", "ballast_muse"))
+        # same database as the replay story, so the hero and the replay never disagree
+        d, name = _db(db or _load()[0].get("_db") or os.environ.get("LIVE_DB", "ballast_muse"))
         gens = list(d.generations.find({}, {"_id": 0}).sort("created_at", 1))
         model = (d.runs.find_one({"set": "test"}, {"_id": 0, "model": 1}, sort=[("created_at", -1)]) or {}).get("model")
         return name, gens, model
@@ -787,6 +793,8 @@ def benchmark(demo: int = 0):
             r.pop("_test", None)
         if real:
             return real
+    if not demo:
+        return []  # real only: nothing to compare yet
     d, _ = _load(bool(demo))
     rows = d.get("benchmarks") or []
     if not rows:

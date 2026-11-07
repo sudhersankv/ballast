@@ -137,6 +137,14 @@
     }
     // the realign step drafts whatever the next drift-mode version becomes
     steps.forEach((s, k) => { if (s.kind === "muse") { const nx = steps.slice(k).find((x) => x.mut?.mode === "fix"); if (nx) s.draftOf = nx.version ?? nx.mut.version; } });
+    // nothing is invented: stages with no real event yet are shown as pending
+    const last = steps[steps.length - 1];
+    const pend = (label, title, body) => steps.push({ kind: "pending", label, title, body, score: null, scoreLabel: "no real event yet", light: last ? last.light : "green",
+      gate: [chk(null, "Detect", "—", "waiting for a real event"), chk(null, "Contain", "—", ""), chk(null, "Realign", "—", "")], stamp: ["Pending", "hold"],
+      version: last?.live ?? null, genome: last?.live ?? null, live: last?.live ?? null, seen: last ? last.seen : [], chartVersions: last ? last.chartVersions : new Set(),
+      driftSeen: false, mut: { mode: "pending" } });
+    if (steps.length && !drift.some((d) => d.action === "rollback")) pend("Drift: pending", "Drift: no real drift event yet",
+      "The drift loop runs when the live playbook starts failing rules it used to pass. Nothing has drifted in this run yet, so there is no rollback, SubQ diagnosis or fix to show. This step fills in from the real drift_events the moment one lands.");
     return steps;
   }
 
@@ -208,7 +216,8 @@
   // ---------- render: genome = rule radar + genome lattice ----------
   const RULES = [["valid_output", "valid"], ["risk_band", "risk band"], ["emergency_fund", "cash buffer"], ["concentration", "concentr."], ["cited", "cited"],
     ["no_churn", "no churn"], ["event_child", "child"], ["event_marriage", "marriage"], ["event_job_change", "job change"], ["glidepath", "glidepath"]];
-  const passRate = (v, rule) => { const g = state.versions.find((x) => x.version === v); return g ? 1 - ((g.violations_by_rule || {})[rule] || 0) / 20 : null; };
+  // share of this version's test runs that pass the rule (test sets run 3x per version in the real loop)
+  const passRate = (v, rule) => { const g = state.versions.find((x) => x.version === v); if (!g) return null; const n = g.test_runs || 20; return Math.max(0, 1 - ((g.violations_by_rule || {})[rule] || 0) / n); };
   function renderGenome(s) {
     renderRadar(s);
     renderLattice(s);
@@ -371,6 +380,11 @@
     }
   }
   function renderMut(s) {
+    if (s.mut?.mode === "pending") {
+      $("#mut-ex").hidden = true; renderSnap({});
+      ["#mut-why", "#mut-what", "#mut-learned"].forEach((k) => ($(k).innerHTML = `<p class="muted">Pending. No real drift event yet.</p>`));
+      return;
+    }
     const L = state.lineage, why = $("#mut-why"), what = $("#mut-what"), learned = $("#mut-learned"), ex = $("#mut-ex");
     ex.hidden = true;
     renderSnap(s);
@@ -468,7 +482,7 @@
     $("#step-body").textContent = s.body;
     $("#stage").dataset.kind = s.kind;
     $(".score").dataset.tone = s.tone || "";
-    $("#score-num").textContent = s.scoreText ?? s.score.toFixed(3);
+    $("#score-num").textContent = s.scoreText ?? (s.score == null ? "—" : s.score.toFixed(3));
     $("#score-label").textContent = s.scoreLabel;
     const dl = $("#score-delta");
     if (s.delta) { dl.textContent = `${arrow(s.delta.v)} ${sd(s.delta.v)} ${s.delta.label}`; dl.className = `delta ${s.delta.v < 0 ? "neg" : "pos"}`; }
@@ -810,7 +824,20 @@
   function stepForVersion(v) { return state.steps.findIndex((s) => s.version === v && ["ship", "base", "reject"].includes(s.kind)); }
   function renderLedger(d) {
     const ol = $("#ledger");
-    if (!d || !d.lessons.length) { ol.innerHTML = `<li class="muted">No lessons yet. They appear when Muse ships its first upgrade.</li>`; return; }
+    if (d && !d.lessons.length && (d.journey_lessons || []).length) {
+      // the fleet playbook hasn't shipped a lesson yet; show the real per-client lessons from the journeys
+      const all = d.journey_lessons.flatMap((j) => j.lessons.map((l) => ({ ...l, client: j.client, journey: j.journey })));
+      ol.innerHTML = `<li class="muted" style="padding:12px 0">The shared playbook hasn't shipped a lesson yet (every candidate so far failed the gate). These are the real lessons each client's own agent learned on its journey.</li>` +
+        all.map((l, i) => `<li class="lesson">
+          <div class="l-meta"><span class="l-n">${String(i + 1).padStart(2, "0")} / ${String(all.length).padStart(2, "0")}</span><span class="mono l-rule">${esc(l.journey)}/${esc(l.at || "-")}</span><span class="mono l-rule">${esc(l.rule)}</span></div>
+          <div class="l-body"><p class="l-text">${esc(l.lesson)}</p>
+            <dl class="l-dl"><div><dt>Learned from</dt><dd><b>${esc(String(l.triggered_by || "").replace(/_/g, " "))}</b>, ${esc(l.client)}'s checkpoint ${esc(l.at || "-")}. ${esc(l.root_cause)}</dd></div>
+              <div><dt>Proven on</dt><dd>kept only because it passed that checkpoint and every earlier one; see the client's holdout result under Client journeys</dd></div></dl>
+            <p class="l-skill">Carried by skill <span class="mono">${esc(l.skill)}</span></p></div></li>`).join("");
+      $("#pb-yaml").textContent = d.playbook_yaml || "No shipped playbook yet.";
+      return;
+    }
+    if (!d || !d.lessons.length) { ol.innerHTML = `<li class="muted">No lessons yet. They appear when a playbook with a lesson ships.</li>`; $("#pb-yaml").textContent = d?.playbook_yaml || "No shipped playbook yet."; return; }
     ol.innerHTML = d.lessons.map((l, i) => {
       const p = l.proven || {};
       const proofs = [];
@@ -884,7 +911,7 @@
           ${sm ? `<dd><span class="neg">${esc(sm.holdout_pass_start)}</span> generic agent, mean ${Number(sm.holdout_mean_start).toFixed(3)}</dd><dd><span class="pos">${esc(sm.holdout_pass_final)}</span> ${esc(first)}'s agent, mean ${Number(sm.holdout_mean_final).toFixed(3)}</dd>`
             : ran("personal") ? `<dd><span class="neg">${clean("baseline")}/${ran("baseline") || hold.length}</span> generic agent</dd><dd><span class="pos">${clean("personal")}/${ran("personal")}</span> ${esc(first)}'s agent</dd>`
             : `<dd><span>${j.progress ? `${j.progress.done}/${j.progress.total}` : "-"}</span> checkpoints run; holdout not reached yet</dd>`}</div></dl>
-        <span class="source">${j.source === "demo" ? "Demo journey" : `Live, ${esc(j.db || "")}`}</span>
+        <span class="source">${j.source === "demo" ? "Illustration, not from a run" : `Real run, ${esc(j.db || "")}`}</span>
       </div>
       <div class="jscroll" tabindex="0" aria-label="Checkpoint timeline, scroll sideways">
         <div class="jgrid" style="grid-template-columns: 140px ${cols}">
@@ -1009,7 +1036,9 @@
       state.lessons = les; state.journeys = jrn;
       state.versions = versions; state.drift = drift; state.analysis = analysis;
       lin.forEach((g) => { state.lineage[g.version] = g; });
-      $("#source").hidden = ov.source !== "demo";
+      const src = $("#source");
+      src.hidden = false;
+      src.textContent = ov.source === "live" ? `Story: real runs, ${ov.db}` : ov.source === "demo" ? "Illustration, not from a run" : "Story: no runs yet";
       state.steps = buildSteps(versions, drift, analysis);
       const kindAttr = (k) => (k === "green" ? "ship" : k);
       $("#steps").innerHTML = state.steps.map((s, k) => `<li><button data-i="${k}" data-kind="${kindAttr(s.kind)}"><i aria-hidden="true"></i>${esc(s.label)}</button></li>`).join("");

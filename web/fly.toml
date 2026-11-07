@@ -6,8 +6,8 @@ primary_region = "sjc"
   dockerfile = "Dockerfile"
 
 [env]
-  MONGODB_DB = "ballast"      # story / replay (falls back to seed.json)
-  LIVE_DB = "ballast_muse"    # /live view (all-Muse run); override per request with ?db=ballast_dev|ballast
+  STORY_DB = "ballast_bench_muse,ballast_muse"  # main story / replay: first db with generations; real data only
+  LIVE_DB = "ballast_muse"    # /live view and Run-it jobs; override per request with ?db=
 
 [http_service]
   internal_port = 8080
