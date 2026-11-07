@@ -5,6 +5,7 @@
   const NS = "http://www.w3.org/2000/svg";
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const pct = (x) => Math.round(x * 100);
+  const sd = (x, d = 3) => `${x > 0 ? "+" : x < 0 ? "−" : "±"}${Math.abs(x).toFixed(d)}`;
   const signed = (n, unit = "") => `${n > 0 ? "+" : n < 0 ? "−" : "±"}${Math.abs(n)}${unit}`;
   const arrow = (n) => (n > 0 ? "▲" : n < 0 ? "▼" : "■");
   const fmtTok = (n) => (n >= 1e6 ? `${(n / 1e6).toFixed(2)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}k` : `${n}`);
@@ -54,7 +55,7 @@
       if (e.type === "gen") {
         const g = e.g, p = byV[g.parent], score = g.test.mean_score;
         Object.assign(s, { version: g.version, genome: g.version, score, scoreLabel: "average policy score on unseen clients",
-          delta: base && g.version !== base.version ? { v: pct(score) - pct(base.test.mean_score), label: "points vs v0" } : null });
+          delta: base && g.version !== base.version ? { v: score - base.test.mean_score, label: "vs v0" } : null });
         seen.push(g.version);
         if (g.parent == null) {
           Object.assign(s, { kind: "base", label: `v${g.version} baseline`, title: `v${g.version}: the starting playbook`,
@@ -73,10 +74,10 @@
           if (light === "red") s.light = "yellow";
           live = g.version;
         } else {
-          const from = p ? pct(p.test.mean_score) : null;
+          const from = p ? p.test.mean_score.toFixed(3) : null;
           const lead = /layoff/i.test(g.changelog) ? "Muse read the layoff failures and wrote a layoff skill: raise cash to 6 months of expenses first, then rebalance. " : `${g.changelog} `;
           Object.assign(s, { kind: "ship", label: `v${g.version} ships`, title: `v${g.version} ships`,
-            body: `${lead}${from != null ? `On unseen clients the score goes from ${from} to ${pct(score)}.` : ""}`,
+            body: `${lead}${from != null ? `On unseen clients the score goes from ${from} to ${score.toFixed(3)}.` : ""}`,
             gate: gateTraining(g, p), stamp: ["Shipped", "ship"], tone: "good", mut: { mode: "gen" } });
           live = g.version;
         }
@@ -102,7 +103,7 @@
         const d = e.d, n = (d.case_ids || []).length;
         lastDrift = d;
         Object.assign(s, { version: d.to_version, genome: d.to_version, score: d.rolling_score, scoreLabel: "rolling score on recent live cases",
-          delta: { v: pct(d.rolling_score) - pct(d.baseline), label: "points vs shipped baseline" } });
+          delta: { v: d.rolling_score - d.baseline, label: "vs shipped baseline" } });
         light = d.level; s.light = light;
         if (d.action === "rollback") {
           Object.assign(s, { kind: "red", label: "Drift caught", title: "Drift caught, rolled back",
@@ -147,15 +148,21 @@
       chk(null, "Gemini compliance review", "Not needed", "nothing changed yet")];
   }
   function gateTraining(g, p) {
-    const gain = p ? pct(g.test.mean_score) - pct(p.test.mean_score) : 0, c = g.compliance;
-    return [chk(gain >= 2, "Beats parent on unseen clients", `${arrow(gain)} ${signed(gain)} pts`, "needs +2 points or more"),
-      chk(g.regression.pass_rate >= 1, "Regression set", `${pct(g.regression.pass_rate)}%`, "must stay at 100%"),
+    const gain = p ? g.test.mean_score - p.test.mean_score : 0, c = g.compliance;
+    return [chk(gain >= 0.02, "Beats parent, unseen clients", `${arrow(gain)} ${sd(gain)}`, `${p ? p.test.mean_score.toFixed(3) : "-"} → ${g.test.mean_score.toFixed(3)}, needs +0.020`),
+      regHold(g, p),
       chk(c ? c.verdict === "approve" : null, "Gemini compliance review", cv(c), c ? c.note : "")];
+  }
+  // the regression gate: an upgrade must hold its parent's regression pass rate (no lost ground)
+  function regHold(g, p) {
+    const floor = p ? p.regression.pass_rate : g.regression.pass_rate;
+    return chk(g.regression.pass_rate >= floor, "Regression held", `${g.regression.pass_rate.toFixed(2)}`, `pass rate; parent ${floor.toFixed(2)}, must not drop`);
   }
   function gateDriftFix(g) {
     const m = /(\d+)\/(\d+)/.exec(g.reason || ""), c = g.compliance;
+    const p = state.versions.find((x) => x.version === g.parent);
     return [chk(true, "Passes the drifted cases", m ? `${m[1]} of ${m[2]}` : "Passed", "now part of the test set"),
-      chk(g.regression.pass_rate >= 1, "Regression set", `${pct(g.regression.pass_rate)}%`, "must stay at 100%"),
+      regHold(g, p),
       chk(c ? c.verdict === "approve" : null, "Gemini compliance review", cv(c), c ? c.note : "")];
   }
   function gateContain(d) {
@@ -198,95 +205,125 @@
     return { pairs, strand: s.strand || (s.kind === "red" ? "env" : "ship") };
   }
 
-  // ---------- render: helix ----------
-  const HX = { W: 640, H: 380, x0: 36, x1: 604, cy: 150, A: 64, turns: 2.4, r0: 64, r1: 500 };
-  const helix = { phase: 0.6, raf: null, visible: true, nodes: null };
-  function renderHelix(s) {
-    const svg = $("#helix");
-    svg.innerHTML = "";
-    // narrow screens hide the rotated SVG labels (the chip list carries them), so crop that band away
-    svg.setAttribute("viewBox", matchMedia("(max-width: 1000px)").matches ? "0 30 640 230" : "0 0 640 380");
-    const { pairs, strand } = genomeFor(s);
-    const col = { keep: tok("text-3"), add: tok("mint"), edit: tok("gold"), del: tok("red"), draft: tok("muse") };
-    const strandCol = strand === "rejected" ? tok("gold") : tok("jade");
-    // environment band (drift = the world changed around the genome)
-    if (s.env) {
-      el("rect", { x: 8, y: HX.cy - HX.A - 30, width: HX.W - 16, height: HX.A * 2 + 60, rx: 8, fill: tok("red"), "fill-opacity": 0.08, stroke: tok("red"), "stroke-opacity": 0.5, "stroke-dasharray": "5 5" }, svg);
-      const t = el("text", { x: 20, y: HX.cy - HX.A - 12, class: "env", fill: tok("red") }, svg);
-      t.textContent = "Environment changed: new event types and a market drop";
-    }
-    const back = [el("path", { fill: "none", stroke: strandCol, "stroke-width": 2, "stroke-opacity": 0.35, "stroke-dasharray": strand === "rejected" ? "6 5" : "" }, svg),
-      el("path", { fill: "none", stroke: strandCol, "stroke-width": 2, "stroke-opacity": 0.35, "stroke-dasharray": strand === "rejected" ? "6 5" : "" }, svg)];
-    const n = Math.max(1, pairs.length);
-    const xs = pairs.map((_, i) => HX.r0 + ((i + 0.5) * (HX.r1 - HX.r0)) / n);
-    const rungs = pairs.map((p, i) => {
-      const g = el("g", {}, svg);
-      const c = col[p.state];
-      const line = el("line", { stroke: c, "stroke-width": p.state === "keep" ? 2.5 : 4, "stroke-linecap": "round", "stroke-dasharray": p.state === "del" || p.state === "draft" ? "4 4" : "", "stroke-opacity": p.state === "del" ? 0.7 : 1 }, g);
-      const a = el("circle", { r: 5, fill: c }, g), b = el("circle", { r: 5, fill: c }, g);
-      if (p.state !== "keep") {
-        const t = el("text", { x: xs[i], y: HX.cy - HX.A - (s.env ? 40 : 14), "text-anchor": "middle", class: "glyph", fill: c }, svg);
-        t.textContent = { add: "+", edit: "~", del: "−", draft: "+" }[p.state];
-      }
-      const lbl = el("text", { x: xs[i], y: HX.cy + HX.A + 30, transform: `rotate(35 ${xs[i]} ${HX.cy + HX.A + 30})`, class: "lbl", fill: p.state === "keep" ? tok("text-3") : c }, svg);
-      lbl.textContent = p.note ? `${p.name} (${p.note})` : p.name;
-      return { line, a, b, x: xs[i] };
-    });
-    const front = [el("path", { fill: "none", stroke: strandCol, "stroke-width": 3.5, "stroke-linecap": "round", "stroke-dasharray": strand === "rejected" ? "8 6" : "" }, svg),
-      el("path", { fill: "none", stroke: strandCol, "stroke-width": 3.5, "stroke-linecap": "round", "stroke-dasharray": strand === "rejected" ? "8 6" : "" }, svg)];
-    let scan = null;
-    if (s.scan) {
-      scan = el("rect", { x: HX.x0, y: HX.cy - HX.A - 12, width: 6, height: HX.A * 2 + 24, rx: 3, fill: tok("subq"), "fill-opacity": 0.85 }, svg);
-      el("rect", { x: HX.x0, y: HX.cy - HX.A - 12, width: HX.x1 - HX.x0, height: HX.A * 2 + 24, rx: 8, fill: tok("subq"), "fill-opacity": 0.07, stroke: tok("subq"), "stroke-opacity": 0.6 }, svg);
-      const t = el("text", { x: HX.x0, y: HX.cy - HX.A - 20, class: "env", fill: tok("subq") }, svg);
-      t.textContent = `SubQ reads every version, run and timeline in one pass`;
-    }
-    helix.nodes = { back, front, rungs, scan };
-    drawHelixFrame();
-    // HTML base-pair list: readable labels on small screens, and a color-independent legend everywhere
+  // ---------- render: genome = rule radar + genome lattice ----------
+  const RULES = [["valid_output", "valid"], ["risk_band", "risk band"], ["emergency_fund", "cash buffer"], ["concentration", "concentr."], ["cited", "cited"],
+    ["no_churn", "no churn"], ["event_child", "child"], ["event_marriage", "marriage"], ["event_job_change", "job change"], ["glidepath", "glidepath"]];
+  const passRate = (v, rule) => { const g = state.versions.find((x) => x.version === v); return g ? 1 - ((g.violations_by_rule || {})[rule] || 0) / 20 : null; };
+  function renderGenome(s) {
+    renderRadar(s);
+    renderLattice(s);
+    const { pairs } = genomeFor(s);
     const glyph = { keep: "·", add: "+", edit: "~", del: "−", draft: "+" };
     const word = { keep: "kept", add: "added", edit: "edited", del: "removed", draft: "draft" };
-    $("#pairs").innerHTML = pairs.map((p) => `<li class="${p.state}"><b aria-hidden="true">${glyph[p.state]}</b>${esc(p.name)}<span class="sr">, ${word[p.state]}${p.note ? `, ${esc(p.note)}` : ""}</span></li>`).join("");
+    $("#pairs").innerHTML = pairs.filter((p) => p.state !== "keep").map((p) => `<li class="${p.state}"><b aria-hidden="true">${glyph[p.state]}</b>${esc(p.name)}<span class="sr">, ${word[p.state]}${p.note ? `, ${esc(p.note)}` : ""}</span>${p.note ? ` <span>(${esc(p.note)})</span>` : ""}</li>`).join("");
     renderRail(s);
   }
-  function strandPath(sign, front) {
-    const k = (HX.turns * 2 * Math.PI) / (HX.x1 - HX.x0);
-    let d = "", pen = false;
-    for (let x = HX.x0; x <= HX.x1; x += 4) {
-      const th = k * (x - HX.x0) + helix.phase + (sign > 0 ? 0 : Math.PI);
-      const y = HX.cy + HX.A * Math.sin(th), z = Math.cos(th);
-      if ((z >= 0) === front) { d += `${pen ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`; pen = true; } else pen = false;
-    }
-    return d;
-  }
-  function drawHelixFrame() {
-    const N = helix.nodes;
-    if (!N) return;
-    N.back[0].setAttribute("d", strandPath(1, false)); N.back[1].setAttribute("d", strandPath(-1, false));
-    N.front[0].setAttribute("d", strandPath(1, true)); N.front[1].setAttribute("d", strandPath(-1, true));
-    const k = (HX.turns * 2 * Math.PI) / (HX.x1 - HX.x0);
-    N.rungs.forEach((r) => {
-      const th = k * (r.x - HX.x0) + helix.phase;
-      const y1 = HX.cy + HX.A * Math.sin(th), y2 = HX.cy - HX.A * Math.sin(th), z = Math.cos(th);
-      r.line.setAttribute("x1", r.x); r.line.setAttribute("x2", r.x); r.line.setAttribute("y1", y1); r.line.setAttribute("y2", y2);
-      r.a.setAttribute("cx", r.x); r.a.setAttribute("cy", y1); r.a.setAttribute("r", (4.5 + 2.5 * z).toFixed(2));
-      r.b.setAttribute("cx", r.x); r.b.setAttribute("cy", y2); r.b.setAttribute("r", (4.5 - 2.5 * z).toFixed(2));
+  function renderRadar(s) {
+    // each version is a polygon over the 10 policy rules; radius = pass rate on 20 unseen clients (0.50 center, 1.00 rim)
+    const svg = $("#radar");
+    svg.innerHTML = "";
+    svg.setAttribute("viewBox", "-22 0 404 340");
+    const cx = 180, cy = 172, R = 112, N = RULES.length;
+    const ang = (i) => -Math.PI / 2 + (i * 2 * Math.PI) / N;
+    const pt = (i, v) => { const r = R * Math.max(0, Math.min(1, (v - 0.5) / 0.5)); return [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))]; };
+    [0.6, 0.7, 0.8, 0.9, 1.0].forEach((t) => {
+      el("polygon", { points: pts(RULES.map((_, i) => pt(i, t))), fill: "none", stroke: tok(t === 1 ? "text-3" : "rim"), "stroke-width": t === 1 ? 1 : 0.75 }, svg);
+      const [x, y] = pt(0, t);
+      el("text", { x: x + 4, y: y + 3 }, svg).textContent = t.toFixed(1);
     });
-    if (N.scan) {
-      const x = HX.x0 + (((performance.now() / 1800) % 1) * (HX.x1 - HX.x0 - 6));
-      N.scan.setAttribute("x", reduced ? HX.x0 : x.toFixed(1));
+    RULES.forEach(([rule, short], i) => {
+      const [x, y] = pt(i, 1.0);
+      el("line", { x1: cx, y1: cy, x2: x, y2: y, stroke: tok("rim"), "stroke-width": 0.75 }, svg);
+      const [lx, ly] = [cx + (R + 16) * Math.cos(ang(i)), cy + (R + 16) * Math.sin(ang(i))];
+      const t = el("text", { x: lx, y: ly + 3, "text-anchor": Math.abs(Math.cos(ang(i))) < 0.2 ? "middle" : Math.cos(ang(i)) > 0 ? "start" : "end", class: "axis-l" }, svg);
+      t.textContent = short;
+    });
+    const seen = s.seen.filter((v) => state.versions.some((g) => g.version === v));
+    const cur = s.genome ?? s.version;
+    seen.filter((v) => v !== cur).forEach((v) => {
+      el("polygon", { points: pts(RULES.map(([r], i) => pt(i, passRate(v, r)))), fill: "none", stroke: tok("text-3"), "stroke-width": 0.75, "stroke-opacity": 0.6 }, svg);
+    });
+    if (cur != null && passRate(cur, "valid_output") != null) {
+      const rej = state.versions.find((g) => g.version === cur)?.decision === "rejected";
+      const c = tok(rej ? "gold" : "mint");
+      const P = RULES.map(([r], i) => pt(i, passRate(cur, r)));
+      el("polygon", { points: pts(P), fill: c, "fill-opacity": 0.12, stroke: c, "stroke-width": 1.75, "stroke-dasharray": rej ? "5 3" : "" }, svg);
+      P.forEach(([x, y], i) => {
+        const v = passRate(cur, RULES[i][0]);
+        el("rect", { x: x - 2.5, y: y - 2.5, width: 5, height: 5, fill: c }, svg);
+        if (v < 1) { const t = el("text", { x: x + 5, y: y - 4, fill: tok("text") }, svg); t.textContent = v.toFixed(2); }
+      });
     }
+    // drift: the rules that broke on live cases, marked on the rim
+    (s.mut?.drift?.violations || []).forEach((x) => {
+      const i = RULES.findIndex(([r]) => r === x.rule); if (i < 0) return;
+      const [px, py] = pt(i, 1.0);
+      el("path", { d: `M${px - 6},${py - 6}L${px + 6},${py + 6}M${px + 6},${py - 6}L${px - 6},${py + 6}`, stroke: tok("red"), "stroke-width": 2 }, svg);
+    });
+    // SubQ: failure rate inside each pattern, plotted as pass rate
+    (s.mut?.analysis && (s.kind === "subq" || s.kind === "muse") ? s.mut.analysis.patterns : []).forEach((p) => {
+      const i = RULES.findIndex(([r]) => r === p.rule); if (i < 0) return;
+      const [px, py] = pt(i, 1 - p.failure_rate);
+      el("rect", { x: px - 4, y: py - 4, width: 8, height: 8, fill: "none", stroke: tok("subq"), "stroke-width": 1.5, transform: `rotate(45 ${px} ${py})` }, svg);
+      const t = el("text", { x: px + 7, y: py + 3, fill: tok("subq") }, svg); t.textContent = (1 - p.failure_rate).toFixed(2);
+    });
+    el("text", { x: 4, y: 334 }, svg).textContent = `v${cur ?? "-"} filled, earlier versions outlined`;
   }
-  function animateHelix() {
-    if (reduced) return;
-    let last = performance.now();
-    const tick = (t) => {
-      const dt = t - last; last = t;
-      if (helix.visible && !document.hidden) { helix.phase += dt * 0.00045; drawHelixFrame(); }
-      helix.raf = requestAnimationFrame(tick);
+  function renderLattice(s) {
+    // versions are columns, playbook elements are rows; each pair carries a number
+    const svg = $("#lattice");
+    svg.innerHTML = "";
+    const L = state.lineage;
+    const cols = s.seen.filter((v) => L[v]);
+    const { pairs } = genomeFor(s);
+    if (s.draftOf != null && L[s.draftOf]) cols.push("draft");
+    const rowsMap = new Map();
+    const addRow = (e) => { if (!rowsMap.has(e.key)) rowsMap.set(e.key, { key: e.key, name: e.kind === "limit" ? "max_turns" : e.name, kind: e.kind }); };
+    cols.forEach((v) => (v === "draft" ? L[s.draftOf] : L[v]).elements.forEach(addRow));
+    pairs.forEach(addRow);
+    const rows = [...rowsMap.values()].sort((a, b) => (a.kind === "limit") - (b.kind === "limit") || (a.kind === "prompt" ? -1 : b.kind === "prompt" ? 1 : 0));
+    const x0 = 112, top = 30, W = 360, H = 320;
+    const vbH = Math.round(Math.max(180, top + Math.min(26, (H - top) / Math.max(1, rowsMap.size)) * rowsMap.size + 34));
+    svg.setAttribute("viewBox", `0 0 360 ${vbH}`);
+    const cw = Math.min(42, (W - x0 - 6) / Math.max(1, cols.length)), rh = Math.min(26, (H - top) / Math.max(1, rows.length));
+    const d = Math.min(cw, rh) * 0.42;
+    const curIdx = cols.indexOf(s.genome);
+    if (curIdx >= 0) el("rect", { x: x0 + curIdx * cw, y: top - 22, width: cw, height: rows.length * rh + 22, fill: tok("panel"), stroke: tok("text-3"), "stroke-width": 0.75 }, svg);
+    const numFor = (v, row) => {
+      const g = v === "draft" ? L[s.draftOf] : L[v];
+      const e = g.elements.find((x) => x.key === row.key);
+      if (!e) return null;
+      if (row.kind === "limit") return e.body;
+      if (row.kind === "prompt") return String(e.body.split("\n").filter(Boolean).length);
+      return String((g.lessons || []).filter((l) => l.skill === e.name).length);
     };
-    helix.raf = requestAnimationFrame(tick);
-    if ("IntersectionObserver" in window) new IntersectionObserver((ents) => ents.forEach((e) => (helix.visible = e.isIntersecting))).observe($("#helix"));
+    cols.forEach((v, c) => {
+      const x = x0 + c * cw + cw / 2;
+      const rej = v !== "draft" && L[v].status === "rejected";
+      const t = el("text", { x, y: top - 8, "text-anchor": "middle", fill: tok(v === s.genome ? "text" : rej ? "gold" : "text-3") }, svg);
+      t.textContent = v === "draft" ? "draft" : `${rej ? "✕" : ""}v${v}`;
+    });
+    rows.forEach((row, r) => {
+      const y = top + r * rh + rh / 2;
+      const name = row.name.length > 16 ? row.name.slice(0, 15) + "…" : row.name;
+      el("text", { x: x0 - 8, y: y + 3.5, "text-anchor": "end" }, svg).textContent = name;
+      let prev = null;
+      cols.forEach((v, c) => {
+        const x = x0 + c * cw + cw / 2, n = numFor(v, row);
+        const isCur = v === s.genome, isDraft = v === "draft";
+        const st = isCur ? (pairs.find((p) => p.key === row.key)?.state || (n == null ? null : "keep")) : isDraft ? (n != null && !(L[s.genome]?.elements || []).some((e) => e.key === row.key) ? "draft" : n != null ? "keep" : null) : n != null ? "keep" : null;
+        if (prev && st && st !== "del") el("line", { x1: prev + d, y1: y, x2: x - d, y2: y, stroke: tok("rim"), "stroke-width": 1 }, svg);
+        if (!st) { el("line", { x1: x - 2, y1: y, x2: x + 2, y2: y, stroke: tok("rim") }, svg); prev = null; return; }
+        const color = { keep: isCur ? "text-2" : "rim", add: "mint", edit: "gold", del: "red", draft: "muse" }[st];
+        el("polygon", { points: `${x},${y - d} ${x + d},${y} ${x},${y + d} ${x - d},${y}`, fill: st === "keep" ? tok(isCur ? "panel-2" : "deep") : tok(color), "fill-opacity": st === "del" || st === "draft" ? 0.15 : 1,
+          stroke: tok(color), "stroke-width": st === "keep" ? 0.75 : 1.25, "stroke-dasharray": st === "del" || st === "draft" ? "3 2" : "" }, svg);
+        const num = st === "del" ? "−" : n ?? "";
+        const t = el("text", { x, y: y + 3.5, "text-anchor": "middle", class: "n", fill: tok(st === "keep" || st === "del" || st === "draft" ? (isCur || isDraft ? "text" : "text-3") : "on-accent") }, svg);
+        t.textContent = num;
+        prev = st === "del" ? null : x;
+      });
+    });
+    el("text", { x: 4, y: vbH - 6 }, svg).textContent = "numbers: lessons carried, prompt lines, turn budget";
   }
   function renderRail(s) {
     const vs = Object.values(state.lineage).sort((a, b) => a.version - b.version);
@@ -354,8 +391,8 @@
         return li(dn < 0 ? "add" : "del", dn < 0 ? "▼" : "▲", r.rule, `${r.before} → ${r.after}`, `${dn < 0 ? "fewer" : "more"} unseen clients failing (${HARD.has(r.rule) ? "hard" : "soft"} rule)`);
       });
       if (scoreBefore != null && scoreAfter != null) {
-        const d = pct(scoreAfter) - pct(scoreBefore);
-        rows.unshift(li(d >= 0 ? "add" : "del", d >= 0 ? "▲" : "▼", "Average score", `${pct(scoreBefore)} → ${pct(scoreAfter)}`, `${signed(d)} points on ${lg.cases || 20} unseen clients`));
+        const d = scoreAfter - scoreBefore;
+        rows.unshift(li(d >= 0 ? "add" : "del", d >= 0 ? "▲" : "▼", "Average score", `${scoreBefore.toFixed(3)} → ${scoreAfter.toFixed(3)}`, `${sd(d)} on ${lg.cases || 20} unseen clients`));
       }
       return rows.length ? `<ul>${rows.join("")}</ul>` : none("No measurable change on unseen clients.");
     };
@@ -372,7 +409,8 @@
       what.innerHTML = (lessonRows ? `<ul>${lessonRows}</ul><p class="muted sub-h">Playbook changes</p>` : "") + mutList(g.mutations);
       if (s.kind === "reject") {
         const gt = g.gate || {}, c = gt.compliance;
-        learned.innerHTML = `<ul>${li("del", "✕", "Didn't survive", "", gt.reason || "failed the gate")}${c ? li(c.verdict === "approve" ? "add" : "del", c.verdict === "approve" ? "✓" : "✕", "Gemini review", cv(c), c.note) : ""}${gt.regression ? li(gt.regression.pass_rate >= 1 ? "add" : "del", gt.regression.pass_rate >= 1 ? "✓" : "✕", "Regression set", `${pct(gt.regression.pass_rate)}%`, "must stay at 100%") : ""}</ul>`;
+        learned.innerHTML = `<ul>${li("del", "✕", "Didn't survive", "", gt.reason || "failed the gate")}${c ? li(c.verdict === "approve" ? "add" : "del", c.verdict === "approve" ? "✓" : "✕", "Gemini review", cv(c), c.note) : ""}${gt.regression ? (() => { const pr = state.versions.find((x) => x.version === g.parent)?.regression?.pass_rate ?? 1; const ok = gt.regression.pass_rate >= pr;
+          return li(ok ? "add" : "del", ok ? "✓" : "✕", "Regression held", `${pr.toFixed(2)} → ${gt.regression.pass_rate.toFixed(2)}`, "pass rate must not drop below the parent"); })() : ""}</ul>`;
       } else {
         // the gate's generation metrics are the authoritative scores; per-run means are a fallback
         const gv = state.versions.find((x) => x.version === g.version), gp = state.versions.find((x) => x.version === g.parent);
@@ -430,10 +468,10 @@
     $("#step-body").textContent = s.body;
     $("#stage").dataset.kind = s.kind;
     $(".score").dataset.tone = s.tone || "";
-    $("#score-num").textContent = s.scoreText ?? pct(s.score);
+    $("#score-num").textContent = s.scoreText ?? s.score.toFixed(3);
     $("#score-label").textContent = s.scoreLabel;
     const dl = $("#score-delta");
-    if (s.delta) { dl.textContent = `${arrow(s.delta.v)} ${signed(s.delta.v)} ${s.delta.label}`; dl.className = `delta ${s.delta.v < 0 ? "neg" : "pos"}`; }
+    if (s.delta) { dl.textContent = `${arrow(s.delta.v)} ${sd(s.delta.v)} ${s.delta.label}`; dl.className = `delta ${s.delta.v < 0 ? "neg" : "pos"}`; }
     else { dl.textContent = ""; dl.className = "delta"; }
     $("#prev").disabled = state.i === 0;
     $("#next").textContent = state.i === steps.length - 1 ? "Start over" : "Next step";
@@ -444,7 +482,7 @@
     const cur = document.querySelector(`#steps button[data-i="${state.i}"]`);
     if (cur) { const row = $("#steps"); row.scrollTo({ left: cur.offsetLeft - row.clientWidth / 2 + cur.offsetWidth / 2, behavior: reduced ? "auto" : "smooth" }); }
     setLight(s.light);
-    renderHelix(s);
+    renderGenome(s);
     renderMut(s);
     renderGate(s);
     renderCurve(s);
@@ -475,10 +513,23 @@
     if (!vs.length) return;
     const xs = (k) => L + (k * (W - L - R)) / Math.max(1, vs.length - 1);
     const lo = 0.4, hi = 1.0, ys = (v) => Tp + (1 - (Math.max(lo, v) - lo) / (hi - lo)) * (H - Tp - B);
-    [0.4, 0.6, 0.8, 1.0].forEach((t) => {
-      el("line", { class: "grid", x1: L, x2: W - R, y1: ys(t), y2: ys(t) }, svg);
-      el("text", { class: "axis", x: L - 8, y: ys(t) + 4, "text-anchor": "end" }, svg).textContent = pct(t);
-    });
+    // barber-pole fill for the drift band (avionics limit convention)
+    const defs = el("defs", {}, svg), pat = el("pattern", { id: "barber", width: 8, height: 8, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+    el("rect", { width: 4, height: 8, fill: tok("red"), "fill-opacity": 0.22 }, pat);
+    // tape scale: minor ticks every 0.02, labeled major ticks every 0.10
+    for (let t = lo; t <= hi + 1e-9; t += 0.02) {
+      const major = Math.abs((t * 10) - Math.round(t * 10)) < 1e-6;
+      if (major) el("line", { class: "grid", x1: L, x2: W - R, y1: ys(t), y2: ys(t) }, svg);
+      el("line", { class: "tick", x1: L - (major ? 7 : 4), x2: L, y1: ys(t), y2: ys(t) }, svg);
+      if (major) el("text", { class: "axis", x: L - 10, y: ys(t) + 4, "text-anchor": "end" }, svg).textContent = t.toFixed(1);
+    }
+    // target bug: what the current version's successor must clear
+    const curG = vs.find((g) => g.version === s.version);
+    if (curG && curG.decision === "shipped" && ["ship", "base"].includes(s.kind)) {
+      const tgt = Math.min(1, curG.test.mean_score + 0.02);
+      el("line", { class: "bug", x1: L, x2: W - R, y1: ys(tgt), y2: ys(tgt) }, svg);
+      el("text", { class: "bug-l", x: W - R, y: ys(tgt) - 5, "text-anchor": "end" }, svg).textContent = `next gate ${tgt.toFixed(3)}`;
+    }
     const seen = (g) => s.chartVersions.has(g.version);
     const red = state.drift.find((d) => d.action === "rollback");
     if (red && s.driftSeen) {
@@ -487,9 +538,9 @@
       const k2 = fix ? vs.findIndex((g) => g.version === fix.to_version) : vs.length - 1;
       if (k1 >= 0) {
         const x1 = xs(k1), x2 = xs(Math.max(k2, k1 + 1)), mx = (x1 + x2) / 2;
-        el("rect", { class: "drift-band", x: x1, y: Tp, width: x2 - x1, height: H - Tp - B, rx: 8 }, svg);
-        el("circle", { class: "drift-pt", cx: mx, cy: ys(red.rolling_score), r: 6 }, svg);
-        el("text", { class: "drift-lbl", x: mx, y: ys(red.rolling_score) + 22, "text-anchor": "middle" }, svg).textContent = `▼ drift ${pct(red.rolling_score)}`;
+        el("rect", { class: "drift-band", x: x1, y: Tp, width: x2 - x1, height: H - Tp - B }, svg);
+        el("rect", { class: "drift-pt", x: mx - 5, y: ys(red.rolling_score) - 5, width: 10, height: 10 }, svg);
+        el("text", { class: "drift-lbl", x: mx, y: ys(red.rolling_score) + 22, "text-anchor": "middle" }, svg).textContent = `▼ drift ${red.rolling_score.toFixed(3)}`;
       }
     }
     const shown = vs.map((g, k) => ({ g, k })).filter((o) => o.g.decision === "shipped" && seen(o.g));
@@ -502,10 +553,11 @@
     vs.forEach((g, k) => {
       const on = seen(g), rej = g.decision === "rejected", cur = g.version === s.version;
       const grp = el("g", { class: on ? "" : "future" }, svg);
-      el("circle", { class: `pt ${rej ? "rej" : ""} ${cur ? "cur" : ""}`, cx: xs(k), cy: ys(g.test.mean_score), r: cur ? 8 : 6 }, grp);
+      const sz = cur ? 7 : 5;
+      el("rect", { class: `pt ${rej ? "rej" : ""} ${cur ? "cur" : ""}`, x: xs(k) - sz, y: ys(g.test.mean_score) - sz, width: sz * 2, height: sz * 2, transform: `rotate(45 ${xs(k)} ${ys(g.test.mean_score)})` }, grp);
       el("text", { class: "vlbl", x: xs(k), y: H - B + 24, "text-anchor": "middle" }, grp).textContent = `v${g.version}`;
-      if (rej) el("text", { class: "rej-lbl", x: xs(k), y: ys(g.test.mean_score) + 22, "text-anchor": "middle" }, grp).textContent = "✕ rejected";
-      else if (on) el("text", { class: "axis", x: xs(k), y: ys(g.test.mean_score) - 14, "text-anchor": "middle" }, grp).textContent = pct(g.test.mean_score);
+      if (rej) el("text", { class: "rej-lbl", x: xs(k), y: ys(g.test.mean_score) + 22, "text-anchor": "middle" }, grp).textContent = `✕ ${g.test.mean_score.toFixed(3)}`;
+      else if (on) el("text", { class: "axis", x: xs(k) + (k === 0 ? 8 : 0), y: ys(g.test.mean_score) - 14, "text-anchor": k === 0 ? "start" : "middle", fill: tok("text") }, grp).textContent = g.test.mean_score.toFixed(3);
     });
   }
 
@@ -526,7 +578,7 @@
       ["agent", "Pi runs Muse in a sandbox. It reads the case and writes a cited recommendation."],
       ["checker", "Fixed rules the agent can't see or edit score every recommendation."],
       ["mentor", "Muse reads up to 8 failures and rewrites the playbook, at most 3 changes."],
-      ["gate", "Beat the parent on unseen clients, keep regression at 100%, pass Gemini review."],
+      ["gate", "Beat the parent on unseen clients by +0.020, hold the regression set, pass Gemini review."],
       ["live", "The new version serves every client, and the loop runs again."],
     ],
     drift: [
@@ -740,7 +792,9 @@
       if ((p.journeys || []).length) proofs.push(`<li><b class="pos">✓</b> holds on holdout checkpoints <span class="mono">${p.journeys.map(esc).join(", ")}</span></li>`);
       if (!proofs.length) proofs.push(`<li class="muted">Kept through the gate; no failures on this rule since.</li>`);
       return `<li class="lesson">
-        <div class="l-meta"><span class="l-n">${String(i + 1).padStart(2, "0")}</span><button class="vchip" data-v="${l.version}" aria-label="See the v${l.version} mutation in the replay">v${l.version}</button><span class="mono l-rule">${esc(l.rule)}</span></div>
+        <div class="l-meta"><span class="l-n">${String(i + 1).padStart(2, "0")} / ${String(d.lessons.length).padStart(2, "0")}</span>
+          ${p.before > p.after ? `<span class="l-big">${p.before}→${p.after}<small>unseen clients failing<br>${esc(l.rule)}</small></span>` : (p.journeys || []).length ? `<span class="l-big">${p.journeys.length}<small>holdout checkpoints<br>held</small></span>` : ""}
+          <button class="vchip" data-v="${l.version}" aria-label="See the v${l.version} mutation in the replay">v${l.version}</button></div>
         <div class="l-body">
           <p class="l-text">${esc(l.lesson)}</p>
           <dl class="l-dl">
@@ -766,9 +820,12 @@
   function renderJourneys(list) {
     if (!list || !list.length) { $("#journeys").hidden = true; return; }
     const pick = $("#jpick");
-    pick.innerHTML = list.map((j, i) => `<button data-j="${i}" aria-pressed="${i === 0}">${esc(j.persona.name)}<span>${esc(j.journey_id)}</span></button>`).join("");
+    pick.innerHTML = list.map((j, i) => `<button data-j="${i}" aria-pressed="${i === 0}">${esc(j.persona.name)}<span>${esc(j.journey_id)}${j.progress ? ` ${j.progress.done}/${j.progress.total}` : ""}</span>${(j.lessons || []).length ? `<i class="pos">+${j.lessons.length}</i>` : ""}</button>`).join("");
     pick.onclick = (e) => { const b = e.target.closest("button[data-j]"); if (!b) return; pick.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); drawJourney(list[+b.dataset.j]); };
-    drawJourney(list[0]);
+    // open on a client whose agent has already learned something
+    const first = Math.max(0, list.findIndex((j) => (j.lessons || []).length));
+    pick.querySelectorAll("button").forEach((x, k) => x.setAttribute("aria-pressed", k === first));
+    drawJourney(list[first]);
   }
   function drawJourney(j) {
     const cps = j.checkpoints, first = j.persona.name.split(" ")[0];
@@ -779,12 +836,23 @@
     const tile = (r, who) => { const st = tileState(r); const [g, w] = TILE[st];
       return `<span class="jt ${st}" title="${esc(r?.violation || w)}" aria-label="${esc(who)}: ${w}${r?.violation ? `, ${esc(r.violation)}` : ""}">${g}</span>${r && r.version != null ? `<span class="jv">v${r.version}</span>` : ""}`; };
     const hold = cps.filter((c) => c.split === "holdout");
+    const ran = (k) => hold.filter((c) => c[k]).length;
     const clean = (k) => hold.filter((c) => tileState(c[k]) === "clean").length;
+    const sm = j.summary;
+    // 12-month forward backtest per checkpoint: minimum cash coverage, drawdown, breach
+    const bt = (r) => { const b = r && r.backtest; if (!b) return `<span class="muted">-</span>`;
+      const cash = b.min_cash_coverage_months, br = b.emergency_fund_breached;
+      return `<span class="jbt"><span class="${br ? "neg" : ""}">${br ? "✕ " : ""}${cash != null ? Number(cash).toFixed(1) : "-"} mo</span><br>dd ${b.max_drawdown != null ? (b.max_drawdown * 100).toFixed(1) : "-"}%${b.forced_sale_usd ? `<br><span class="neg">$${Math.round(b.forced_sale_usd).toLocaleString("en-US")} forced</span>` : ""}</span>`; };
+    const acts = (c) => (c.actions || []).map((a) => a.action === "learn" ? `<span class="jl">+ v${a.version}</span>` : `<span class="jl rej" title="${esc(a.reason || "")}">✕ v${a.version}</span>`).join("");
     $("#journey").innerHTML = `
       <div class="jhead">
-        <div><p class="jname">${esc(j.persona.name)}, ${esc(j.persona.age)}</p><p class="muted">${esc(j.persona.occupation)}, risk ${esc(j.persona.risk_score)}. ${esc(j.arc)}</p></div>
-        <dl class="jscore"><div><dt>Holdout checkpoints clean</dt><dd><span class="neg">${clean("baseline")} of ${hold.length}</span> generic agent</dd><dd><span class="pos">${clean("personal")} of ${hold.length}</span> ${esc(first)}'s agent</dd></div></dl>
-        ${j.source === "demo" ? `<span class="source">Demo journey</span>` : ""}
+        <div><p class="jname">${esc(j.persona.name)}, ${esc(j.persona.age ?? "")}</p><p class="muted">${esc(j.persona.occupation)}${j.persona.state ? `, ${esc(j.persona.state)}` : ""}, risk ${esc(j.persona.risk_score)}. ${esc(j.arc)}</p>
+          ${j.regime_text ? `<p class="jregime">▼ ${esc(j.regime_text)}</p>` : ""}</div>
+        <dl class="jscore"><div><dt>Holdout checkpoints clean</dt>
+          ${sm ? `<dd><span class="neg">${esc(sm.holdout_pass_start)}</span> generic agent, mean ${Number(sm.holdout_mean_start).toFixed(3)}</dd><dd><span class="pos">${esc(sm.holdout_pass_final)}</span> ${esc(first)}'s agent, mean ${Number(sm.holdout_mean_final).toFixed(3)}</dd>`
+            : ran("personal") ? `<dd><span class="neg">${clean("baseline")}/${ran("baseline") || hold.length}</span> generic agent</dd><dd><span class="pos">${clean("personal")}/${ran("personal")}</span> ${esc(first)}'s agent</dd>`
+            : `<dd><span>${j.progress ? `${j.progress.done}/${j.progress.total}` : "-"}</span> checkpoints run; holdout not reached yet</dd>`}</div></dl>
+        <span class="source">${j.source === "demo" ? "Demo journey" : `Live, ${esc(j.db || "")}`}</span>
       </div>
       <div class="jscroll" tabindex="0" aria-label="Checkpoint timeline, scroll sideways">
         <div class="jgrid" style="grid-template-columns: 140px ${cols}">
@@ -793,10 +861,12 @@
           ${cell("Life events", "lab")}${cps.map((c) => cell(c.events.length ? c.events.map((e) => `<span class="chip">${esc(evName(e))}</span>`).join(" ") : `<span class="muted">none</span>`)).join("")}
           ${cell("Generic agent", "lab")}${cps.map((c) => cell(tile(c.baseline, "Generic agent"), "trow")).join("")}
           ${cell(`${esc(first)}'s agent`, "lab")}${cps.map((c) => cell(tile(c.personal, `${first}'s agent`), "trow")).join("")}
-          ${cell("Lessons", "lab")}${cps.map((c) => cell((lessonAt[c.id] || []).map((l) => `<span class="jl" title="${esc(l.lesson)}">◆ ${esc(l.rule)}</span>`).join(""))).join("")}
+          ${cell("12-mo backtest", "lab")}${cps.map((c) => cell(bt(c.personal))).join("")}
+          ${cell("Lessons", "lab")}${cps.map((c) => cell((lessonAt[c.id] || []).map((l) => `<span class="jl" title="${esc(l.lesson)}">◆ ${esc(l.rule)}</span>`).join("") + acts(c))).join("")}
         </div>
       </div>
-      <ol class="jlessons">${(j.lessons || []).slice().sort((a, b) => a.at.localeCompare(b.at)).map((l) => {
+      ${(j.lessons || []).length ? "" : `<p class="jempty muted">No lessons yet. ${esc(first)}'s agent learns at the first train checkpoint it fails.</p>`}
+      <ol class="jlessons">${(j.lessons || []).slice().sort((a, b) => String(a.at).localeCompare(String(b.at))).map((l) => {
         const c = cps.find((x) => x.id === l.at);
         return `<li><span class="mono">${esc(l.at)}</span><div><p class="l-text small">${esc(l.lesson)}</p><p class="muted">Learned at ${esc(c ? c.date.slice(0, 7) : l.at)} from ${esc(evName(l.triggered_by))}: ${esc(l.root_cause)}</p></div></li>`; }).join("")}</ol>`;
   }
@@ -850,17 +920,36 @@
     $("#clients").addEventListener("click", (e) => { const b = e.target.closest("button[data-id]"); if (b) openClient(b.dataset.id); });
     $("#sheet-close").addEventListener("click", () => $("#sheet").close());
     $("#sheet").addEventListener("click", (e) => { if (e.target === $("#sheet")) $("#sheet").close(); });
-    const th = $("#theme");
-    const syncTheme = () => { const light = document.documentElement.dataset.theme === "light"; th.textContent = light ? "Dark" : "Light"; th.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme"); };
-    syncTheme();
-    th.addEventListener("click", () => {
-      const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem("ballast-theme", next); } catch (_) { /* private mode */ }
-      syncTheme();
-      if (state.steps.length) show(state.i);
-      renderLoop(); renderLayers();
-    });
+  }
+  // hero instrument panel: the real training run, read live from the runtime's database
+  async function renderBoard() {
+    const host = $("#board");
+    let d;
+    try { d = await get("/api/scoreboard"); } catch (_) { d = null; }
+    const vs = (d && d.versions) || [];
+    const shipped = vs.filter((v) => v.decision === "shipped");
+    const cur = shipped[shipped.length - 1] || vs[vs.length - 1];
+    if (!cur || !cur.test) {
+      host.innerHTML = `<div class="bd-head"><span>Live training run</span><span>no generations yet</span></div><p class="bd-note">The scoreboard fills in when the runtime finishes its first baseline.</p>`;
+      return;
+    }
+    const base = vs[0];
+    const tape = (m, bug) => `<div class="tape" aria-hidden="true"><span class="fill" style="width:${(m.mean * 100).toFixed(1)}%"></span>${bug != null ? `<span class="bug" style="left:${(bug * 100).toFixed(1)}%"></span>` : ""}</div>`;
+    const row = (k, m, bug) => m ? `<div class="bd-row"><span>${k}</span>${tape(m, bug)}<b>${m.mean.toFixed(3)}</b><em>${m.passed}/${m.n}</em></div>` : "";
+    const regFloor = cur.regression ? cur.regression.mean : null;
+    const xs = vs.map((v) => v.test?.mean ?? null).filter((x) => x != null);
+    const sp = xs.length > 1 ? (() => {
+      const lo = Math.min(...xs) - 0.02, hi = Math.max(...xs) + 0.02, w = 200, h = 30;
+      const P = xs.map((x, i) => [(i / (xs.length - 1)) * w, h - ((x - lo) / (hi - lo)) * h]);
+      return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${P.map((p) => p.join(",")).join(" ")}" fill="none" stroke="var(--mint)" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>`;
+    })() : `<svg viewBox="0 0 200 30" aria-hidden="true"><line x1="0" y1="15" x2="200" y2="15" stroke="var(--rim)" stroke-dasharray="3 3"/></svg>`;
+    const delta = base && base !== cur ? cur.test.mean - base.test.mean : null;
+    host.innerHTML = `
+      <div class="bd-head"><span>Live run, <b>${esc((d.model || "").replace(/^meta\//, ""))}</b></span><span>${esc(d.db)}, v${cur.version}</span></div>
+      <div class="bd-big"><span class="n">${cur.test.mean.toFixed(3)}</span><span class="k">mean policy score on ${cur.test.n} unseen clients${delta != null ? `<br><span class="${delta >= 0 ? "pos" : "neg"}">${arrow(delta)} ${sd(delta)} vs v0</span>` : ""}</span></div>
+      <div class="bd-rows">${row("practice", cur.practice)}${row("test", cur.test, Math.min(1, cur.test.mean + 0.02))}${row("regression", cur.regression, regFloor)}</div>
+      <div class="bd-spark"><span>test by version</span>${sp}<span>${vs.length} gen</span></div>
+      <p class="bd-note">Magenta bugs mark the gate for the next upgrade: test must clear ${(cur.test.mean + 0.02).toFixed(3)}, regression must hold its floor (${regFloor != null ? regFloor.toFixed(3) : "-"}). Muse only ever sees practice.</p>`;
   }
   async function liveDot() {
     try {
@@ -873,9 +962,8 @@
   }
 
   async function init() {
-    const th = new URLSearchParams(location.search).get("theme");
-    if (th === "light" || th === "dark") document.documentElement.dataset.theme = th;
     liveDot();
+    renderBoard();
     setInterval(() => { if (!document.hidden) liveDot(); }, 20000);
     bind();
     bindHow();
@@ -900,7 +988,6 @@
       renderCoverage(les, jrn, drift);
       const m = /#step-(\d+)/.exec(location.hash);
       show(m ? +m[1] - 1 : 0);
-      animateHelix();
       let rt;
       addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => renderCurve(state.steps[state.i]), 150); });
     } catch (e) {

@@ -412,6 +412,7 @@ def lineage(db: str | None = None, demo: int = 0):
             "version": v, "parent": p.get("parent"), "status": p.get("status"), "changelog": p.get("changelog", ""),
             "elements": els, "mutations": _mutations(par_els, els),
             "lessons_added": [l for l in _lessons(p.get("yaml", "")) if l["lesson"] not in {x["lesson"] for x in _lessons((par or {}).get("yaml", ""))}],
+            "lessons": _lessons(p.get("yaml", "")),
             "why": why, "why_set": why_set,
             "learned": {"rules": rules, "score_before": mean(before), "score_after": mean(after),
                         "cases": len(after), "example": example},
@@ -484,12 +485,116 @@ def _journey_rows(data: dict) -> list[dict]:
     return out
 
 
+def _real_journeys(name: str) -> list[dict]:
+    """Journeys in the runtime's actual schema: journeys (meta.json), journey_steps, journey_playbooks,
+    journey_summaries, and runs with set "journey" + phase. Empty list if there is nothing real yet."""
+    d, _ = _db(name)
+    metas = list(d.journeys.find({}, {"_id": 0}).sort("journey_id", 1))
+    steps = list(d.journey_steps.find({}, {"_id": 0}).sort("created_at", 1))
+    if not metas or not steps:
+        return []
+    pbs = list(d.journey_playbooks.find({}, {"_id": 0, "yaml": 0}))
+    sums = {s["journey"]: s for s in d.journey_summaries.find({}, {"_id": 0})}
+    runs = list(d.runs.find({"set": "journey"}, {"_id": 0, "steps": 0, "recommendation": 0, "results": 0}).sort("created_at", 1))
+    out = []
+    for m in metas:
+        jid = m["journey_id"]
+        jsteps = [s for s in steps if s.get("journey") == jid]
+        jruns = [r for r in runs if r.get("journey") == jid or str(r.get("case_id", "")).startswith(jid + "/")]
+        jpbs = sorted([p for p in pbs if p.get("journey") == jid], key=lambda p: p.get("version") or 0)
+        shipped = [p for p in jpbs if p.get("status") == "shipped"]
+        # lessons: the latest shipped playbook's accumulated list; learned_at = the first version that contains it
+        lessons = []
+        for l in (shipped[-1].get("lessons") if shipped else None) or []:
+            first = next((p for p in jpbs if any(x.get("lesson") == l.get("lesson") for x in p.get("lessons") or [])), None)
+            lessons.append({**{k: l.get(k) for k in ("lesson", "root_cause", "triggered_by", "rule", "skill")},
+                            "at": (first or {}).get("learned_at"), "version": (first or {}).get("version")})
+        crash = "Equity crash" if "crash" in str(m.get("regime", "")).lower() else "Market drop"
+
+        def res(r):
+            if not r:
+                return None
+            v = r.get("violations") or []
+            return {"version": r.get("playbook_version", r.get("version")), "passed": r.get("passed"), "score": r.get("score"),
+                    "violation": f"{v[0]['rule']}: {v[0]['detail']}" if v else None, "run_id": r.get("run_id"), "backtest": r.get("backtest")}
+
+        cps = []
+        for cp in m.get("checkpoints", []):
+            cid = cp["id"]
+            here_runs = [r for r in jruns if r.get("checkpoint") == cid or r.get("case_id") == f"{jid}/{cid}"]
+            here_steps = [s for s in jsteps if s.get("checkpoint") == cid]
+            by_phase = lambda ph: [r for r in here_runs if r.get("phase") == ph]
+            if cp.get("split") == "holdout":
+                base = (by_phase("holdout_start") or [None])[-1]
+                pers = (by_phase("holdout_final") or [None])[-1]
+                prove = next((s for s in reversed(here_steps) if s.get("action") == "prove"), None)
+                if prove and not pers:
+                    pers = prove
+                if prove and not base and prove.get("start_score") is not None:
+                    base = {"playbook_version": 0, "passed": prove.get("start_passed"), "score": prove.get("start_score"), "violations": []}
+            else:
+                train = by_phase("train")
+                base = next((r for r in train if (r.get("playbook_version") or 0) == 0), None)
+                ev = next((s for s in here_steps if s.get("action") == "evaluate"), None)
+                pers = (train[-1] if train else None) or ev
+            cps.append({"id": cid, "date": cp.get("as_of"), "split": cp.get("split"), "events": cp.get("events") or [],
+                        "regime": crash if "market_drop" in (cp.get("events") or []) else None,
+                        "baseline": res(base), "personal": res(pers),
+                        "actions": [{"action": s.get("action"), "version": s.get("version"), "reason": s.get("reason"),
+                                     "lessons": [x.get("lesson") for x in s.get("lessons") or []]} for s in here_steps
+                                    if s.get("action") in ("learn", "reject")]})
+        done = [c for c in cps if c["personal"]]
+        p = m.get("persona") or {}
+        out.append({"journey_id": jid, "source": "live", "db": name,
+                    "persona": {"name": p.get("name", jid), "age": p.get("age", p.get("age_at_start")), "occupation": p.get("occupation", ""),
+                                "risk_score": p.get("risk_score"), "state": p.get("state")},
+                    "arc": m.get("arc", ""), "regime_text": m.get("regime", ""),
+                    "regimes": [{"name": crash, "kind": "crash"}] if any(c["regime"] for c in cps) else [],
+                    "checkpoints": cps, "lessons": lessons, "summary": sums.get(jid),
+                    "progress": {"done": len(done), "total": len(cps), "at": done[-1]["id"] if done else None,
+                                 "versions": len(shipped), "rejected": sum(1 for p in jpbs if p.get("status") == "rejected")}})
+    return out
+
+
+@app.get("/api/scoreboard")
+def scoreboard(db: str | None = None):
+    """The real training run's generations (practice / test / regression per version) for the hero instrument panel."""
+    def q():
+        d, name = _db(db or os.environ.get("LIVE_DB", "ballast_muse"))
+        gens = list(d.generations.find({}, {"_id": 0}).sort("created_at", 1))
+        model = (d.runs.find_one({"set": "test"}, {"_id": 0, "model": 1}, sort=[("created_at", -1)]) or {}).get("model")
+        return name, gens, model
+    try:
+        name, gens, model = _mongo_guard(q)
+    except HTTPException:
+        return {"db": None, "model": None, "versions": []}
+
+    def cell(m, set_name):
+        if not m:
+            return None
+        n = m.get("n") or SET_SIZES.get(set_name, 20)
+        return {"mean": m.get("mean_score"), "pass_rate": m.get("pass_rate"), "passed": round((m.get("pass_rate") or 0) * n), "n": n}
+    return {"db": name, "model": model, "versions": [
+        {"version": g.get("version"), "decision": g.get("decision"), "reason": g.get("reason"), "mode": g.get("mode"),
+         "practice": cell(g.get("practice"), "practice"), "test": cell(g.get("test"), "test"),
+         "regression": cell(g.get("regression"), "regression"), "created_at": g.get("created_at")} for g in gens]}
+
+
 @app.get("/api/journeys")
 def journeys(db: str | None = None, demo: int = 0):
-    rows = _journey_rows(_data(db, demo))
-    if not db and _load(bool(demo))[1] == "demo":
-        rows = [{**r, "source": "demo"} for r in rows]
-    return rows
+    """Real journeys from the runtime (LIVE_DB, or ?db=) when they exist; otherwise the seed's demo journeys."""
+    if not demo:
+        try:
+            real = _real_journeys(db or os.environ.get("LIVE_DB", "ballast_muse"))
+            if real:
+                return real
+        except HTTPException:
+            if db:
+                raise
+        except Exception:
+            pass
+    rows = _journey_rows(_data(None, demo))
+    return [{**r, "source": "demo"} for r in rows]
 
 
 @app.get("/api/lessons")
@@ -539,7 +644,15 @@ def lessons(db: str | None = None, demo: int = 0):
                 if l["lesson"] not in seen:
                     g = gens.get(v) or {}
                     rejected.append({**l, "version": v, "reason": g.get("reason"), "compliance": g.get("compliance")})
-    return {"lessons": ledger, "rejected": rejected, "current_version": current,
+    # per-client lessons from the journey runtime (journey_playbooks), when this db has them
+    jl = []
+    try:
+        for j in _real_journeys(db or os.environ.get("LIVE_DB", "ballast_muse")):
+            if j["lessons"]:
+                jl.append({"journey": j["journey_id"], "client": j["persona"]["name"], "lessons": j["lessons"]})
+    except Exception:
+        pass
+    return {"lessons": ledger, "rejected": rejected, "current_version": current, "journey_lessons": jl,
             "playbook_yaml": pbs[current]["yaml"] if current is not None else None}
 
 

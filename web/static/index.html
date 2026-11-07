@@ -7,12 +7,11 @@
 <meta name="description" content="ballast. gives advisory firms a portfolio agent for every client. It adapts to life changes, cites every trade, and only ships upgrades it can prove.">
 <meta property="og:title" content="ballast.">
 <meta property="og:description" content="A portfolio agent for every client that gets measurably better with every run.">
-<meta name="theme-color" content="#07160f">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307160f'/%3E%3Ctext x='9' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='%23ecf8f1'%3Eb%3C/text%3E%3Crect x='40' y='37' width='9' height='9' fill='%236ff0b1'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0f14'/%3E%3Cpath d='M32 8 56 32 32 56 8 32Z' fill='none' stroke='%2378e8a8' stroke-width='5'/%3E%3Crect x='27' y='27' width='10' height='10' fill='%23e9c46a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<script>try{var t=localStorage.getItem("ballast-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
@@ -29,16 +28,20 @@
     <a href="/live" class="live-link"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
   <div class="top-right">
-    <span id="source" class="source" hidden>Demo data</span>
-    <button class="theme" id="theme" aria-label="Switch color theme">Light</button>
+    <span id="source" class="source" hidden>Replay: demo data</span>
     <span class="light" id="light" role="status" aria-live="polite"><i></i><b>Aligned</b></span>
   </div>
 </header>
 
 <main id="main">
   <section class="intro" id="top" aria-labelledby="intro-h">
-    <h1 class="intro-h" id="intro-h">Every client gets their own agent.</h1>
-    <p class="lede">ballast. gives advisory firms a portfolio agent for each client. It rebalances to the client's risk profile and to what is happening in their life: a layoff, a new child, a marriage, an inheritance.</p>
+    <div class="hero">
+      <div class="hero-copy">
+        <h1 class="intro-h" id="intro-h">Every client gets their own agent.</h1>
+        <p class="lede">ballast. gives advisory firms a portfolio agent for each client. It rebalances to the client's risk profile and to what is happening in their life: a layoff, a new child, a marriage, an inheritance.</p>
+      </div>
+      <div class="board" id="board" aria-label="Live scoreboard"></div>
+    </div>
     <dl class="pitch">
       <div><dt>Who it's for</dt><dd>Registered investment advisers and the households they serve, especially when life changes fast.</dd></div>
       <div><dt>What you get</dt><dd>A recommendation for every client with a cited reason for every trade. An advisor approves it. ballast. never trades on its own.</dd></div>
@@ -72,7 +75,16 @@
         </div>
       </div>
       <figure class="helix-fig">
-        <svg id="helix" class="helix" viewBox="0 0 640 380" role="img" aria-labelledby="helix-desc"><desc id="helix-desc">The current playbook drawn as a double helix</desc></svg>
+        <div class="viz-row">
+          <div class="viz">
+            <p class="viz-k">Rule radar <span>pass rate per rule, 20 unseen clients</span></p>
+            <svg id="radar" class="radar" viewBox="0 0 360 340" role="img" aria-label="Pass rate per policy rule for each version"></svg>
+          </div>
+          <div class="viz">
+            <p class="viz-k">Genome lattice <span>playbook elements by version</span></p>
+            <svg id="lattice" class="lattice" viewBox="0 0 360 340" role="img" aria-label="Playbook elements present in each version"></svg>
+          </div>
+        </div>
         <ul class="pairs" id="pairs" aria-label="Base pairs in this playbook"></ul>
         <ol class="rail" id="rail" aria-label="Lineage"></ol>
       </figure>
