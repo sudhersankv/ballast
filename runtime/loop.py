@@ -24,6 +24,8 @@ sys.path[:0] = [str(ROOT / "runtime"), str(ROOT / "checker"), str(ROOT / "agent"
 
 import mentor  # noqa: E402
 import snap  # noqa: E402
+sys.path.insert(0, str(ROOT / "scenarios"))
+from backtest import backtest  # noqa: E402
 from check import check, load_case  # noqa: E402
 from drift import drift_level, trusted_rules_from  # noqa: E402
 from run_case import run_case  # noqa: E402
@@ -74,6 +76,11 @@ def evaluate(version: int, set_name: str, dirs: list[Path] | None = None, model:
     def one(d: Path) -> dict:
         run = run_case(str(pb_path(version)), str(d))
         chk = check(d, run["recommendation"], run["error"])
+        # Market backtest over the held-out months the agent never saw.
+        try:
+            chk["backtest"] = backtest(d, run["recommendation"])
+        except Exception as e:
+            chk["backtest"] = {"error": f"{e.__class__.__name__}: {e}"}
         store.log_run(version, set_name, run, chk)
         return {"case_dir": str(d), "run": run, "check": chk}
 
@@ -93,9 +100,18 @@ def metrics(results: list[dict]) -> dict:
     for r in results:
         for v in r["check"]["violations"]:
             viol[v["rule"]] = viol.get(v["rule"], 0) + 1
+    bts = [r["check"].get("backtest") or {} for r in results]
+    bts = [b for b in bts if "forward_return" in b]
+    bt = {"n": len(bts),
+          "mean_forward_return": round(sum(b["forward_return"] for b in bts) / len(bts), 4) if bts else None,
+          "mean_vs_hold": round(sum(b.get("vs_hold_return", 0) for b in bts) / len(bts), 4) if bts else None,
+          "worst_drawdown": round(min(b["max_drawdown"] for b in bts), 4) if bts else None,
+          "breaches": sum(1 for b in bts if b["emergency_fund_breached"]),
+          "forced_sales": sum(1 for b in bts if b["forced_sale_usd"] > 0),
+          "forced_sale_usd": round(sum(b["forced_sale_usd"] for b in bts), 2)}
     return {"mean_score": round(sum(r["check"]["score"] for r in results) / len(results), 4),
             "pass_rate": round(sum(r["check"]["passed"] for r in results) / len(results), 4),
-            "n": len(results), "violations": viol,
+            "n": len(results), "violations": viol, "backtest": bt,
             "tokens": sum((r["run"].get("tokens_in") or 0) + (r["run"].get("tokens_out") or 0) for r in results),
             "seconds": round(sum(r["run"].get("seconds") or 0 for r in results), 1)}
 
@@ -192,12 +208,18 @@ def train(generations: int) -> None:
                    "regression": evaluate(nxt, "regression")}
             gain = metrics(res["test"])["mean_score"] - metrics(p_test)["mean_score"]
             regs = regressions(p_reg, res["regression"])
+            pb_bt, cb_bt = metrics(p_test)["backtest"], metrics(res["test"])["backtest"]
+            bt_worse = (cb_bt["breaches"] > pb_bt["breaches"]) or (cb_bt["forced_sales"] > pb_bt["forced_sales"])
             if regs:
                 reason = f"regression_fail: {', '.join(regs)}"
+            elif bt_worse:
+                reason = (f"backtest_fail: held-out months show {cb_bt['breaches']} emergency-fund breaches / "
+                          f"{cb_bt['forced_sales']} forced sales vs parent {pb_bt['breaches']} / {pb_bt['forced_sales']}")
             elif gain < MIN_GAIN:
                 reason = f"no_test_gain: {gain:+.3f} (needs +{MIN_GAIN})"
             else:
-                reason = f"test {gain:+.3f} vs v{current}; regression held"
+                reason = (f"test {gain:+.3f} vs v{current}; regression held; backtest breaches "
+                          f"{pb_bt['breaches']}->{cb_bt['breaches']}, forced sales {pb_bt['forced_sales']}->{cb_bt['forced_sales']}")
         shipped = reason.startswith("test ")
         store.set_playbook_status(nxt, "shipped" if shipped else "rejected")
         store.log_generation({"version": nxt, "parent": current, "mode": "training",

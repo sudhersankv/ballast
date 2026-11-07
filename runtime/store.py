@@ -133,6 +133,7 @@ class Store:
             "turns": run.get("turns"),
             "steps": run.get("steps", []),
             "results": check.get("results", []),
+            "backtest": check.get("backtest"),
         })
 
     def log_generation(self, doc: dict) -> dict:
