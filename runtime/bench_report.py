@@ -356,8 +356,12 @@ def subq_feedback(m: dict, s: dict) -> tuple[list[str], dict]:
                  f"Muse {mm.get('holdout_pass_start', '–')}→{mm.get('holdout_pass_final', '–')} (mean {fmt(mm.get('holdout_mean_start'), 2)}→{fmt(mm.get('holdout_mean_final'), 2)})")
     L += ["", "**Strengths.** About 2× faster per case than Muse Spark, fewer output tokens, decisive tool use, and lessons that read as general habits. "
           "A strong fit for high-volume per-event re-runs.",
-          "**Weaknesses.** Mentor output needed a format retry more often; some per-client lessons fixed the checkpoint they were learned on but did not carry "
-          "to the client's later quarters (see the journeys above where the mean dropped). Each such case was caught by the time-based holdout, which is the point of the gate.",
+          "**Weaknesses.** In this phase, SubQ's fleet training was limited by **output format, not reasoning**: most mentor attempts failed our structural "
+          "validator (the `lessons` list shape, dropped `tools`/`max_turns` keys, or more than 3 changes), so few candidates reached the gate. After this run we "
+          "switched the mentor to structured JSON output (`response_format: json_schema`) with lenient lesson parsing, identical for every model; with that change "
+          "SubQ's mentor produced a valid playbook on the first try (10.8 s; lesson: \"After a layoff, I fund the emergency reserve to the required months before "
+          "rebalancing anything else.\"). Separately, some per-client lessons fixed the checkpoint they were learned on but did not carry to the client's later "
+          "quarters (the journeys above where the mean dropped); the time-based holdout caught each of these, which is what it is for.",
           "", "### 4. SubQ Snap review", "",
           "**How we use it.** The rule checker is the source of truth. Snap runs (1) before the agent on every new life event to say which rules are at risk and whether the playbook covers it, so risky uncovered events are re-run first, and (2) after a batch as a second opinion on rollback, drift level, the rule at risk, novelty and urgency. Disagreements with the rules are logged.",
           "", "**Calibration against the rule checker** (39 events, 14 labelled windows):",
@@ -402,7 +406,11 @@ def main() -> None:
         return f"| {label} | {f(M)} | {f(Q)} |"
     jm = {j["journey"]: j for j in m["jsumm"]}
     jq = {j["journey"]: j for j in s["jsumm"]}
-    L = ["# ballast. benchmark: Muse stack vs SubQ stack", "",
+    L = ["# ballast. benchmark: one framework, several models", "",
+         "**What this shows.** ballast. is model-agnostic: the same harness, the same gates and the same generic starting skill file "
+         "are applied to each model, and we measure whether the framework (failure → root cause → new skill → gated ship) improves "
+         "that model and whether the gates catch that model's bad changes. It is not a contest between models; differences between "
+         "stacks are reported so you can see where each one adapts or struggles. Honest negatives are kept.", "",
          "Same tests, same gates, same generic starting skill file, Gemini as the only reviewer. "
          f"Unseen test = 20 clients × {M['repeats']} runs each; a client passes if it passes in the majority of runs. "
          "Gains are paired per client with a bootstrap 90% confidence interval. Every run is also backtested over 12 real held-out months.",
