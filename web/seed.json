@@ -897,22 +897,22 @@
   {
    "client_id": "c-014",
    "name": "Omar Aziz",
-   "age": 51,
-   "risk_score": 4,
-   "monthly_expenses": 4400,
-   "portfolio_value": 180000,
+   "age": 32,
+   "risk_score": 5,
+   "monthly_expenses": 6100,
+   "portfolio_value": 120000,
    "events": [
     {
      "type": "job_change",
-     "date": "2026-10-08"
+     "date": "2026-10-28"
     }
    ],
    "agent_version": 5,
    "last_recommendation": {
     "client_id": "c-014",
     "target_allocation": {
-     "equity": 0.77,
-     "bond": 0.13,
+     "equity": 0.93,
+     "bond": -0.03,
      "cash": 0.1
     },
     "trades": [],
@@ -1077,7 +1077,7 @@
    "name": "Felix Huber",
    "age": 32,
    "risk_score": 3,
-   "monthly_expenses": 5200,
+   "monthly_expenses": 6100,
    "portfolio_value": 120000,
    "events": [],
    "agent_version": 5,
@@ -1088,43 +1088,78 @@
      "bond": 0.3,
      "cash": 0.1
     },
-    "trades": [],
-    "rationale": [],
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
     "profile_updates": {
      "goals_add": [],
      "monthly_contribution": null,
      "risk_score": null
     },
     "flags": [],
-    "no_action_reason": "Every class within 5 points of target and no new events."
+    "no_action_reason": null
    }
   },
   {
    "client_id": "c-019",
    "name": "Amara Diallo",
-   "age": 40,
-   "risk_score": 2,
-   "monthly_expenses": 5200,
+   "age": 38,
+   "risk_score": 4,
+   "monthly_expenses": 7000,
    "portfolio_value": 240000,
    "events": [
     {
      "type": "marriage",
-     "date": "2026-10-21"
+     "date": "2026-10-11"
     }
    ],
    "agent_version": 5,
    "last_recommendation": {
     "client_id": "c-019",
     "target_allocation": {
-     "equity": 0.4,
-     "bond": 0.5,
+     "equity": 0.77,
+     "bond": 0.13,
      "cash": 0.1
     },
-    "trades": [],
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     }
+    ],
     "rationale": [
      {
       "ref": "event:e1",
       "text": "Marriage: joint profile review before any risk change."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
      }
     ],
     "profile_updates": {
@@ -1135,7 +1170,7 @@
     "flags": [
      "joint_profile_review"
     ],
-    "no_action_reason": "Holding until the joint review."
+    "no_action_reason": null
    }
   },
   {
@@ -1206,13 +1241,14 @@
    "playbook_version": 0,
    "case_id": "c-001",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
     {
      "rule": "emergency_fund",
      "severity": "hard",
-     "detail": "cash 0.9 months, needs 6 after layoff"
+     "detail": "cash 2.7 months after rebalancing to normal targets, needs 6 after layoff"
     },
     {
      "rule": "concentration",
@@ -1231,6 +1267,7 @@
    "playbook_version": 1,
    "case_id": "c-001",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -1251,6 +1288,7 @@
    "playbook_version": 2,
    "case_id": "c-001",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -1276,6 +1314,7 @@
    "playbook_version": 3,
    "case_id": "c-001",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -1296,6 +1335,7 @@
    "playbook_version": 4,
    "case_id": "c-001",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1310,6 +1350,7 @@
    "playbook_version": 5,
    "case_id": "c-001",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1378,6 +1419,7 @@
    "playbook_version": 0,
    "case_id": "c-002",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1392,6 +1434,7 @@
    "playbook_version": 1,
    "case_id": "c-002",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -1412,6 +1455,7 @@
    "playbook_version": 2,
    "case_id": "c-002",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -1432,6 +1476,7 @@
    "playbook_version": 3,
    "case_id": "c-002",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1446,6 +1491,7 @@
    "playbook_version": 4,
    "case_id": "c-002",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1460,6 +1506,7 @@
    "playbook_version": 5,
    "case_id": "c-002",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1490,6 +1537,7 @@
    "playbook_version": 0,
    "case_id": "c-003",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -1510,6 +1558,7 @@
    "playbook_version": 1,
    "case_id": "c-003",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -1530,6 +1579,7 @@
    "playbook_version": 2,
    "case_id": "c-003",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -1550,6 +1600,7 @@
    "playbook_version": 3,
    "case_id": "c-003",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1564,6 +1615,7 @@
    "playbook_version": 4,
    "case_id": "c-003",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1578,6 +1630,7 @@
    "playbook_version": 5,
    "case_id": "c-003",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1618,6 +1671,7 @@
    "playbook_version": 0,
    "case_id": "c-004",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -1638,6 +1692,7 @@
    "playbook_version": 1,
    "case_id": "c-004",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -1658,6 +1713,7 @@
    "playbook_version": 2,
    "case_id": "c-004",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -1678,6 +1734,7 @@
    "playbook_version": 3,
    "case_id": "c-004",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1692,6 +1749,7 @@
    "playbook_version": 4,
    "case_id": "c-004",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1706,6 +1764,7 @@
    "playbook_version": 5,
    "case_id": "c-004",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1743,6 +1802,7 @@
    "playbook_version": 0,
    "case_id": "c-005",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": false,
    "violations": [
@@ -1763,6 +1823,7 @@
    "playbook_version": 1,
    "case_id": "c-005",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": false,
    "violations": [
@@ -1783,6 +1844,7 @@
    "playbook_version": 2,
    "case_id": "c-005",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": false,
    "violations": [
@@ -1803,6 +1865,7 @@
    "playbook_version": 3,
    "case_id": "c-005",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": false,
    "violations": [
@@ -1823,6 +1886,7 @@
    "playbook_version": 4,
    "case_id": "c-005",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -1837,6 +1901,7 @@
    "playbook_version": 5,
    "case_id": "c-005",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -1891,6 +1956,7 @@
    "playbook_version": 0,
    "case_id": "c-006",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -1916,6 +1982,7 @@
    "playbook_version": 1,
    "case_id": "c-006",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -1941,6 +2008,7 @@
    "playbook_version": 2,
    "case_id": "c-006",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -1966,6 +2034,7 @@
    "playbook_version": 3,
    "case_id": "c-006",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -1986,6 +2055,7 @@
    "playbook_version": 4,
    "case_id": "c-006",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2000,6 +2070,7 @@
    "playbook_version": 5,
    "case_id": "c-006",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2052,19 +2123,20 @@
    "playbook_version": 0,
    "case_id": "c-007",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
     {
      "rule": "emergency_fund",
      "severity": "hard",
-     "detail": "cash 1.1 months, needs 6 after layoff"
+     "detail": "cash 2.6 months after rebalancing to normal targets, needs 6 after layoff"
     }
    ],
    "recommendation": null,
-   "tokens_in": 13379,
-   "tokens_out": 1078,
-   "seconds": 52.1,
+   "tokens_in": 13995,
+   "tokens_out": 1279,
+   "seconds": 38.7,
    "created_at": "2026-11-07T13:05:00+00:00"
   },
   {
@@ -2072,13 +2144,14 @@
    "playbook_version": 1,
    "case_id": "c-007",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 11610,
-   "tokens_out": 828,
-   "seconds": 55.8,
+   "tokens_in": 10028,
+   "tokens_out": 1407,
+   "seconds": 63.5,
    "created_at": "2026-11-07T13:45:00+00:00"
   },
   {
@@ -2086,6 +2159,7 @@
    "playbook_version": 2,
    "case_id": "c-007",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2096,9 +2170,9 @@
     }
    ],
    "recommendation": null,
-   "tokens_in": 13222,
-   "tokens_out": 1332,
-   "seconds": 54.1,
+   "tokens_in": 14059,
+   "tokens_out": 1370,
+   "seconds": 55.1,
    "created_at": "2026-11-07T14:20:00+00:00"
   },
   {
@@ -2106,13 +2180,14 @@
    "playbook_version": 3,
    "case_id": "c-007",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 15060,
-   "tokens_out": 755,
-   "seconds": 45.0,
+   "tokens_in": 9442,
+   "tokens_out": 1167,
+   "seconds": 65.4,
    "created_at": "2026-11-07T14:55:00+00:00"
   },
   {
@@ -2120,6 +2195,7 @@
    "playbook_version": 4,
    "case_id": "c-007",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2134,6 +2210,7 @@
    "playbook_version": 5,
    "case_id": "c-007",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2186,6 +2263,7 @@
    "playbook_version": 0,
    "case_id": "c-008",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -2206,6 +2284,7 @@
    "playbook_version": 1,
    "case_id": "c-008",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -2226,6 +2305,7 @@
    "playbook_version": 2,
    "case_id": "c-008",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -2246,6 +2326,7 @@
    "playbook_version": 3,
    "case_id": "c-008",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2260,6 +2341,7 @@
    "playbook_version": 4,
    "case_id": "c-008",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2274,6 +2356,7 @@
    "playbook_version": 5,
    "case_id": "c-008",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2304,6 +2387,7 @@
    "playbook_version": 0,
    "case_id": "c-009",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -2324,6 +2408,7 @@
    "playbook_version": 1,
    "case_id": "c-009",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -2344,6 +2429,7 @@
    "playbook_version": 2,
    "case_id": "c-009",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -2364,6 +2450,7 @@
    "playbook_version": 3,
    "case_id": "c-009",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2378,6 +2465,7 @@
    "playbook_version": 4,
    "case_id": "c-009",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2392,6 +2480,7 @@
    "playbook_version": 5,
    "case_id": "c-009",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2432,6 +2521,7 @@
    "playbook_version": 0,
    "case_id": "c-010",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2452,6 +2542,7 @@
    "playbook_version": 1,
    "case_id": "c-010",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2472,6 +2563,7 @@
    "playbook_version": 2,
    "case_id": "c-010",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2492,6 +2584,7 @@
    "playbook_version": 3,
    "case_id": "c-010",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2512,6 +2605,7 @@
    "playbook_version": 4,
    "case_id": "c-010",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2526,6 +2620,7 @@
    "playbook_version": 5,
    "case_id": "c-010",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -2596,6 +2691,7 @@
    "playbook_version": 0,
    "case_id": "c-011",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2610,6 +2706,7 @@
    "playbook_version": 1,
    "case_id": "c-011",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -2630,6 +2727,7 @@
    "playbook_version": 2,
    "case_id": "c-011",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": true,
    "violations": [
@@ -2650,6 +2748,7 @@
    "playbook_version": 3,
    "case_id": "c-011",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2664,6 +2763,7 @@
    "playbook_version": 4,
    "case_id": "c-011",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2678,6 +2778,7 @@
    "playbook_version": 5,
    "case_id": "c-011",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2708,6 +2809,7 @@
    "playbook_version": 0,
    "case_id": "c-012",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -2733,6 +2835,7 @@
    "playbook_version": 1,
    "case_id": "c-012",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -2758,6 +2861,7 @@
    "playbook_version": 2,
    "case_id": "c-012",
    "set": "test",
+   "model": "muse",
    "score": 0.71,
    "passed": false,
    "violations": [
@@ -2783,6 +2887,7 @@
    "playbook_version": 3,
    "case_id": "c-012",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2803,6 +2908,7 @@
    "playbook_version": 4,
    "case_id": "c-012",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2817,6 +2923,7 @@
    "playbook_version": 5,
    "case_id": "c-012",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2871,19 +2978,20 @@
    "playbook_version": 0,
    "case_id": "c-013",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
     {
      "rule": "emergency_fund",
      "severity": "hard",
-     "detail": "cash 1.6 months, needs 6 after layoff"
+     "detail": "cash 2.3 months after rebalancing to normal targets, needs 6 after layoff"
     }
    ],
    "recommendation": null,
-   "tokens_in": 10238,
-   "tokens_out": 1304,
-   "seconds": 65.6,
+   "tokens_in": 12812,
+   "tokens_out": 1525,
+   "seconds": 54.2,
    "created_at": "2026-11-07T13:05:00+00:00"
   },
   {
@@ -2891,13 +2999,14 @@
    "playbook_version": 1,
    "case_id": "c-013",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 15606,
-   "tokens_out": 1371,
-   "seconds": 30.7,
+   "tokens_in": 14010,
+   "tokens_out": 1546,
+   "seconds": 51.4,
    "created_at": "2026-11-07T13:45:00+00:00"
   },
   {
@@ -2905,6 +3014,7 @@
    "playbook_version": 2,
    "case_id": "c-013",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -2915,9 +3025,9 @@
     }
    ],
    "recommendation": null,
-   "tokens_in": 15770,
-   "tokens_out": 1310,
-   "seconds": 69.1,
+   "tokens_in": 12885,
+   "tokens_out": 1373,
+   "seconds": 67.1,
    "created_at": "2026-11-07T14:20:00+00:00"
   },
   {
@@ -2925,13 +3035,14 @@
    "playbook_version": 3,
    "case_id": "c-013",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 14384,
-   "tokens_out": 1058,
-   "seconds": 31.2,
+   "tokens_in": 10277,
+   "tokens_out": 1261,
+   "seconds": 49.2,
    "created_at": "2026-11-07T14:55:00+00:00"
   },
   {
@@ -2939,13 +3050,14 @@
    "playbook_version": 4,
    "case_id": "c-013",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 13491,
-   "tokens_out": 834,
-   "seconds": 25.0,
+   "tokens_in": 9175,
+   "tokens_out": 714,
+   "seconds": 60.8,
    "created_at": "2026-11-07T15:35:00+00:00"
   },
   {
@@ -2953,6 +3065,7 @@
    "playbook_version": 5,
    "case_id": "c-013",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -2995,9 +3108,9 @@
     "flags": [],
     "no_action_reason": null
    },
-   "tokens_in": 15548,
-   "tokens_out": 1443,
-   "seconds": 53.9,
+   "tokens_in": 14950,
+   "tokens_out": 1365,
+   "seconds": 28.7,
    "created_at": "2026-11-07T16:40:00+00:00"
   },
   {
@@ -3005,6 +3118,7 @@
    "playbook_version": 0,
    "case_id": "c-014",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3025,6 +3139,7 @@
    "playbook_version": 1,
    "case_id": "c-014",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3045,6 +3160,7 @@
    "playbook_version": 2,
    "case_id": "c-014",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3065,6 +3181,7 @@
    "playbook_version": 3,
    "case_id": "c-014",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3079,6 +3196,7 @@
    "playbook_version": 4,
    "case_id": "c-014",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3093,6 +3211,7 @@
    "playbook_version": 5,
    "case_id": "c-014",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3105,8 +3224,8 @@
    "recommendation": {
     "client_id": "c-014",
     "target_allocation": {
-     "equity": 0.77,
-     "bond": 0.13,
+     "equity": 0.93,
+     "bond": -0.03,
      "cash": 0.1
     },
     "trades": [],
@@ -3134,6 +3253,7 @@
    "playbook_version": 0,
    "case_id": "c-015",
    "set": "test",
+   "model": "muse",
    "score": 0.67,
    "passed": false,
    "violations": [
@@ -3159,6 +3279,7 @@
    "playbook_version": 1,
    "case_id": "c-015",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": false,
    "violations": [
@@ -3179,6 +3300,7 @@
    "playbook_version": 2,
    "case_id": "c-015",
    "set": "test",
+   "model": "muse",
    "score": 0.67,
    "passed": false,
    "violations": [
@@ -3204,6 +3326,7 @@
    "playbook_version": 3,
    "case_id": "c-015",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
    "passed": false,
    "violations": [
@@ -3224,6 +3347,7 @@
    "playbook_version": 4,
    "case_id": "c-015",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3238,6 +3362,7 @@
    "playbook_version": 5,
    "case_id": "c-015",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3286,6 +3411,7 @@
    "playbook_version": 0,
    "case_id": "c-016",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3306,6 +3432,7 @@
    "playbook_version": 1,
    "case_id": "c-016",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3326,6 +3453,7 @@
    "playbook_version": 2,
    "case_id": "c-016",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": true,
    "violations": [
@@ -3346,6 +3474,7 @@
    "playbook_version": 3,
    "case_id": "c-016",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3360,6 +3489,7 @@
    "playbook_version": 4,
    "case_id": "c-016",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3374,6 +3504,7 @@
    "playbook_version": 5,
    "case_id": "c-016",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3414,19 +3545,20 @@
    "playbook_version": 0,
    "case_id": "c-017",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
     {
      "rule": "emergency_fund",
      "severity": "hard",
-     "detail": "cash 1.2 months, needs 6 after layoff"
+     "detail": "cash 2.9 months after rebalancing to normal targets, needs 6 after layoff"
     }
    ],
    "recommendation": null,
-   "tokens_in": 15881,
-   "tokens_out": 1158,
-   "seconds": 30.3,
+   "tokens_in": 10123,
+   "tokens_out": 1126,
+   "seconds": 29.6,
    "created_at": "2026-11-07T13:05:00+00:00"
   },
   {
@@ -3434,13 +3566,14 @@
    "playbook_version": 1,
    "case_id": "c-017",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 9996,
-   "tokens_out": 1101,
-   "seconds": 44.3,
+   "tokens_in": 12621,
+   "tokens_out": 1023,
+   "seconds": 27.3,
    "created_at": "2026-11-07T13:45:00+00:00"
   },
   {
@@ -3448,6 +3581,7 @@
    "playbook_version": 2,
    "case_id": "c-017",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -3458,9 +3592,9 @@
     }
    ],
    "recommendation": null,
-   "tokens_in": 9594,
-   "tokens_out": 1387,
-   "seconds": 35.1,
+   "tokens_in": 10971,
+   "tokens_out": 1138,
+   "seconds": 27.4,
    "created_at": "2026-11-07T14:20:00+00:00"
   },
   {
@@ -3468,13 +3602,14 @@
    "playbook_version": 3,
    "case_id": "c-017",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 9599,
-   "tokens_out": 917,
-   "seconds": 54.8,
+   "tokens_in": 14484,
+   "tokens_out": 1010,
+   "seconds": 60.1,
    "created_at": "2026-11-07T14:55:00+00:00"
   },
   {
@@ -3482,13 +3617,14 @@
    "playbook_version": 4,
    "case_id": "c-017",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 15422,
-   "tokens_out": 825,
-   "seconds": 65.3,
+   "tokens_in": 15364,
+   "tokens_out": 858,
+   "seconds": 67.2,
    "created_at": "2026-11-07T15:35:00+00:00"
   },
   {
@@ -3496,6 +3632,7 @@
    "playbook_version": 5,
    "case_id": "c-017",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3538,9 +3675,9 @@
     "flags": [],
     "no_action_reason": null
    },
-   "tokens_in": 10265,
-   "tokens_out": 1433,
-   "seconds": 53.6,
+   "tokens_in": 14271,
+   "tokens_out": 1376,
+   "seconds": 40.8,
    "created_at": "2026-11-07T16:40:00+00:00"
   },
   {
@@ -3548,19 +3685,20 @@
    "playbook_version": 0,
    "case_id": "c-018",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
-   "passed": true,
+   "passed": false,
    "violations": [
     {
-     "rule": "no_churn",
-     "severity": "soft",
-     "detail": "3 trades while every class was within 5 points"
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
     }
    ],
    "recommendation": null,
-   "tokens_in": 9771,
-   "tokens_out": 1107,
-   "seconds": 64.7,
+   "tokens_in": 12262,
+   "tokens_out": 1198,
+   "seconds": 31.5,
    "created_at": "2026-11-07T13:05:00+00:00"
   },
   {
@@ -3568,19 +3706,20 @@
    "playbook_version": 1,
    "case_id": "c-018",
    "set": "test",
+   "model": "muse",
    "score": 0.83,
-   "passed": true,
+   "passed": false,
    "violations": [
     {
-     "rule": "no_churn",
-     "severity": "soft",
-     "detail": "3 trades while every class was within 5 points"
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
     }
    ],
    "recommendation": null,
-   "tokens_in": 14470,
-   "tokens_out": 1552,
-   "seconds": 34.3,
+   "tokens_in": 10832,
+   "tokens_out": 865,
+   "seconds": 56.5,
    "created_at": "2026-11-07T13:45:00+00:00"
   },
   {
@@ -3588,13 +3727,20 @@
    "playbook_version": 2,
    "case_id": "c-018",
    "set": "test",
-   "score": 1.0,
-   "passed": true,
-   "violations": [],
+   "model": "muse",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
    "recommendation": null,
-   "tokens_in": 13223,
-   "tokens_out": 1113,
-   "seconds": 39.6,
+   "tokens_in": 12308,
+   "tokens_out": 1047,
+   "seconds": 43.4,
    "created_at": "2026-11-07T14:20:00+00:00"
   },
   {
@@ -3602,13 +3748,20 @@
    "playbook_version": 3,
    "case_id": "c-018",
    "set": "test",
-   "score": 1.0,
-   "passed": true,
-   "violations": [],
+   "model": "muse",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
    "recommendation": null,
-   "tokens_in": 10603,
-   "tokens_out": 1065,
-   "seconds": 38.7,
+   "tokens_in": 11921,
+   "tokens_out": 1026,
+   "seconds": 28.2,
    "created_at": "2026-11-07T14:55:00+00:00"
   },
   {
@@ -3616,13 +3769,14 @@
    "playbook_version": 4,
    "case_id": "c-018",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": null,
-   "tokens_in": 14915,
-   "tokens_out": 1074,
-   "seconds": 24.9,
+   "tokens_in": 11997,
+   "tokens_out": 719,
+   "seconds": 39.5,
    "created_at": "2026-11-07T15:35:00+00:00"
   },
   {
@@ -3630,6 +3784,7 @@
    "playbook_version": 5,
    "case_id": "c-018",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3640,19 +3795,37 @@
      "bond": 0.3,
      "cash": 0.1
     },
-    "trades": [],
-    "rationale": [],
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
     "profile_updates": {
      "goals_add": [],
      "monthly_contribution": null,
      "risk_score": null
     },
     "flags": [],
-    "no_action_reason": "Every class within 5 points of target and no new events."
+    "no_action_reason": null
    },
-   "tokens_in": 13538,
-   "tokens_out": 1169,
-   "seconds": 44.3,
+   "tokens_in": 12757,
+   "tokens_out": 1151,
+   "seconds": 56.3,
    "created_at": "2026-11-07T16:40:00+00:00"
   },
   {
@@ -3660,19 +3833,25 @@
    "playbook_version": 0,
    "case_id": "c-019",
    "set": "test",
-   "score": 0.86,
-   "passed": true,
+   "model": "muse",
+   "score": 0.71,
+   "passed": false,
    "violations": [
     {
      "rule": "event_marriage",
      "severity": "soft",
      "detail": "joint_profile_review flag missing"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
     }
    ],
    "recommendation": null,
-   "tokens_in": 13196,
-   "tokens_out": 765,
-   "seconds": 29.2,
+   "tokens_in": 9526,
+   "tokens_out": 815,
+   "seconds": 69.3,
    "created_at": "2026-11-07T13:05:00+00:00"
   },
   {
@@ -3680,13 +3859,19 @@
    "playbook_version": 1,
    "case_id": "c-019",
    "set": "test",
-   "score": 0.86,
-   "passed": true,
+   "model": "muse",
+   "score": 0.71,
+   "passed": false,
    "violations": [
     {
      "rule": "event_marriage",
      "severity": "soft",
      "detail": "joint_profile_review flag missing"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
     }
    ],
    "recommendation": null,
@@ -3700,13 +3885,19 @@
    "playbook_version": 2,
    "case_id": "c-019",
    "set": "test",
-   "score": 0.86,
-   "passed": true,
+   "model": "muse",
+   "score": 0.71,
+   "passed": false,
    "violations": [
     {
      "rule": "event_marriage",
      "severity": "soft",
      "detail": "joint_profile_review flag missing"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
     }
    ],
    "recommendation": null,
@@ -3720,9 +3911,16 @@
    "playbook_version": 3,
    "case_id": "c-019",
    "set": "test",
-   "score": 1.0,
-   "passed": true,
-   "violations": [],
+   "model": "muse",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
    "recommendation": null,
    "tokens_in": 9324,
    "tokens_out": 1497,
@@ -3734,6 +3932,7 @@
    "playbook_version": 4,
    "case_id": "c-019",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3748,21 +3947,39 @@
    "playbook_version": 5,
    "case_id": "c-019",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
    "recommendation": {
     "client_id": "c-019",
     "target_allocation": {
-     "equity": 0.4,
-     "bond": 0.5,
+     "equity": 0.77,
+     "bond": 0.13,
      "cash": 0.1
     },
-    "trades": [],
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     }
+    ],
     "rationale": [
      {
       "ref": "event:e1",
       "text": "Marriage: joint profile review before any risk change."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
      }
     ],
     "profile_updates": {
@@ -3773,7 +3990,7 @@
     "flags": [
      "joint_profile_review"
     ],
-    "no_action_reason": "Holding until the joint review."
+    "no_action_reason": null
    },
    "tokens_in": 15959,
    "tokens_out": 1392,
@@ -3785,6 +4002,7 @@
    "playbook_version": 0,
    "case_id": "c-020",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -3805,6 +4023,7 @@
    "playbook_version": 1,
    "case_id": "c-020",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -3825,6 +4044,7 @@
    "playbook_version": 2,
    "case_id": "c-020",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -3845,6 +4065,7 @@
    "playbook_version": 3,
    "case_id": "c-020",
    "set": "test",
+   "model": "muse",
    "score": 0.86,
    "passed": false,
    "violations": [
@@ -3865,6 +4086,7 @@
    "playbook_version": 4,
    "case_id": "c-020",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3879,6 +4101,7 @@
    "playbook_version": 5,
    "case_id": "c-020",
    "set": "test",
+   "model": "muse",
    "score": 1.0,
    "passed": true,
    "violations": [],
@@ -3937,6 +4160,76 @@
    "tokens_out": 1322,
    "seconds": 63.4,
    "created_at": "2026-11-07T16:40:00+00:00"
+  }
+ ],
+ "drift_analysis": [
+  {
+   "time": "2026-11-07T16:12:00+00:00",
+   "analyst": "subq",
+   "model": "subq-snap-1.1",
+   "runs_read": 240,
+   "client_timelines": 60,
+   "playbook_versions": 5,
+   "tokens_read": 1420000,
+   "seconds": 38.4,
+   "mode": "single long-context pass",
+   "summary": "One pass over 240 runs, 60 client timelines and 5 playbook versions. The drift is systematic, not random: it clusters where a cash shock hits a portfolio the playbook already considers balanced.",
+   "patterns": [
+    {
+     "rule": "emergency_fund",
+     "condition": "layoff + single-stock holding, after a market drop",
+     "failure_rate": 0.7,
+     "runs": 30,
+     "example": "cash 1.4 months after market drop, needs 3"
+    },
+    {
+     "rule": "risk_band",
+     "condition": "inheritance over 25% of portfolio value",
+     "failure_rate": 0.62,
+     "runs": 21,
+     "example": "equity 91% after inheritance, band 50-70% for risk 3"
+    },
+    {
+     "rule": "cited",
+     "condition": "event types the playbook has never seen (inheritance, divorce)",
+     "failure_rate": 0.48,
+     "runs": 27,
+     "example": "trade cites event:windfall, not in events.json"
+    }
+   ],
+   "handoff": "Muse gets these 3 patterns plus 8 example traces, not raw logs."
+  }
+ ],
+ "benchmarks": [
+  {
+   "model": "muse",
+   "label": "Muse",
+   "provider": "Meta Model API",
+   "playbook_version": 5,
+   "mean_score": 0.91,
+   "pass_rate": 0.9,
+   "tokens": 13200,
+   "seconds": 41.0
+  },
+  {
+   "model": "gemini",
+   "label": "Gemini",
+   "provider": "Google DeepMind",
+   "playbook_version": 5,
+   "mean_score": 0.88,
+   "pass_rate": 0.85,
+   "tokens": 14100,
+   "seconds": 36.5
+  },
+  {
+   "model": "subq",
+   "label": "SubQ",
+   "provider": "Subquadratic",
+   "playbook_version": 5,
+   "mean_score": 0.84,
+   "pass_rate": 0.8,
+   "tokens": 15800,
+   "seconds": 52.2
   }
  ]
 }

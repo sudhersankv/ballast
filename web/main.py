@@ -16,8 +16,9 @@ from fastapi.staticfiles import StaticFiles
 HERE = Path(__file__).parent
 SEED = json.loads((HERE / "seed.json").read_text())
 COLLS = ["playbooks", "generations", "drift_events", "clients", "runs"]
+OPTIONAL = ["drift_analysis", "benchmarks"]
 
-app = FastAPI(title="Ballast")
+app = FastAPI(title="ballast.")
 _cache = {"t": 0.0, "data": None, "source": "demo"}
 
 
@@ -36,8 +37,12 @@ def _load(force_demo: bool = False):
 
                 _cache["client"] = MongoClient(uri, serverSelectionTimeoutMS=3000)
             db = _cache["client"][os.environ.get("MONGODB_DB", "ballast")]
-            live = {c: list(db[c].find({}, {"_id": 0})) for c in COLLS}
+            live = {c: list(db[c].find({}, {"_id": 0})) for c in COLLS + OPTIONAL}
             if live["playbooks"] and live["generations"]:
+                # Optional collections fall back to seed individually so their panels never go blank.
+                for c in OPTIONAL:
+                    if not live[c]:
+                        live[c] = SEED.get(c, [])
                 data, source = live, "live"
         except Exception:
             pass
@@ -156,6 +161,30 @@ def client_detail(cid: str, demo: int = 0):
          for r in d["runs"] if r["case_id"] == cid and r["set"] == "test"),
         key=lambda h: h["version"])
     return {**c, "history": history}
+
+
+@app.get("/api/analysis")
+def analysis(demo: int = 0):
+    """SubQ long-context drift analyses (newest last)."""
+    d, _ = _load(bool(demo))
+    return sorted(d.get("drift_analysis", []), key=lambda a: a["time"])
+
+
+@app.get("/api/benchmark")
+def benchmark(demo: int = 0):
+    """Same playbook, same unseen clients, different agent models. Runtime tags each run with `model`."""
+    d, _ = _load(bool(demo))
+    rows = d.get("benchmarks") or []
+    if not rows:
+        by = {}
+        for r in d["runs"]:
+            if r.get("model") and r["set"] == "test":
+                by.setdefault(r["model"], []).append(r)
+        rows = [{"model": m, "label": m, "provider": "", "mean_score": round(sum(x["score"] for x in rs) / len(rs), 3),
+                 "pass_rate": round(sum(1 for x in rs if x["passed"]) / len(rs), 3),
+                 "tokens": round(sum(x.get("tokens_in", 0) + x.get("tokens_out", 0) for x in rs) / len(rs)),
+                 "seconds": round(sum(x.get("seconds", 0) for x in rs) / len(rs), 1)} for m, rs in by.items()]
+    return rows
 
 
 app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")

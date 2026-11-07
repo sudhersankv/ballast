@@ -246,8 +246,9 @@ for i in range(20):
         v = g["version"]
         viol = []
         if v == 0 and ev == "layoff":
+            left = 2.7 if i == 0 else round(random.uniform(2.1, 3.1), 1)
             viol.append({"rule": "emergency_fund", "severity": "hard",
-                         "detail": f"cash {cash_now / expenses:.1f} months, needs 6 after layoff"})
+                         "detail": f"cash {left} months after rebalancing to normal targets, needs 6 after layoff"})
         if v <= 2 and ev == "child":
             viol.append({"rule": "event_child", "severity": "soft", "detail": "no education goal added for new child"})
         if v <= 2 and ev == "marriage":
@@ -270,15 +271,41 @@ for i in range(20):
         score = round(max(0.0, 1 - len(viol) / n_rules), 2)
         hard = any(x["severity"] == "hard" for x in viol)
         runs.append({
-            "run_id": f"r-{v}{i + 1:03d}", "playbook_version": v, "case_id": cid, "set": "test",
+            "run_id": f"r-{v}{i + 1:03d}", "playbook_version": v, "case_id": cid, "set": "test", "model": "muse",
             "score": score, "passed": (not hard) and score >= 0.8, "violations": viol,
             "recommendation": rec if v == 5 else None,
             "tokens_in": random.randint(9000, 16000), "tokens_out": random.randint(700, 1600),
             "seconds": round(random.uniform(24, 70), 1), "created_at": g["created_at"],
         })
 
+drift_analysis = [{
+    "time": ts(192), "analyst": "subq", "model": "subq-snap-1.1",
+    "runs_read": 240, "client_timelines": 60, "playbook_versions": 5, "tokens_read": 1_420_000,
+    "seconds": 38.4, "mode": "single long-context pass",
+    "summary": "One pass over 240 runs, 60 client timelines and 5 playbook versions. The drift is systematic, not random: "
+               "it clusters where a cash shock hits a portfolio the playbook already considers balanced.",
+    "patterns": [
+        {"rule": "emergency_fund", "condition": "layoff + single-stock holding, after a market drop",
+         "failure_rate": 0.70, "runs": 30, "example": "cash 1.4 months after market drop, needs 3"},
+        {"rule": "risk_band", "condition": "inheritance over 25% of portfolio value",
+         "failure_rate": 0.62, "runs": 21, "example": "equity 91% after inheritance, band 50-70% for risk 3"},
+        {"rule": "cited", "condition": "event types the playbook has never seen (inheritance, divorce)",
+         "failure_rate": 0.48, "runs": 27, "example": "trade cites event:windfall, not in events.json"},
+    ],
+    "handoff": "Muse gets these 3 patterns plus 8 example traces, not raw logs.",
+}]
+
+benchmarks = [
+    {"model": "muse", "label": "Muse", "provider": "Meta Model API", "playbook_version": 5,
+     "mean_score": 0.91, "pass_rate": 0.90, "tokens": 13200, "seconds": 41.0},
+    {"model": "gemini", "label": "Gemini", "provider": "Google DeepMind", "playbook_version": 5,
+     "mean_score": 0.88, "pass_rate": 0.85, "tokens": 14100, "seconds": 36.5},
+    {"model": "subq", "label": "SubQ", "provider": "Subquadratic", "playbook_version": 5,
+     "mean_score": 0.84, "pass_rate": 0.80, "tokens": 15800, "seconds": 52.2},
+]
+
 seed = {"playbooks": playbooks, "generations": generations, "drift_events": drift_events,
-        "clients": clients, "runs": runs}
+        "clients": clients, "runs": runs, "drift_analysis": drift_analysis, "benchmarks": benchmarks}
 out = Path(__file__).with_name("seed.json")
 out.write_text(json.dumps(seed, indent=1))
 print(f"wrote {out} ({len(runs)} runs, {len(clients)} clients)")
