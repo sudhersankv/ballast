@@ -69,9 +69,15 @@ The outer loop is task-agnostic. Everything portfolio-specific lives in the agen
   "rationale": [
     {"ref": "event:layoff", "text": "Job loss: raise cash to 6 months of expenses."}
   ],
+  "profile_updates": {"goals_add": [], "monthly_contribution": null, "risk_score": null},
+  "flags": [],
   "no_action_reason": null
 }
 ```
+
+- `profile_updates`: non-trade changes. `goals_add` takes goal objects such as `{"type": "education", "target_year": 2044}`. A `null` field means no change.
+- `flags`: items for human review, for example `"joint_profile_review"` after a marriage.
+- `CASH` is a tradable symbol, so a cash buy offsets a sell and "trades net to zero" includes it.
 
 **Pi invocation (one fresh process per case):**
 
@@ -83,7 +89,9 @@ pi --mode json --no-session --no-extensions --no-context-files \
    --model meta/muse "Review this client case and write recommendation.json."
 ```
 
-Pi has no max-turns flag: count `turn_end` events in the JSON stream and stop the process at the playbook's `max_turns`. Hard timeout: 3 minutes per case. Flags are from Pi's [CLI docs](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/cli.md).
+Pi has no max-turns flag: count `turn_end` events in the JSON stream and stop the process at the playbook's `max_turns`. Hard timeout: 3 minutes per case.
+
+**Runs on Linux only** (WSL locally, or a Fly Machine). On native Windows, Pi replaces `bash` with `powershell`, so the agent's tool set would differ between machines and scores wouldn't be comparable. Flags are from Pi's [CLI docs](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/cli.md).
 
 ## Data schemas
 
@@ -135,12 +143,12 @@ These define "correct". They live in the checker, never in the playbook, so the 
 | Rule id | Rule | Severity |
 | --- | --- | --- |
 | `risk_band` | Equity share after trades within the band for the risk score: 1 = 10–30%, 2 = 30–50%, 3 = 50–70%, 4 = 70–85%, 5 = 85–100%. | Hard |
-| `emergency_fund` | Cash ≥ 3 months of expenses; ≥ 6 months after a layoff or job-loss event. | Hard |
+| `emergency_fund` | Cash after trades ≥ 3 months of expenses; ≥ 6 months after a layoff or job-loss event. Only `CASH` in holdings counts; severance in event details does not. | Hard |
 | `concentration` | No single stock above 10% of the portfolio. | Hard |
 | `no_churn` | If every asset class is within ±5 points of target and there are no new events, make no trades. | Soft |
-| `event_child` | New child: add an education goal with an 18-year horizon. | Soft |
-| `event_marriage` | Marriage: flag for a joint-profile review; do not change risk score unilaterally. | Soft |
-| `event_job_change` | Higher income: raise the monthly contribution; risk score unchanged. | Soft |
+| `event_child` | New child: `profile_updates.goals_add` includes an `education` goal about 18 years out. | Soft |
+| `event_marriage` | Marriage: `flags` includes `joint_profile_review`; `profile_updates.risk_score` stays `null`. | Soft |
+| `event_job_change` | Higher income: `profile_updates.monthly_contribution` is above the current value; `risk_score` stays `null`. | Soft |
 | `glidepath` | Age 55 or older: equity at the low half of the band. | Soft |
 | `cited` | Every trade has a `reason_ref` that matches an event or rule in the case. | Hard |
 | `valid_output` | `recommendation.json` exists and matches the schema; trades net to zero. | Hard |
@@ -161,7 +169,9 @@ Runs after every agent run and over a rolling window. Interface (one record per 
 | --- | --- |
 | Green | No hard violations, and the rolling 10-run average is within 0.05 of baseline. |
 | Yellow | Rolling average dropped by 0.05 or more, or soft violations are rising. |
-| Red | Any hard violation. |
+| Red | A hard violation on a case type (event mix) that the shipped playbook passed in its verification run. |
+
+**When drift is computed:** only in drift mode, measured against the last *shipped* playbook's verification baseline. During training, v0 is expected to fail about half the cases, so failures there are training signal, not drift.
 
 The `violations` list is the most important field: it is what Muse reads to fix the agent.
 
