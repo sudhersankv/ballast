@@ -1,0 +1,26 @@
+{
+  "client_id": "j-006-t06",
+  "name": "Rafael Sandoval",
+  "age": 58,
+  "state": "FL",
+  "occupation": "independent consultant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 87500,
+  "monthly_expenses": 7900,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.57,
+    "bond": 0.36,
+    "cash": 0.07
+  },
+  "monthly_contribution": 750
+}

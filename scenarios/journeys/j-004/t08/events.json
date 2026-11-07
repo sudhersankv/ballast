@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "layoff",
+      "date": "2026-04-02",
+      "details": {
+        "severance": 5200,
+        "severance_weeks": 2,
+        "tenure_years": 1,
+        "employer": "previous employer",
+        "last_day": "2026-04-02",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

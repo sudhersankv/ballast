@@ -1,0 +1,26 @@
+{
+  "client_id": "j-003-t07",
+  "name": "Elena Varga",
+  "age": 54,
+  "state": "IL",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 328000,
+  "monthly_expenses": 13500,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.3,
+    "cash": 0.05
+  },
+  "monthly_contribution": 4050.0
+}

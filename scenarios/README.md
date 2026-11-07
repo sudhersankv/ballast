@@ -140,6 +140,84 @@ What this shows:
 
 Use it as a secondary chart beside the policy score, not as a gate. Forward returns are one historical path per case and are noisy.
 
+## Client journeys (per-client alignment over time)
+
+```bash
+python scenarios/journeys.py           # writes scenarios/journeys/ + scenarios/holdout/journeys/, then self-checks
+python scenarios/journeys.py --check   # self-check only; also writes scenarios/journeys/report.json
+```
+
+Each journey follows one synthetic client through 10 quarterly reviews (about 2.5 years) of a real market regime. Checkpoints t01–t05 are **train** and t06–t10 are **holdout**, so a client-specific playbook fix learned from the early failures is verified on the same client's later quarters.
+
+```
+scenarios/journeys/j-00N/meta.json                 persona, arc, regime, checkpoint dates, train/holdout split, events per checkpoint
+scenarios/journeys/j-00N/tKK/{client,holdings,market,events}.json   one agent case (client_id j-00N-tKK)
+scenarios/holdout/journeys/j-00N/tKK/future.json   next 12 real months (never inside a checkpoint dir)
+scenarios/holdout/journeys/j-00N/meta.json         the real calendar window replayed (hidden)
+scenarios/journeys/report.json                     oracle / naive / backtest per checkpoint
+```
+
+How a checkpoint is built:
+
+- **Profile.** `client.json` is the profile as of the previous review; only age is current. Event effects and the reference recommendation's `profile_updates` are applied after the review:
+  - job change: new income and contribution
+  - layoff: unemployed, COBRA premium added to expenses, contributions stop
+  - marriage: expenses ×1.2
+  - child: +1 dependent, +$1,100/month expenses, education goal
+  - divorce: expenses ×0.85 plus child support
+- **Holdings.** `holdings.json` = the previous holdings plus that checkpoint's `oracle.recommend` trades, marked to market month by month with real returns. Between reviews:
+  - CASH earns the T-bill rate.
+  - While employed, contributions are invested at targets and RSU vesting flows into employer stock.
+  - While unemployed, monthly expenses are drawn from CASH (risk assets are sold pro rata if CASH runs out).
+  - A divorce halves every position, and an inheritance lands in CASH.
+- **Targets.** After a review with trades, the client's targets become the approved allocation. j-003 instead keeps her stale 2019 model.
+- **Market.** `market.json` has the checkpoint prices plus 48 months of history. `events.json` holds only the events since the previous review, with ids unique across the journey.
+- **Dates.** They are re-dated so that t10 is as_of 2026-11-01.
+
+| Journey | Persona | Regime (real months, re-dated) |
+| --- | --- | --- |
+| j-001 | Priya Okafor, 34, senior software engineer (NMBX), risk 4 | Credit crisis: calm, then −50% equity, then early recovery |
+| j-002 | Marcus Delgado, 38, regional sales manager, 18% in employer stock KSTL, risk 4 | Pandemic crash, then a strong rally |
+| j-003 | Elena Varga, 53, attorney, stale 2019 model, thin cash, risk 3 | Rate shock: stocks and bonds fall together |
+| j-004 | Kenji Lundgren, 31, senior software engineer, 25% in employer stock NMBX, risk 4 | Dot-com bust; employer stock collapses |
+| j-005 | Hannah Brennan, 28, teacher, risk 3 | Calm low-volatility bull market |
+| j-006 | Rafael Sandoval, 57, logistics manager, overweight equity, risk 3 | 2015–16 correction, then a steady rally |
+
+Events by checkpoint and v0-style **naive** result. "pass" or "FAIL" is the checker verdict; failing rules are in brackets; "–" means no events.
+
+| | t01 | t02 | t03 | t04 | t05 | t06 | t07 | t08 | t09 | t10 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| j-001 | – FAIL (EF) | job_change pass | marriage pass | – FAIL (EF) | child FAIL (conc, child) | – FAIL (EF, conc) | layoff + market_drop FAIL (EF) | – pass | job_change pass | inheritance pass |
+| j-002 | – FAIL (EF, conc) | – FAIL (conc) | job_change pass | – FAIL (conc) | layoff + market_drop FAIL (EF, conc) | – pass | job_change (re-hire) pass | child pass | – FAIL (conc) | divorce FAIL (conc) |
+| j-003 | – FAIL (EF) | – pass | job_change FAIL (job_change) | – pass | market_drop pass | – pass | inheritance pass | – pass | job_change (age 55) FAIL (glidepath) | – pass |
+| j-004 | – FAIL (conc) | marriage FAIL (conc, marriage) | – pass | layoff FAIL (EF) | – pass | job_change pass | – pass | layoff FAIL (EF) | job_change pass | market_drop pass |
+| j-005 | – pass | marriage FAIL (marriage) | – pass | – pass | job_change FAIL (job_change) | – pass | child FAIL (child) | – FAIL (EF) | – pass | inheritance pass |
+| j-006 | – pass | layoff FAIL (EF) | – FAIL (EF, glidepath) | job_change FAIL (EF) | – pass | – pass | divorce pass | – pass | inheritance pass | layoff FAIL (EF) |
+
+- **Oracle.** It solves 60/60 checkpoints with score 1.0.
+- **Naive.** It passes 13/30 train checkpoints and 21/30 holdout checkpoints:
+
+  | Journey | train | holdout |
+  | --- | --- | --- |
+  | j-001 | 2/5 | 3/5 |
+  | j-002 | 1/5 | 3/5 |
+  | j-003 | 3/5 | 4/5 |
+  | j-004 | 2/5 | 4/5 |
+  | j-005 | 3/5 | 3/5 |
+  | j-006 | 2/5 | 4/5 |
+
+- **Root causes recur after the split**, so a fix learned on train is tested again on holdout:
+  - j-001: emergency fund and concentration.
+  - j-002: concentration rebuilt by a re-hire RSU grant.
+  - j-004 and j-006: a second layoff.
+  - j-005: child, and a cash shortfall.
+- **Unseen-late events** test drift handling inside a journey: divorce (j-002, j-006), inheritance (j-001, j-003, j-005, j-006), a deep market_drop at t10 (j-004), and crossing age 55 (j-003 t09).
+- **Quiet quarters.** Every journey has no-event checkpoints. Where the portfolio is already in tolerance and compliant, those test no_churn.
+- **Backtest.** It runs per checkpoint against that checkpoint's held-out future and is stored in `report.json`.
+- **Oracle changes.** Building these required two changes to `oracle.py`, and the single-case sets still score 60/60:
+  - Its diagnosis now uses the checker's tolerances (±0.005 on weights, ±$1).
+  - Its glidepath target uses a 3-point buffer below the midpoint, and it rebalances a 55+ client proactively at any review with events. Otherwise a quiet next quarter could land in an unavoidable no_churn-vs-glidepath conflict, since EVAL's no_churn trigger ignores glidepath.
+
 ## Generator guarantees
 
 - **True no_churn cases** are within ±4.5 points of every target and already pass the risk band, a cash floor of at least 3.2 months, and a single-stock cap of at most 9%. If the client is 55+, equity is already at or below the band midpoint. So "no trades" is the unique fully passing answer, and no case ever needs both no_churn and a glidepath trade.
@@ -165,6 +243,7 @@ Use it as a secondary chart beside the policy score, not as a gate. Forward retu
 - `generate.py`: the generator. Archetypes are defined at the bottom.
 - `oracle.py`: the reference recommender, the baselines, the solvability check and the backtest summary.
 - `backtest.py`: held-out forward metrics for any recommendation.
+- `journeys.py`, `journeys/` and `holdout/journeys/`: the per-client quarterly journeys (see above).
 - `overrides/`: drop-in per-case files (see its README).
 - `SOURCES.md`: parameter → value → source URL, failed sources, and related public benchmarks.
 - `fixtures/c-014/`: the SPEC.md example case used by checker tests (hand-made, not generated).

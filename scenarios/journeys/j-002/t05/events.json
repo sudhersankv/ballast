@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2025-05-16",
+      "details": {
+        "severance": 27500,
+        "severance_weeks": 9,
+        "tenure_years": 9,
+        "employer": "Kestrel Freight (KSTL)",
+        "last_day": "2025-05-16",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e3",
+      "type": "market_drop",
+      "date": "2025-07-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -21.4,
+        "bond_change_pct": 5.7,
+        "peak_date": "2025-05-31",
+        "trough_date": "2025-07-30",
+        "historical_analog": "Pandemic shock: a fast 20%+ crash, then a strong rally"
+      }
+    }
+  ]
+}

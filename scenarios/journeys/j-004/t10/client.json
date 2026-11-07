@@ -1,0 +1,26 @@
+{
+  "client_id": "j-004-t10",
+  "name": "Kenji Lundgren",
+  "age": 33,
+  "state": "CA",
+  "occupation": "senior software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 142000,
+  "monthly_expenses": 7450,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 32,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2060
+    }
+  ],
+  "targets": {
+    "equity": 0.78,
+    "bond": 0.03,
+    "cash": 0.19
+  },
+  "monthly_contribution": 1200.0
+}

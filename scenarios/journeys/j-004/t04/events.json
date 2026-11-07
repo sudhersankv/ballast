@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2025-03-18",
+      "details": {
+        "severance": 11500,
+        "severance_weeks": 4,
+        "tenure_years": 4,
+        "employer": "Nimbex Cloud (NMBX)",
+        "last_day": "2025-03-18",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

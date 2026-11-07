@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "job_change",
+      "date": "2026-06-26",
+      "details": {
+        "new_income": 262500,
+        "previous_income": 328000,
+        "new_employer": "Larkspur Bank",
+        "start_date": "2026-06-26",
+        "employer_401k_match_pct": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "journey_id": "j-002",
+  "persona": {
+    "name": "Marcus Delgado",
+    "state": "TX",
+    "occupation": "regional sales manager",
+    "age_at_start": 38,
+    "risk_score": 4
+  },
+  "arc": "Holds too much employer stock; promoted; laid off in the pandemic crash; re-hired by the same employer at lower pay with a sign-on RSU grant that rebuilds the concentration; second child; divorce late in the window.",
+  "regime": "Pandemic shock: a fast 20%+ crash, then a strong rally",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t03",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-08-01",
+      "split": "train",
+      "events": [
+        "layoff",
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "events": []
+    },
+    {
+      "id": "t07",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "events": [
+        "child"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "events": []
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "events": [
+        "divorce"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -17.1,
+        "intl_equity_change_pct": -7.9,
+        "bond_change_pct": 7.2,
+        "peak_date": "2025-10-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "Dot-com bust: a slow multi-year bear market, with employer stock collapsing"
+      }
+    }
+  ]
+}

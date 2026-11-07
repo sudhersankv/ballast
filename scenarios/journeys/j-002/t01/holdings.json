@@ -1,0 +1,30 @@
+{
+  "as_of": "2024-08-01",
+  "positions": [
+    {
+      "symbol": "US_EQ",
+      "units": 776.155,
+      "value": 208320.0
+    },
+    {
+      "symbol": "INTL_EQ",
+      "units": 824.703,
+      "value": 52079.99
+    },
+    {
+      "symbol": "BOND",
+      "units": 865.385,
+      "value": 63000.03
+    },
+    {
+      "symbol": "KSTL",
+      "units": 123.691,
+      "value": 75599.94
+    },
+    {
+      "symbol": "CASH",
+      "units": 21000.0,
+      "value": 21000.0
+    }
+  ]
+}

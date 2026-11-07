@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "child",
+      "date": "2026-04-17",
+      "details": {
+        "child_name": "Iris",
+        "birth_date": "2026-04-17",
+        "adoption": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "j-002-t07",
+  "name": "Marcus Delgado",
+  "age": 40,
+  "state": "TX",
+  "occupation": "regional sales manager",
+  "employment_status": "unemployed",
+  "marital_status": "married",
+  "annual_income": 159000,
+  "monthly_expenses": 7950,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 25,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2053
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.15,
+    "cash": 0.1
+  },
+  "monthly_contribution": 0,
+  "employer": "Kestrel Freight (KSTL)"
+}

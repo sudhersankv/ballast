@@ -1,0 +1,1620 @@
+{
+  "j-001": {
+    "meta": {
+      "journey_id": "j-001",
+      "persona": {
+        "name": "Priya Okafor",
+        "state": "WA",
+        "occupation": "senior software engineer",
+        "age_at_start": 34,
+        "risk_score": 4
+      },
+      "arc": "Promotion, marriage and a first child in a calm market; laid off at the bottom of the crash; re-employed during the recovery; then an unexpected inheritance.",
+      "regime": "Credit crisis: steady market, then a 50% equity crash and early recovery",
+      "checkpoints": [
+        {
+          "id": "t01",
+          "as_of": "2024-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t02",
+          "as_of": "2024-11-01",
+          "split": "train",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t03",
+          "as_of": "2025-02-01",
+          "split": "train",
+          "events": [
+            "marriage"
+          ]
+        },
+        {
+          "id": "t04",
+          "as_of": "2025-05-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t05",
+          "as_of": "2025-08-01",
+          "split": "train",
+          "events": [
+            "child"
+          ]
+        },
+        {
+          "id": "t06",
+          "as_of": "2025-11-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t07",
+          "as_of": "2026-02-01",
+          "split": "holdout",
+          "events": [
+            "layoff",
+            "market_drop"
+          ]
+        },
+        {
+          "id": "t08",
+          "as_of": "2026-05-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t09",
+          "as_of": "2026-08-01",
+          "split": "holdout",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t10",
+          "as_of": "2026-11-01",
+          "split": "holdout",
+          "events": [
+            "inheritance"
+          ]
+        }
+      ],
+      "train": [
+        "t01",
+        "t02",
+        "t03",
+        "t04",
+        "t05"
+      ],
+      "holdout": [
+        "t06",
+        "t07",
+        "t08",
+        "t09",
+        "t10"
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "t01",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": -0.0801,
+        "naive_fwd_return": -0.0837,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t02",
+        "split": "train",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "event_job_change"
+        ],
+        "oracle_fwd_return": -0.1795,
+        "naive_fwd_return": -0.1795,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t03",
+        "split": "train",
+        "events": [
+          "marriage"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "event_marriage"
+        ],
+        "oracle_fwd_return": -0.2738,
+        "naive_fwd_return": -0.2738,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t04",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": -0.2844,
+        "naive_fwd_return": -0.2692,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t05",
+        "split": "train",
+        "events": [
+          "child"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.6,
+        "naive_violations": [
+          "concentration",
+          "event_child"
+        ],
+        "oracle_fwd_return": -0.2075,
+        "naive_fwd_return": -0.2119,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t06",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.5,
+        "naive_violations": [
+          "emergency_fund",
+          "concentration"
+        ],
+        "oracle_fwd_return": -0.0437,
+        "naive_fwd_return": -0.0483,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t07",
+        "split": "holdout",
+        "events": [
+          "layoff",
+          "market_drop"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": 0.2197,
+        "naive_fwd_return": 0.2141,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t08",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.4357,
+        "naive_fwd_return": 0.4353,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t09",
+        "split": "holdout",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1297,
+        "naive_fwd_return": 0.1254,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t10",
+        "split": "holdout",
+        "events": [
+          "inheritance"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0993,
+        "naive_fwd_return": 0.1059,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      }
+    ],
+    "summary": {
+      "oracle_solvable": "10/10",
+      "naive_pass_train": "2/5",
+      "naive_pass_holdout": "3/5"
+    }
+  },
+  "j-002": {
+    "meta": {
+      "journey_id": "j-002",
+      "persona": {
+        "name": "Marcus Delgado",
+        "state": "TX",
+        "occupation": "regional sales manager",
+        "age_at_start": 38,
+        "risk_score": 4
+      },
+      "arc": "Holds too much employer stock; promoted; laid off in the pandemic crash; re-hired by the same employer at lower pay with a sign-on RSU grant that rebuilds the concentration; second child; divorce late in the window.",
+      "regime": "Pandemic shock: a fast 20%+ crash, then a strong rally",
+      "checkpoints": [
+        {
+          "id": "t01",
+          "as_of": "2024-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t02",
+          "as_of": "2024-11-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t03",
+          "as_of": "2025-02-01",
+          "split": "train",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t04",
+          "as_of": "2025-05-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t05",
+          "as_of": "2025-08-01",
+          "split": "train",
+          "events": [
+            "layoff",
+            "market_drop"
+          ]
+        },
+        {
+          "id": "t06",
+          "as_of": "2025-11-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t07",
+          "as_of": "2026-02-01",
+          "split": "holdout",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t08",
+          "as_of": "2026-05-01",
+          "split": "holdout",
+          "events": [
+            "child"
+          ]
+        },
+        {
+          "id": "t09",
+          "as_of": "2026-08-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t10",
+          "as_of": "2026-11-01",
+          "split": "holdout",
+          "events": [
+            "divorce"
+          ]
+        }
+      ],
+      "train": [
+        "t01",
+        "t02",
+        "t03",
+        "t04",
+        "t05"
+      ],
+      "holdout": [
+        "t06",
+        "t07",
+        "t08",
+        "t09",
+        "t10"
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "t01",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.5,
+        "naive_violations": [
+          "emergency_fund",
+          "concentration"
+        ],
+        "oracle_fwd_return": -0.0134,
+        "naive_fwd_return": 0.0133,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t02",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "concentration"
+        ],
+        "oracle_fwd_return": 0.0883,
+        "naive_fwd_return": 0.0959,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t03",
+        "split": "train",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "event_job_change"
+        ],
+        "oracle_fwd_return": 0.177,
+        "naive_fwd_return": 0.177,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t04",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "concentration"
+        ],
+        "oracle_fwd_return": 0.1804,
+        "naive_fwd_return": 0.187,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t05",
+        "split": "train",
+        "events": [
+          "layoff",
+          "market_drop"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.5,
+        "naive_violations": [
+          "emergency_fund",
+          "concentration"
+        ],
+        "oracle_fwd_return": 0.4323,
+        "naive_fwd_return": 0.3947,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t06",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.3079,
+        "naive_fwd_return": 0.3077,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t07",
+        "split": "holdout",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.2129,
+        "naive_fwd_return": 0.2112,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t08",
+        "split": "holdout",
+        "events": [
+          "child"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "event_child"
+        ],
+        "oracle_fwd_return": 0.1783,
+        "naive_fwd_return": 0.1783,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t09",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "concentration"
+        ],
+        "oracle_fwd_return": 0.0853,
+        "naive_fwd_return": 0.0968,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t10",
+        "split": "holdout",
+        "events": [
+          "divorce"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "concentration"
+        ],
+        "oracle_fwd_return": -0.1035,
+        "naive_fwd_return": -0.1001,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      }
+    ],
+    "summary": {
+      "oracle_solvable": "10/10",
+      "naive_pass_train": "1/5",
+      "naive_pass_holdout": "3/5"
+    }
+  },
+  "j-003": {
+    "meta": {
+      "journey_id": "j-003",
+      "persona": {
+        "name": "Elena Varga",
+        "state": "IL",
+        "occupation": "attorney",
+        "age_at_start": 53,
+        "risk_score": 3
+      },
+      "arc": "Pre-retiree holding a stale model allocation; made partner; caught by a stock and bond drawdown; inherits from a parent; turns 55 and cuts back her hours.",
+      "regime": "Rate shock: stocks and bonds fall together, then a partial recovery",
+      "checkpoints": [
+        {
+          "id": "t01",
+          "as_of": "2024-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t02",
+          "as_of": "2024-11-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t03",
+          "as_of": "2025-02-01",
+          "split": "train",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t04",
+          "as_of": "2025-05-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t05",
+          "as_of": "2025-08-01",
+          "split": "train",
+          "events": [
+            "market_drop"
+          ]
+        },
+        {
+          "id": "t06",
+          "as_of": "2025-11-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t07",
+          "as_of": "2026-02-01",
+          "split": "holdout",
+          "events": [
+            "inheritance"
+          ]
+        },
+        {
+          "id": "t08",
+          "as_of": "2026-05-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t09",
+          "as_of": "2026-08-01",
+          "split": "holdout",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t10",
+          "as_of": "2026-11-01",
+          "split": "holdout",
+          "events": []
+        }
+      ],
+      "train": [
+        "t01",
+        "t02",
+        "t03",
+        "t04",
+        "t05"
+      ],
+      "holdout": [
+        "t06",
+        "t07",
+        "t08",
+        "t09",
+        "t10"
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "t01",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.6667,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": 0.0471,
+        "naive_fwd_return": 0.0459,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t02",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.1298,
+        "naive_fwd_return": -0.1298,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t03",
+        "split": "train",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "event_job_change"
+        ],
+        "oracle_fwd_return": -0.1641,
+        "naive_fwd_return": -0.1641,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t04",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.1537,
+        "naive_fwd_return": -0.1537,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t05",
+        "split": "train",
+        "events": [
+          "market_drop"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.0651,
+        "naive_fwd_return": -0.0651,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t06",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1217,
+        "naive_fwd_return": 0.1217,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t07",
+        "split": "holdout",
+        "events": [
+          "inheritance"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1347,
+        "naive_fwd_return": 0.1347,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t08",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1672,
+        "naive_fwd_return": 0.1672,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t09",
+        "split": "holdout",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "glidepath"
+        ],
+        "oracle_fwd_return": 0.1518,
+        "naive_fwd_return": 0.1798,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t10",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "glidepath"
+        ],
+        "oracle_fwd_return": 0.1218,
+        "naive_fwd_return": 0.1375,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      }
+    ],
+    "summary": {
+      "oracle_solvable": "10/10",
+      "naive_pass_train": "3/5",
+      "naive_pass_holdout": "4/5"
+    }
+  },
+  "j-004": {
+    "meta": {
+      "journey_id": "j-004",
+      "persona": {
+        "name": "Kenji Lundgren",
+        "state": "CA",
+        "occupation": "senior software engineer",
+        "age_at_start": 31,
+        "risk_score": 4
+      },
+      "arc": "A quarter of the portfolio in employer stock at the peak; marries; laid off when the stock collapses; re-employed at a startup that folds a year later (second layoff); re-employed again; the bear market deepens late in the window.",
+      "regime": "Dot-com bust: a slow multi-year bear market, with employer stock collapsing",
+      "checkpoints": [
+        {
+          "id": "t01",
+          "as_of": "2024-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t02",
+          "as_of": "2024-11-01",
+          "split": "train",
+          "events": [
+            "marriage"
+          ]
+        },
+        {
+          "id": "t03",
+          "as_of": "2025-02-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t04",
+          "as_of": "2025-05-01",
+          "split": "train",
+          "events": [
+            "layoff"
+          ]
+        },
+        {
+          "id": "t05",
+          "as_of": "2025-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t06",
+          "as_of": "2025-11-01",
+          "split": "holdout",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t07",
+          "as_of": "2026-02-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t08",
+          "as_of": "2026-05-01",
+          "split": "holdout",
+          "events": [
+            "layoff"
+          ]
+        },
+        {
+          "id": "t09",
+          "as_of": "2026-08-01",
+          "split": "holdout",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t10",
+          "as_of": "2026-11-01",
+          "split": "holdout",
+          "events": [
+            "market_drop"
+          ]
+        }
+      ],
+      "train": [
+        "t01",
+        "t02",
+        "t03",
+        "t04",
+        "t05"
+      ],
+      "holdout": [
+        "t06",
+        "t07",
+        "t08",
+        "t09",
+        "t10"
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "t01",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "concentration"
+        ],
+        "oracle_fwd_return": -0.2072,
+        "naive_fwd_return": -0.2628,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t02",
+        "split": "train",
+        "events": [
+          "marriage"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.6,
+        "naive_violations": [
+          "concentration",
+          "event_marriage"
+        ],
+        "oracle_fwd_return": -0.1667,
+        "naive_fwd_return": -0.179,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t03",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.2537,
+        "naive_fwd_return": -0.2537,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t04",
+        "split": "train",
+        "events": [
+          "layoff"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": -0.1279,
+        "naive_fwd_return": -0.1207,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t05",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.012,
+        "naive_fwd_return": -0.0113,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t06",
+        "split": "holdout",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.1126,
+        "naive_fwd_return": -0.1133,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t07",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.1062,
+        "naive_fwd_return": -0.1062,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t08",
+        "split": "holdout",
+        "events": [
+          "layoff"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": -0.1443,
+        "naive_fwd_return": -0.1351,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t09",
+        "split": "holdout",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8333,
+        "naive_violations": [
+          "event_job_change"
+        ],
+        "oracle_fwd_return": -0.2371,
+        "naive_fwd_return": -0.2328,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t10",
+        "split": "holdout",
+        "events": [
+          "market_drop"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.0135,
+        "naive_fwd_return": -0.0135,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      }
+    ],
+    "summary": {
+      "oracle_solvable": "10/10",
+      "naive_pass_train": "2/5",
+      "naive_pass_holdout": "4/5"
+    }
+  },
+  "j-005": {
+    "meta": {
+      "journey_id": "j-005",
+      "persona": {
+        "name": "Hannah Brennan",
+        "state": "OH",
+        "occupation": "elementary school teacher",
+        "age_at_start": 28,
+        "risk_score": 3
+      },
+      "arc": "A young saver: marries, moves into school administration with a raise, has a child, and receives an inheritance late. Many quiet quarters, so no-churn is tested.",
+      "regime": "Calm bull market with low volatility (a small correction at the end)",
+      "checkpoints": [
+        {
+          "id": "t01",
+          "as_of": "2024-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t02",
+          "as_of": "2024-11-01",
+          "split": "train",
+          "events": [
+            "marriage"
+          ]
+        },
+        {
+          "id": "t03",
+          "as_of": "2025-02-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t04",
+          "as_of": "2025-05-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t05",
+          "as_of": "2025-08-01",
+          "split": "train",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t06",
+          "as_of": "2025-11-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t07",
+          "as_of": "2026-02-01",
+          "split": "holdout",
+          "events": [
+            "child"
+          ]
+        },
+        {
+          "id": "t08",
+          "as_of": "2026-05-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t09",
+          "as_of": "2026-08-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t10",
+          "as_of": "2026-11-01",
+          "split": "holdout",
+          "events": [
+            "inheritance"
+          ]
+        }
+      ],
+      "train": [
+        "t01",
+        "t02",
+        "t03",
+        "t04",
+        "t05"
+      ],
+      "holdout": [
+        "t06",
+        "t07",
+        "t08",
+        "t09",
+        "t10"
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "t01",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.155,
+        "naive_fwd_return": 0.155,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t02",
+        "split": "train",
+        "events": [
+          "marriage"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "event_marriage"
+        ],
+        "oracle_fwd_return": 0.0952,
+        "naive_fwd_return": 0.0952,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t03",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0576,
+        "naive_fwd_return": 0.0577,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t04",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0613,
+        "naive_fwd_return": 0.0613,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t05",
+        "split": "train",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "event_job_change"
+        ],
+        "oracle_fwd_return": 0.0322,
+        "naive_fwd_return": 0.0322,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t06",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": -0.0071,
+        "naive_fwd_return": -0.0071,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t07",
+        "split": "holdout",
+        "events": [
+          "child"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "event_child"
+        ],
+        "oracle_fwd_return": 0.0043,
+        "naive_fwd_return": 0.0043,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t08",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.6667,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": -0.0053,
+        "naive_fwd_return": -0.0053,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t09",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0084,
+        "naive_fwd_return": 0.0084,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t10",
+        "split": "holdout",
+        "events": [
+          "inheritance"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0926,
+        "naive_fwd_return": 0.0926,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      }
+    ],
+    "summary": {
+      "oracle_solvable": "10/10",
+      "naive_pass_train": "3/5",
+      "naive_pass_holdout": "3/5"
+    }
+  },
+  "j-006": {
+    "meta": {
+      "journey_id": "j-006",
+      "persona": {
+        "name": "Rafael Sandoval",
+        "state": "FL",
+        "occupation": "logistics manager",
+        "age_at_start": 57,
+        "risk_score": 3
+      },
+      "arc": "Pre-retiree already past 55 holding too much equity; takes an early buyout (layoff with large severance); returns as a consultant at lower pay; a late-life divorce; inherits; the consulting contract ends.",
+      "regime": "Mixed: a 2015-16 correction, then a steady rally",
+      "checkpoints": [
+        {
+          "id": "t01",
+          "as_of": "2024-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t02",
+          "as_of": "2024-11-01",
+          "split": "train",
+          "events": [
+            "layoff"
+          ]
+        },
+        {
+          "id": "t03",
+          "as_of": "2025-02-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t04",
+          "as_of": "2025-05-01",
+          "split": "train",
+          "events": [
+            "job_change"
+          ]
+        },
+        {
+          "id": "t05",
+          "as_of": "2025-08-01",
+          "split": "train",
+          "events": []
+        },
+        {
+          "id": "t06",
+          "as_of": "2025-11-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t07",
+          "as_of": "2026-02-01",
+          "split": "holdout",
+          "events": [
+            "divorce"
+          ]
+        },
+        {
+          "id": "t08",
+          "as_of": "2026-05-01",
+          "split": "holdout",
+          "events": []
+        },
+        {
+          "id": "t09",
+          "as_of": "2026-08-01",
+          "split": "holdout",
+          "events": [
+            "inheritance"
+          ]
+        },
+        {
+          "id": "t10",
+          "as_of": "2026-11-01",
+          "split": "holdout",
+          "events": [
+            "layoff"
+          ]
+        }
+      ],
+      "train": [
+        "t01",
+        "t02",
+        "t03",
+        "t04",
+        "t05"
+      ],
+      "holdout": [
+        "t06",
+        "t07",
+        "t08",
+        "t09",
+        "t10"
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "t01",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 0.8,
+        "naive_violations": [
+          "glidepath"
+        ],
+        "oracle_fwd_return": 0.0221,
+        "naive_fwd_return": 0.0166,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t02",
+        "split": "train",
+        "events": [
+          "layoff"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": 0.0979,
+        "naive_fwd_return": 0.0962,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t03",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.5,
+        "naive_violations": [
+          "emergency_fund",
+          "glidepath"
+        ],
+        "oracle_fwd_return": 0.0717,
+        "naive_fwd_return": 0.0742,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t04",
+        "split": "train",
+        "events": [
+          "job_change"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": 0.1015,
+        "naive_fwd_return": 0.1024,
+        "oracle_ef_breach": true,
+        "naive_ef_breach": true
+      },
+      {
+        "checkpoint": "t05",
+        "split": "train",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1104,
+        "naive_fwd_return": 0.1104,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t06",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1123,
+        "naive_fwd_return": 0.1123,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t07",
+        "split": "holdout",
+        "events": [
+          "divorce"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.1431,
+        "naive_fwd_return": 0.1493,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t08",
+        "split": "holdout",
+        "events": [],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0921,
+        "naive_fwd_return": 0.0921,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t09",
+        "split": "holdout",
+        "events": [
+          "inheritance"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": true,
+        "naive_score": 1.0,
+        "naive_violations": [],
+        "oracle_fwd_return": 0.0776,
+        "naive_fwd_return": 0.0776,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      },
+      {
+        "checkpoint": "t10",
+        "split": "holdout",
+        "events": [
+          "layoff"
+        ],
+        "oracle_score": 1.0,
+        "oracle_solved": true,
+        "naive_passed": false,
+        "naive_score": 0.75,
+        "naive_violations": [
+          "emergency_fund"
+        ],
+        "oracle_fwd_return": 0.0841,
+        "naive_fwd_return": 0.0854,
+        "oracle_ef_breach": false,
+        "naive_ef_breach": false
+      }
+    ],
+    "summary": {
+      "oracle_solvable": "10/10",
+      "naive_pass_train": "2/5",
+      "naive_pass_holdout": "4/5"
+    }
+  }
+}

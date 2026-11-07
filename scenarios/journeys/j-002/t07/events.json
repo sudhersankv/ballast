@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "job_change",
+      "date": "2025-12-25",
+      "details": {
+        "new_income": 143000,
+        "previous_income": 159000,
+        "new_employer": "Kestrel Freight (KSTL)",
+        "start_date": "2025-12-25",
+        "employer_401k_match_pct": 4
+      }
+    }
+  ]
+}

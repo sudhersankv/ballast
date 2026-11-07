@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "marriage",
+      "date": "2024-12-18",
+      "details": {
+        "spouse_name": "Grant Iyer",
+        "spouse_age": 35,
+        "spouse_annual_income": 53000,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

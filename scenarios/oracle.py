@@ -65,10 +65,10 @@ def _diagnose(case: dict) -> dict:
     eq = w["by_class"]["equity"]
     return {
         "pre": pre, "w": w, "lo": lo, "hi": hi, "mid": (lo + hi) / 2, "types": types, "need_m": need_m,
-        "band_bad": not (lo <= eq <= hi),
-        "cash_bad": pre.get("CASH", 0.0) < need_m * c["monthly_expenses"],
-        "conc_bad": any(v > 0.10 for v in w["single_stocks"].values()),
-        "glide_bad": c["age"] >= 55 and eq > (lo + hi) / 2,
+        "band_bad": not (lo - 0.005 <= eq <= hi + 0.005),   # checker tolerances (EVAL.md section 1)
+        "cash_bad": pre.get("CASH", 0.0) < need_m * c["monthly_expenses"] - 1,
+        "conc_bad": any(v > 0.105 for v in w["single_stocks"].values()),
+        "glide_bad": c["age"] >= 55 and eq > (lo + hi) / 2 + 0.005,
         "drifted": any(abs(w["by_class"][k] - c["targets"][k]) > 0.05 for k in ("equity", "bond", "cash")),
     }
 
@@ -104,7 +104,10 @@ def recommend(case: dict) -> dict:
     pre, T = dx["pre"], dx["w"]["total"]
     rec = _base_rec(case)
     _profile_updates(case, rec)
-    if not (dx["band_bad"] or dx["cash_bad"] or dx["conc_bad"] or dx["glide_bad"] or dx["drifted"]):
+    # With events present no_churn cannot apply, so a 55+ client near the midpoint is rebalanced proactively
+    # (keeps the next quiet quarter from landing in a no_churn-vs-glidepath conflict).
+    glide_near = bool(case["events"]) and c["age"] >= 55 and dx["w"]["by_class"]["equity"] > dx["mid"] - 0.02
+    if not (dx["band_bad"] or dx["cash_bad"] or dx["conc_bad"] or dx["glide_bad"] or dx["drifted"] or glide_near):
         rec["no_action_reason"] = ("Every asset class is within 5 points of target and the portfolio already meets "
                                    "the emergency-fund, risk-band and concentration checks.")
         return rec
@@ -115,7 +118,7 @@ def recommend(case: dict) -> dict:
     cash_usd = max(tg["cash"] * T, dx["need_m"] * exp * 1.02 + 50)
     e = min(max(tg["equity"], lo + 0.01), hi - 0.01)
     if c["age"] >= 55:
-        e = min(e, mid - 0.01)
+        e = min(e, mid - 0.03)   # buffer so a quarter of market drift rarely re-crosses the midpoint
     if cash_usd / T > 1 - e:
         e = 1 - cash_usd / T
         if e < lo + 0.002:

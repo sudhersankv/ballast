@@ -1,0 +1,100 @@
+{
+  "journey_id": "j-004",
+  "persona": {
+    "name": "Kenji Lundgren",
+    "state": "CA",
+    "occupation": "senior software engineer",
+    "age_at_start": 31,
+    "risk_score": 4
+  },
+  "arc": "A quarter of the portfolio in employer stock at the peak; marries; laid off when the stock collapses; re-employed at a startup that folds a year later (second layoff); re-employed again; the bear market deepens late in the window.",
+  "regime": "Dot-com bust: a slow multi-year bear market, with employer stock collapsing",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "events": [
+        "marriage"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "events": [
+        "layoff"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-08-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "events": []
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "events": [
+        "layoff"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "events": [
+        "market_drop"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10"
+  ]
+}

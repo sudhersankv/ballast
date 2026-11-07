@@ -1,0 +1,27 @@
+{
+  "client_id": "j-001-t04",
+  "name": "Priya Okafor",
+  "age": 35,
+  "state": "WA",
+  "occupation": "senior software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 194500,
+  "monthly_expenses": 9350,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 30,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2057
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 2250.0,
+  "employer": "Nimbex Cloud (NMBX)"
+}

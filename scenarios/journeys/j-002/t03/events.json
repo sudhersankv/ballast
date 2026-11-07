@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2024-11-28",
+      "details": {
+        "new_income": 159000,
+        "previous_income": 142000,
+        "new_employer": "same employer (promotion)",
+        "start_date": "2024-11-28",
+        "employer_401k_match_pct": 4
+      }
+    }
+  ]
+}

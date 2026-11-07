@@ -1,0 +1,30 @@
+{
+  "client_id": "j-005-t08",
+  "name": "Hannah Brennan",
+  "age": 30,
+  "state": "OH",
+  "occupation": "elementary school teacher",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 81500,
+  "monthly_expenses": 6250,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 35,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2063
+    },
+    {
+      "type": "education",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.24,
+    "cash": 0.16
+  },
+  "monthly_contribution": 700.0
+}

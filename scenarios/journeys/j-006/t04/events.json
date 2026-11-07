@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2025-03-10",
+      "details": {
+        "new_income": 87500,
+        "previous_income": 125000,
+        "new_employer": "Tidewell Energy",
+        "start_date": "2025-03-10",
+        "employer_401k_match_pct": 6
+      }
+    }
+  ]
+}

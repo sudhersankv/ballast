@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2024-08-14",
+      "details": {
+        "severance": 43300,
+        "severance_weeks": 18,
+        "tenure_years": 18,
+        "employer": "previous employer",
+        "last_day": "2024-08-14",
+        "cobra_monthly_premium": 810
+      }
+    }
+  ]
+}

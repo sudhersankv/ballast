@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "job_change",
+      "date": "2025-09-03",
+      "details": {
+        "new_income": 135000,
+        "previous_income": 150000,
+        "new_employer": "Halvorsen Group",
+        "start_date": "2025-09-03",
+        "employer_401k_match_pct": 3
+      }
+    }
+  ]
+}

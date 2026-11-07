@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "divorce",
+      "date": "2026-08-15",
+      "details": {
+        "final_date": "2026-08-15",
+        "assets_transferred_usd": 347000,
+        "custody": "shared",
+        "child_support_monthly": 900
+      }
+    }
+  ]
+}

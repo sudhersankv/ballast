@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "divorce",
+      "date": "2025-11-21",
+      "details": {
+        "final_date": "2025-11-21",
+        "assets_transferred_usd": 359000,
+        "custody": null,
+        "child_support_monthly": 0
+      }
+    }
+  ]
+}

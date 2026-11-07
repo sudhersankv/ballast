@@ -1,0 +1,30 @@
+{
+  "client_id": "j-001-t10",
+  "name": "Priya Okafor",
+  "age": 36,
+  "state": "WA",
+  "occupation": "senior software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 185000,
+  "monthly_expenses": 10450,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 29,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2057
+    },
+    {
+      "type": "education",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.02,
+    "cash": 0.23
+  },
+  "monthly_contribution": 1550
+}

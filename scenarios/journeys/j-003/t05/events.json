@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2025-07-30",
+      "details": {
+        "us_equity_change_pct": -5.5,
+        "intl_equity_change_pct": -6.3,
+        "bond_change_pct": -3.5,
+        "peak_date": "2025-04-30",
+        "trough_date": "2025-07-30",
+        "historical_analog": "Rate shock: stocks and bonds fall together, then a partial recovery"
+      }
+    }
+  ]
+}

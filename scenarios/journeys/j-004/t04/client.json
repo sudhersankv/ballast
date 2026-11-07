@@ -1,0 +1,27 @@
+{
+  "client_id": "j-004-t04",
+  "name": "Kenji Lundgren",
+  "age": 32,
+  "state": "CA",
+  "occupation": "senior software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 150000,
+  "monthly_expenses": 7450,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 33,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2060
+    }
+  ],
+  "targets": {
+    "equity": 0.78,
+    "bond": 0.14,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1600,
+  "employer": "Nimbex Cloud (NMBX)"
+}

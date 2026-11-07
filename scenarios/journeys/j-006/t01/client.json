@@ -1,0 +1,26 @@
+{
+  "client_id": "j-006-t01",
+  "name": "Rafael Sandoval",
+  "age": 57,
+  "state": "FL",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 125000,
+  "monthly_expenses": 7900,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.29,
+    "cash": 0.06
+  },
+  "monthly_contribution": 1200
+}

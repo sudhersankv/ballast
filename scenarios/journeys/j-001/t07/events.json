@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "layoff",
+      "date": "2025-11-22",
+      "details": {
+        "severance": 44900,
+        "severance_weeks": 12,
+        "tenure_years": 6,
+        "employer": "Nimbex Cloud (NMBX)",
+        "last_day": "2025-11-22",
+        "cobra_monthly_premium": 810
+      }
+    },
+    {
+      "id": "e5",
+      "type": "market_drop",
+      "date": "2026-01-30",
+      "details": {
+        "us_equity_change_pct": -36.7,
+        "intl_equity_change_pct": -42.8,
+        "bond_change_pct": 14.5,
+        "peak_date": "2025-01-31",
+        "trough_date": "2026-01-30",
+        "historical_analog": "Credit crisis: steady market, then a 50% equity crash and early recovery"
+      }
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "journey_id": "j-003",
+  "persona": {
+    "name": "Elena Varga",
+    "state": "IL",
+    "occupation": "attorney",
+    "age_at_start": 53,
+    "risk_score": 3
+  },
+  "arc": "Pre-retiree holding a stale model allocation; made partner; caught by a stock and bond drawdown; inherits from a parent; turns 55 and cuts back her hours.",
+  "regime": "Rate shock: stocks and bonds fall together, then a partial recovery",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t03",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "events": []
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-08-01",
+      "split": "train",
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "events": []
+    },
+    {
+      "id": "t07",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "events": [
+        "inheritance"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "events": []
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "events": []
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10"
+  ]
+}

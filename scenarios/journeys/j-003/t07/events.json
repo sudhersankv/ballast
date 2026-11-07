@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "inheritance",
+      "date": "2025-12-02",
+      "details": {
+        "amount": 224000,
+        "source": "estate of a parent",
+        "form": "cash",
+        "deposited_to": "CASH",
+        "deposit_date": "2025-12-02"
+      }
+    }
+  ]
+}

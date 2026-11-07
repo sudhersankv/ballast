@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "inheritance",
+      "date": "2026-07-06",
+      "details": {
+        "amount": 78000,
+        "source": "estate of a parent",
+        "form": "cash",
+        "deposited_to": "CASH",
+        "deposit_date": "2026-07-06"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "child",
+      "date": "2025-12-29",
+      "details": {
+        "child_name": "Nora",
+        "birth_date": "2025-12-29",
+        "adoption": false
+      }
+    }
+  ]
+}

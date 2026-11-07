@@ -50,6 +50,19 @@ Each generator parameter, the value used, and where it comes from. Researched 20
 | Fallback when the CSV is missing | Multivariate normal monthly returns. Annual μ: US 10%, intl 7%, bonds 4.5%, cash 3%. σ: 15.5%, 16.5%, 4.5%, 0.6%. US–intl ρ = 0.77. | Calibrated to the CSV statistics above. Output is labelled `"source": "simulated"`. |
 | `backtest.unemployed_draw_months` | 6 | **Assumption**. BLS DWS shows about a third of long-tenured displaced workers still not re-employed at survey time (URL above). |
 
+## Client journeys (journeys.py)
+
+| Parameter | Value | Source |
+| --- | --- | --- |
+| Real regime windows (t01 history end → t10) | j-001 2007-06 → 2009-09. j-002 2019-03 → 2021-06. j-003 2021-03 → 2023-06. j-004 2000-03 → 2002-06. j-005 2013-06 → 2015-09. j-006 2015-06 → 2017-09. | `data/monthly_returns.csv` (French library, FRED GS10). See "Market history" above. |
+| Employer-stock idiosyncratic shocks (j-004 NMBX) | −35% in 2000-12 and −40% in 2001-06, on top of the β = 1.4 simulation | **Assumption**: scripted to mirror dot-com single-name collapses |
+| Child cost | +$1,100/month expenses | **Assumption**. The USDA *Expenditures on Children by Families* (2015 report: about $12.9k/yr for middle-income two-parent households, https://www.usda.gov/media/blog/2017/01/13/cost-raising-child) inflated to 2026 is about $16k/yr. We use about 80% of that, since some costs are already in expenses. The report was not fetched in this session. |
+| Marriage | expenses ×1.2 | **Assumption**: a second adult in the household, but shared housing |
+| Divorce | half of every position transferred; expenses ×0.85 plus $900/month child support when there are dependents | **Assumption**: equal split under equitable distribution |
+| Unemployed months | expenses drawn from CASH every month until a job_change event, plus the COBRA premium | Severance and COBRA rows above; BLS DWS |
+| Contributions while employed | `monthly_contribution`, invested at targets every month. Re-employment resets it to 10% of the new income. | Vanguard HAS (above) |
+| RSU vesting | j-001 $6k/qtr, j-002 $8k/qtr (a $16k/qtr sign-on grant after the re-hire), j-004 $7k/qtr | **Assumption**: typical tech or sales-manager equity grants |
+
 ## Sources that failed or were only partly used
 
 - FRED `SP500` (10 years only) and `BAMLCC0A0CMTRIV` (3 years only) are truncated by licensing. Stooq blocks automated downloads (JavaScript challenge). We used the Kenneth French library and FRED GS10 instead.

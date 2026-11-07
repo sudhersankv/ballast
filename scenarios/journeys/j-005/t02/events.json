@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2024-08-08",
+      "details": {
+        "spouse_name": "Omar Castellano",
+        "spouse_age": 28,
+        "spouse_annual_income": 72000,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

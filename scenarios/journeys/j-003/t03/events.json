@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2025-01-05",
+      "details": {
+        "new_income": 328000,
+        "previous_income": 285000,
+        "new_employer": "same employer (promotion)",
+        "start_date": "2025-01-05",
+        "employer_401k_match_pct": 3
+      }
+    }
+  ]
+}
