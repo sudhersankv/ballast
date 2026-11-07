@@ -1,6 +1,6 @@
 # Ballast Linux runner (no public services). Secrets come from `fly secrets import < .env`.
 app = "ballast-runner"
-primary_region = "sjc"
+primary_region = "iad"
 
 [build]
   dockerfile = "Dockerfile"
