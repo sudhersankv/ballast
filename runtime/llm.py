@@ -50,14 +50,15 @@ def config(provider: str) -> tuple[str, str, str]:
 
 
 def chat(provider: str, system: str, user: str, max_tokens: int = 8000,
-         temperature: float = 0.2, model: str | None = None) -> Reply:
+         temperature: float = 0.2, model: str | None = None, response_format: dict | None = None) -> Reply:
     base, key, default_model = config(provider)
     model = model or default_model
     client = OpenAI(base_url=base, api_key=key, timeout=300)
     t0 = time.time()
+    extra = {"response_format": response_format} if response_format else {}
     r = client.chat.completions.create(
         model=model, max_tokens=max_tokens, temperature=temperature,
-        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}])
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}], **extra)
     u = r.usage
     return Reply(text=r.choices[0].message.content or "", provider=provider, model=model,
                  tokens_in=getattr(u, "prompt_tokens", 0) or 0,

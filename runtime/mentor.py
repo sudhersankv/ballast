@@ -39,6 +39,46 @@ def summarize_failure(case: dict, run: dict, check: dict) -> str:
             f"  agent trades: {trades}\n  violations: {viol}")
 
 
+def normalize_lessons(cand: dict) -> None:
+    """Accept lessons in any reasonable shape (same for every model): plain strings, or dicts
+    using `text`/`summary` instead of `lesson`. Structural rules stay strict elsewhere."""
+    if not isinstance(cand, dict):
+        return
+    raw = cand.get("lessons")
+    if raw is None:
+        return
+    if isinstance(raw, (str, dict)):
+        raw = [raw]
+    out = []
+    for item in raw if isinstance(raw, list) else []:
+        if isinstance(item, str) and item.strip():
+            out.append({"lesson": item.strip()})
+        elif isinstance(item, dict):
+            text = item.get("lesson") or item.get("text") or item.get("summary") or item.get("description")
+            if text:
+                out.append({**item, "lesson": str(text).strip()})
+    cand["lessons"] = out
+
+
+PLAYBOOK_SCHEMA = {
+    "type": "json_schema",
+    "json_schema": {"name": "playbook", "strict": False, "schema": {
+        "type": "object",
+        "required": ["version", "parent", "model", "prompt", "skills", "tools", "max_turns", "changelog", "lessons"],
+        "properties": {
+            "version": {"type": "integer"}, "parent": {"type": "integer"}, "model": {"type": "string"},
+            "prompt": {"type": "string"},
+            "skills": {"type": "array", "items": {"type": "object", "required": ["name", "description", "body"],
+                       "properties": {"name": {"type": "string"}, "description": {"type": "string"}, "body": {"type": "string"}}}},
+            "tools": {"type": "array", "items": {"type": "string"}},
+            "max_turns": {"type": "integer"}, "changelog": {"type": "string"},
+            "lessons": {"type": "array", "items": {"type": "object", "required": ["lesson"],
+                        "properties": {"lesson": {"type": "string"}, "root_cause": {"type": "string"},
+                                       "triggered_by": {"type": "string"}, "rule": {"type": "string"},
+                                       "skill": {"type": "string"}}}}}}},
+}
+
+
 def count_changes(cand: dict, parent: dict) -> int:
     n = 0
     if (cand.get("prompt") or "").strip() != (parent.get("prompt") or "").strip():
@@ -111,13 +151,32 @@ def mentor_propose(parent_yaml: str, failures: list[str], scores: dict, analysis
     provider = llm.role("mentor", "muse")
     # Muse Wonder (deeper reasoning) writes playbooks; Muse Spark runs the agent.
     model = os.environ.get("MUSE_MENTOR_MODEL") if provider == "muse" else None
+    structured = os.environ.get("MENTOR_STRUCTURED", "1") == "1"
+    if structured:
+        # Same for every model: ask for the playbook as JSON matching a schema, convert to YAML ourselves.
+        prompt_s = prompt.replace("Return ONLY the full YAML in one ```yaml block",
+                                  "Return ONLY the full playbook as one JSON object (same fields as the YAML)")
+        try:
+            reply = llm.chat(provider, "You write precise playbooks as JSON.", prompt_s, max_tokens=16000,
+                             model=model, response_format=PLAYBOOK_SCHEMA)
+        except Exception:
+            reply = llm.chat(provider, "You write precise playbooks as JSON.", prompt_s, max_tokens=16000,
+                             model=model, response_format={"type": "json_object"})
+        m = re.search(r"\{.*\}", reply.text, re.S)
+        try:
+            cand = json.loads(m.group(0)) if m else None
+        except json.JSONDecodeError as e:
+            return {"yaml": reply.text, "playbook": None, "errors": [f"JSON parse error: {e}"], "reply": reply}
+        normalize_lessons(cand)
+        text = yaml.safe_dump(cand, sort_keys=False, allow_unicode=True) if isinstance(cand, dict) else reply.text
+        return {"yaml": text, "playbook": cand, "errors": validate_playbook(cand, parent), "reply": reply}
     reply = llm.chat(provider, "You write precise YAML playbooks.", prompt, max_tokens=16000, model=model)
     text = extract_yaml(reply.text)
     try:
         cand = yaml.safe_load(text)
     except yaml.YAMLError as e:
-        cand, text = None, text
         return {"yaml": text, "playbook": None, "errors": [f"YAML parse error: {e}"], "reply": reply}
+    normalize_lessons(cand)
     return {"yaml": text, "playbook": cand, "errors": validate_playbook(cand, parent), "reply": reply}
 
 
