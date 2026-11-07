@@ -34,6 +34,10 @@
       const fresh = d.log.filter((l) => { const k = `${l.created_at}|${l.msg}`; if (S.seen.has(k)) return false; S.seen.add(k); return true; });
       fresh.forEach((l) => S.log.push(l));
       d.runs.forEach((r) => S.runs.set(r.run_id, r));
+      S.gates = S.gates || new Map();
+      const firstLoad = S.gates.size === 0;
+      const newGates = (d.gates || []).filter((g) => { const k = `${g.time}|${g.case_id}|${g.event}`; if (S.gates.has(k)) return false; S.gates.set(k, g); return true; });
+      if (newGates.length) renderGates(firstLoad ? [] : newGates);
       S.blocks = d.blocks; S.versions = d.versions; S.started = d.started_at; S.progress = d.progress;
       const stamps = [...d.log.map((l) => l.created_at), ...d.runs.map((r) => r.created_at)].filter(Boolean).sort();
       if (stamps.length) {
@@ -122,6 +126,21 @@
     if ($("#follow").checked) ol.scrollTop = ol.scrollHeight;
   }
 
+  function renderGates(fresh) {
+    const rows = [...S.gates.values()].sort((a, b) => String(b.time).localeCompare(String(a.time)));
+    const isFresh = new Set(fresh.map((g) => `${g.time}|${g.case_id}|${g.event}`));
+    $("#gates").innerHTML = `<thead><tr><th>Time</th><th>Client</th><th>Event</th><th>Top rule at risk</th><th class="r">p</th><th class="r">Covered</th><th class="r hide-m">Urgency</th><th>Decision</th><th class="r hide-m">Seconds</th></tr></thead>
+      <tbody>${rows.map((g) => {
+        const [r, p] = Object.entries(g.rule_risk || {}).sort((a, b) => b[1] - a[1])[0] || ["none", 0];
+        return `<tr class="${isFresh.has(`${g.time}|${g.case_id}|${g.event}`) ? "fresh" : ""}">
+          <td class="mono">${esc(String(g.time || "").slice(11, 19))}</td><td class="mono">${esc(g.case_id)}</td><td>${esc(String(g.event || "").replace(/_/g, " "))}</td>
+          <td class="mono">${esc(r)}</td><td class="r rr">${Number(p).toFixed(3)}</td><td class="r">${Number(g.covered ?? 0).toFixed(3)}</td>
+          <td class="r hide-m">${esc(g.urgency ?? "–")}</td><td class="${g.rerun_now ? "yes" : "no"}">${g.rerun_now ? "▲ Re-run" : "■ Clear"}</td>
+          <td class="r hide-m">${g.seconds != null ? Number(g.seconds).toFixed(2) : "–"}</td></tr>`;
+      }).join("")}</tbody>`;
+    if (fresh.length) setTimeout(() => document.querySelectorAll("#gates tr.fresh").forEach((t) => t.classList.remove("fresh")), 1200);
+  }
+
   function renderVersions() {
     const ul = $("#ver-list");
     if (!S.versions.length) { ul.innerHTML = `<li class="muted">No versions yet.</li>`; return; }
@@ -202,7 +221,8 @@
   }
 
   function setDb(db) {
-    S.db = db; S.session = null; S.since = null; S.runs.clear(); S.log = []; S.lastAt = null; S.seen = new Set();
+    S.db = db; S.session = null; S.since = null; S.runs.clear(); S.log = []; S.lastAt = null; S.seen = new Set(); S.gates = new Map();
+    $("#gates").innerHTML = `<tbody><tr><td class="muted">No life events in the last 24 hours.</td></tr></tbody>`;
     document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.db === db));
     $("#log").innerHTML = ""; $("#blocks").innerHTML = "";
     const u = new URL(location); u.searchParams.set("db", db); history.replaceState(null, "", u);

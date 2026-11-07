@@ -7,6 +7,7 @@ import difflib
 import json
 import os
 import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
@@ -89,7 +90,7 @@ def overview(demo: int = 0):
             "versions": len(d["playbooks"]),
             "shipped": sum(1 for g in gens if g["decision"] == "shipped"),
             "rejected": sum(1 for g in gens if g["decision"] == "rejected"),
-            "drift_events": sum(1 for e in drift if e["level"] != "green"),
+            "drift_events": sum(1 for e in drift if e["level"] != "green" and e.get("action") != "event_gate"),
             "clients": len(d["clients"]),
             "runs": len(d["runs"]),
         },
@@ -233,7 +234,7 @@ def live(since: str | None = None, db: str | None = None, session: str | None = 
         last = d.loop_log.find_one({}, {"_id": 0, "session": 1}, sort=[("created_at", -1)])
         sess = session or (last or {}).get("session")
         if not sess:
-            return {"db": name, "session": None, "started_at": None, "log": [], "runs": [], "progress": None,
+            return {"db": name, "session": None, "started_at": None, "log": [], "runs": [], "gates": [], "progress": None,
                     "blocks": [], "versions": []}
         first = d.loop_log.find_one({"session": sess}, {"_id": 0, "created_at": 1}, sort=[("created_at", 1)])
         start = first["created_at"] if first else ""
@@ -252,7 +253,15 @@ def live(since: str | None = None, db: str | None = None, session: str | None = 
                   for b in d.runs.aggregate(pipe)]
         versions = list(d.playbooks.find({}, {"_id": 0, "version": 1, "parent": 1, "status": 1, "changelog": 1,
                                                 "created_at": 1}).sort("version", 1))
-        return {"db": name, "session": sess, "started_at": start, "log": log, "runs": runs,
+        # SubQ Snap event gates (fired by the change stream on new life events); not tied to a loop session
+        gfloor = since or (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+        gates = []
+        for doc in d.drift_events.find({"action": "event_gate", "$or": [{"time": {"$gt": gfloor}}, {"created_at": {"$gt": gfloor}}]},
+                                       {"_id": 0}).sort("time", 1).limit(200):
+            t = doc.get("time") or doc.get("created_at")
+            for g in doc.get("gates") or []:
+                gates.append({**g, "time": t})
+        return {"db": name, "session": sess, "started_at": start, "log": log, "runs": runs, "gates": gates,
                 "progress": blocks[-1] if blocks else None, "blocks": blocks, "versions": versions}
 
     return _mongo_guard(q)

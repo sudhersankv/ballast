@@ -87,6 +87,17 @@
           body: `${a.summary} Worst pattern: ${top.condition}, which fails ${top.rule} ${pct(top.failure_rate)}% of the time.`,
           genome: live, version: live, score: top.failure_rate, scoreLabel: `of runs fail ${top.rule} in that pattern`, tone: "subq",
           gate: gateAnalysis(a), stamp: ["Diagnosed", "subq"], scan: true, mut: { mode: "subq", analysis: a } });
+      } else if (e.d.action === "event_gate") {
+        // SubQ Snap decision gate: early warning before the agent runs; the rule checker stays the source of truth
+        const d = e.d, gt = (d.gates || []).find((x) => x.rerun_now) || (d.gates || [])[0];
+        if (!gt) continue;
+        const [rule, p] = Object.entries(gt.rule_risk || {}).sort((a, b) => b[1] - a[1])[0] || ["none", 0];
+        Object.assign(s, { kind: "subq", label: "Snap flags an event", title: "A life event arrives, Snap flags it",
+          body: `${gt.case_id} reports a ${gt.event.replace("_", " ")}. Before the agent runs, SubQ Snap scores it against the live playbook in ${gt.seconds.toFixed(1)}s: ${rule} is at risk (${p.toFixed(2)}) and the playbook covers this event with probability ${gt.covered.toFixed(2)}. ${gt.rerun_now ? "Decision: re-run this client first." : "Decision: no re-run needed."}`,
+          version: live, genome: live, score: p, scoreText: (p * 100).toFixed(1), scoreLabel: `chance ${rule} fails without a re-run`, tone: "subq",
+          gate: [chk("info", "Rule at risk", rule.replace(/_/g, " "), `${rule}, p ${p.toFixed(3)}`), chk("info", "Playbook covers it", gt.covered.toFixed(2), `p that v${live} already handles a ${gt.event.replace("_", " ")}`),
+            chk(!gt.rerun_now, "Decision", gt.rerun_now ? "Re-run now" : "No re-run", `urgency ${gt.urgency} of 3, ${gt.seconds.toFixed(1)}s, ${fmtTok(gt.input_tokens)} tokens`)],
+          stamp: [gt.rerun_now ? "Re-run" : "Clear", "subq"], snapGate: gt, mut: { mode: "snap", gate: gt, gates: d.gates } });
       } else {
         const d = e.d, n = (d.case_ids || []).length;
         lastDrift = d;
@@ -96,7 +107,7 @@
         if (d.action === "rollback") {
           Object.assign(s, { kind: "red", label: "Drift caught", title: "Drift caught, rolled back",
             body: `Conditions changed under v${d.from_version}: ${n} live cases broke rules it always passed. The light turns red and ballast. puts v${d.to_version}, the last healthy genome, back in service.`,
-            gate: gateContain(d), stamp: ["Rolled back", "block"], tone: "alarm", env: true, revertFrom: d.from_version, mut: { mode: "rollback", drift: d } });
+            gate: gateContain(d), stamp: ["Rolled back", "block"], tone: "alarm", env: true, revertFrom: d.from_version, snapWindow: d.snap || null, mut: { mode: "rollback", drift: d } });
           live = d.to_version;
         } else if (d.action === "realign") {
           Object.assign(s, { kind: "muse", label: "Muse drafts a fix", title: "Muse drafts a fix",
@@ -299,9 +310,33 @@
     const b = new Set(String(before || "").split("\n").map((x) => x.trim()));
     return String(after || "").split("\n").map((x) => x.trim()).filter((x) => x && !b.has(x))[0] || firstLine(after);
   }
+  // SubQ Snap: probabilities as bars, numbers right-aligned, next to the rule checker's verdict
+  const bar = (label, p, color, note) => `<li><span class="sl mono">${esc(label)}</span><span class="sb"><span style="width:${Math.max(1, p * 100).toFixed(1)}%;background:var(--${color})"></span></span><span class="sn">${p.toFixed(3)}</span>${note ? `<span class="sx">${esc(note)}</span>` : ""}</li>`;
+  function renderSnap(s) {
+    const box = $("#mut-snap");
+    const gt = s.snapGate, w = s.snapWindow;
+    if (!gt && !w) { box.hidden = true; return; }
+    box.hidden = false;
+    if (gt) {
+      const risks = Object.entries(gt.rule_risk || {}).sort((a, b) => b[1] - a[1]);
+      box.innerHTML = `<div class="snap-head"><h4>SubQ Snap decision gate</h4><span class="mono">${esc(gt.model || "subq-snap-1.1")}</span></div>
+        <div class="snap-cols"><div><p class="snap-k">Rule risk for <span class="mono">${esc(gt.case_id)}</span>, ${esc(gt.event.replace("_", " "))}</p><ul class="snap-bars">${risks.map(([r, p]) => bar(r, p, p >= 0.5 ? "red" : "text-3")).join("")}</ul></div>
+        <div><p class="snap-k">Does the live playbook cover this event?</p><ul class="snap-bars">${bar("covered", gt.covered, gt.covered >= 0.5 ? "mint" : "red", gt.covered < 0.5 ? "not covered" : "covered")}</ul>
+        <p class="snap-verdict ${gt.rerun_now ? "neg" : "pos"}">${gt.rerun_now ? "▲ Re-run this client now" : "■ No re-run needed"}, urgency ${gt.urgency} of 3</p></div></div>
+        <p class="snap-cal">Calibrated against the rule checker: gate F1 0.94 (precision 0.98, recall 0.90) over 39 events, about 0.8s and 1.4K tokens a call. The rules stay the source of truth; Snap is the early warning.</p>`;
+    } else {
+      const lv = w.level_p || {};
+      box.innerHTML = `<div class="snap-head"><h4>Second opinion: SubQ Snap</h4><span class="mono">${esc(w.model || "subq-snap-1.1")}</span></div>
+        <div class="snap-cols"><div><p class="snap-k">Window level</p><ul class="snap-bars">${bar("green", lv.green || 0, "mint")}${bar("yellow", lv.yellow || 0, "gold")}${bar("red", lv.red || 0, "red")}</ul></div>
+        <div><p class="snap-k">Severity</p><ul class="snap-bars">${bar("rollback", w.rollback_p || 0, "red")}${bar(w.rule || "rule", w.rule_p || 0, "red", "rule named")}${bar("new condition", w.novel_p || 0, "subq", (w.novel_p || 0) >= 0.5 ? "not forgetting" : "forgetting")}</ul></div></div>
+        <p class="snap-verdict ${w.agrees ? "pos" : "neg"}">${w.agrees ? "✓ Agrees" : "✕ Disagrees"} with the rule checker: Snap says ${esc(w.level)}, rules say ${esc(w.rule_level)}.</p>
+        <p class="snap-cal">On 14 of 14 windows Snap agreed with the rule checker, and it named the failing rule on 6 of 6 red windows.</p>`;
+    }
+  }
   function renderMut(s) {
     const L = state.lineage, why = $("#mut-why"), what = $("#mut-what"), learned = $("#mut-learned"), ex = $("#mut-ex");
     ex.hidden = true;
+    renderSnap(s);
     const none = (t) => `<p class="muted">${esc(t)}</p>`;
     const mode = s.mut?.mode;
     const g = L[s.genome];
@@ -350,6 +385,12 @@
       const lost = from && to ? from.elements.filter((e) => !to.elements.some((x) => x.key === e.key)) : [];
       what.innerHTML = `<ul>${li("del", "↺", `Reverted to v${d.to_version}`, "", "the last genome that passed every rule it was trusted on")}${lost.map((e) => li("del", "−", e.name, e.kind, "set aside until a fix proves itself")).join("")}</ul>`;
       learned.innerHTML = `<ul>${li("del", "▼", "Rolling score", `${pct(d.baseline)} → ${pct(d.rolling_score)}`, `${(d.case_ids || []).length} drifted cases captured as tests`)}</ul>`;
+    } else if (mode === "snap") {
+      const gt = s.mut.gate;
+      why.innerHTML = `<ul>${li("pat", "◆", `${gt.event.replace("_", " ")} reported`, gt.case_id, "the MongoDB change stream fired the gate on insert")}</ul>`;
+      what.innerHTML = none("Nothing yet. Snap decides whether to re-run first; the rules decide pass or fail.");
+      learned.innerHTML = `<ul>${s.mut.gates.map((g) => { const [r, p] = Object.entries(g.rule_risk || {}).sort((a, b) => b[1] - a[1])[0] || ["none", 0];
+        return li(g.rerun_now ? "del" : "add", g.rerun_now ? "▲" : "■", `${g.case_id}, ${g.event.replace("_", " ")}`, g.rerun_now ? "re-run" : "clear", `${r} ${p.toFixed(2)}, covered ${g.covered.toFixed(2)}`); }).join("")}</ul>`;
     } else if (mode === "subq") {
       const a = s.mut.analysis;
       why.innerHTML = none("The drift light is red. Before Muse edits anything, SubQ reads the whole lineage to find the pattern.");
@@ -387,7 +428,7 @@
     $("#step-body").textContent = s.body;
     $("#stage").dataset.kind = s.kind;
     $(".score").dataset.tone = s.tone || "";
-    $("#score-num").textContent = pct(s.score);
+    $("#score-num").textContent = s.scoreText ?? pct(s.score);
     $("#score-label").textContent = s.scoreLabel;
     const dl = $("#score-delta");
     if (s.delta) { dl.textContent = `${arrow(s.delta.v)} ${signed(s.delta.v)} ${s.delta.label}`; dl.className = `delta ${s.delta.v < 0 ? "neg" : "pos"}`; }
@@ -487,7 +528,7 @@
       ["live", "The new version serves every client, and the loop runs again."],
     ],
     drift: [
-      ["case", "A new life event lands in MongoDB. A change stream triggers a drift check."],
+      ["case", "A new life event lands in MongoDB. The change stream asks SubQ Snap whether to re-run now."],
       ["agent", "The live playbook runs on the new case."],
       ["checker", "A hard rule it always passed now fails. The light turns red."],
       ["rollback", "The last healthy playbook goes back in service at once."],
@@ -577,8 +618,9 @@
   const TECH = [
     { id: "fetch", name: "Fetch.ai Agentverse", role: "Client chat", color: "amber", job: "Each client's agent is a uAgent on Agentverse. A client texts \"I got laid off\" and gets a recommendation back." },
     { id: "mongo", name: "MongoDB Atlas", role: "Memory and triggers", color: "jade", job: "Stores clients, runs, versions and drift events. Change streams fire a drift check when a life event lands; vector search finds similar past drift." },
-    { id: "gemini", name: "Gemini", role: "Google DeepMind, compliance reviewer", color: "gold", job: "An independent reviewer. It blocks any playbook change that weakens a policy rule before it can ship." },
-    { id: "subq", name: "SubQ", role: "Subquadratic, long-context drift analyst", color: "subq", wide: true, job: "When drift hits, SubQ reads every run trace, client timeline and playbook version in one pass, without chunking or retrieval, and names the pattern. Muse writes the fix from that diagnosis." },
+    { id: "gemini", name: "Gemini", role: "Google DeepMind, compliance reviewer", color: "gold", wide: true, job: "An independent reviewer. It blocks any playbook change that weakens a policy rule before it can ship." },
+    { id: "snap", name: "SubQ Snap", role: "Subquadratic, decision gates", color: "subq", job: "Scores every new life event in under a second: which rules are at risk, whether the playbook covers it, whether to re-run now. Gate F1 0.94 over 39 events, $0.04 per 1M input tokens. A second opinion on every drift window; the rules stay the source of truth." },
+    { id: "subq", name: "SubQ Preview", role: "Subquadratic, long-context drift analyst", color: "subq", job: "When drift hits, it reads every run trace, client timeline and playbook version in one pass, without chunking or retrieval, and names the pattern. Muse writes the fix from that diagnosis." },
     { id: "muse", name: "Muse", role: "Meta Model API, agent and mentor", color: "muse", wide: true, job: "The model behind everything. As the agent it runs every client case; as the mentor it rewrites the playbook from failures." },
     { id: "pi", name: "Pi harness", role: "Coding-agent runtime", color: "mint", job: "Runs the agent: reads case files, calls tools, writes recommendation.json. The playbook is its only config." },
     { id: "fly", name: "Fly.io Machines", role: "Sandboxes", color: "text-2", job: "Each case runs in its own machine as an unprivileged user that can't read the checker." },
@@ -587,9 +629,10 @@
   function renderLayers() {
     const svg = $("#layers");
     svg.innerHTML = "";
-    const PA = 118, PT = 10, gap = 66, ox = 190, oy = 30 + 6 * gap;
+    const PA = 112, PT = 10, gap = 60, ox = 190, oy = 30 + (TECH.length - 1) * gap;
+    svg.setAttribute("viewBox", `0 0 520 ${oy + PA + 24}`);
     [[0, 0], [PA, 0], [0, PA], [PA, PA]].forEach(([x, y]) => {
-      const [a1, b1] = iso(ox, oy, x, y, 0), [a2, b2] = iso(ox, oy, x, y, 6 * gap + PT);
+      const [a1, b1] = iso(ox, oy, x, y, 0), [a2, b2] = iso(ox, oy, x, y, (TECH.length - 1) * gap + PT);
       el("line", { x1: a1, y1: b1, x2: a2, y2: b2, stroke: tok("rim"), "stroke-dasharray": "3 5" }, svg);
     });
     [...TECH].reverse().forEach((t, i) => {
@@ -599,6 +642,10 @@
       el("polygon", { points: pts(b.left), fill: c, "fill-opacity": sel ? 0.7 : 0.35 }, g);
       el("polygon", { points: pts(b.right), fill: c, "fill-opacity": sel ? 0.45 : 0.22 }, g);
       el("polygon", { points: pts(b.top), fill: c, "fill-opacity": sel ? 0.28 : 0.1, stroke: c, "stroke-width": sel ? 2 : 1 }, g);
+      if (t.id === "snap") {
+        // decision gate: one fast tick per event
+        [0.2, 0.45, 0.7].forEach((f, k) => el("polygon", { points: pts(box(ox, oy, PA * f - 6, PA / 2 - 6, z + PT, 12, 12, 0).top), fill: k === 1 ? tok("red") : c }, g));
+      }
       if (t.id === "subq") {
         for (let k = 0; k < 40; k++) {
           const x0 = 10 + (k * (PA - 20)) / 40;
