@@ -91,6 +91,18 @@ def metrics(results: list[dict]) -> dict:
             "seconds": round(sum(r["run"].get("seconds") or 0 for r in results), 1)}
 
 
+def update_clients(version: int, results: list[dict]) -> None:
+    """Each test client's personal agent = the shipped version; the UI's client view reads this."""
+    for r in results:
+        case = load_case(r["case_dir"])
+        c = case["client"]
+        store.upsert("clients", {"client_id": c["client_id"]}, {
+            "name": c.get("name", c["client_id"]), "age": c.get("age"), "risk_score": c.get("risk_score"),
+            "occupation": c.get("occupation"), "events": [{"type": e["type"], "date": e.get("date")} for e in case["events"]],
+            "agent_version": version, "last_recommendation": r["run"].get("recommendation"),
+            "last_check": {k: r["check"][k] for k in ("score", "passed", "violations")}})
+
+
 def failures_for_mentor(results: list[dict], k: int = 8) -> list[str]:
     bad = sorted((r for r in results if not r["check"]["passed"]), key=lambda r: r["check"]["score"])
     return [mentor.summarize_failure(load_case(r["case_dir"]), r["run"], r["check"]) for r in bad[:k]]
@@ -121,6 +133,7 @@ def ensure_baseline() -> int:
     store.log_generation({"version": 0, "parent": None, "mode": "training",
                           **{s: metrics(r) for s, r in res.items()},
                           "decision": "shipped", "reason": "baseline", "compliance": None})
+    update_clients(0, res["test"])
     return 0
 
 
@@ -185,6 +198,7 @@ def train(generations: int) -> None:
         log(f"  v{nxt}: {'SHIPPED' if shipped else 'REJECTED'} ({reason})")
         if shipped:
             current = nxt
+            update_clients(nxt, res["test"])
 
 
 # ---- drift mode ----------------------------------------------------------------------
@@ -216,11 +230,9 @@ def drift() -> None:
     drifted = [Path(r["case_dir"]) for r in drift_res if r["check"]["case_id"] in report["case_ids"]]
 
     # Diagnose: SubQ reads every run at once (long context).
+    # Logged after the rollback event and before realign, so the UI replay orders it correctly.
     analysis = mentor.analyze_drift(store.find("runs"), store.find("playbooks"))
-    store.insert("drift_events", {"level": "red", "action": "analysis", "analysis": analysis,
-                                  "from_version": good, "to_version": good, "case_ids": report["case_ids"],
-                                  "time": __import__("store").now(), "violations": [], "rolling_score": report["rolling_score"],
-                                  "baseline": baseline})
+    store.insert("drift_analysis", {**analysis, "time": __import__("store").now()})
     log(f"  analyst ({analysis.get('provider')}): {analysis.get('summary', '')[:200]}")
     store.log_drift({"level": "red", "rolling_score": report["rolling_score"], "baseline": baseline,
                      "violations": [], "action": "realign", "from_version": good, "to_version": None,
@@ -229,7 +241,8 @@ def drift() -> None:
     # Realign + verify, up to 3 attempts.
     good_reg = evaluate(good, "regression")
     fails = failures_for_mentor(drift_res)
-    analysis_text = json.dumps({"summary": analysis.get("summary"), "patterns": analysis.get("patterns")}, indent=1)
+    analysis_text = json.dumps({"summary": analysis.get("summary"), "handoff": analysis.get("handoff"),
+                                "patterns": analysis.get("patterns")}, indent=1)
     latest = max(p["version"] for p in store.find("playbooks"))
     for attempt in range(1, MAX_ATTEMPTS + 1):
         out = propose(good, fails, {"practice": "n/a", "test": baseline}, analysis_text)

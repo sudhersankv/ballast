@@ -26,7 +26,8 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 
-COLLECTIONS = ("playbooks", "generations", "runs", "drift_events", "clients", "life_events")
+COLLECTIONS = ("playbooks", "generations", "runs", "drift_events", "clients", "life_events",
+               "drift_analysis", "benchmarks")
 FALLBACK_DIR = ROOT / "runs" / "store"
 
 

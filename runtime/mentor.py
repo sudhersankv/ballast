@@ -160,8 +160,9 @@ RUNS ({n} runs):
 {runs}
 
 Answer with JSON only:
-{{"summary": "<2 sentences>", "patterns": [{{"condition": "...", "rule": "...", "failure_rate": 0.0,
-  "runs": 0, "advice": "<a general habit the agent should adopt>"}}]}}"""
+{{"summary": "<2 sentences>", "handoff": "<what the mentor should change, as general habits>",
+  "patterns": [{{"condition": "...", "rule": "...", "failure_rate": 0.0, "runs": 0,
+  "example": "<one concrete violation detail from the runs>"}}]}}"""
 
 
 def analyze_drift(runs: list[dict], playbooks: list[dict]) -> dict:
@@ -177,10 +178,12 @@ def analyze_drift(runs: list[dict], playbooks: list[dict]) -> dict:
             r = llm.chat(provider, ANALYST_SYS, user, max_tokens=8000)
             m = re.search(r"\{.*\}", r.text, re.S)
             out = json.loads(m.group(0)) if m else {"summary": r.text[:500], "patterns": []}
-            return {"provider": provider, "model": r.model, "runs_read": len(slim),
+            return {"analyst": provider, "provider": provider, "model": r.model, "runs_read": len(slim),
+                    "client_timelines": len({x.get("case_id") for x in slim}),
+                    "playbook_versions": len(playbooks),
                     "tokens_read": r.tokens_in, "seconds": r.seconds,
-                    "summary": out.get("summary", ""), "patterns": out.get("patterns", []),
-                    "fallback": provider != order[0]}
+                    "summary": out.get("summary", ""), "handoff": out.get("handoff", ""),
+                    "patterns": out.get("patterns", []), "fallback": provider != order[0]}
         except Exception as e:
             last_err = e
     return {"provider": None, "runs_read": len(slim), "patterns": [], "summary": f"analysis failed: {last_err}"}
