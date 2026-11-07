@@ -169,6 +169,7 @@
       openSheet(`
         <h3 id="sheet-title">${esc(c.name || r.case_id)}</h3>
         <p class="sub">${esc(r.case_id)}, playbook v${esc(r.playbook_version)}, ${esc(r.set)} set, model ${esc(r.model || "unknown")}</p>
+        ${(r.steps || []).length ? `<p style="margin-top:10px"><button class="btn small primary" type="button" data-replay="${esc(r.run_id)}">Replay this run</button></p>` : ""}
         <div class="kv">
           <div><span>Score</span><b class="${r.passed ? "ok" : "bad"}">${pct(r.score)}</b></div>
           <div><span>Result</span><b class="${r.passed ? "ok" : "bad"}">${r.passed ? "Passed" : "Failed"}</b></div>
@@ -234,6 +235,7 @@
   $("#blocks").addEventListener("click", (e) => { const b = e.target.closest("button[data-run]"); if (b) openRun(b.dataset.run); });
   $("#ver-list").addEventListener("click", (e) => { const b = e.target.closest("button[data-v]"); if (b) openVersion(b.dataset.v); });
   $("#sheet-close").addEventListener("click", () => $("#sheet").close());
+  $("#sheet").addEventListener("click", (e) => { const b = e.target.closest("button[data-replay]"); if (b && window.ballastReplay) { $("#sheet").close(); window.ballastReplay("run", b.dataset.replay, S.db); } });
   $("#sheet").addEventListener("close", () => { if (/^#(run|v)-/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search); });
   const _openRun = openRun, _openVersion = openVersion;
   openRun = (id) => { history.replaceState(null, "", `${location.pathname}${location.search}#run-${id}`); return _openRun(id); };

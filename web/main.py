@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -166,7 +166,7 @@ def client_detail(cid: str, demo: int = 0):
 
 
 # ---------------------------------------------------------------- live view
-LIVE_DBS = {"ballast_muse", "ballast_dev", "ballast"}
+LIVE_DBS = {"ballast_muse", "ballast_dev", "ballast", "ballast_bench_muse", "ballast_bench_subq"}
 SET_SIZES = {"practice": 20, "test": 20, "regression": 10, "drift": 10}
 SLIM = {"_id": 0, "run_id": 1, "playbook_version": 1, "set": 1, "case_id": 1, "model": 1, "score": 1, "passed": 1,
         "turns": 1, "seconds": 1, "error": 1, "created_at": 1, "violations": 1, "tokens_in": 1, "tokens_out": 1}
@@ -426,6 +426,98 @@ def live_page():
     return FileResponse(HERE / "static" / "live.html")
 
 
+# ---------------------------------------------------------------- run it: jobs for runtime/worker.py
+CASES = json.loads((HERE / "cases.json").read_text()) if (HERE / "cases.json").exists() else []
+CASE_IDS = {c["case"] for c in CASES}
+RUN_MODELS = {"meta/muse-spark-1.3": "Muse Spark 1.3", "subq/subq-preview": "SubQ Preview", "google/gemini-3.8-flash": "Gemini 3.8 Flash"}
+_rate: dict[str, list[float]] = {}
+RATE_N, RATE_WINDOW = 10, 600
+
+
+@app.get("/api/cases")
+def cases():
+    return CASES
+
+
+@app.get("/api/playbook_versions")
+def playbook_versions(journey: str | None = None, db: str | None = None):
+    def q():
+        d, _ = _db(db)
+        coll = d.journey_playbooks if journey else d.playbooks
+        f = {"journey": journey} if journey else {}
+        return [{"version": p["version"], "status": p.get("status"), "changelog": p.get("changelog", "")}
+                for p in coll.find(f, {"_id": 0, "version": 1, "status": 1, "changelog": 1}).sort("version", 1)]
+    return _mongo_guard(q)
+
+
+@app.post("/api/run")
+async def run_job(request: Request):
+    import uuid
+
+    body = await request.json()
+    secret = os.environ.get("RUN_PASSCODE")
+    if not secret:
+        raise HTTPException(503, "Live runs are off: RUN_PASSCODE isn't set on the server")
+    if str(body.get("passcode", "")) != secret:
+        raise HTTPException(403, "Wrong passcode")
+    case = str(body.get("case", ""))
+    if case not in CASE_IDS:
+        raise HTTPException(400, f"Unknown case {case!r}")
+    models = [m for m in (body.get("models") or []) if m in RUN_MODELS]
+    if not models:
+        raise HTTPException(400, "Pick at least one model")
+    pv = body.get("playbook_version")
+    pv = None if pv in (None, "", "v0") else int(pv)
+    journey = case.split("/")[1] if case.startswith("journeys/") and pv is not None else None
+    ip = (request.headers.get("fly-client-ip") or request.client.host or "?")
+    now_t = time.time()
+    hits = [t for t in _rate.get(ip, []) if now_t - t < RATE_WINDOW]
+    if len(hits) + len(models) > RATE_N:
+        raise HTTPException(429, f"Limit is {RATE_N} runs per 10 minutes. Try again in {int(RATE_WINDOW - (now_t - min(hits)))} s")
+    _rate[ip] = hits + [now_t] * len(models)
+
+    def q():
+        d, name = _db(None)
+        ids = []
+        for m in models:
+            jid = f"job-{uuid.uuid4().hex[:8]}"
+            d.jobs.insert_one({"job_id": jid, "status": "queued", "case": case, "model": m, "playbook_version": pv,
+                               "journey": journey, "source": "web", "created_at": datetime.now(timezone.utc).isoformat()})
+            ids.append(jid)
+        return {"db": name, "job_ids": ids}
+    return _mongo_guard(q)
+
+
+@app.get("/api/jobs")
+def jobs(limit: int = 20):
+    def q():
+        d, _ = _db(None)
+        out = []
+        for j in d.jobs.find({}, {"_id": 0, "steps": 0, "result.recommendation": 0, "result.check.results": 0}).sort("created_at", -1).limit(min(limit, 50)):
+            r = j.pop("result", None) or {}
+            chk = r.get("check") or {}
+            out.append({**j, "score": chk.get("score"), "passed": chk.get("passed"), "seconds": r.get("seconds"), "turns": r.get("turns"),
+                        "error": r.get("error") or j.get("error")})
+        return out
+    return _mongo_guard(q)
+
+
+@app.get("/api/jobs/{job_id}")
+def job(job_id: str):
+    def q():
+        d, _ = _db(None)
+        return d.jobs.find_one({"job_id": job_id}, {"_id": 0})
+    j = _mongo_guard(q)
+    if not j:
+        raise HTTPException(404, f"No job {job_id}")
+    return j
+
+
+@app.get("/architecture")
+def architecture_page():
+    return FileResponse(HERE / "static" / "arch.html")
+
+
 @app.get("/api/analysis")
 def analysis(demo: int = 0):
     """SubQ long-context drift analyses (newest last)."""
@@ -658,23 +750,41 @@ def lessons(db: str | None = None, demo: int = 0):
 
 @app.get("/api/benchmark")
 def benchmark(demo: int = 0):
-    """Same unseen clients, different agent models. Prefers the real runs (ballast_dev = Gemini, ballast_muse = Muse)."""
+    """Head to head: the Muse stack vs the SubQ stack, same tests from the same generic v0, read live from the two
+    benchmark databases (interim until the final summary lands). Gemini is only the compliance reviewer, not a contender."""
     if not demo and os.environ.get("MONGODB_URI"):
         real = []
         try:
-            for name, label, provider in (("ballast_muse", "Muse Spark 1.3", "Meta Model API"), ("ballast_dev", "Gemini 3.8 Flash", "Google DeepMind")):
+            for name, key, label, provider in (("ballast_bench_muse", "muse", "Muse Spark 1.3", "Meta Model API, Muse stack"),
+                                               ("ballast_bench_subq", "subq", "SubQ Preview", "Subquadratic, SubQ stack")):
                 d, _ = _db(name)
-                g = d.generations.find_one({"version": 0}, {"_id": 0, "test": 1, "practice": 1})
-                if not g or not g.get("test"):
+                rs = list(d.runs.find({}, {"_id": 0, "tokens_in": 1, "tokens_out": 1, "seconds": 1, "score": 1, "passed": 1, "created_at": 1, "set": 1}))
+                if not rs:
                     continue
-                rs = list(d.runs.find({"playbook_version": 0, "set": "test"}, {"_id": 0, "tokens_in": 1, "tokens_out": 1, "seconds": 1, "model": 1}))
-                n = max(1, len(rs))
-                real.append({"model": "muse" if "muse" in name else "gemini", "label": label, "provider": provider, "real": True,
-                             "playbook_version": 0, "mean_score": g["test"]["mean_score"], "pass_rate": g["test"]["pass_rate"],
+                n = len(rs)
+                stamps = sorted(r["created_at"] for r in rs if r.get("created_at"))
+                span = (datetime.fromisoformat(stamps[-1]) - datetime.fromisoformat(stamps[0])).total_seconds() / 60 if len(stamps) > 1 else 0
+                g = d.generations.find_one({"version": 0}, {"_id": 0, "test": 1})
+                sums = list(d.journey_summaries.find({}, {"_id": 0}))
+                avg = lambda k: round(sum(float(s.get(k) or 0) for s in sums) / len(sums), 3) if sums else None
+                scored = [r for r in rs if r.get("score") is not None]
+                real.append({"model": key, "label": label, "provider": provider, "real": True, "db": name, "runs": n,
+                             "_test": (g or {}).get("test") if g else None,
+                             "mean_score": round(sum(r["score"] for r in scored) / max(1, len(scored)), 3),
+                             "score_basis": "all runs so far",
+                             "pass_rate": round(sum(1 for r in scored if r.get("passed")) / max(1, len(scored)), 3),
                              "tokens": round(sum((r.get("tokens_in") or 0) + (r.get("tokens_out") or 0) for r in rs) / n),
-                             "seconds": round(sum(r.get("seconds") or 0 for r in rs) / n, 1), "db": name})
+                             "seconds": round(sum(r.get("seconds") or 0 for r in rs) / n, 1),
+                             "runs_per_min": round(n / span, 1) if span else None,
+                             "journeys": len(sums), "holdout_start": avg("holdout_mean_start"), "holdout_final": avg("holdout_mean_final")})
         except Exception:
             real = []
+        # compare on one basis: v0 test only when every stack has it, otherwise all runs so far for both
+        if real and all(r.get("_test") for r in real):
+            for r in real:
+                r.update(mean_score=r["_test"]["mean_score"], pass_rate=r["_test"]["pass_rate"], score_basis="v0 test")
+        for r in real:
+            r.pop("_test", None)
         if real:
             return real
     d, _ = _load(bool(demo))

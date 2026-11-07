@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ballast. how it's built</title>
+<meta name="description" content="ballast., end to end: the harness, the four loops, the twelve runtime handlers, and where it all runs.">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0f14'/%3E%3Cpath d='M32 8 56 32 32 56 8 32Z' fill='none' stroke='%2378e8a8' stroke-width='5'/%3E%3Crect x='27' y='27' width='10' height='10' fill='%23e9c46a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="/" aria-label="ballast. home">ballast<span>.</span></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="/#genome">Genome</a>
+    <a href="/#learned">Lessons</a>
+    <a href="/#journeys">Journeys</a>
+    <a href="/architecture" aria-current="page">How it's built</a>
+    <a href="/live" class="live-link"><span class="live-dot" aria-hidden="true"></span>Live</a>
+  </nav>
+</header>
+
+<main id="main" class="arch">
+  <!-- 1 -->
+  <section class="a-open" aria-labelledby="s1">
+    <p class="a-kicker mono">ballast. how it works, end to end</p>
+    <h1 class="intro-h" id="s1">The short version</h1>
+    <div class="a-open-grid">
+      <div class="a-open-copy">
+        <p class="lede">ballast. gives every client a personal AI agent that looks after their investment portfolio. The agent reads the client's situation and recommends trades. A human approves them; the agent never trades on its own.</p>
+        <p class="lede">The interesting part is not the agent. It is the <b>harness around it</b>: a system that watches the agent's mistakes, figures out <em>why</em> each one happened, rewrites the agent's instructions to fix it, and only keeps the new instructions if it can <b>prove</b> they work on situations the agent has never seen. When the world changes and the agent starts slipping, the harness notices, rolls back, and fixes it again.</p>
+      </div>
+      <div class="board a-nums" id="a-nums" aria-label="Numbers from the live system"></div>
+    </div>
+    <p class="a-pitch">it gets better with every run, catches itself when it drifts, and never ships an upgrade it can't prove.</p>
+    <p class="muted mono a-note">Written for someone new to the project. No prior knowledge assumed.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="a-sec" aria-labelledby="s2">
+    <div class="sec-head"><h2 class="sec-h" id="s2">The big idea (beyond finance)</h2></div>
+    <div class="a-two">
+      <div>
+        <h3 class="a-h3">The problem</h3>
+        <p class="a-p">AI agents are being put in charge of real work. Today, when an agent gets something wrong, a person edits its prompt by hand, tries a few examples, and hopes. Nobody can say whether the edit made the agent better overall, or whether it quietly broke something else. And when conditions change (new kinds of customers, a market crash), agents drift without anyone noticing until damage is done.</p>
+      </div>
+      <div>
+        <h3 class="a-h3">What we built: AutoML, but for an agent's instructions</h3>
+        <p class="a-p">AutoML is the idea of letting a machine search for a better model setup and keeping only what scores better on held-out data. ballast. applies the same discipline to an AI agent's <b>instructions</b> instead of a model's weights:</p>
+      </div>
+    </div>
+    <div class="cmp frame" role="table" aria-label="AutoML compared with ballast.">
+      <div class="cmp-row cmp-h" role="row"><span role="columnheader">AutoML</span><i aria-hidden="true"></i><span role="columnheader">ballast.</span></div>
+      <div class="cmp-row" role="row"><span role="cell">Searches model settings</span><i aria-hidden="true">→</i><span role="cell">Searches the agent's <b>playbook</b> (its instructions and skills)</span></div>
+      <div class="cmp-row" role="row"><span role="cell">A training set to learn from</span><i aria-hidden="true">→</i><span role="cell"><b>Practice</b> cases the agent fails on</span></div>
+      <div class="cmp-row" role="row"><span role="cell">A validation set to decide</span><i aria-hidden="true">→</i><span role="cell"><b>Unseen test</b> cases and the client's <b>future</b> quarters</span></div>
+      <div class="cmp-row" role="row"><span role="cell">Keep the setting only if validation improves</span><i aria-hidden="true">→</i><span role="cell"><b>Ship</b> the new playbook only if it passes every <b>gate</b></span></div>
+    </div>
+
+    <div class="a-two a-gap">
+      <div class="panel">
+        <h3 class="panel-h">Why it is safe</h3>
+        <ul class="safe">
+          <li><b>Only words change.</b> The model, the tools and the rules are fixed. The thing that evolves is a readable text file. Anyone can open it and see exactly what the agent was told.</li>
+          <li><b>The rules live outside the agent.</b> The grading rules are code the agent cannot see or edit. It cannot "loosen" its own standards.</li>
+          <li><b>Every change needs evidence.</b> A new version must score higher on situations it never trained on, break nothing that already worked, survive a replay of real market history, and pass an independent compliance review.</li>
+          <li><b>It can undo itself.</b> If performance drops, it rolls back to the last version that was proven good. After three failed fix attempts it stops and asks a human.</li>
+          <li><b>It only recommends.</b> No trade happens without a person approving it.</li>
+          <li><b>It runs locked down.</b> Each agent run happens in a sandbox as a restricted user that cannot read the grading code or any passwords.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3 class="panel-h">Why it is prescriptive</h3>
+        <p class="a-p">Every improvement comes out as a <b>lesson</b> a person can read, tied to a cause:</p>
+        <ol class="ledger a-lesson">
+          <li class="lesson">
+            <div class="l-meta"><span class="l-big">4→0<small>unseen clients failing<br>emergency_fund</small></span></div>
+            <div class="l-body">
+              <p class="l-text">"After a layoff, I build six months of cash before rebalancing anything else."</p>
+              <dl class="l-dl">
+                <div><dt>Learned from</dt><dd><b>a layoff.</b> Root cause: the agent put sale proceeds into stocks and bonds without checking cash.</dd></div>
+                <div><dt>Proven on</dt><dd><ul class="l-proof"><li><b class="pos">▼ 4 → 0</b> unseen clients failing</li></ul></dd></div>
+              </dl>
+              <p class="l-skill">Rule it fixes: <span class="mono">emergency_fund</span></p>
+            </div>
+          </li>
+        </ol>
+        <p class="a-p">So the output is not a black box that got better. It is a list of specific, auditable behaviors, each with the failure it came from and the evidence that it works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="a-sec" aria-labelledby="s3">
+    <div class="sec-head"><h2 class="sec-h" id="s3">Today's use case: a portfolio agent per client</h2></div>
+    <div class="a-two">
+      <p class="a-p">A wealth-management firm has many clients. Their lives change: layoffs, raises, marriages, new children, divorces, inheritances. Markets change too: crashes, rallies, rate shocks. A plan written at onboarding goes stale fast.</p>
+      <p class="a-p">ballast. gives each client their own agent. At every review, the agent looks at the client's profile, holdings, the market and any new life events, and recommends trades with a reason for each one. Over time, the harness teaches each client's agent the lessons that matter for that client.</p>
+    </div>
+    <p class="a-p muted">All clients are synthetic. All policy numbers are illustrative, not financial advice.</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="a-sec" aria-labelledby="s4">
+    <div class="sec-head"><h2 class="sec-h" id="s4">Words we use</h2></div>
+    <div class="gloss-bar">
+      <label for="gloss-q" class="mono">Filter</label>
+      <input id="gloss-q" type="search" autocomplete="off" spellcheck="false" placeholder="playbook, gate, drift">
+      <span class="mono muted" id="gloss-n" aria-live="polite"></span>
+    </div>
+    <dl class="gloss" id="gloss"></dl>
+  </section>
+
+  <!-- 5 -->
+  <section class="a-sec" aria-labelledby="s5">
+    <div class="sec-head"><h2 class="sec-h" id="s5">Step by step: what happens</h2>
+      <p class="sec-sub">Four loops. Step through each one; the diagram lights the parts involved and shows what that step produces.</p></div>
+    <div class="how-tabs loop-tabs" role="tablist" aria-label="Loop" id="loop-tabs"></div>
+    <div class="loopbox frame" id="loopbox" role="tabpanel">
+      <div class="lmap-scroll" tabindex="0" aria-label="Loop diagram, scroll sideways"><svg id="lmap" class="lmap" viewBox="0 0 760 300" role="img" aria-label="Loop diagram"></svg></div>
+      <div class="lpanel">
+        <ol class="lsteps" id="lsteps"></ol>
+        <div class="artifact" id="artifact" aria-live="polite"></div>
+        <div class="how-ctrl"><button class="btn small" id="l-prev">Back</button><button class="btn small primary" id="l-next">Next step</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="a-sec" aria-labelledby="s6">
+    <div class="sec-head"><h2 class="sec-h" id="s6">The runtime: every handler</h2>
+      <p class="sec-sub">"Handler" here means a piece of the system with one job, its inputs, and its outputs. There are <b>12 runtime handlers</b> plus the web app. Pick one to light its connections on the map.</p></div>
+    <ol class="hgrid" id="hgrid"></ol>
+    <div class="smap-wrap frame">
+      <p class="viz-k">System map <span>handlers, MongoDB collections, Fly machines, model APIs</span></p>
+      <div class="lmap-scroll" tabindex="0" aria-label="System map, scroll sideways"><svg id="smap" class="smap" viewBox="0 0 1000 640" role="img" aria-label="System map"></svg></div>
+    </div>
+    <div class="a-two a-gap">
+      <div class="panel">
+        <h3 class="panel-h">What's stored (MongoDB collections)</h3>
+        <ul class="colls" id="colls"></ul>
+      </div>
+      <div class="panel">
+        <h3 class="panel-h">Where it runs</h3>
+        <table class="rules a-tbl">
+          <thead><tr><th>Piece</th><th>Where</th></tr></thead>
+          <tbody>
+            <tr><td>Agent runs, loops, journeys</td><td>Fly.io machines in Virginia (<span class="mono">ballast-runner</span>). Meta's API refuses requests from Fly's San Jose region</td></tr>
+            <tr><td>Website and live view</td><td>Fly.io (<span class="mono">ballast-web</span>), <a class="mono" href="https://ballast-web.fly.dev">https://ballast-web.fly.dev</a></td></tr>
+            <tr><td>Database</td><td>MongoDB Atlas (free tier)</td></tr>
+            <tr><td>Models</td><td>Meta Model API (<span class="mono">api.meta.ai</span>), Subquadratic (<span class="mono">api.subq.ai</span>), Google Gemini</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="a-sec" aria-labelledby="s7">
+    <div class="sec-head"><h2 class="sec-h" id="s7">Who does what (models and partners)</h2></div>
+    <table class="rules a-tbl a-who">
+      <thead><tr><th>Part</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><i class="dot" style="background:var(--muse)"></i><b>Muse Spark 1.3</b> (Meta)</td><td>The portfolio agent</td></tr>
+        <tr><td><i class="dot" style="background:var(--muse)"></i><b>Muse Wonder 1.0</b> (Meta)</td><td>The mentor that writes new playbooks and lessons</td></tr>
+        <tr><td><i class="dot" style="background:var(--subq)"></i><b>SubQ Snap</b> (Subquadratic)</td><td>Fast decision gates: rule risk per life event, rollback verdict</td></tr>
+        <tr><td><i class="dot" style="background:var(--subq)"></i><b>SubQ Preview</b> (Subquadratic)</td><td>Long-context analyst; also benchmarked as an agent and mentor</td></tr>
+        <tr><td><i class="dot" style="background:var(--gold)"></i><b>Gemini</b> (Google DeepMind)</td><td>Independent compliance reviewer</td></tr>
+        <tr><td><i class="dot" style="background:var(--mint)"></i><b>Pi</b></td><td>The agent harness: runs the model with tools, limits and a sandbox</td></tr>
+        <tr><td><i class="dot" style="background:var(--jade)"></i><b>MongoDB Atlas</b></td><td>All data; change streams trigger drift checks on new life events</td></tr>
+        <tr><td><i class="dot" style="background:var(--text-2)"></i><b>Fly.io</b></td><td>Runs everything</td></tr>
+        <tr><td><i class="dot" style="background:var(--amber)"></i><b>Fetch.ai</b> (next)</td><td>Lets a client chat with their own agent on Agentverse</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 8 -->
+  <section class="a-sec" aria-labelledby="s8">
+    <div class="sec-head"><h2 class="sec-h" id="s8">The test data</h2></div>
+    <ul class="facts">
+      <li><span class="f-n">60</span><p><b>60 single cases</b> in four groups (practice 20, test 20, regression 10, drift 10), calibrated to public US data: the Federal Reserve's Survey of Consumer Finances, BLS spending and layoff statistics, CDC life-event ages, Vanguard glide paths.</p></li>
+      <li><span class="f-n">6</span><p><b>6 client journeys</b>, each 10 quarterly checkpoints through a real market period: the 2008 crisis, COVID, the 2022 rate shock, the dot-com bust, a calm bull market, and a 2015–17 correction.</p></li>
+      <li><span class="f-n">1990–2026</span><p><b>Real market history:</b> monthly returns from 1990 to 2026 (Kenneth French data library for stocks and cash, FRED Treasury yields for bonds). Each case gets 4 years of history; the next 12 months are hidden in a separate folder for the backtest.</p></li>
+      <li><span class="f-n">100%</span><p>A reference solver passes every case and every checkpoint, so every test is fair.</p></li>
+    </ul>
+  </section>
+
+  <!-- 9 -->
+  <section class="a-sec" aria-labelledby="s9">
+    <div class="sec-head"><h2 class="sec-h" id="s9">What we built today</h2></div>
+    <ol class="tline">
+      <li>Repo, spec and evaluation criteria (with a teammate).</li>
+      <li>Linux runner on Fly with a sandboxed Pi harness.</li>
+      <li>The checker (10 rules, 11 tests) and drift indicator.</li>
+      <li>Realistic scenarios, real market history, held-out months and the backtest.</li>
+      <li>The mentor with root-cause diagnosis and lessons; the Gemini reviewer.</li>
+      <li>The training loop with gates; the drift loop with rollback and escalation.</li>
+      <li>SubQ Snap gates, calibrated against the checker (F1 0.94), and the live change-stream watcher.</li>
+      <li>Six client journeys and the per-client learning loop.</li>
+      <li>The website: guided replay, live view, lessons, journeys, coverage map, benchmark.</li>
+      <li>Real runs on Muse. v0 passed 11 of 20 unseen clients; Muse's v1 passed 19 of 20 and cut backtest cash breaches from 6 to 0 (the gate held it back because one regression client flipped, which the 3× repeated runs now address).</li>
+    </ol>
+  </section>
+
+  <!-- 10 -->
+  <section class="a-sec" aria-labelledby="s10">
+    <div class="sec-head"><h2 class="sec-h" id="s10">What's next</h2></div>
+    <ol class="nextl">
+      <li>Finish the Muse vs SubQ benchmark (same tests, repeated runs, control arm, journeys, drift, cost).</li>
+      <li>Start the demo from a truly generic playbook, so the first 2–3 checkpoints fail and the learning is visible.</li>
+      <li>Fetch.ai: each client chats with their own agent.</li>
+      <li>Vector search over past drift cases, so the mentor sees similar past fixes.</li>
+      <li>Hide numeric thresholds from the mentor's view of failures, so gains come from reasoning rather than copying the grader.</li>
+    </ol>
+  </section>
+
+  <footer class="foot">
+    <span class="wordmark small">ballast<span>.</span></span>
+    <p>Synthetic clients. Illustrative policy, not financial advice. ballast. recommends; a person approves. It never executes trades.</p>
+  </footer>
+</main>
+
+<script src="/static/arch.js"></script>
+</body>
+</html>

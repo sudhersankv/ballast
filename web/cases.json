@@ -1,0 +1,1543 @@
+[
+{
+"case": "fixtures/c-014",
+"group": "fixtures",
+"age": 38,
+"risk": 3,
+"name": null,
+"events": [
+"layoff"
+],
+"cash_months": 1.7,
+"value": 139000,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-021",
+"group": "test",
+"age": 36,
+"risk": 4,
+"name": "Abigail Achebe",
+"events": [
+"marriage",
+"job_change"
+],
+"cash_months": 3.5,
+"value": 163300,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-022",
+"group": "test",
+"age": 35,
+"risk": 2,
+"name": "Lucia Beaumont",
+"events": [],
+"cash_months": 2.0,
+"value": 93800,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-023",
+"group": "test",
+"age": 35,
+"risk": 4,
+"name": "Lucia Whitaker",
+"events": [
+"job_change",
+"child"
+],
+"cash_months": 4.5,
+"value": 142700,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-024",
+"group": "test",
+"age": 54,
+"risk": 3,
+"name": "Diego Kowalski",
+"events": [
+"layoff"
+],
+"cash_months": 1.9,
+"value": 322000,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-025",
+"group": "test",
+"age": 66,
+"risk": 3,
+"name": "Victor Achebe",
+"events": [],
+"cash_months": 3.9,
+"value": 293900,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-026",
+"group": "test",
+"age": 52,
+"risk": 4,
+"name": "Tessa Okafor",
+"events": [
+"layoff"
+],
+"cash_months": 4.1,
+"value": 537200,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-027",
+"group": "test",
+"age": 46,
+"risk": 4,
+"name": "Desmond Gallagher",
+"events": [
+"job_change"
+],
+"cash_months": 4.8,
+"value": 271100,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-028",
+"group": "test",
+"age": 38,
+"risk": 4,
+"name": "Desmond Iyer",
+"events": [
+"marriage"
+],
+"cash_months": 4.1,
+"value": 295100,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-029",
+"group": "test",
+"age": 55,
+"risk": 2,
+"name": "Elena Nguyen",
+"events": [],
+"cash_months": 4.8,
+"value": 238400,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-030",
+"group": "test",
+"age": 38,
+"risk": 4,
+"name": "Wesley Oyelaran",
+"events": [
+"child"
+],
+"cash_months": 3.7,
+"value": 304700,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-031",
+"group": "test",
+"age": 37,
+"risk": 5,
+"name": "Camila Pemberton",
+"events": [],
+"cash_months": 4.1,
+"value": 716900,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-032",
+"group": "test",
+"age": 37,
+"risk": 3,
+"name": "Leila Patel",
+"events": [
+"layoff",
+"child"
+],
+"cash_months": 2.5,
+"value": 105700,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-033",
+"group": "test",
+"age": 48,
+"risk": 3,
+"name": "Victor Dubois",
+"events": [
+"job_change"
+],
+"cash_months": 5.9,
+"value": 191400,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-034",
+"group": "test",
+"age": 54,
+"risk": 3,
+"name": "Gloria Fairbanks",
+"events": [],
+"cash_months": 3.7,
+"value": 368100,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-035",
+"group": "test",
+"age": 39,
+"risk": 2,
+"name": "Brianna Iyer",
+"events": [
+"child"
+],
+"cash_months": 5.4,
+"value": 317700,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-036",
+"group": "test",
+"age": 45,
+"risk": 4,
+"name": "Hector Oyelaran",
+"events": [
+"layoff"
+],
+"cash_months": 2.9,
+"value": 207500,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-037",
+"group": "test",
+"age": 69,
+"risk": 1,
+"name": "Aisha Holloway",
+"events": [],
+"cash_months": 4.1,
+"value": 475500,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-038",
+"group": "test",
+"age": 37,
+"risk": 5,
+"name": "Ingrid Rasmussen",
+"events": [
+"job_change"
+],
+"cash_months": 3.8,
+"value": 407500,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-039",
+"group": "test",
+"age": 63,
+"risk": 3,
+"name": "Elena Rasmussen",
+"events": [],
+"cash_months": 4.7,
+"value": 214700,
+"as_of": "2026-11-01"
+},
+{
+"case": "test/c-040",
+"group": "test",
+"age": 53,
+"risk": 3,
+"name": "Elena Iyer",
+"events": [],
+"cash_months": 4.0,
+"value": 189300,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-001",
+"group": "practice",
+"age": 50,
+"risk": 3,
+"name": "Grant Sorensen",
+"events": [],
+"cash_months": 5.5,
+"value": 379500,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-002",
+"group": "practice",
+"age": 26,
+"risk": 4,
+"name": "Connor Strand",
+"events": [
+"marriage"
+],
+"cash_months": 5.5,
+"value": 126200,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-003",
+"group": "practice",
+"age": 62,
+"risk": 2,
+"name": "Rafael Fairbanks",
+"events": [],
+"cash_months": 4.7,
+"value": 906500,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-004",
+"group": "practice",
+"age": 38,
+"risk": 3,
+"name": "Tyrone Patel",
+"events": [
+"layoff",
+"child"
+],
+"cash_months": 1.6,
+"value": 181600,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-005",
+"group": "practice",
+"age": 49,
+"risk": 4,
+"name": "Fiona Beaumont",
+"events": [
+"layoff"
+],
+"cash_months": 3.4,
+"value": 441900,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-006",
+"group": "practice",
+"age": 55,
+"risk": 4,
+"name": "Darnell Iyer",
+"events": [],
+"cash_months": 5.5,
+"value": 365400,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-007",
+"group": "practice",
+"age": 38,
+"risk": 3,
+"name": "Diego Achebe",
+"events": [
+"layoff"
+],
+"cash_months": 2.4,
+"value": 98300,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-008",
+"group": "practice",
+"age": 49,
+"risk": 3,
+"name": "Omar Quintero",
+"events": [],
+"cash_months": 6.0,
+"value": 344500,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-009",
+"group": "practice",
+"age": 70,
+"risk": 2,
+"name": "Nadia Chen",
+"events": [],
+"cash_months": 5.9,
+"value": 372100,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-010",
+"group": "practice",
+"age": 41,
+"risk": 3,
+"name": "Trevor Lundgren",
+"events": [
+"child"
+],
+"cash_months": 3.8,
+"value": 560500,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-011",
+"group": "practice",
+"age": 51,
+"risk": 3,
+"name": "Yasmin Fairbanks",
+"events": [
+"job_change"
+],
+"cash_months": 4.5,
+"value": 474000,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-012",
+"group": "practice",
+"age": 53,
+"risk": 3,
+"name": "Victor Chen",
+"events": [
+"job_change"
+],
+"cash_months": 6.2,
+"value": 260900,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-013",
+"group": "practice",
+"age": 36,
+"risk": 4,
+"name": "Marcus Achebe",
+"events": [
+"child"
+],
+"cash_months": 6.1,
+"value": 368000,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-014",
+"group": "practice",
+"age": 51,
+"risk": 3,
+"name": "Fiona Ferreira",
+"events": [
+"job_change"
+],
+"cash_months": 4.7,
+"value": 568100,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-015",
+"group": "practice",
+"age": 39,
+"risk": 4,
+"name": "Lucia Rasmussen",
+"events": [
+"job_change",
+"child"
+],
+"cash_months": 4.1,
+"value": 805700,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-016",
+"group": "practice",
+"age": 32,
+"risk": 2,
+"name": "Wesley Pemberton",
+"events": [],
+"cash_months": 1.5,
+"value": 40000,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-017",
+"group": "practice",
+"age": 37,
+"risk": 3,
+"name": "Imani Holloway",
+"events": [
+"marriage"
+],
+"cash_months": 4.4,
+"value": 198400,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-018",
+"group": "practice",
+"age": 35,
+"risk": 5,
+"name": "Samuel Ramirez",
+"events": [],
+"cash_months": 3.7,
+"value": 468000,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-019",
+"group": "practice",
+"age": 47,
+"risk": 3,
+"name": "Rosa Strand",
+"events": [
+"layoff"
+],
+"cash_months": 2.5,
+"value": 220200,
+"as_of": "2026-11-01"
+},
+{
+"case": "practice/c-020",
+"group": "practice",
+"age": 35,
+"risk": 4,
+"name": "Owen Whitaker",
+"events": [],
+"cash_months": 6.4,
+"value": 210200,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-041",
+"group": "regression",
+"age": 62,
+"risk": 1,
+"name": "Hector Quintero",
+"events": [],
+"cash_months": 5.7,
+"value": 297400,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-042",
+"group": "regression",
+"age": 49,
+"risk": 3,
+"name": "Fiona Sorensen",
+"events": [
+"layoff"
+],
+"cash_months": 1.7,
+"value": 604800,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-043",
+"group": "regression",
+"age": 36,
+"risk": 3,
+"name": "Victor Marchetti",
+"events": [
+"marriage"
+],
+"cash_months": 4.2,
+"value": 586700,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-044",
+"group": "regression",
+"age": 45,
+"risk": 4,
+"name": "Hannah Rasmussen",
+"events": [],
+"cash_months": 5.1,
+"value": 275700,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-045",
+"group": "regression",
+"age": 44,
+"risk": 2,
+"name": "Arjun Marchetti",
+"events": [],
+"cash_months": 6.3,
+"value": 290300,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-046",
+"group": "regression",
+"age": 53,
+"risk": 4,
+"name": "Omar Gallagher",
+"events": [
+"layoff"
+],
+"cash_months": 1.5,
+"value": 211200,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-047",
+"group": "regression",
+"age": 37,
+"risk": 3,
+"name": "Connor Castellano",
+"events": [
+"child"
+],
+"cash_months": 4.7,
+"value": 163900,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-048",
+"group": "regression",
+"age": 46,
+"risk": 3,
+"name": "Victor Novak",
+"events": [],
+"cash_months": 6.2,
+"value": 329400,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-049",
+"group": "regression",
+"age": 49,
+"risk": 4,
+"name": "Tessa Mbeki",
+"events": [
+"job_change"
+],
+"cash_months": 4.2,
+"value": 593200,
+"as_of": "2026-11-01"
+},
+{
+"case": "regression/c-050",
+"group": "regression",
+"age": 46,
+"risk": 3,
+"name": "Rosa Delgado",
+"events": [],
+"cash_months": 1.3,
+"value": 353100,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-001",
+"group": "drift",
+"age": 45,
+"risk": 3,
+"name": "Yasmin Brennan",
+"events": [
+"divorce"
+],
+"cash_months": 1.4,
+"value": 204400,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-002",
+"group": "drift",
+"age": 54,
+"risk": 3,
+"name": "Nadia Ferreira",
+"events": [
+"layoff",
+"market_drop"
+],
+"cash_months": 2.7,
+"value": 159578,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-003",
+"group": "drift",
+"age": 48,
+"risk": 3,
+"name": "Jordan Quintero",
+"events": [
+"inheritance"
+],
+"cash_months": 60.8,
+"value": 753400,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-004",
+"group": "drift",
+"age": 45,
+"risk": 3,
+"name": "Victor Varga",
+"events": [
+"divorce",
+"job_change"
+],
+"cash_months": 2.0,
+"value": 187800,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-005",
+"group": "drift",
+"age": 42,
+"risk": 3,
+"name": "Mei Ramirez",
+"events": [
+"divorce"
+],
+"cash_months": 2.1,
+"value": 169100,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-006",
+"group": "drift",
+"age": 50,
+"risk": 5,
+"name": "Omar Patel",
+"events": [
+"inheritance"
+],
+"cash_months": 59.4,
+"value": 1263600,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-007",
+"group": "drift",
+"age": 54,
+"risk": 4,
+"name": "Priya Haddad",
+"events": [
+"market_drop"
+],
+"cash_months": 5.3,
+"value": 165427,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-008",
+"group": "drift",
+"age": 54,
+"risk": 4,
+"name": "Darnell Yilmaz",
+"events": [
+"market_drop"
+],
+"cash_months": 5.3,
+"value": 674433,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-009",
+"group": "drift",
+"age": 39,
+"risk": 3,
+"name": "Rafael Patel",
+"events": [
+"market_drop"
+],
+"cash_months": 4.8,
+"value": 195968,
+"as_of": "2026-11-01"
+},
+{
+"case": "drift/d-010",
+"group": "drift",
+"age": 35,
+"risk": 4,
+"name": "Imani Delgado",
+"events": [
+"inheritance",
+"child"
+],
+"cash_months": 21.0,
+"value": 178800,
+"as_of": "2026-11-01"
+},
+{
+"case": "journeys/j-001/t01",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 34,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [],
+"cash_months": 2.8,
+"value": 310000,
+"as_of": "2024-08-01"
+},
+{
+"case": "journeys/j-001/t02",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 34,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [
+"job_change"
+],
+"cash_months": 3.3,
+"value": 331416,
+"as_of": "2024-11-01"
+},
+{
+"case": "journeys/j-001/t03",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 35,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [
+"marriage"
+],
+"cash_months": 3.4,
+"value": 333149,
+"as_of": "2025-02-01"
+},
+{
+"case": "journeys/j-001/t04",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 35,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [],
+"cash_months": 2.9,
+"value": 320897,
+"as_of": "2025-05-01"
+},
+{
+"case": "journeys/j-001/t05",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 35,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [
+"child"
+],
+"cash_months": 3.1,
+"value": 330412,
+"as_of": "2025-08-01"
+},
+{
+"case": "journeys/j-001/t06",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 35,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [],
+"cash_months": 2.9,
+"value": 316632,
+"as_of": "2025-11-01"
+},
+{
+"case": "journeys/j-001/t07",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 36,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [
+"layoff",
+"market_drop"
+],
+"cash_months": 3.1,
+"value": 277099,
+"as_of": "2026-02-01"
+},
+{
+"case": "journeys/j-001/t08",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 36,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [],
+"cash_months": 2.7,
+"value": 222948,
+"as_of": "2026-05-01"
+},
+{
+"case": "journeys/j-001/t09",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 36,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [
+"job_change"
+],
+"cash_months": 1.6,
+"value": 217198,
+"as_of": "2026-08-01"
+},
+{
+"case": "journeys/j-001/t10",
+"group": "journeys/j-001",
+"journey": "j-001",
+"age": 36,
+"risk": 4,
+"name": "Priya Okafor",
+"events": [
+"inheritance"
+],
+"cash_months": 12.0,
+"value": 321351,
+"as_of": "2026-11-01"
+},
+{
+"case": "journeys/j-002/t01",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 38,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [],
+"cash_months": 2.9,
+"value": 420000,
+"as_of": "2024-08-01"
+},
+{
+"case": "journeys/j-002/t02",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 39,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [],
+"cash_months": 4.2,
+"value": 452648,
+"as_of": "2024-11-01"
+},
+{
+"case": "journeys/j-002/t03",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 39,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [
+"job_change"
+],
+"cash_months": 4.5,
+"value": 466907,
+"as_of": "2025-02-01"
+},
+{
+"case": "journeys/j-002/t04",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 39,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [],
+"cash_months": 4.5,
+"value": 516705,
+"as_of": "2025-05-01"
+},
+{
+"case": "journeys/j-002/t05",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 39,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [
+"layoff",
+"market_drop"
+],
+"cash_months": 5.1,
+"value": 463509,
+"as_of": "2025-08-01"
+},
+{
+"case": "journeys/j-002/t06",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 40,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [],
+"cash_months": 2.5,
+"value": 515827,
+"as_of": "2025-11-01"
+},
+{
+"case": "journeys/j-002/t07",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 40,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [
+"job_change"
+],
+"cash_months": 3.5,
+"value": 531322,
+"as_of": "2026-02-01"
+},
+{
+"case": "journeys/j-002/t08",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 40,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [
+"child"
+],
+"cash_months": 7.4,
+"value": 601060,
+"as_of": "2026-05-01"
+},
+{
+"case": "journeys/j-002/t09",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 40,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [],
+"cash_months": 6.5,
+"value": 640328,
+"as_of": "2026-08-01"
+},
+{
+"case": "journeys/j-002/t10",
+"group": "journeys/j-002",
+"journey": "j-002",
+"age": 41,
+"risk": 4,
+"name": "Marcus Delgado",
+"events": [
+"divorce"
+],
+"cash_months": 3.9,
+"value": 347293,
+"as_of": "2026-11-01"
+},
+{
+"case": "journeys/j-003/t01",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 53,
+"risk": 3,
+"name": "Elena Varga",
+"events": [],
+"cash_months": 2.1,
+"value": 950000,
+"as_of": "2024-08-01"
+},
+{
+"case": "journeys/j-003/t02",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 53,
+"risk": 3,
+"name": "Elena Varga",
+"events": [],
+"cash_months": 3.6,
+"value": 1010229,
+"as_of": "2024-11-01"
+},
+{
+"case": "journeys/j-003/t03",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 53,
+"risk": 3,
+"name": "Elena Varga",
+"events": [
+"job_change"
+],
+"cash_months": 3.6,
+"value": 1021603,
+"as_of": "2025-02-01"
+},
+{
+"case": "journeys/j-003/t04",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 53,
+"risk": 3,
+"name": "Elena Varga",
+"events": [],
+"cash_months": 3.6,
+"value": 1079304,
+"as_of": "2025-05-01"
+},
+{
+"case": "journeys/j-003/t05",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 54,
+"risk": 3,
+"name": "Elena Varga",
+"events": [
+"market_drop"
+],
+"cash_months": 3.7,
+"value": 1039538,
+"as_of": "2025-08-01"
+},
+{
+"case": "journeys/j-003/t06",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 54,
+"risk": 3,
+"name": "Elena Varga",
+"events": [],
+"cash_months": 3.7,
+"value": 920714,
+"as_of": "2025-11-01"
+},
+{
+"case": "journeys/j-003/t07",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 54,
+"risk": 3,
+"name": "Elena Varga",
+"events": [
+"inheritance"
+],
+"cash_months": 20.4,
+"value": 1120887,
+"as_of": "2026-02-01"
+},
+{
+"case": "journeys/j-003/t08",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 54,
+"risk": 3,
+"name": "Elena Varga",
+"events": [],
+"cash_months": 4.2,
+"value": 1199170,
+"as_of": "2026-05-01"
+},
+{
+"case": "journeys/j-003/t09",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 55,
+"risk": 3,
+"name": "Elena Varga",
+"events": [
+"job_change"
+],
+"cash_months": 4.3,
+"value": 1274669,
+"as_of": "2026-08-01"
+},
+{
+"case": "journeys/j-003/t10",
+"group": "journeys/j-003",
+"journey": "j-003",
+"age": 55,
+"risk": 3,
+"name": "Elena Varga",
+"events": [],
+"cash_months": 4.8,
+"value": 1341711,
+"as_of": "2026-11-01"
+},
+{
+"case": "journeys/j-004/t01",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 31,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [],
+"cash_months": 3.2,
+"value": 330000,
+"as_of": "2024-08-01"
+},
+{
+"case": "journeys/j-004/t02",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 31,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [
+"marriage"
+],
+"cash_months": 4.4,
+"value": 333396,
+"as_of": "2024-11-01"
+},
+{
+"case": "journeys/j-004/t03",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 31,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [],
+"cash_months": 3.7,
+"value": 341082,
+"as_of": "2025-02-01"
+},
+{
+"case": "journeys/j-004/t04",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 32,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [
+"layoff"
+],
+"cash_months": 3.8,
+"value": 319206,
+"as_of": "2025-05-01"
+},
+{
+"case": "journeys/j-004/t05",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 32,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [],
+"cash_months": 2.6,
+"value": 261330,
+"as_of": "2025-08-01"
+},
+{
+"case": "journeys/j-004/t06",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 32,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [
+"job_change"
+],
+"cash_months": 1.5,
+"value": 241064,
+"as_of": "2025-11-01"
+},
+{
+"case": "journeys/j-004/t07",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 32,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [],
+"cash_months": 4.6,
+"value": 215443,
+"as_of": "2026-02-01"
+},
+{
+"case": "journeys/j-004/t08",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 33,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [
+"layoff"
+],
+"cash_months": 4.7,
+"value": 236604,
+"as_of": "2026-05-01"
+},
+{
+"case": "journeys/j-004/t09",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 33,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [
+"job_change"
+],
+"cash_months": 2.6,
+"value": 218839,
+"as_of": "2026-08-01"
+},
+{
+"case": "journeys/j-004/t10",
+"group": "journeys/j-004",
+"journey": "j-004",
+"age": 33,
+"risk": 4,
+"name": "Kenji Lundgren",
+"events": [
+"market_drop"
+],
+"cash_months": 5.7,
+"value": 202215,
+"as_of": "2026-11-01"
+},
+{
+"case": "journeys/j-005/t01",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 28,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [],
+"cash_months": 3.2,
+"value": 85000,
+"as_of": "2024-08-01"
+},
+{
+"case": "journeys/j-005/t02",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 28,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [
+"marriage"
+],
+"cash_months": 3.2,
+"value": 90605,
+"as_of": "2024-11-01"
+},
+{
+"case": "journeys/j-005/t03",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 28,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [],
+"cash_months": 2.8,
+"value": 97579,
+"as_of": "2025-02-01"
+},
+{
+"case": "journeys/j-005/t04",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 29,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [],
+"cash_months": 3.1,
+"value": 100789,
+"as_of": "2025-05-01"
+},
+{
+"case": "journeys/j-005/t05",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 29,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [
+"job_change"
+],
+"cash_months": 3.2,
+"value": 105597,
+"as_of": "2025-08-01"
+},
+{
+"case": "journeys/j-005/t06",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 29,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [],
+"cash_months": 3.2,
+"value": 106813,
+"as_of": "2025-11-01"
+},
+{
+"case": "journeys/j-005/t07",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 29,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [
+"child"
+],
+"cash_months": 3.3,
+"value": 111187,
+"as_of": "2026-02-01"
+},
+{
+"case": "journeys/j-005/t08",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 30,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [],
+"cash_months": 2.8,
+"value": 115273,
+"as_of": "2026-05-01"
+},
+{
+"case": "journeys/j-005/t09",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 30,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [],
+"cash_months": 3.1,
+"value": 117519,
+"as_of": "2026-08-01"
+},
+{
+"case": "journeys/j-005/t10",
+"group": "journeys/j-005",
+"journey": "j-005",
+"age": 30,
+"risk": 3,
+"name": "Hannah Brennan",
+"events": [
+"inheritance"
+],
+"cash_months": 14.2,
+"value": 183235,
+"as_of": "2026-11-01"
+},
+{
+"case": "journeys/j-006/t01",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 57,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [],
+"cash_months": 5.5,
+"value": 720000,
+"as_of": "2024-08-01"
+},
+{
+"case": "journeys/j-006/t02",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 57,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [
+"layoff"
+],
+"cash_months": 5.5,
+"value": 695379,
+"as_of": "2024-11-01"
+},
+{
+"case": "journeys/j-006/t03",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 58,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [],
+"cash_months": 2.6,
+"value": 692054,
+"as_of": "2025-02-01"
+},
+{
+"case": "journeys/j-006/t04",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 58,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [
+"job_change"
+],
+"cash_months": 2.6,
+"value": 674094,
+"as_of": "2025-05-01"
+},
+{
+"case": "journeys/j-006/t05",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 58,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [],
+"cash_months": 6.0,
+"value": 688898,
+"as_of": "2025-08-01"
+},
+{
+"case": "journeys/j-006/t06",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 58,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [],
+"cash_months": 6.0,
+"value": 712644,
+"as_of": "2025-11-01"
+},
+{
+"case": "journeys/j-006/t07",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 59,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [
+"divorce"
+],
+"cash_months": 3.0,
+"value": 359138,
+"as_of": "2026-02-01"
+},
+{
+"case": "journeys/j-006/t08",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 59,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [],
+"cash_months": 3.8,
+"value": 374932,
+"as_of": "2026-05-01"
+},
+{
+"case": "journeys/j-006/t09",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 59,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [
+"inheritance"
+],
+"cash_months": 15.5,
+"value": 466681,
+"as_of": "2026-08-01"
+},
+{
+"case": "journeys/j-006/t10",
+"group": "journeys/j-006",
+"journey": "j-006",
+"age": 59,
+"risk": 3,
+"name": "Rafael Sandoval",
+"events": [
+"layoff"
+],
+"cash_months": 4.9,
+"value": 483339,
+"as_of": "2026-11-01"
+}
+]

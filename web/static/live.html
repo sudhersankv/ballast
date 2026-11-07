@@ -18,8 +18,8 @@
   <a class="wordmark" href="/" aria-label="ballast. home">ballast<span>.</span></a>
   <nav class="nav" aria-label="Sections">
     <a href="/#genome">Genome</a>
-    <a href="/#how">The loop</a>
-    <a href="/#stack-sec">Stack</a>
+    <a href="/#journeys">Journeys</a>
+    <a href="/architecture">How it's built</a>
     <a href="/live" class="live-link" aria-current="page"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
   <div class="top-right">
@@ -28,7 +28,45 @@
 </header>
 
 <main id="main" class="live-main">
-  <section class="live-head">
+  <section class="runp" id="run-it" aria-labelledby="run-h">
+    <div class="live-head">
+      <div>
+        <h1 class="sec-h" id="run-h">Run it</h1>
+        <p class="sec-sub">Pick a client case and a model. The agent runs on the Fly runner in Virginia and every step streams here as it happens.</p>
+      </div>
+    </div>
+    <form class="runf frame" id="runf" autocomplete="off">
+      <div class="rf-col">
+        <label for="rf-filter">Case</label>
+        <input id="rf-filter" type="search" placeholder="filter: c-021, layoff, j-003" aria-describedby="rf-prev">
+        <select id="rf-case" size="1"></select>
+        <div class="rf-prev mono" id="rf-prev" aria-live="polite"></div>
+      </div>
+      <div class="rf-col">
+        <fieldset class="rf-models"><legend>Model</legend>
+          <label><input type="checkbox" name="m" value="meta/muse-spark-1.3" checked> Muse Spark 1.3</label>
+          <label><input type="checkbox" name="m" value="subq/subq-preview"> SubQ Preview</label>
+          <label><input type="checkbox" name="m" value="google/gemini-3.8-flash"> Gemini 3.8 Flash</label>
+          <button type="button" class="btn small" id="rf-all">All three</button>
+        </fieldset>
+        <label for="rf-pb">Playbook</label>
+        <select id="rf-pb"><option value="">v0, the generic playbook</option></select>
+      </div>
+      <div class="rf-col">
+        <label for="rf-pass">Passcode</label>
+        <input id="rf-pass" type="password" autocomplete="current-password">
+        <button type="submit" class="btn primary" id="rf-go">Run</button>
+        <p class="rf-msg" id="rf-msg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+    <div class="runcols" id="runcols"></div>
+    <details class="jobs" id="jobs-box" open>
+      <summary>Recent runs</summary>
+      <ol class="jobl" id="jobl"><li class="muted">Loading runs.</li></ol>
+    </details>
+  </section>
+
+  <section class="live-head" style="margin-top:56px">
     <div>
       <h1 class="sec-h">Live training run</h1>
       <p class="sec-sub" id="live-sub">Each case appears when the agent finishes it. Open a tile for the full trace.</p>
@@ -90,6 +128,7 @@
   </div>
 </dialog>
 
+<script src="/static/run.js"></script>
 <script src="/static/live.js"></script>
 </body>
 </html>

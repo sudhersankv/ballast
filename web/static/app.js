@@ -670,14 +670,14 @@
 
   // ---------- stack ----------
   const TECH = [
-    { id: "fetch", name: "Fetch.ai Agentverse", role: "Client chat", color: "amber", job: "Each client's agent is a uAgent on Agentverse. A client texts \"I got laid off\" and gets a recommendation back." },
-    { id: "mongo", name: "MongoDB Atlas", role: "Memory and triggers", color: "jade", job: "Stores clients, runs, versions and drift events. Change streams fire a drift check when a life event lands; vector search finds similar past drift." },
-    { id: "gemini", name: "Gemini", role: "Google DeepMind, compliance reviewer", color: "gold", wide: true, job: "An independent reviewer. It blocks any playbook change that weakens a policy rule before it can ship." },
+    { id: "fetch", name: "Fetch.ai Agentverse", role: "Client chat, Next: not built yet", color: "amber", next: true, job: "Planned: each client's agent as a uAgent on Agentverse, so a client can chat with their own agent. Not built yet; no Agentverse key." },
+    { id: "mongo", name: "MongoDB Atlas", role: "Memory and triggers", color: "jade", job: "Stores clients, runs, versions, lessons, jobs and drift events. Change streams fire a drift check when a life event lands and start live runs from the website. Next: vector search over past drift cases." },
+    { id: "gemini", name: "Gemini", role: "Google DeepMind, compliance reviewer", color: "gold", wide: true, job: "Independent compliance reviewer in both stacks. Example: it blocked a Muse change that hard-coded \"$600 monthly contribution\" copied from one client's violation." },
     { id: "snap", name: "SubQ Snap", role: "Subquadratic, decision gates", color: "subq", job: "Scores every new life event in under a second: which rules are at risk, whether the playbook covers it, whether to re-run now. Gate F1 0.94 over 39 events, $0.04 per 1M input tokens. A second opinion on every drift window; the rules stay the source of truth." },
-    { id: "subq", name: "SubQ Preview", role: "Subquadratic, long-context drift analyst", color: "subq", job: "When drift hits, it reads every run trace, client timeline and playbook version in one pass, without chunking or retrieval, and names the pattern. Muse writes the fix from that diagnosis." },
-    { id: "muse", name: "Muse", role: "Meta Model API, agent and mentor", color: "muse", wide: true, job: "The model behind everything. As the agent it runs every client case; as the mentor it rewrites the playbook from failures." },
-    { id: "pi", name: "Pi harness", role: "Coding-agent runtime", color: "mint", job: "Runs the agent: reads case files, calls tools, writes recommendation.json. The playbook is its only config." },
-    { id: "fly", name: "Fly.io Machines", role: "Sandboxes", color: "text-2", job: "Each case runs in its own machine as an unprivileged user that can't read the checker." },
+    { id: "subq", name: "SubQ Preview", role: "Subquadratic, long-context drift analyst", color: "subq", job: "Long-context drift analyst that reads every run, client timeline and playbook version in one pass, without chunking or retrieval. In the benchmark it also runs the whole SubQ stack: agent and mentor." },
+    { id: "muse", name: "Muse", role: "Meta Model API, agent and mentor", color: "muse", wide: true, job: "Meta Model API. In the Muse stack, Muse Spark 1.3 is the agent and Muse Wonder 1.0 is the mentor that rewrites the playbook from failures." },
+    { id: "pi", name: "Pi harness", role: "Coding-agent runtime", color: "mint", job: "Runs the agent with three tools (read, bash, write), a 20-turn limit and a 3-minute timeout. The playbook is its only config." },
+    { id: "fly", name: "Fly.io Machines", role: "Runner and website", color: "text-2", job: "Agent runs happen on Fly machines in Virginia (Meta's API refuses San Jose). Each case runs in its own sandbox as an unprivileged user that can't read the checker or any keys." },
   ];
   let selTech = "subq";
   function renderLayers() {
@@ -691,8 +691,18 @@
     });
     [...TECH].reverse().forEach((t, i) => {
       const z = i * gap, sel = t.id === selTech, c = tok(t.color);
-      const g = el("g", { class: `layer ${sel ? "" : "dim"}` }, svg);
+      // unbuilt parts render as a dashed wireframe only
+      const g = el("g", { class: `layer ${sel ? "" : "dim"}`, ...(t.next ? { "stroke-dasharray": "4 3", opacity: sel ? 0.9 : 0.35 } : {}) }, svg);
       const b = box(ox, oy, 0, 0, z, PA, PA, PT);
+      if (t.next) {
+        [b.top, b.left, b.right].forEach((p) => el("polygon", { points: pts(p), fill: "none", stroke: c, "stroke-dasharray": "4 3" }, g));
+        const [tx2, ty2] = iso(ox, oy, PA, 0, z + PT / 2);
+        el("line", { x1: tx2 + 4, y1: ty2, x2: tx2 + 22, y2: ty2, stroke: c, "stroke-dasharray": "3 2" }, g);
+        el("text", { x: tx2 + 28, y: ty2 + 4 }, g).textContent = `${t.name} (Next)`;
+        el("text", { class: "sub", x: tx2 + 28, y: ty2 + 21 }, g).textContent = "not built yet";
+        g.addEventListener("click", () => selectTech(t.id));
+        return;
+      }
       el("polygon", { points: pts(b.left), fill: c, "fill-opacity": sel ? 0.7 : 0.35 }, g);
       el("polygon", { points: pts(b.right), fill: c, "fill-opacity": sel ? 0.45 : 0.22 }, g);
       el("polygon", { points: pts(b.top), fill: c, "fill-opacity": sel ? 0.28 : 0.1, stroke: c, "stroke-width": sel ? 2 : 1 }, g);
@@ -717,7 +727,7 @@
   }
   function renderBento() {
     $("#bento").innerHTML = TECH.map((t) => `<li class="${t.wide ? "wide" : ""}"><button data-id="${t.id}" aria-pressed="${t.id === selTech}" style="--c:var(--${t.color})">
-      <span class="who"><i style="background:var(--${t.color})"></i>${esc(t.name)}</span><span class="role">${esc(t.role)}</span><span class="job">${esc(t.job)}</span></button></li>`).join("");
+      <span class="who"><i style="background:var(--${t.color})"></i>${esc(t.name)}${t.next ? ` <span class="nextb">Next</span>` : ""}</span><span class="role">${esc(t.role)}</span><span class="job">${esc(t.job)}</span></button></li>`).join("");
     $("#bento").onclick = (e) => { const b = e.target.closest("button[data-id]"); if (b) selectTech(b.dataset.id); };
   }
   function selectTech(id) {
@@ -727,15 +737,24 @@
   }
   function renderBench(rows, demo) {
     const color = { muse: "muse", subq: "subq", gemini: "gold" };
+    rows = rows.filter((r) => r.model !== "gemini");
     const max = Math.max(...rows.map((r) => r.mean_score), 0.01);
+    const best = (k, lo) => { const v = rows.map((r) => r[k]).filter((x) => x != null); return v.length ? (lo ? Math.min(...v) : Math.max(...v)) : null; };
+    const flag = (r, k, lo) => rows.length > 1 && r[k] != null && r[k] === best(k, lo) ? ` <span class="pos">▲</span>` : "";
     $("#bench-sub").textContent = demo
-      ? "Same playbook, same 20 unseen clients, a different model running the agent. Demo numbers until the runtime records a benchmark."
-      : `Real runs: playbook v0 on the same 20 unseen test clients. ${rows.map((r) => `${r.label} from ${r.db}`).join(", ")}. More models appear as their runs land.`;
-    $("#bench").innerHTML = `<thead><tr><th>Model</th><th class="barcell"><span class="sr">Score bar</span></th><th>Score</th><th>Pass rate</th><th>Tokens per case</th><th>Seconds per case</th></tr></thead>
+      ? "Muse stack vs SubQ stack on the same cases. Demo numbers until the benchmark runs land."
+      : `Head to head, interim: the Muse stack and the SubQ stack from the same generic v0 on the same cases (test repeated 3×, paired gate, control arm). Read live from ${rows.map((r) => r.db).join(" and ")}. ▲ marks the better value per column.`;
+    $("#bench").innerHTML = `<thead><tr><th>Stack</th><th class="barcell"><span class="sr">Score bar</span></th><th>Score</th><th>Pass rate</th><th>s / case</th><th>Runs / min</th><th>Tokens / case</th><th>Holdout start → final</th></tr></thead>
       <tbody>${rows.map((r) => `<tr>
-        <td><span class="m" style="color:var(--${color[r.model] || "text"})">${esc(r.label)}</span><span class="p">${esc(r.provider || "")}</span></td>
+        <td><span class="m" style="color:var(--${color[r.model] || "text"})">${esc(r.label)}</span><span class="p">${esc(r.provider || "")}${r.runs ? `, ${r.runs} runs` : ""}</span></td>
         <td class="barcell"><div class="b"><span style="width:${(r.mean_score / max) * 100}%;background:var(--${color[r.model] || "mint"})"></span></div></td>
-        <td>${pct(r.mean_score)}</td><td>${pct(r.pass_rate)}%</td><td>${fmtTok(r.tokens)}</td><td>${Number(r.seconds).toFixed(1)}</td></tr>`).join("")}</tbody>`;
+        <td>${Number(r.mean_score).toFixed(3)}${flag(r, "mean_score")}<span class="p">${esc(r.score_basis || "")}</span></td>
+        <td>${(r.pass_rate * 100).toFixed(0)}%${flag(r, "pass_rate")}</td>
+        <td>${Number(r.seconds).toFixed(1)}${flag(r, "seconds", true)}</td>
+        <td>${r.runs_per_min != null ? Number(r.runs_per_min).toFixed(1) : "-"}${flag(r, "runs_per_min")}</td>
+        <td>${fmtTok(r.tokens)}${flag(r, "tokens", true)}</td>
+        <td>${r.holdout_start != null ? `${Number(r.holdout_start).toFixed(3)} → ${Number(r.holdout_final).toFixed(3)}<span class="p">${r.journeys} ${r.journeys === 1 ? "journey" : "journeys"}</span>` : "-"}</td></tr>`).join("")}</tbody>
+      <tfoot><tr><td colspan="8" class="p">Gemini is the compliance reviewer in both stacks, not a contender. Reference only: Gemini 3.8 Flash as agent, v0 test 0.714.</td></tr></tfoot>`;
   }
 
   // ---------- clients ----------
@@ -833,8 +852,13 @@
     (j.lessons || []).forEach((l) => { (lessonAt[l.at] = lessonAt[l.at] || []).push(l); });
     const cols = `repeat(${cps.length}, minmax(116px, 1fr))`;
     const cell = (inner, cls = "") => `<div class="jc ${cls}">${inner}</div>`;
+    // live journey tiles open a replay of that exact run on /live
     const tile = (r, who) => { const st = tileState(r); const [g, w] = TILE[st];
-      return `<span class="jt ${st}" title="${esc(r?.violation || w)}" aria-label="${esc(who)}: ${w}${r?.violation ? `, ${esc(r.violation)}` : ""}">${g}</span>${r && r.version != null ? `<span class="jv">v${r.version}</span>` : ""}`; };
+      const lbl = `${who}: ${w}${r?.violation ? `, ${r.violation}` : ""}`;
+      const t = j.source === "live" && r?.run_id
+        ? `<a class="jt ${st}" href="/live#replay-run-${encodeURIComponent(r.run_id)}" title="Replay: ${esc(r?.violation || w)}" aria-label="${esc(lbl)}. Replay this run">${g}</a>`
+        : `<span class="jt ${st}" title="${esc(r?.violation || w)}" aria-label="${esc(lbl)}">${g}</span>`;
+      return `${t}${r && r.version != null ? `<span class="jv">v${r.version}</span>` : ""}`; };
     const hold = cps.filter((c) => c.split === "holdout");
     const ran = (k) => hold.filter((c) => c[k]).length;
     const clean = (k) => hold.filter((c) => tileState(c[k]) === "clean").length;
