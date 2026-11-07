@@ -367,7 +367,9 @@
       learned.innerHTML = rows.length ? `<ul>${rows.join("")}</ul>` : none("No failures on unseen clients.");
     } else if ((mode === "gen") && g) {
       why.innerHTML = g.why.length ? `<ul>${g.why.map((w) => li("why", "✕", w.rule, `${w.count} of ${w.total}`, w.example)).join("")}</ul><p class="muted" style="margin-top:10px">v${g.parent} on ${g.why_set} clients, the only set Muse sees.</p>` : none("No parent failures recorded.");
-      what.innerHTML = mutList(g.mutations);
+      // lead with what the agent learned (its own words); the skill diff is the mechanism underneath
+      const lessonRows = (g.lessons_added || []).map((l) => `<li class="k-${s.kind === "reject" ? "del" : "add"} lesson-li"><span class="g" aria-hidden="true">${s.kind === "reject" ? "✕" : "+"}</span><span class="t">${esc(l.lesson)}</span><span class="n mono">${esc(l.rule)}</span><span class="d">in skill <span class="mono">${esc(l.skill)}</span>, from ${esc(l.triggered_by)}</span></li>`).join("");
+      what.innerHTML = (lessonRows ? `<ul>${lessonRows}</ul><p class="muted sub-h">Playbook changes</p>` : "") + mutList(g.mutations);
       if (s.kind === "reject") {
         const gt = g.gate || {}, c = gt.compliance;
         learned.innerHTML = `<ul>${li("del", "✕", "Didn't survive", "", gt.reason || "failed the gate")}${c ? li(c.verdict === "approve" ? "add" : "del", c.verdict === "approve" ? "✓" : "✕", "Gemini review", cv(c), c.note) : ""}${gt.regression ? li(gt.regression.pass_rate >= 1 ? "add" : "del", gt.regression.pass_rate >= 1 ? "✓" : "✕", "Regression set", `${pct(gt.regression.pass_rate)}%`, "must stay at 100%") : ""}</ul>`;
@@ -674,7 +676,9 @@
   function renderBench(rows, demo) {
     const color = { muse: "muse", subq: "subq", gemini: "gold" };
     const max = Math.max(...rows.map((r) => r.mean_score), 0.01);
-    if (demo) $("#bench-sub").textContent += " Demo numbers until the runtime records a benchmark.";
+    $("#bench-sub").textContent = demo
+      ? "Same playbook, same 20 unseen clients, a different model running the agent. Demo numbers until the runtime records a benchmark."
+      : `Real runs: playbook v0 on the same 20 unseen test clients. ${rows.map((r) => `${r.label} from ${r.db}`).join(", ")}. More models appear as their runs land.`;
     $("#bench").innerHTML = `<thead><tr><th>Model</th><th class="barcell"><span class="sr">Score bar</span></th><th>Score</th><th>Pass rate</th><th>Tokens per case</th><th>Seconds per case</th></tr></thead>
       <tbody>${rows.map((r) => `<tr>
         <td><span class="m" style="color:var(--${color[r.model] || "text"})">${esc(r.label)}</span><span class="p">${esc(r.provider || "")}</span></td>
@@ -719,6 +723,106 @@
     } catch (e) {
       body.innerHTML = `<h3 id="sheet-title">Client didn't load</h3><p class="sub">${esc(e.message)}. Close and try again.</p>`;
     }
+  }
+
+  // ---------- lessons ledger ----------
+  const fmtDate = (iso) => { const d = new Date(iso); return isNaN(d) ? "" : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); };
+  const evName = (e) => String(e || "").replace(/_/g, " ");
+  function stepForVersion(v) { return state.steps.findIndex((s) => s.version === v && ["ship", "base", "reject"].includes(s.kind)); }
+  function renderLedger(d) {
+    const ol = $("#ledger");
+    if (!d || !d.lessons.length) { ol.innerHTML = `<li class="muted">No lessons yet. They appear when Muse ships its first upgrade.</li>`; return; }
+    ol.innerHTML = d.lessons.map((l, i) => {
+      const p = l.proven || {};
+      const proofs = [];
+      if (p.before > p.after) proofs.push(`<li><b class="pos">▼ ${p.before} → ${p.after}</b> unseen clients failing <span class="mono">${esc(l.rule)}</span> when v${l.version} shipped${p.current_version != null && p.current_version !== l.version ? `; ${p.now} of ${p.cases} on v${p.current_version} today` : ""}</li>`);
+      else if (l.mode === "drift" && l.gate_reason) proofs.push(`<li><b class="pos">✓</b> ${esc(l.gate_reason)}</li>`);
+      if ((p.journeys || []).length) proofs.push(`<li><b class="pos">✓</b> holds on holdout checkpoints <span class="mono">${p.journeys.map(esc).join(", ")}</span></li>`);
+      if (!proofs.length) proofs.push(`<li class="muted">Kept through the gate; no failures on this rule since.</li>`);
+      return `<li class="lesson">
+        <div class="l-meta"><span class="l-n">${String(i + 1).padStart(2, "0")}</span><button class="vchip" data-v="${l.version}" aria-label="See the v${l.version} mutation in the replay">v${l.version}</button><span class="mono l-rule">${esc(l.rule)}</span></div>
+        <div class="l-body">
+          <p class="l-text">${esc(l.lesson)}</p>
+          <dl class="l-dl">
+            <div><dt>Learned from</dt><dd><b>${esc(evName(l.triggered_by))}</b>${l.date ? `, ${fmtDate(l.date)}` : ""}. ${esc(l.root_cause)}${l.example ? `<span class="l-ex mono">${esc(l.example)}</span>` : ""}</dd></div>
+            <div><dt>Proven on</dt><dd><ul class="l-proof">${proofs.join("")}</ul></dd></div>
+          </dl>
+          <p class="l-skill">Carried by skill <span class="mono">${esc(l.skill)}</span></p>
+        </div></li>`;
+    }).join("");
+    ol.onclick = (e) => { const b = e.target.closest("button[data-v]"); if (!b) return; const k = stepForVersion(+b.dataset.v); if (k >= 0) { stopPlay(); show(k); $("#genome").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); } };
+    const lost = $("#lost");
+    if (d.rejected.length) {
+      lost.hidden = false;
+      $("#lost-sum").textContent = `${d.rejected.length} ${d.rejected.length === 1 ? "lesson" : "lessons"} didn't survive the gate`;
+      $("#lost-list").innerHTML = d.rejected.map((l) => `<li><p class="l-text small">✕ ${esc(l.lesson)}</p><p class="muted">v${l.version}: ${esc(l.compliance?.note || l.reason || "failed the gate")}</p></li>`).join("");
+    }
+    $("#pb-yaml").textContent = d.playbook_yaml || "No shipped playbook yet.";
+  }
+
+  // ---------- client journeys ----------
+  function tileState(r) { if (!r) return "none"; if (!r.violation) return "clean"; return r.passed ? "soft" : "fail"; }
+  const TILE = { clean: ["✓", "no violations"], soft: ["◐", "passed with a soft miss"], fail: ["✕", "failed a hard rule"], none: ["·", "not run"] };
+  function renderJourneys(list) {
+    if (!list || !list.length) { $("#journeys").hidden = true; return; }
+    const pick = $("#jpick");
+    pick.innerHTML = list.map((j, i) => `<button data-j="${i}" aria-pressed="${i === 0}">${esc(j.persona.name)}<span>${esc(j.journey_id)}</span></button>`).join("");
+    pick.onclick = (e) => { const b = e.target.closest("button[data-j]"); if (!b) return; pick.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); drawJourney(list[+b.dataset.j]); };
+    drawJourney(list[0]);
+  }
+  function drawJourney(j) {
+    const cps = j.checkpoints, first = j.persona.name.split(" ")[0];
+    const lessonAt = {};
+    (j.lessons || []).forEach((l) => { (lessonAt[l.at] = lessonAt[l.at] || []).push(l); });
+    const cols = `repeat(${cps.length}, minmax(116px, 1fr))`;
+    const cell = (inner, cls = "") => `<div class="jc ${cls}">${inner}</div>`;
+    const tile = (r, who) => { const st = tileState(r); const [g, w] = TILE[st];
+      return `<span class="jt ${st}" title="${esc(r?.violation || w)}" aria-label="${esc(who)}: ${w}${r?.violation ? `, ${esc(r.violation)}` : ""}">${g}</span>${r && r.version != null ? `<span class="jv">v${r.version}</span>` : ""}`; };
+    const hold = cps.filter((c) => c.split === "holdout");
+    const clean = (k) => hold.filter((c) => tileState(c[k]) === "clean").length;
+    $("#journey").innerHTML = `
+      <div class="jhead">
+        <div><p class="jname">${esc(j.persona.name)}, ${esc(j.persona.age)}</p><p class="muted">${esc(j.persona.occupation)}, risk ${esc(j.persona.risk_score)}. ${esc(j.arc)}</p></div>
+        <dl class="jscore"><div><dt>Holdout checkpoints clean</dt><dd><span class="neg">${clean("baseline")} of ${hold.length}</span> generic agent</dd><dd><span class="pos">${clean("personal")} of ${hold.length}</span> ${esc(first)}'s agent</dd></div></dl>
+        ${j.source === "demo" ? `<span class="source">Demo journey</span>` : ""}
+      </div>
+      <div class="jscroll" tabindex="0" aria-label="Checkpoint timeline, scroll sideways">
+        <div class="jgrid" style="grid-template-columns: 140px ${cols}">
+          ${cell("", "lab")}${cps.map((c) => cell(`<b>${esc(c.date.slice(0, 7))}</b><span class="split ${c.split}">${c.split}</span>`, "date")).join("")}
+          ${cell("Market", "lab")}${cps.map((c) => { const rg = (j.regimes || []).find((r) => r.name === c.regime); return cell(rg ? `<span class="regime ${esc(rg.kind)}">${esc(rg.name)}</span>` : `<span class="muted">calm</span>`, "mkt"); }).join("")}
+          ${cell("Life events", "lab")}${cps.map((c) => cell(c.events.length ? c.events.map((e) => `<span class="chip">${esc(evName(e))}</span>`).join(" ") : `<span class="muted">none</span>`)).join("")}
+          ${cell("Generic agent", "lab")}${cps.map((c) => cell(tile(c.baseline, "Generic agent"), "trow")).join("")}
+          ${cell(`${esc(first)}'s agent`, "lab")}${cps.map((c) => cell(tile(c.personal, `${first}'s agent`), "trow")).join("")}
+          ${cell("Lessons", "lab")}${cps.map((c) => cell((lessonAt[c.id] || []).map((l) => `<span class="jl" title="${esc(l.lesson)}">◆ ${esc(l.rule)}</span>`).join(""))).join("")}
+        </div>
+      </div>
+      <ol class="jlessons">${(j.lessons || []).slice().sort((a, b) => a.at.localeCompare(b.at)).map((l) => {
+        const c = cps.find((x) => x.id === l.at);
+        return `<li><span class="mono">${esc(l.at)}</span><div><p class="l-text small">${esc(l.lesson)}</p><p class="muted">Learned at ${esc(c ? c.date.slice(0, 7) : l.at)} from ${esc(evName(l.triggered_by))}: ${esc(l.root_cause)}</p></div></li>`; }).join("")}</ol>`;
+  }
+
+  // ---------- coverage: what the agent is ready for ----------
+  const LIFE = [["layoff", "Layoff", ["layoff"]], ["job_change", "Raise or new job", ["job_change"]], ["marriage", "Marriage", ["marriage"]], ["child", "New child", ["child"]],
+    ["divorce", "Divorce", ["divorce"]], ["inheritance", "Inheritance", ["inheritance"]], ["retirement", "Retirement", ["retirement", "approaching retirement"]],
+    ["death", "Death in the family", ["death", "death_in_family"]], ["home", "Home purchase", ["home_purchase"]], ["disability", "Disability or illness", ["disability", "illness"]]];
+  const MKT = [["crash", "Market crash", ["market drop", "market_drop", "crash"]], ["rates", "Rate shock", ["rates", "rate shock"]], ["inflation", "Inflation spike", ["inflation"]],
+    ["concentration", "Single-stock blow-up", ["single-stock holding", "concentration"]], ["calm", "Calm, nothing changed", ["no new events", "calm"]], ["unfamiliar", "Event types never seen", ["unfamiliar event types"]]];
+  function renderCoverage(les, jrn, drift) {
+    // fleet lessons say which playbook version carries them; client-journey lessons say whose agent learned them
+    const learned = {}, seen = new Set();
+    ((les && les.lessons) || []).forEach((l) => { const k = String(l.triggered_by).toLowerCase(); if (!(k in learned)) learned[k] = `lesson in v${l.version}`; });
+    (jrn || []).forEach((j) => (j.lessons || []).forEach((l) => { const k = String(l.triggered_by).toLowerCase(); if (!(k in learned)) learned[k] = `${j.persona.name.split(" ")[0]}'s agent`; }));
+    (jrn || []).forEach((j) => { j.checkpoints.forEach((c) => c.events.forEach((e) => seen.add(e))); (j.regimes || []).forEach((r) => seen.add(r.kind)); });
+    (drift || []).forEach((d) => (d.gates || []).forEach((g) => seen.add(g.event)));
+    const row = ([key, label, aliases]) => {
+      const hit = aliases.find((a) => a in learned);
+      const st = hit ? "learned" : aliases.some((a) => seen.has(a)) || seen.has(key) ? "seen" : "new";
+      const g = { learned: "✓", seen: "◐", new: "○" }[st];
+      const note = st === "learned" ? learned[hit] : st === "seen" ? "seen, no lesson yet" : "Snap flags it";
+      return `<li class="c-${st}"><b aria-hidden="true">${g}</b><span>${esc(label)}</span><em>${esc(note)}</em></li>`;
+    };
+    $("#cover-life").innerHTML = LIFE.map(row).join("");
+    $("#cover-mkt").innerHTML = MKT.map(row).join("");
   }
 
   // ---------- controls + theme ----------
@@ -778,9 +882,11 @@
     renderLayers();
     renderBento();
     try {
-      const [ov, versions, drift, clients, analysis, bench, lin] = await Promise.all([
+      const [ov, versions, drift, clients, analysis, bench, lin, les, jrn] = await Promise.all([
         get("/api/overview"), get("/api/versions"), get("/api/drift"), get("/api/clients"),
-        get("/api/analysis").catch(() => []), get("/api/benchmark").catch(() => []), get("/api/lineage")]);
+        get("/api/analysis").catch(() => []), get("/api/benchmark").catch(() => []), get("/api/lineage"),
+        get("/api/lessons").catch(() => null), get("/api/journeys").catch(() => [])]);
+      state.lessons = les; state.journeys = jrn;
       state.versions = versions; state.drift = drift; state.analysis = analysis;
       lin.forEach((g) => { state.lineage[g.version] = g; });
       $("#source").hidden = ov.source !== "demo";
@@ -788,7 +894,10 @@
       const kindAttr = (k) => (k === "green" ? "ship" : k);
       $("#steps").innerHTML = state.steps.map((s, k) => `<li><button data-i="${k}" data-kind="${kindAttr(s.kind)}"><i aria-hidden="true"></i>${esc(s.label)}</button></li>`).join("");
       renderClients(clients);
-      if (bench.length) renderBench(bench, ov.source === "demo"); else $(".bench").hidden = true;
+      if (bench.length) renderBench(bench, !bench.some((r) => r.real)); else $(".bench").hidden = true;
+      renderLedger(les);
+      renderJourneys(jrn);
+      renderCoverage(les, jrn, drift);
       const m = /#step-(\d+)/.exec(location.hash);
       show(m ? +m[1] - 1 : 0);
       animateHelix();

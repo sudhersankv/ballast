@@ -146,4 +146,6 @@ See `web/static/app.css` `:root` and `[data-theme="light"]`. Adapter: plain CSS 
 
 ## Changelog
 
+- 2026-11-07: v3.2. Lessons ledger ("What it has learned"): each lesson in first person at display size, with learned-from (trigger, date, root cause, the failing detail) and proven-on (rule failures on unseen clients before and after, holdout journey checkpoints); raw YAML behind "View playbook". Client journeys: a checkpoint timeline (market regime band, life events, generic agent vs the client's own agent, lessons where learned) with three tile states (clean, soft miss, hard fail) carrying glyphs. Coverage map in The loop: learned, seen, not seen yet, plus the unknown-event path (Snap flags, re-run first, Muse learns). Live defaults to ballast_muse and works without a loop log. Benchmark reads real runs.
+- 2026-11-07: v3.1. SubQ Snap decision gates: replay step before drift, probability bars beside the rule checker's verdict, Live gates table, Stack split into Snap and Preview.
 - 2026-11-07: v3. Genome helix replaces the slab stack; OKLCH tokens with a light theme; removed decorative grid, streak, glows, side-tab borders, overshoot easing and the eyebrow pill; business copy for advisory firms; mutation strip (why, change, learned).

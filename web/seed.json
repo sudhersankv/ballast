@@ -11,7 +11,7 @@
   {
    "version": 1,
    "parent": 0,
-   "yaml": "version: 1\nparent: 0\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added layoff-playbook after emergency_fund failures on layoff cases.\"\n",
+   "yaml": "version: 1\nparent: 0\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added layoff-playbook after emergency_fund failures on layoff cases.\"\nlessons:\n- lesson: After a layoff, I build six months of cash before rebalancing anything else.\n  root_cause: Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.\n  triggered_by: layoff\n  rule: emergency_fund\n  skill: layoff-playbook\n",
    "changelog": "Added layoff-playbook after emergency_fund failures on layoff cases.",
    "status": "shipped",
    "created_at": "2026-11-07T13:40:00+00:00"
@@ -19,7 +19,7 @@
   {
    "version": 2,
    "parent": 1,
-   "yaml": "version: 2\nparent: 1\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Count severance from events.json toward the cash buffer.\n      2. If severance covers the gap, skip raising CASH.\n      3. Rebalance the rest toward target.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Let severance count toward the cash buffer to reduce selling.\"\n",
+   "yaml": "version: 2\nparent: 1\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Count severance from events.json toward the cash buffer.\n      2. If severance covers the gap, skip raising CASH.\n      3. Rebalance the rest toward target.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Let severance count toward the cash buffer to reduce selling.\"\nlessons:\n- lesson: After a layoff, I build six months of cash before rebalancing anything else.\n  root_cause: Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.\n  triggered_by: layoff\n  rule: emergency_fund\n  skill: layoff-playbook\n- lesson: Severance counts toward the cash buffer, so I can sell less after a layoff.\n  root_cause: Sold equity to raise cash the client was already about to receive.\n  triggered_by: layoff\n  rule: emergency_fund\n  skill: layoff-playbook\n",
    "changelog": "Let severance count toward the cash buffer to reduce selling.",
    "status": "rejected",
    "created_at": "2026-11-07T14:15:00+00:00"
@@ -27,7 +27,7 @@
   {
    "version": 3,
    "parent": 1,
-   "yaml": "version: 3\nparent: 1\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added life-event-updates and rebalance-check for no_churn and event rules.\"\n",
+   "yaml": "version: 3\nparent: 1\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added life-event-updates and rebalance-check for no_churn and event rules.\"\nlessons:\n- lesson: After a layoff, I build six months of cash before rebalancing anything else.\n  root_cause: Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.\n  triggered_by: layoff\n  rule: emergency_fund\n  skill: layoff-playbook\n- lesson: When a child arrives, I add an education goal 18 years out.\n  root_cause: Treated a new child as no change and added no education goal.\n  triggered_by: child\n  rule: event_child\n  skill: life-event-updates\n- lesson: After a marriage, I flag a joint review and leave the risk score alone.\n  root_cause: Changed nothing after a marriage and never flagged the joint profile.\n  triggered_by: marriage\n  rule: event_marriage\n  skill: life-event-updates\n- lesson: When income rises, I raise the monthly contribution, not the risk.\n  root_cause: Left the monthly contribution at $1,500 after a raise.\n  triggered_by: job_change\n  rule: event_job_change\n  skill: life-event-updates\n- lesson: If nothing changed and every class is within five points of target, I leave the portfolio alone.\n  root_cause: Made 3 small trades in a portfolio that was already on target.\n  triggered_by: no new events\n  rule: no_churn\n  skill: rebalance-check\n",
    "changelog": "Added life-event-updates and rebalance-check for no_churn and event rules.",
    "status": "shipped",
    "created_at": "2026-11-07T14:50:00+00:00"
@@ -35,7 +35,7 @@
   {
    "version": 4,
    "parent": 3,
-   "yaml": "version: 4\nparent: 3\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\n  - name: concentration-guard\n    description: Use when holdings include a single stock.\n    body: |\n      Check each single stock's weight after trades. If any is above the house limit,\n      trim it first and move the proceeds to the most underweight class.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added concentration-guard for single-stock limits.\"\n",
+   "yaml": "version: 4\nparent: 3\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\n  - name: concentration-guard\n    description: Use when holdings include a single stock.\n    body: |\n      Check each single stock's weight after trades. If any is above the house limit,\n      trim it first and move the proceeds to the most underweight class.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added concentration-guard for single-stock limits.\"\nlessons:\n- lesson: After a layoff, I build six months of cash before rebalancing anything else.\n  root_cause: Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.\n  triggered_by: layoff\n  rule: emergency_fund\n  skill: layoff-playbook\n- lesson: When a child arrives, I add an education goal 18 years out.\n  root_cause: Treated a new child as no change and added no education goal.\n  triggered_by: child\n  rule: event_child\n  skill: life-event-updates\n- lesson: After a marriage, I flag a joint review and leave the risk score alone.\n  root_cause: Changed nothing after a marriage and never flagged the joint profile.\n  triggered_by: marriage\n  rule: event_marriage\n  skill: life-event-updates\n- lesson: When income rises, I raise the monthly contribution, not the risk.\n  root_cause: Left the monthly contribution at $1,500 after a raise.\n  triggered_by: job_change\n  rule: event_job_change\n  skill: life-event-updates\n- lesson: If nothing changed and every class is within five points of target, I leave the portfolio alone.\n  root_cause: Made 3 small trades in a portfolio that was already on target.\n  triggered_by: no new events\n  rule: no_churn\n  skill: rebalance-check\n- lesson: I trim any single stock above ten percent before anything else.\n  root_cause: Kept ACME at 13% of the portfolio while rebalancing around it.\n  triggered_by: single-stock holding\n  rule: concentration\n  skill: concentration-guard\n",
    "changelog": "Added concentration-guard for single-stock limits.",
    "status": "rolled_back",
    "created_at": "2026-11-07T15:30:00+00:00"
@@ -43,7 +43,7 @@
   {
    "version": 5,
    "parent": 4,
-   "yaml": "version: 5\nparent: 4\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\n  - name: concentration-guard\n    description: Use when holdings include a single stock.\n    body: |\n      Check each single stock's weight after trades. If any is above the house limit,\n      trim it first and move the proceeds to the most underweight class.\n  - name: windfall-and-shock\n    description: Use when events include an inheritance or divorce, or when prices moved sharply.\n    body: |\n      1. Recompute weights with today's prices before anything else.\n      2. Inheritance: deploy new cash in stages toward target, keeping the cash buffer intact.\n      3. Divorce: split shared holdings per details, then recheck the cash buffer on the new expenses.\n      4. After a market drop, restore the cash buffer before buying equity.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added windfall-and-shock after drift on inheritance and market-drop cases.\"\n",
+   "yaml": "version: 5\nparent: 4\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\n  - name: concentration-guard\n    description: Use when holdings include a single stock.\n    body: |\n      Check each single stock's weight after trades. If any is above the house limit,\n      trim it first and move the proceeds to the most underweight class.\n  - name: windfall-and-shock\n    description: Use when events include an inheritance or divorce, or when prices moved sharply.\n    body: |\n      1. Recompute weights with today's prices before anything else.\n      2. Inheritance: deploy new cash in stages toward target, keeping the cash buffer intact.\n      3. Divorce: split shared holdings per details, then recheck the cash buffer on the new expenses.\n      4. After a market drop, restore the cash buffer before buying equity.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added windfall-and-shock after drift on inheritance and market-drop cases.\"\nlessons:\n- lesson: After a layoff, I build six months of cash before rebalancing anything else.\n  root_cause: Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.\n  triggered_by: layoff\n  rule: emergency_fund\n  skill: layoff-playbook\n- lesson: When a child arrives, I add an education goal 18 years out.\n  root_cause: Treated a new child as no change and added no education goal.\n  triggered_by: child\n  rule: event_child\n  skill: life-event-updates\n- lesson: After a marriage, I flag a joint review and leave the risk score alone.\n  root_cause: Changed nothing after a marriage and never flagged the joint profile.\n  triggered_by: marriage\n  rule: event_marriage\n  skill: life-event-updates\n- lesson: When income rises, I raise the monthly contribution, not the risk.\n  root_cause: Left the monthly contribution at $1,500 after a raise.\n  triggered_by: job_change\n  rule: event_job_change\n  skill: life-event-updates\n- lesson: If nothing changed and every class is within five points of target, I leave the portfolio alone.\n  root_cause: Made 3 small trades in a portfolio that was already on target.\n  triggered_by: no new events\n  rule: no_churn\n  skill: rebalance-check\n- lesson: I trim any single stock above ten percent before anything else.\n  root_cause: Kept ACME at 13% of the portfolio while rebalancing around it.\n  triggered_by: single-stock holding\n  rule: concentration\n  skill: concentration-guard\n- lesson: After a market drop, I restore the cash buffer before buying any equity.\n  root_cause: Bought the dip and left 1.4 months of cash after prices fell.\n  triggered_by: market drop\n  rule: emergency_fund\n  skill: windfall-and-shock\n- lesson: I invest an inheritance in stages and stay inside the risk band.\n  root_cause: Put a large inheritance straight into equity, reaching 91% in a 50-70% band.\n  triggered_by: inheritance\n  rule: risk_band\n  skill: windfall-and-shock\n- lesson: I only cite events that are actually in the client's file.\n  root_cause: Cited event:windfall, an event the client never reported.\n  triggered_by: unfamiliar event types\n  rule: cited\n  skill: windfall-and-shock\n",
    "changelog": "Added windfall-and-shock after drift on inheritance and market-drop cases.",
    "status": "shipped",
    "created_at": "2026-11-07T16:35:00+00:00"
@@ -15300,6 +15300,490 @@
    "tokens_out": 1050,
    "seconds": 49.6,
    "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "jr-001t01-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t01",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "no joint_profile_review flag after marriage"
+    }
+   ],
+   "results": [],
+   "created_at": "2019-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t01-p",
+   "playbook_version": 0,
+   "case_id": "j-001/t01",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "no joint_profile_review flag after marriage"
+    }
+   ],
+   "results": [],
+   "created_at": "2019-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t02-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t02",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "4 trades while every class was within 5 points"
+    }
+   ],
+   "results": [],
+   "created_at": "2019-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t02-p",
+   "playbook_version": 1,
+   "case_id": "j-001/t02",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2019-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t03-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t03",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 2.7 months after rebalancing to normal targets, needs 6 after layoff"
+    }
+   ],
+   "results": [],
+   "created_at": "2020-03-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t03-p",
+   "playbook_version": 1,
+   "case_id": "j-001/t03",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 2.7 months, needs 6 after layoff"
+    }
+   ],
+   "results": [],
+   "created_at": "2020-03-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t04-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t04",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500 after a raise"
+    }
+   ],
+   "results": [],
+   "created_at": "2020-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t04-p",
+   "playbook_version": 2,
+   "case_id": "j-001/t04",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500 after a raise"
+    }
+   ],
+   "results": [],
+   "created_at": "2020-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t05-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t05",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "results": [],
+   "created_at": "2021-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t05-p",
+   "playbook_version": 3,
+   "case_id": "j-001/t05",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2021-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t06-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t06",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "results": [],
+   "created_at": "2022-03-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t06-p",
+   "playbook_version": 3,
+   "case_id": "j-001/t06",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2022-03-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t07-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t07",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.9 months after an 18% market drop, needs 3"
+    }
+   ],
+   "results": [],
+   "created_at": "2022-09-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t07-p",
+   "playbook_version": 3,
+   "case_id": "j-001/t07",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2022-09-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t08-b",
+   "playbook_version": 0,
+   "case_id": "j-001/t08",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "risk_band",
+     "severity": "hard",
+     "detail": "equity 88% after inheritance, band 70-85% for risk 4"
+    }
+   ],
+   "results": [],
+   "created_at": "2023-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-001t08-p",
+   "playbook_version": 3,
+   "case_id": "j-001/t08",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2023-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t01-b",
+   "playbook_version": 0,
+   "case_id": "j-002/t01",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "glidepath",
+     "severity": "soft",
+     "detail": "equity 68% at age 58, should be at or below 60%"
+    }
+   ],
+   "results": [],
+   "created_at": "2007-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t01-p",
+   "playbook_version": 0,
+   "case_id": "j-002/t01",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "glidepath",
+     "severity": "soft",
+     "detail": "equity 68% at age 58, should be at or below 60%"
+    }
+   ],
+   "results": [],
+   "created_at": "2007-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t02-b",
+   "playbook_version": 0,
+   "case_id": "j-002/t02",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.6 months after a 38% market drop, needs 3"
+    }
+   ],
+   "results": [],
+   "created_at": "2008-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t02-p",
+   "playbook_version": 1,
+   "case_id": "j-002/t02",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.6 months after a 38% market drop, needs 3"
+    }
+   ],
+   "results": [],
+   "created_at": "2008-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t03-b",
+   "playbook_version": 0,
+   "case_id": "j-002/t03",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "glidepath",
+     "severity": "soft",
+     "detail": "equity 66% at age 59, should be at or below 60%"
+    }
+   ],
+   "results": [],
+   "created_at": "2009-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t03-p",
+   "playbook_version": 2,
+   "case_id": "j-002/t03",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2009-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t04-b",
+   "playbook_version": 0,
+   "case_id": "j-002/t04",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 2.2 months on the new single-household expenses, needs 3"
+    }
+   ],
+   "results": [],
+   "created_at": "2010-09-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t04-p",
+   "playbook_version": 2,
+   "case_id": "j-002/t04",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 2.2 months on the new single-household expenses, needs 3"
+    }
+   ],
+   "results": [],
+   "created_at": "2010-09-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t05-b",
+   "playbook_version": 0,
+   "case_id": "j-002/t05",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "glidepath",
+     "severity": "soft",
+     "detail": "equity 64% at age 62, should be at or below 60%"
+    }
+   ],
+   "results": [],
+   "created_at": "2012-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t05-p",
+   "playbook_version": 3,
+   "case_id": "j-002/t05",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2012-12-31T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t06-b",
+   "playbook_version": 0,
+   "case_id": "j-002/t06",
+   "set": "journey",
+   "track": "baseline",
+   "model": "muse",
+   "score": 0.833,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 2.4 months at retirement, needs 3"
+    }
+   ],
+   "results": [],
+   "created_at": "2015-06-30T12:00:00+00:00"
+  },
+  {
+   "run_id": "jr-002t06-p",
+   "playbook_version": 3,
+   "case_id": "j-002/t06",
+   "set": "journey",
+   "track": "personal",
+   "model": "muse",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "results": [],
+   "created_at": "2015-06-30T12:00:00+00:00"
   }
  ],
  "drift_analysis": [
@@ -15370,6 +15854,230 @@
    "pass_rate": 0.8,
    "tokens": 15800,
    "seconds": 52.2
+  }
+ ],
+ "journeys": [
+  {
+   "journey_id": "j-001",
+   "persona": {
+    "name": "Dana Whitfield",
+    "age": 41,
+    "occupation": "product manager",
+    "risk_score": 4,
+    "household": "married in 2019, one child in 2022"
+   },
+   "arc": "Marriage, a layoff in the COVID crash, a better job, a first child during the 2022 rate shock, then an inheritance.",
+   "regimes": [
+    {
+     "name": "COVID crash",
+     "kind": "crash",
+     "start": "2020-02-20",
+     "end": "2020-06-30"
+    },
+    {
+     "name": "2022 rate shock",
+     "kind": "rates",
+     "start": "2022-03-01",
+     "end": "2022-10-31"
+    }
+   ],
+   "checkpoints": [
+    {
+     "id": "t01",
+     "date": "2019-06-30",
+     "events": [
+      "marriage"
+     ],
+     "regime": null,
+     "split": "train"
+    },
+    {
+     "id": "t02",
+     "date": "2019-12-31",
+     "events": [],
+     "regime": null,
+     "split": "holdout"
+    },
+    {
+     "id": "t03",
+     "date": "2020-03-31",
+     "events": [
+      "layoff"
+     ],
+     "regime": "COVID crash",
+     "split": "train"
+    },
+    {
+     "id": "t04",
+     "date": "2020-12-31",
+     "events": [
+      "job_change"
+     ],
+     "regime": null,
+     "split": "train"
+    },
+    {
+     "id": "t05",
+     "date": "2021-06-30",
+     "events": [],
+     "regime": null,
+     "split": "holdout"
+    },
+    {
+     "id": "t06",
+     "date": "2022-03-31",
+     "events": [
+      "child"
+     ],
+     "regime": "2022 rate shock",
+     "split": "holdout"
+    },
+    {
+     "id": "t07",
+     "date": "2022-09-30",
+     "events": [
+      "market_drop"
+     ],
+     "regime": "2022 rate shock",
+     "split": "holdout"
+    },
+    {
+     "id": "t08",
+     "date": "2023-06-30",
+     "events": [
+      "inheritance"
+     ],
+     "regime": null,
+     "split": "holdout"
+    }
+   ],
+   "lessons": [
+    {
+     "at": "t03",
+     "version": 2,
+     "lesson": "After a layoff, I build six months of cash before rebalancing anything else.",
+     "root_cause": "Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.",
+     "triggered_by": "layoff",
+     "rule": "emergency_fund",
+     "skill": "layoff-playbook"
+    },
+    {
+     "at": "t01",
+     "version": 1,
+     "lesson": "After a marriage, I flag a joint review and leave the risk score alone.",
+     "root_cause": "Changed nothing after the marriage and never flagged the joint profile.",
+     "triggered_by": "marriage",
+     "rule": "event_marriage",
+     "skill": "life-event-updates"
+    },
+    {
+     "at": "t04",
+     "version": 3,
+     "lesson": "When income rises, I raise the monthly contribution, not the risk.",
+     "root_cause": "Left the monthly contribution at $1,500 after Dana's raise.",
+     "triggered_by": "job_change",
+     "rule": "event_job_change",
+     "skill": "life-event-updates"
+    }
+   ]
+  },
+  {
+   "journey_id": "j-002",
+   "persona": {
+    "name": "Marcus Bell",
+    "age": 58,
+    "occupation": "plant manager",
+    "risk_score": 3,
+    "household": "two adult children"
+   },
+   "arc": "Ten years from retirement when the 2008 crisis hits, a divorce in 2010, then retirement in 2015.",
+   "regimes": [
+    {
+     "name": "Global financial crisis",
+     "kind": "crash",
+     "start": "2008-09-15",
+     "end": "2009-03-31"
+    }
+   ],
+   "checkpoints": [
+    {
+     "id": "t01",
+     "date": "2007-12-31",
+     "events": [],
+     "regime": null,
+     "split": "train"
+    },
+    {
+     "id": "t02",
+     "date": "2008-12-31",
+     "events": [
+      "market_drop"
+     ],
+     "regime": "Global financial crisis",
+     "split": "train"
+    },
+    {
+     "id": "t03",
+     "date": "2009-06-30",
+     "events": [],
+     "regime": null,
+     "split": "holdout"
+    },
+    {
+     "id": "t04",
+     "date": "2010-09-30",
+     "events": [
+      "divorce"
+     ],
+     "regime": null,
+     "split": "train"
+    },
+    {
+     "id": "t05",
+     "date": "2012-12-31",
+     "events": [],
+     "regime": null,
+     "split": "holdout"
+    },
+    {
+     "id": "t06",
+     "date": "2015-06-30",
+     "events": [
+      "retirement"
+     ],
+     "regime": null,
+     "split": "holdout"
+    }
+   ],
+   "lessons": [
+    {
+     "at": "t01",
+     "version": 1,
+     "lesson": "Within ten years of retirement, I keep equity in the lower half of the band.",
+     "root_cause": "Held 68% equity at 58 with retirement nine years out.",
+     "triggered_by": "approaching retirement",
+     "rule": "glidepath",
+     "skill": "glidepath-check"
+    },
+    {
+     "at": "t02",
+     "version": 2,
+     "lesson": "After a market drop, I restore the cash buffer before buying any equity.",
+     "root_cause": "Bought the dip in late 2008 and left 1.6 months of cash.",
+     "triggered_by": "market drop",
+     "rule": "emergency_fund",
+     "skill": "windfall-and-shock"
+    },
+    {
+     "at": "t04",
+     "version": 3,
+     "lesson": "After a divorce, I recompute the cash buffer on the new household's expenses.",
+     "root_cause": "Kept the old joint-household buffer, 2.2 months for one person.",
+     "triggered_by": "divorce",
+     "rule": "emergency_fund",
+     "skill": "life-event-updates"
+    }
+   ]
   }
  ]
 }

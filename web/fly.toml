@@ -7,7 +7,7 @@ primary_region = "sjc"
 
 [env]
   MONGODB_DB = "ballast"      # story / replay (falls back to seed.json)
-  LIVE_DB = "ballast_dev"     # /live view; override per request with ?db=ballast
+  LIVE_DB = "ballast_muse"    # /live view (all-Muse run); override per request with ?db=ballast_dev|ballast
 
 [http_service]
   internal_port = 8080

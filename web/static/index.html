@@ -22,9 +22,10 @@
   <a class="wordmark" href="#top" aria-label="ballast. home">ballast<span>.</span></a>
   <nav class="nav" aria-label="Sections">
     <a href="#genome">Genome</a>
+    <a href="#learned">Lessons</a>
+    <a href="#journeys">Journeys</a>
     <a href="#how">The loop</a>
     <a href="#stack-sec">Stack</a>
-    <a href="#clients-sec">Clients</a>
     <a href="/live" class="live-link"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
   <div class="top-right">
@@ -103,6 +104,25 @@
     </div>
   </section>
 
+  <section id="learned" class="learned-sec" aria-labelledby="learned-h">
+    <div class="sec-head">
+      <h2 class="sec-h" id="learned-h">What it has learned</h2>
+      <p class="sec-sub">Every lesson the agent carries, in its own words. Each one came from a real failure, and each one is kept only because it proved itself on clients the agent had never seen.</p>
+    </div>
+    <ol class="ledger" id="ledger"><li class="muted">Loading lessons.</li></ol>
+    <details class="lost" id="lost" hidden><summary id="lost-sum">Lessons that didn't survive</summary><ul id="lost-list"></ul></details>
+    <details class="yaml"><summary>View playbook</summary><p class="muted" style="margin:10px 0 6px">The YAML Muse edits. Lessons live under <span class="mono">lessons:</span>; skills carry the habits.</p><pre class="diff" id="pb-yaml"></pre></details>
+  </section>
+
+  <section id="journeys" class="journeys-sec" aria-labelledby="journeys-h">
+    <div class="sec-head">
+      <h2 class="sec-h" id="journeys-h">Client journeys</h2>
+      <p class="sec-sub">One client across years of life events and markets. The generic agent and the client's own agent face the same checkpoints. The client's agent learns only from training checkpoints; holdout checkpoints prove it.</p>
+    </div>
+    <div class="jpick" id="jpick" role="group" aria-label="Choose a client"></div>
+    <div class="journey" id="journey"></div>
+  </section>
+
   <section id="how" class="how" aria-labelledby="how-h">
     <div class="sec-head">
       <h2 class="sec-h" id="how-h">The loop</h2>
@@ -123,6 +143,25 @@
       </div>
     </div>
     <p class="fact">Each case runs Pi in its own sandbox, as an unprivileged user that cannot read the checker. On the layoff case, one run took 9 turns and produced a recommendation with every trade cited.</p>
+
+    <div class="cover">
+      <div class="cover-head">
+        <h3 class="panel-h">What it's ready for</h3>
+        <p class="panel-sub">Life events and market conditions, and whether the agent has a proven lesson for each. <span class="ck"><b class="c-learned">✓</b> learned</span> <span class="ck"><b class="c-seen">◐</b> seen, no lesson yet</span> <span class="ck"><b class="c-new">○</b> not seen yet</span></p>
+      </div>
+      <div class="cover-grid">
+        <div><h4>Life events</h4><ul class="cover-list" id="cover-life"></ul></div>
+        <div><h4>Markets</h4><ul class="cover-list" id="cover-mkt"></ul></div>
+        <div class="cover-unknown">
+          <h4>When something new happens</h4>
+          <ol class="unk">
+            <li><b>Snap flags it.</b> SubQ Snap scores the event before the agent runs. Low playbook coverage means risk nobody has handled yet.</li>
+            <li><b>Re-run first.</b> The client is re-run on the live playbook and an advisor sees the flag before any recommendation goes out.</li>
+            <li><b>Muse learns a lesson.</b> Once the rule checker confirms the failure, Muse writes a new lesson. It ships only through the gate.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="stack-sec" class="stack-sec" aria-labelledby="stack-h">

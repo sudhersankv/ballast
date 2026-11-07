@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 HERE = Path(__file__).parent
 SEED = json.loads((HERE / "seed.json").read_text())
 COLLS = ["playbooks", "generations", "drift_events", "clients", "runs"]
-OPTIONAL = ["drift_analysis", "benchmarks"]
+OPTIONAL = ["drift_analysis", "benchmarks", "journeys"]
 
 app = FastAPI(title="ballast.")
 _cache = {"t": 0.0, "data": None, "source": "demo"}
@@ -166,7 +166,7 @@ def client_detail(cid: str, demo: int = 0):
 
 
 # ---------------------------------------------------------------- live view
-LIVE_DBS = {"ballast_dev", "ballast"}
+LIVE_DBS = {"ballast_muse", "ballast_dev", "ballast"}
 SET_SIZES = {"practice": 20, "test": 20, "regression": 10, "drift": 10}
 SLIM = {"_id": 0, "run_id": 1, "playbook_version": 1, "set": 1, "case_id": 1, "model": 1, "score": 1, "passed": 1,
         "turns": 1, "seconds": 1, "error": 1, "created_at": 1, "violations": 1, "tokens_in": 1, "tokens_out": 1}
@@ -233,11 +233,15 @@ def live(since: str | None = None, db: str | None = None, session: str | None = 
         d, name = _db(db)
         last = d.loop_log.find_one({}, {"_id": 0, "session": 1}, sort=[("created_at", -1)])
         sess = session or (last or {}).get("session")
-        if not sess:
-            return {"db": name, "session": None, "started_at": None, "log": [], "runs": [], "gates": [], "progress": None,
-                    "blocks": [], "versions": []}
-        first = d.loop_log.find_one({"session": sess}, {"_id": 0, "created_at": 1}, sort=[("created_at", 1)])
-        start = first["created_at"] if first else ""
+        if sess:
+            first = d.loop_log.find_one({"session": sess}, {"_id": 0, "created_at": 1}, sort=[("created_at", 1)])
+            start = first["created_at"] if first else ""
+        else:
+            # no loop log yet (or it was reset): still show the runs from the last 12 hours
+            if not d.runs.find_one({}, {"_id": 1}):
+                return {"db": name, "session": None, "started_at": None, "log": [], "runs": [], "gates": [], "progress": None,
+                        "blocks": [], "versions": []}
+            sess, start = "runs", (datetime.now(timezone.utc) - timedelta(hours=12)).isoformat()
         lq = {"session": sess, **({"created_at": {"$gt": since}} if since else {})}
         log = list(d.loop_log.find(lq, {"_id": 0}).sort("created_at", 1).limit(800))
         runs = [_slim(r) for r in d.runs.find({"created_at": {"$gt": max(start, since or "")}}, SLIM)
@@ -407,6 +411,7 @@ def lineage(db: str | None = None, demo: int = 0):
         out.append({
             "version": v, "parent": p.get("parent"), "status": p.get("status"), "changelog": p.get("changelog", ""),
             "elements": els, "mutations": _mutations(par_els, els),
+            "lessons_added": [l for l in _lessons(p.get("yaml", "")) if l["lesson"] not in {x["lesson"] for x in _lessons((par or {}).get("yaml", ""))}],
             "why": why, "why_set": why_set,
             "learned": {"rules": rules, "score_before": mean(before), "score_after": mean(after),
                         "cases": len(after), "example": example},
@@ -427,9 +432,138 @@ def analysis(demo: int = 0):
     return sorted(d.get("drift_analysis", []), key=lambda a: a["time"])
 
 
+# ---------------------------------------------------------------- lessons: what the agent has learned
+def _lessons(text: str) -> list[dict]:
+    try:
+        d = yaml.safe_load(text or "") or {}
+    except yaml.YAMLError:
+        return []
+    out = []
+    for l in d.get("lessons") or []:
+        if isinstance(l, dict) and l.get("lesson"):
+            out.append({k: str(l.get(k) or "") for k in ("lesson", "root_cause", "triggered_by", "rule", "skill")})
+    return out
+
+
+def _data(db: str | None, demo: int):
+    if db:
+        def q():
+            d, _ = _db(db)
+            return {c: list(d[c].find({}, {"_id": 0, "steps": 0, "recommendation": 0} if c == "runs" else {"_id": 0}))
+                    for c in ("playbooks", "generations", "runs", "drift_events", "journeys")}
+        return _mongo_guard(q)
+    d, _ = _load(bool(demo))
+    return d
+
+
+def _journey_rows(data: dict) -> list[dict]:
+    """Journey meta (collection `journeys`, else seed) joined with runs where set == "journey" and case_id "j-001/t04"."""
+    live_runs = [r for r in data.get("runs", []) if r.get("set") == "journey"]
+    demo = not (data.get("journeys") and live_runs)
+    metas = SEED.get("journeys", []) if demo else data["journeys"]
+    runs = [r for r in SEED["runs"] if r.get("set") == "journey"] if demo else live_runs
+    out = []
+    for m in metas:
+        m = {**m, "source": "demo" if demo else "live"}
+        jid = m["journey_id"]
+        cps = []
+        for cp in m.get("checkpoints", []):
+            mine = [r for r in runs if r.get("case_id") == f"{jid}/{cp['id']}"]
+            def pick(track):
+                rs = [r for r in mine if r.get("track") == track] or (
+                    [r for r in mine if r.get("playbook_version") == 0] if track == "baseline" else
+                    sorted(mine, key=lambda r: r.get("playbook_version") or 0)[-1:])
+                if not rs:
+                    return None
+                r = sorted(rs, key=lambda r: str(r.get("created_at")))[-1]
+                v = (r.get("violations") or [])
+                return {"version": r.get("playbook_version"), "passed": r.get("passed"), "score": r.get("score"),
+                        "violation": f"{v[0]['rule']}: {v[0]['detail']}" if v else None, "run_id": r.get("run_id")}
+            cps.append({**cp, "baseline": pick("baseline"), "personal": pick("personal")})
+        out.append({**m, "checkpoints": cps})
+    return out
+
+
+@app.get("/api/journeys")
+def journeys(db: str | None = None, demo: int = 0):
+    rows = _journey_rows(_data(db, demo))
+    if not db and _load(bool(demo))[1] == "demo":
+        rows = [{**r, "source": "demo"} for r in rows]
+    return rows
+
+
+@app.get("/api/lessons")
+def lessons(db: str | None = None, demo: int = 0):
+    """The lesson ledger: every lesson in the shipped lineage, where it was learned and where it was proven."""
+    data = _data(db, demo)
+    pbs = {p["version"]: p for p in data["playbooks"]}
+    gens = {g["version"]: g for g in sorted(data["generations"], key=lambda g: str(g.get("created_at")))}
+    runs = data["runs"]
+    shipped = [v for v in sorted(pbs) if pbs[v].get("status") in ("shipped", "rolled_back")]
+    current = max((v for v in shipped if pbs[v].get("status") == "shipped"), default=None)
+    journeys_ = _journey_rows(data)
+
+    def fail_count(v, rule, set_name="test"):
+        rs = _latest(runs, v, set_name)
+        return sum(1 for r in rs.values() if any(x["rule"] == rule for x in r.get("violations") or [])), len(rs)
+
+    ledger, seen = [], set()
+    for v in shipped:
+        for l in _lessons(pbs[v].get("yaml", "")):
+            if l["lesson"] in seen:
+                continue
+            seen.add(l["lesson"])
+            parent = pbs[v].get("parent")
+            ex = None
+            if parent is not None:
+                for r in _latest(runs, parent, "practice").values():
+                    ex = next((x["detail"] for x in r.get("violations") or [] if x["rule"] == l["rule"]), None)
+                    if ex:
+                        break
+            before = fail_count(parent, l["rule"]) if parent is not None else (0, 0)
+            after = fail_count(v, l["rule"])
+            now = fail_count(current, l["rule"]) if current is not None else after
+            # journey checkpoints (holdout) where this rule passes for the personal agent but fails for the generic one
+            jproof = [f"{j['journey_id']}/{c['id']}" for j in journeys_ for c in j["checkpoints"]
+                      if c.get("split") == "holdout" and c.get("personal") and c["personal"].get("passed")
+                      and c.get("baseline") and (c["baseline"].get("violation") or "").startswith(l["rule"])]
+            g = gens.get(v) or {}
+            ledger.append({**l, "version": v, "status": pbs[v].get("status"), "date": g.get("created_at") or pbs[v].get("created_at"),
+                           "gate_reason": g.get("reason"), "mode": g.get("mode"),
+                           "example": ex, "proven": {"before": before[0], "after": after[0], "now": now[0], "cases": after[1] or before[1],
+                                                     "current_version": current, "journeys": jproof}})
+    rejected = []
+    for v in sorted(pbs):
+        if pbs[v].get("status") == "rejected":
+            for l in _lessons(pbs[v].get("yaml", "")):
+                if l["lesson"] not in seen:
+                    g = gens.get(v) or {}
+                    rejected.append({**l, "version": v, "reason": g.get("reason"), "compliance": g.get("compliance")})
+    return {"lessons": ledger, "rejected": rejected, "current_version": current,
+            "playbook_yaml": pbs[current]["yaml"] if current is not None else None}
+
+
 @app.get("/api/benchmark")
 def benchmark(demo: int = 0):
-    """Same playbook, same unseen clients, different agent models. Runtime tags each run with `model`."""
+    """Same unseen clients, different agent models. Prefers the real runs (ballast_dev = Gemini, ballast_muse = Muse)."""
+    if not demo and os.environ.get("MONGODB_URI"):
+        real = []
+        try:
+            for name, label, provider in (("ballast_muse", "Muse Spark 1.3", "Meta Model API"), ("ballast_dev", "Gemini 3.8 Flash", "Google DeepMind")):
+                d, _ = _db(name)
+                g = d.generations.find_one({"version": 0}, {"_id": 0, "test": 1, "practice": 1})
+                if not g or not g.get("test"):
+                    continue
+                rs = list(d.runs.find({"playbook_version": 0, "set": "test"}, {"_id": 0, "tokens_in": 1, "tokens_out": 1, "seconds": 1, "model": 1}))
+                n = max(1, len(rs))
+                real.append({"model": "muse" if "muse" in name else "gemini", "label": label, "provider": provider, "real": True,
+                             "playbook_version": 0, "mean_score": g["test"]["mean_score"], "pass_rate": g["test"]["pass_rate"],
+                             "tokens": round(sum((r.get("tokens_in") or 0) + (r.get("tokens_out") or 0) for r in rs) / n),
+                             "seconds": round(sum(r.get("seconds") or 0 for r in rs) / n, 1), "db": name})
+        except Exception:
+            real = []
+        if real:
+            return real
     d, _ = _load(bool(demo))
     rows = d.get("benchmarks") or []
     if not rows:

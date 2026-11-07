@@ -6,7 +6,7 @@
   const pct = (x) => (x == null ? "–" : Math.round(x * 100));
   const fmtTok = (n) => (n == null ? "–" : n >= 1e6 ? `${(n / 1e6).toFixed(2)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}k` : `${n}`);
   const params = new URLSearchParams(location.search);
-  const S = { db: params.get("db") || "ballast_dev", session: null, since: null, runs: new Map(), log: [], blocks: [], versions: [], lastAt: null, timer: null, err: null };
+  const S = { db: params.get("db") || "ballast_muse", session: null, since: null, runs: new Map(), log: [], blocks: [], versions: [], lastAt: null, timer: null, err: null };
 
   async function get(p) {
     const r = await fetch(p);
@@ -71,7 +71,9 @@
       $("#live-sub").textContent = `No training session in ${S.db} yet. Start one with python -m runtime.loop train.`;
       return;
     }
-    $("#live-sub").textContent = `Session ${S.session}, started ${ago(S.started)} in ${S.db}. Open any tile for the full trace.`;
+    $("#live-sub").textContent = S.session === "runs"
+      ? `Runs from the last 12 hours in ${S.db}. No loop log yet. Open any tile for the full trace.`
+      : `Session ${S.session}, started ${ago(S.started)} in ${S.db}. Open any tile for the full trace.`;
     // progress
     const p = S.progress;
     if (p) {

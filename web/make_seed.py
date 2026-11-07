@@ -7,6 +7,8 @@ import random
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import yaml
+
 random.seed(7)
 T0 = datetime(2026, 11, 7, 13, 0, tzinfo=timezone.utc)
 
@@ -102,7 +104,7 @@ def yaml_for(version, parent, skills, changelog, max_turns=12):
         "tools: [read, bash, write]\n"
         f"max_turns: {max_turns}\n"
         f'changelog: "{changelog}"\n'
-    )
+    ) + (yaml.safe_dump({"lessons": lessons_for(version)}, sort_keys=False, width=200, allow_unicode=True) if lessons_for(version) else "")
 
 
 PB = [
@@ -114,6 +116,47 @@ PB = [
     (4, 3, V0_SKILLS + LAYOFF + LIFE + CHURN + CONC, "Added concentration-guard for single-stock limits.", "rolled_back", 150),
     (5, 4, V0_SKILLS + LAYOFF + LIFE + CHURN + CONC + WINDFALL, "Added windfall-and-shock after drift on inheritance and market-drop cases.", "shipped", 215),
 ]
+
+# Lessons Muse writes into each playbook (first person, plain language). They accumulate along the shipped lineage.
+def L(lesson, root_cause, triggered_by, rule, skill):
+    return {"lesson": lesson, "root_cause": root_cause, "triggered_by": triggered_by, "rule": rule, "skill": skill}
+
+LESSONS = {
+    1: [L("After a layoff, I build six months of cash before rebalancing anything else.",
+          "Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.", "layoff", "emergency_fund", "layoff-playbook")],
+    2: [L("Severance counts toward the cash buffer, so I can sell less after a layoff.",
+          "Sold equity to raise cash the client was already about to receive.", "layoff", "emergency_fund", "layoff-playbook")],
+    3: [L("When a child arrives, I add an education goal 18 years out.",
+          "Treated a new child as no change and added no education goal.", "child", "event_child", "life-event-updates"),
+        L("After a marriage, I flag a joint review and leave the risk score alone.",
+          "Changed nothing after a marriage and never flagged the joint profile.", "marriage", "event_marriage", "life-event-updates"),
+        L("When income rises, I raise the monthly contribution, not the risk.",
+          "Left the monthly contribution at $1,500 after a raise.", "job_change", "event_job_change", "life-event-updates"),
+        L("If nothing changed and every class is within five points of target, I leave the portfolio alone.",
+          "Made 3 small trades in a portfolio that was already on target.", "no new events", "no_churn", "rebalance-check")],
+    4: [L("I trim any single stock above ten percent before anything else.",
+          "Kept ACME at 13% of the portfolio while rebalancing around it.", "single-stock holding", "concentration", "concentration-guard")],
+    5: [L("After a market drop, I restore the cash buffer before buying any equity.",
+          "Bought the dip and left 1.4 months of cash after prices fell.", "market drop", "emergency_fund", "windfall-and-shock"),
+        L("I invest an inheritance in stages and stay inside the risk band.",
+          "Put a large inheritance straight into equity, reaching 91% in a 50-70% band.", "inheritance", "risk_band", "windfall-and-shock"),
+        L("I only cite events that are actually in the client's file.",
+          "Cited event:windfall, an event the client never reported.", "unfamiliar event types", "cited", "windfall-and-shock")],
+}
+PARENT = {v: p for v, p, *_ in PB}
+STATUS = {v: st for v, _, _, _, st, _ in PB}
+
+
+def lessons_for(v):
+    chain, cur = [], v
+    while cur is not None:
+        chain.append(cur)
+        cur = PARENT[cur]
+    out = []
+    for x in reversed(chain):
+        if x == v or STATUS[x] != "rejected":
+            out += LESSONS.get(x, [])
+    return out
 
 playbooks = [
     {"version": v, "parent": p, "yaml": yaml_for(v, p, s, c), "changelog": c, "status": st, "created_at": ts(m)}
@@ -347,8 +390,96 @@ benchmarks = [
      "mean_score": 0.84, "pass_rate": 0.80, "tokens": 15800, "seconds": 52.2},
 ]
 
+# ---------- client journeys: one client across years of life events and market regimes ----------
+# Each checkpoint runs twice: the generic agent (v0, "baseline") and this client's own agent ("personal"),
+# whose playbook gains a lesson right after it fails a train checkpoint. Holdout checkpoints are never trained on.
+JOURNEYS = [
+    {"journey_id": "j-001",
+     "persona": {"name": "Dana Whitfield", "age": 41, "occupation": "product manager", "risk_score": 4, "household": "married in 2019, one child in 2022"},
+     "arc": "Marriage, a layoff in the COVID crash, a better job, a first child during the 2022 rate shock, then an inheritance.",
+     "regimes": [{"name": "COVID crash", "kind": "crash", "start": "2020-02-20", "end": "2020-06-30"},
+                 {"name": "2022 rate shock", "kind": "rates", "start": "2022-03-01", "end": "2022-10-31"}],
+     "checkpoints": [
+         {"id": "t01", "date": "2019-06-30", "events": ["marriage"], "regime": None, "split": "train"},
+         {"id": "t02", "date": "2019-12-31", "events": [], "regime": None, "split": "holdout"},
+         {"id": "t03", "date": "2020-03-31", "events": ["layoff"], "regime": "COVID crash", "split": "train"},
+         {"id": "t04", "date": "2020-12-31", "events": ["job_change"], "regime": None, "split": "train"},
+         {"id": "t05", "date": "2021-06-30", "events": [], "regime": None, "split": "holdout"},
+         {"id": "t06", "date": "2022-03-31", "events": ["child"], "regime": "2022 rate shock", "split": "holdout"},
+         {"id": "t07", "date": "2022-09-30", "events": ["market_drop"], "regime": "2022 rate shock", "split": "holdout"},
+         {"id": "t08", "date": "2023-06-30", "events": ["inheritance"], "regime": None, "split": "holdout"},
+     ],
+     # (checkpoint, generic-agent violation, personal version that served it, personal violation or None, lesson learned there)
+     "plan": [
+         ("t01", ("event_marriage", "no joint_profile_review flag after marriage"), 0, ("event_marriage", "no joint_profile_review flag after marriage"), 3),
+         ("t02", ("no_churn", "4 trades while every class was within 5 points"), 1, None, None),
+         ("t03", ("emergency_fund", "cash 2.7 months after rebalancing to normal targets, needs 6 after layoff"), 1, ("emergency_fund", "cash 2.7 months, needs 6 after layoff"), 1),
+         ("t04", ("event_job_change", "monthly_contribution unchanged at $1,500 after a raise"), 2, ("event_job_change", "monthly_contribution unchanged at $1,500 after a raise"), 3),
+         ("t05", ("no_churn", "3 trades while every class was within 5 points"), 3, None, None),
+         ("t06", ("event_child", "no education goal added for new child"), 3, None, None),
+         ("t07", ("emergency_fund", "cash 1.9 months after an 18% market drop, needs 3"), 3, None, None),
+         ("t08", ("risk_band", "equity 88% after inheritance, band 70-85% for risk 4"), 3, None, None),
+     ],
+     "lesson_at": {"t01": 1, "t03": 0, "t04": 2}},
+    {"journey_id": "j-002",
+     "persona": {"name": "Marcus Bell", "age": 58, "occupation": "plant manager", "risk_score": 3, "household": "two adult children"},
+     "arc": "Ten years from retirement when the 2008 crisis hits, a divorce in 2010, then retirement in 2015.",
+     "regimes": [{"name": "Global financial crisis", "kind": "crash", "start": "2008-09-15", "end": "2009-03-31"}],
+     "checkpoints": [
+         {"id": "t01", "date": "2007-12-31", "events": [], "regime": None, "split": "train"},
+         {"id": "t02", "date": "2008-12-31", "events": ["market_drop"], "regime": "Global financial crisis", "split": "train"},
+         {"id": "t03", "date": "2009-06-30", "events": [], "regime": None, "split": "holdout"},
+         {"id": "t04", "date": "2010-09-30", "events": ["divorce"], "regime": None, "split": "train"},
+         {"id": "t05", "date": "2012-12-31", "events": [], "regime": None, "split": "holdout"},
+         {"id": "t06", "date": "2015-06-30", "events": ["retirement"], "regime": None, "split": "holdout"},
+     ],
+     "plan": [
+         ("t01", ("glidepath", "equity 68% at age 58, should be at or below 60%"), 0, ("glidepath", "equity 68% at age 58, should be at or below 60%"), None),
+         ("t02", ("emergency_fund", "cash 1.6 months after a 38% market drop, needs 3"), 1, ("emergency_fund", "cash 1.6 months after a 38% market drop, needs 3"), 1),
+         ("t03", ("glidepath", "equity 66% at age 59, should be at or below 60%"), 2, None, None),
+         ("t04", ("emergency_fund", "cash 2.2 months on the new single-household expenses, needs 3"), 2, ("emergency_fund", "cash 2.2 months on the new single-household expenses, needs 3"), 2),
+         ("t05", ("glidepath", "equity 64% at age 62, should be at or below 60%"), 3, None, None),
+         ("t06", ("emergency_fund", "cash 2.4 months at retirement, needs 3"), 3, None, None),
+     ],
+     "lesson_at": {}},
+]
+JLESSONS = {
+    "j-001": [
+        {"at": "t03", "version": 2, **L("After a layoff, I build six months of cash before rebalancing anything else.",
+                                         "Rebalanced to normal targets and left 2.7 months of cash where 6 were needed.", "layoff", "emergency_fund", "layoff-playbook")},
+        {"at": "t01", "version": 1, **L("After a marriage, I flag a joint review and leave the risk score alone.",
+                                         "Changed nothing after the marriage and never flagged the joint profile.", "marriage", "event_marriage", "life-event-updates")},
+        {"at": "t04", "version": 3, **L("When income rises, I raise the monthly contribution, not the risk.",
+                                         "Left the monthly contribution at $1,500 after Dana's raise.", "job_change", "event_job_change", "life-event-updates")},
+    ],
+    "j-002": [
+        {"at": "t01", "version": 1, **L("Within ten years of retirement, I keep equity in the lower half of the band.",
+                                         "Held 68% equity at 58 with retirement nine years out.", "approaching retirement", "glidepath", "glidepath-check")},
+        {"at": "t02", "version": 2, **L("After a market drop, I restore the cash buffer before buying any equity.",
+                                         "Bought the dip in late 2008 and left 1.6 months of cash.", "market drop", "emergency_fund", "windfall-and-shock")},
+        {"at": "t04", "version": 3, **L("After a divorce, I recompute the cash buffer on the new household's expenses.",
+                                         "Kept the old joint-household buffer, 2.2 months for one person.", "divorce", "emergency_fund", "life-event-updates")},
+    ],
+}
+journeys, jruns = [], []
+for j in JOURNEYS:
+    plan = j.pop("plan")
+    j.pop("lesson_at")
+    j["lessons"] = JLESSONS[j["journey_id"]]
+    journeys.append(j)
+    for k, (cp, gv, pv, pviol, _) in enumerate(plan):
+        date = next(c["date"] for c in j["checkpoints"] if c["id"] == cp)
+        for track, ver, viol in (("baseline", 0, gv), ("personal", pv, pviol)):
+            vs = [{"rule": viol[0], "severity": "hard" if viol[0] in ("emergency_fund", "risk_band", "concentration", "cited") else "soft", "detail": viol[1]}] if viol else []
+            hard = any(x["severity"] == "hard" for x in vs)
+            score = round(1 - len(vs) / 6, 3)
+            jruns.append({"run_id": f"jr-{j['journey_id'][2:]}{cp}-{track[0]}", "playbook_version": ver, "case_id": f"{j['journey_id']}/{cp}",
+                          "set": "journey", "track": track, "model": "muse", "score": score, "passed": not hard and score >= 0.8,
+                          "violations": vs, "results": [], "created_at": f"{date}T12:00:00+00:00"})
+runs += jruns
+
 seed = {"playbooks": playbooks, "generations": generations, "drift_events": drift_events,
-        "clients": clients, "runs": runs, "drift_analysis": drift_analysis, "benchmarks": benchmarks}
+        "clients": clients, "runs": runs, "drift_analysis": drift_analysis, "benchmarks": benchmarks, "journeys": journeys}
 out = Path(__file__).with_name("seed.json")
 out.write_text(json.dumps(seed, indent=1))
 print(f"wrote {out} ({len(runs)} runs, {len(clients)} clients)")

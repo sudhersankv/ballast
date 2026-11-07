@@ -272,6 +272,85 @@ section { scroll-margin-top: 76px; }
 .curve .rej-lbl { font: 700 12px var(--ui); fill: var(--gold); }
 .curve .future { opacity: 0.25; }
 
+/* ---------- lessons ledger ---------- */
+.learned-sec { padding-top: 96px; }
+.ledger { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--rim); }
+.lesson { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--rim); }
+.l-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.l-n { font: 800 13px var(--display); color: var(--text-3); font-variant-numeric: tabular-nums; }
+.vchip { border: 1px solid var(--forest); background: var(--deep); color: var(--text); font: 700 14px var(--display); padding: 4px 12px; border-radius: var(--pill); cursor: pointer; }
+.vchip:hover { background: var(--panel); }
+.l-rule { font-size: 12px; color: var(--text-3); }
+.l-text { font: 700 clamp(18px, 1.9vw, 22px)/1.35 var(--display); letter-spacing: -0.01em; max-width: 46ch; color: var(--text); }
+.l-text.small { font-size: 16px; }
+.l-dl { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; }
+.l-dl dt { font: 700 12px/1.3 var(--display); color: var(--mint); margin-bottom: 6px; }
+.l-dl dd { font-size: 14px; color: var(--text-2); }
+.l-ex { display: block; margin-top: 6px; font-size: 12px; color: var(--red); }
+.l-proof { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.l-proof b { font-variant-numeric: tabular-nums; margin-right: 4px; }
+.l-skill { margin-top: 12px; font-size: 13px; color: var(--text-3); }
+.lost { margin-top: 16px; }
+.lost summary, .yaml summary { cursor: pointer; font-weight: 700; color: var(--text-2); padding: 8px 0; }
+.lost ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 12px; }
+.lost .l-text { color: var(--text-2); text-decoration: line-through; text-decoration-color: var(--red); }
+.mut .lesson-li .t { font-weight: 700; }
+.mut .sub-h { margin: 14px 0 8px; font-size: 12px; }
+
+/* ---------- client journeys ---------- */
+.journeys-sec { padding-top: 96px; }
+.jpick { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+.jpick button { border: 1px solid var(--rim); background: var(--deep); border-radius: var(--pill); padding: 8px 16px; cursor: pointer; font-weight: 700; display: inline-flex; gap: 8px; align-items: baseline; }
+.jpick button span { font: 500 12px var(--mono); color: var(--text-3); }
+.jpick button[aria-pressed="true"] { background: var(--text); color: var(--void); border-color: var(--text); }
+.jpick button[aria-pressed="true"] span { color: var(--void); }
+.journey { margin-top: 16px; border: 1px solid var(--rim); border-radius: var(--r); background: var(--deep); }
+.jhead { display: flex; gap: 16px 32px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; padding: 20px 24px; border-bottom: 1px solid var(--rim); }
+.jname { font: 700 20px var(--display); }
+.jhead .muted { max-width: 62ch; margin-top: 4px; }
+.jscore dt { font: 700 12px var(--display); color: var(--text-3); margin-bottom: 4px; }
+.jscore dd { font-size: 14px; color: var(--text-2); }
+.jscore dd span { font: 800 16px var(--display); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.jscroll { overflow-x: auto; }
+.jgrid { display: grid; min-width: max-content; }
+.jc { padding: 10px 12px; border-bottom: 1px solid var(--rim); font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; min-height: 48px; }
+.jc.lab { position: sticky; left: 0; background: var(--deep); font-weight: 700; color: var(--text-2); z-index: 1; border-right: 1px solid var(--rim); }
+.jc.date { flex-direction: column; align-items: flex-start; gap: 2px; }
+.jc.date b { font: 700 14px var(--display); font-variant-numeric: tabular-nums; }
+.split { font-size: 11px; font-weight: 700; padding: 0 8px; border-radius: var(--pill); border: 1px solid var(--rim); color: var(--text-3); }
+.split.holdout { border-color: var(--subq); color: var(--subq); }
+.jc.mkt { padding: 6px 0; }
+.regime { display: block; width: 100%; padding: 8px 12px; font-size: 12px; font-weight: 700; color: var(--red); background: color-mix(in oklch, var(--red) 14%, transparent); border-top: 2px solid var(--red); }
+.regime.rates { color: var(--gold); background: color-mix(in oklch, var(--gold) 14%, transparent); border-top-color: var(--gold); }
+.jc.mkt .muted { padding: 0 12px; }
+.jt { width: 30px; height: 30px; display: inline-grid; place-items: center; border-radius: var(--r); font: 800 14px var(--ui); color: var(--on-accent); }
+.jt.clean { background: var(--jade); box-shadow: 0 3px 0 var(--forest); }
+.jt.soft { background: var(--gold); box-shadow: 0 3px 0 color-mix(in oklch, var(--gold) 55%, black); }
+.jt.fail { background: var(--red); box-shadow: 0 3px 0 color-mix(in oklch, var(--red) 55%, black); }
+.jt.none { background: transparent; border: 1.5px solid var(--rim); color: var(--text-3); }
+.jv { font: 600 12px var(--mono); color: var(--text-3); margin-left: 4px; }
+.jl { font: 600 12px var(--mono); color: var(--mint); padding: 2px 8px; border: 1px solid var(--mint); border-radius: var(--pill); }
+.jlessons { list-style: none; margin: 0; padding: 16px 24px 20px; display: grid; gap: 14px; }
+.jlessons li { display: grid; grid-template-columns: 48px 1fr; gap: 12px; }
+.jlessons .mono { color: var(--mint); font-weight: 600; padding-top: 2px; }
+
+/* ---------- coverage ---------- */
+.cover { margin-top: 24px; border: 1px solid var(--rim); border-radius: var(--r); background: var(--deep); padding: 24px; }
+.cover .ck { margin-left: 12px; white-space: nowrap; }
+.cover .ck b, .cover-list b { font-weight: 800; }
+.c-learned b { color: var(--mint); }
+.c-seen b { color: var(--gold); }
+.c-new b { color: var(--text-3); }
+.cover-grid { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 24px; }
+.cover h4 { font: 700 14px var(--display); color: var(--text-2); margin-bottom: 10px; }
+.cover-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cover-list li { display: grid; grid-template-columns: 18px 1fr auto; gap: 8px; align-items: baseline; font-size: 14px; padding: 6px 0; border-bottom: 1px solid var(--rim); }
+.cover-list em { font-style: normal; font-size: 12px; color: var(--text-3); text-align: right; }
+.cover-list .c-learned em { color: var(--mint); }
+.cover-list .c-seen em { color: var(--gold); }
+.unk { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 14px; color: var(--text-2); }
+.unk b { color: var(--text); }
+
 /* ---------- loop ---------- */
 .how { padding-top: 96px; }
 .how-tabs { margin-top: 24px; display: inline-flex; padding: 4px; gap: 4px; background: var(--deep); border: 1px solid var(--rim); border-radius: var(--pill); }
@@ -487,7 +566,16 @@ button.cell:hover { transform: translateY(-2px); }
 }
 /* desktop: the helix labels every pair, so the chip list only carries the mutations (a glyph legend) */
 @media (min-width: 1001px) { .pairs li.keep { display: none; } }
+@media (max-width: 1000px) {
+  .cover-grid { grid-template-columns: 1fr; }
+  .lesson { grid-template-columns: 1fr; gap: 10px; }
+  .l-meta { flex-direction: row; align-items: center; }
+  .l-dl { grid-template-columns: 1fr; }
+}
 @media (max-width: 640px) {
+  .jhead, .cover { padding: 16px; }
+  .jlessons { padding: 16px; }
+  .jc.lab { min-width: 0; }
   .top { gap: 10px; padding-block: 10px; }
   .wordmark { font-size: 19px; }
   .source { display: none; }
