@@ -7,6 +7,9 @@
   const mname = (m) => MODEL[m] || String(m || "").replace(/^meta\//, "");
   const clip = (s, n = 220) => { s = String(s ?? ""); return s.length > n ? s.slice(0, n) + "…" : s; };
   let CASES = [];
+  // benchmarked seconds per case, so the race bar fills at each model's real pace
+  const PACE = { "meta/muse-spark-1.3": 40, "subq/subq-preview": 23, "google/gemini-3.8-flash": 30 };
+  let race = null;
 
   async function get(p) { const r = await fetch(p); if (!r.ok) { let m = `${r.status}`; try { m = (await r.json()).detail || m; } catch (_) {} throw new Error(m); } return r.json(); }
 
@@ -21,6 +24,7 @@
         <span class="t-stat mono" data-k="status">${esc(meta.status || "queued")}</span>
       </header>
       <div class="t-meter mono"><span>turn <b data-k="turn">0</b></span><span><b data-k="secs">0.0</b> s</span><span><b data-k="nsteps">0</b> steps</span>${meta.replay ? `<span class="t-ctl"><button type="button" class="btn small" data-k="speed" aria-pressed="false">4x</button><button type="button" class="btn small" data-k="skip">Skip</button></span>` : ""}</div>
+      ${meta.race ? `<div class="race" aria-hidden="true"><span class="rbar" data-k="rbar"></span><span class="rtk"></span></div><div class="race-k mono"><span>pace ~${PACE[meta.model] ?? "-"} s / case</span><span data-k="place"></span></div>` : ""}
       <ol class="t-lines" aria-live="off"></ol>
       <div class="t-verdict" hidden></div>`;
     const el = (k) => box.querySelector(`[data-k="${k}"]`);
@@ -67,22 +71,41 @@
   }
 
   // ---------- live job polling ----------
-  function watchJob(jobId, model, caseId) {
-    const col = column({ model, case: caseId, status: "queued" });
+  function watchJob(jobId, model, caseId, racing) {
+    const col = column({ model, case: caseId, status: "queued", race: racing });
     $("#runcols").appendChild(col.box);
+    const entry = { model, col, done: false, score: null, secs: null };
+    if (racing) race.push(entry);
     let seen = 0, t0 = null;
+    const setBar = (f) => { const b = col.el("rbar"); if (b) b.style.transform = `scaleX(${Math.max(0, Math.min(1, f)).toFixed(3)})`; };
     const timer = setInterval(async () => {
       let j;
       try { j = await get(`/api/jobs/${jobId}`); } catch (e) { col.status(`error: ${e.message}`); return; }
       col.status(j.status);
       if (j.started_at && !t0) t0 = Date.parse(j.started_at);
-      if (t0 && (j.status === "running" || j.status === "claimed")) col.secs((Date.now() - t0) / 1000);
+      if (t0 && (j.status === "running" || j.status === "claimed")) {
+        const el = (Date.now() - t0) / 1000;
+        col.secs(el);
+        if (racing) setBar(Math.min(0.97, el / (PACE[model] || 30)));
+      }
       (j.steps || []).slice(seen).forEach((s) => col.step(s));
       seen = (j.steps || []).length;
       if (j.status === "done" || j.status === "error") {
         clearInterval(timer);
         if (j.result) { col.secs(j.result.seconds || 0); col.verdict(j.result); }
         else col.verdict({ error: j.error || "The worker reported an error." });
+        if (racing) {
+          setBar(1);
+          entry.done = true; entry.score = j.result?.check?.score ?? null; entry.secs = j.result?.seconds ?? null;
+          const place = race.filter((x) => x.done).length;
+          col.el("place").innerHTML = `<b class="${place === 1 ? "pos" : ""}">${place === 1 ? "▲ finished first" : `finished #${place}`}</b> ${entry.secs != null ? `${Number(entry.secs).toFixed(1)} s` : ""}`;
+          if (place === 1) col.box.classList.add("first");
+          if (race.every((x) => x.done)) {
+            // accuracy is judged separately from speed
+            const best = Math.max(...race.map((x) => x.score ?? -1));
+            race.forEach((x) => { if (x.score === best && best >= 0) { x.col.box.classList.add("accurate"); x.col.el("place").innerHTML += ` <b class="acc">◆ most accurate ${best.toFixed(3)}</b>`; } });
+          }
+        }
         loadJobs();
       }
     }, 1500);
@@ -168,7 +191,8 @@
       const d = await r.json();
       if (!r.ok) throw new Error(d.detail || r.status);
       $("#runcols").innerHTML = "";
-      d.job_ids.forEach((id, k) => watchJob(id, models[k], $("#rf-case").value));
+      race = [];
+      d.job_ids.forEach((id, k) => watchJob(id, models[k], $("#rf-case").value, models.length > 1));
       msg.textContent = `Queued ${d.job_ids.length} ${d.job_ids.length === 1 ? "run" : "runs"} on the Fly runner.`;
       loadJobs();
     } catch (err) { msg.textContent = `Run didn't start: ${err.message}`; }
@@ -181,8 +205,12 @@
     fillCases();
     $("#rf-filter").addEventListener("input", (e) => fillCases(e.target.value));
     $("#rf-case").addEventListener("change", onCase);
-    $("#rf-all").addEventListener("click", () => document.querySelectorAll('#runf input[name="m"]').forEach((x) => (x.checked = true)));
+    $("#rf-both").addEventListener("click", (e) => {
+      document.querySelectorAll('#runf input[name="m"]').forEach((x) => (x.checked = x.value === "meta/muse-spark-1.3" || x.value === "subq/subq-preview"));
+      submit(e);
+    });
     $("#runf").addEventListener("submit", submit);
+    try { (await get("/api/benchmark")).forEach((r) => { const id = r.model === "muse" ? "meta/muse-spark-1.3" : r.model === "subq" ? "subq/subq-preview" : null; if (id && r.seconds) PACE[id] = Math.round(r.seconds); }); } catch (_) { /* keep defaults */ }
     $("#jobl").addEventListener("click", (e) => { const b = e.target.closest("button[data-job]"); if (b) window.ballastReplay("job", b.dataset.job); });
     loadJobs();
     setInterval(() => { if (!document.hidden) loadJobs(); }, 10000);

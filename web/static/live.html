@@ -45,9 +45,10 @@
       <div class="rf-col">
         <fieldset class="rf-models"><legend>Model</legend>
           <label><input type="checkbox" name="m" value="meta/muse-spark-1.3" checked> Muse Spark 1.3</label>
-          <label><input type="checkbox" name="m" value="subq/subq-preview"> SubQ Preview</label>
-          <label><input type="checkbox" name="m" value="google/gemini-3.8-flash"> Gemini 3.8 Flash</label>
-          <button type="button" class="btn small" id="rf-all">All three</button>
+          <label><input type="checkbox" name="m" value="subq/subq-preview" checked> SubQ Preview</label>
+          <details class="rf-more"><summary>More models</summary>
+            <label><input type="checkbox" name="m" value="google/gemini-3.8-flash"> Gemini 3.8 Flash</label>
+          </details>
         </fieldset>
         <label for="rf-pb">Playbook</label>
         <select id="rf-pb"><option value="">v0, the generic playbook</option></select>
@@ -55,7 +56,8 @@
       <div class="rf-col">
         <label for="rf-pass">Passcode</label>
         <input id="rf-pass" type="password" autocomplete="current-password">
-        <button type="submit" class="btn primary" id="rf-go">Run</button>
+        <button type="button" class="btn primary" id="rf-both">Run both side by side</button>
+        <button type="submit" class="btn" id="rf-go">Run selected</button>
         <p class="rf-msg" id="rf-msg" role="status" aria-live="polite"></p>
       </div>
     </form>

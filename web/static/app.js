@@ -744,6 +744,14 @@
     $("#bench-sub").textContent = demo
       ? "Muse stack vs SubQ stack on the same cases. Demo numbers until the benchmark runs land."
       : `Head to head, interim: the Muse stack and the SubQ stack from the same generic v0 on the same cases (test repeated 3×, paired gate, control arm). Read live from ${rows.map((r) => r.db).join(" and ")}. ▲ marks the better value per column.`;
+    // speed as an instrument: each bar sweeps one case at that stack's real pace (time compressed 4x)
+    let rc = document.getElementById("bench-race");
+    if (!rc) { rc = document.createElement("div"); rc.id = "bench-race"; rc.className = "brace"; $("#bench").before(rc); }
+    rc.innerHTML = rows.map((r) => `<div class="br-row">
+      <span class="br-l"><b style="color:var(--${color[r.model] || "text"})">${esc(r.label)}</b></span>
+      <span class="br-track" aria-hidden="true"><span class="br-fill" style="--d:${(r.seconds / 4).toFixed(2)}s;background:var(--${color[r.model] || "mint"})"></span></span>
+      <span class="br-n"><b>${Number(r.seconds).toFixed(1)}</b> s/case</span><span class="br-n"><b>${r.runs_per_min != null ? Number(r.runs_per_min).toFixed(1) : "-"}</b> runs/min</span><span class="br-n"><b>${fmtTok(r.tokens)}</b> tok/case</span></div>`).join("")
+      + `<p class="br-note">Bars sweep one case at each stack's measured pace, 4× faster than real time. Speed and accuracy are scored separately.</p>`;
     $("#bench").innerHTML = `<thead><tr><th>Stack</th><th class="barcell"><span class="sr">Score bar</span></th><th>Score</th><th>Pass rate</th><th>s / case</th><th>Runs / min</th><th>Tokens / case</th><th>Holdout start → final</th></tr></thead>
       <tbody>${rows.map((r) => `<tr>
         <td><span class="m" style="color:var(--${color[r.model] || "text"})">${esc(r.label)}</span><span class="p">${esc(r.provider || "")}${r.runs ? `, ${r.runs} runs` : ""}</span></td>
