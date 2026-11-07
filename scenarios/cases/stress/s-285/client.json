@@ -1,0 +1,23 @@
+{
+  "client_id": "s-285",
+  "name": "Priya Achebe",
+  "age": 65,
+  "state": "TX",
+  "occupation": "operations director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 71500,
+  "monthly_expenses": 5800,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.43,
+    "cash": 0.02
+  },
+  "monthly_contribution": 450,
+  "employer": "Kestrel Freight (KSTL)",
+  "notes": "Severance paid to an outside checking account."
+}

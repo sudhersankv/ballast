@@ -1,0 +1,27 @@
+{
+  "client_id": "s-197",
+  "name": "Imani Brennan",
+  "age": 61,
+  "state": "IL",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 280500,
+  "monthly_expenses": 13800,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.45,
+    "cash": 0.2
+  },
+  "monthly_contribution": 2850,
+  "notes": "Severance paid to an outside checking account."
+}

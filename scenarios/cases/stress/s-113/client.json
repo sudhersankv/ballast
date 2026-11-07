@@ -1,0 +1,28 @@
+{
+  "client_id": "s-113",
+  "name": "Connor Pemberton",
+  "age": 52,
+  "state": "MA",
+  "occupation": "operations director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 205000,
+  "monthly_expenses": 10200,
+  "dependents": 0,
+  "risk_score": 5,
+  "horizon_years": 13,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2039
+    }
+  ],
+  "targets": {
+    "equity": 0.9,
+    "bond": 0.03,
+    "cash": 0.07
+  },
+  "monthly_contribution": 2400,
+  "employer": "Kestrel Freight (KSTL)",
+  "notes": "Severance paid to an outside checking account."
+}

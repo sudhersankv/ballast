@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "business_failure",
+      "date": "2026-09-10",
+      "details": {
+        "business": "retail shop",
+        "personal_guarantee_usd": 75000
+      }
+    },
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2026-09-16",
+      "details": {
+        "new_income": 135500.0,
+        "previous_income": 160500,
+        "start_date": "2026-09-16"
+      }
+    }
+  ]
+}

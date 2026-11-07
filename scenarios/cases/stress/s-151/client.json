@@ -1,0 +1,27 @@
+{
+  "client_id": "s-151",
+  "name": "Wesley Novak",
+  "age": 36,
+  "state": "OH",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 318500,
+  "monthly_expenses": 15400,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 29,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2055
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 3200,
+  "notes": "Holdings shown are after the settlement transfer."
+}

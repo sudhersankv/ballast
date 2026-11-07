@@ -1,0 +1,34 @@
+{
+  "client_id": "j-008-t08",
+  "name": "Marcus Okafor",
+  "age": 42,
+  "state": "MA",
+  "occupation": "regional sales manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 101500,
+  "monthly_expenses": 9100,
+  "dependents": 4,
+  "risk_score": 4,
+  "horizon_years": 23,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2051
+    },
+    {
+      "type": "education",
+      "target_year": 2043
+    },
+    {
+      "type": "education",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.09,
+    "cash": 0.11
+  },
+  "monthly_contribution": 850.0
+}

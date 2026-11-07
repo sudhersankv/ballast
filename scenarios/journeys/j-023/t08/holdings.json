@@ -1,0 +1,30 @@
+{
+  "as_of": "2025-11-01",
+  "positions": [
+    {
+      "symbol": "US_EQ",
+      "units": 960.944,
+      "value": 240014.98
+    },
+    {
+      "symbol": "INTL_EQ",
+      "units": 1985.222,
+      "value": 116095.78
+    },
+    {
+      "symbol": "BOND",
+      "units": 357.104,
+      "value": 23833.12
+    },
+    {
+      "symbol": "NMBX",
+      "units": 564.765,
+      "value": 8183.44
+    },
+    {
+      "symbol": "CASH",
+      "units": 17843.21,
+      "value": 17843.21
+    }
+  ]
+}

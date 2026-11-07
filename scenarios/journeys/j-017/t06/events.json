@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "lawsuit",
+      "date": "2025-05-30",
+      "details": {
+        "claim_usd": 37000.0,
+        "insured": true,
+        "status": "discovery"
+      }
+    },
+    {
+      "id": "e6",
+      "type": "relocation",
+      "date": "2025-06-28",
+      "details": {
+        "amount_due": 4100.0,
+        "due_date": "2025-09-15",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": true
+      }
+    }
+  ]
+}

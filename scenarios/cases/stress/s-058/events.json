@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "desk_shutdown",
+      "date": "2026-09-09",
+      "details": {
+        "garden_leave_months": 3,
+        "severance": 98000.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-286",
+  "name": "Hector Mendoza",
+  "age": 66,
+  "state": "NY",
+  "occupation": "retired accountant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 120500,
+  "monthly_expenses": 6750,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.61,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

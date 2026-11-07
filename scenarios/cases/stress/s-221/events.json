@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "fraud_loss",
+      "date": "2026-10-11",
+      "details": {
+        "amount_lost": 30600,
+        "scam_type": "account takeover",
+        "recovery_expected": "unlikely",
+        "taken_from": "this account's CASH"
+      }
+    }
+  ]
+}

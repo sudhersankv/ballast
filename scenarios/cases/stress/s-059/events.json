@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "foreclosure_risk",
+      "date": "2026-09-11",
+      "details": {
+        "arrears_usd": 23100.0,
+        "amount_due": 23100.0,
+        "due_date": "2027-01-08",
+        "monthly_mortgage": 1800.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-09-17",
+      "details": {
+        "amount_due": 14000.0,
+        "due_date": "2027-02-08",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e3",
+      "type": "gig_income",
+      "date": "2026-10-22",
+      "details": {
+        "avg_monthly_income": 6400.0,
+        "income_volatility_pct": 60,
+        "platforms": 3
+      }
+    }
+  ]
+}

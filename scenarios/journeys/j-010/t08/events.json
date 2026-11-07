@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "startup_equity",
+      "date": "2026-03-08",
+      "details": {
+        "company": "Quillon Software",
+        "options": 63000,
+        "strike": 2.73,
+        "last_409a_price": 10.79,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e9",
+      "type": "foreclosure_risk",
+      "date": "2026-03-20",
+      "details": {
+        "arrears_usd": 8100.0,
+        "amount_due": 8100.0,
+        "due_date": "2026-07-24",
+        "monthly_mortgage": 3850.0
+      }
+    }
+  ]
+}

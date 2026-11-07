@@ -1,0 +1,26 @@
+{
+  "client_id": "s-045",
+  "name": "Maya Pemberton",
+  "age": 47,
+  "state": "WA",
+  "occupation": "paralegal",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 68000,
+  "monthly_expenses": 5500,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.02,
+    "cash": 0.18
+  },
+  "monthly_contribution": 400
+}

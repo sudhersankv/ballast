@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-29",
+      "details": {
+        "diagnosis_category": "neurological",
+        "monthly_cost_increase": 1800.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 9100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2026-09-02",
+      "details": {
+        "new_income": 176000.0,
+        "previous_income": 204500,
+        "start_date": "2026-09-02"
+      }
+    }
+  ]
+}

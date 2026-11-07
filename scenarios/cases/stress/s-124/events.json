@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "pay_cut",
+      "date": "2026-10-22",
+      "details": {
+        "new_income": 67500.0,
+        "reason": "reduced hours"
+      }
+    }
+  ]
+}

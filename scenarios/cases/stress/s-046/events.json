@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "pension_buyout_offer",
+      "date": "2026-09-05",
+      "details": {
+        "lump_sum_offer": 435000.0,
+        "annuity_monthly": 1650.0,
+        "decision_deadline": "2027-01-16"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-10-17",
+      "details": {
+        "amount_due": 7000.0,
+        "due_date": "2027-04-21",
+        "reason": "self-employment tax"
+      }
+    }
+  ]
+}

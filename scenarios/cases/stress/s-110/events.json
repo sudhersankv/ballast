@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disability",
+      "date": "2026-08-29",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 50,
+        "monthly_cost_increase": 350.0,
+        "expected_duration_months": null
+      }
+    },
+    {
+      "id": "e2",
+      "type": "adult_child_moves_back",
+      "date": "2026-10-13",
+      "details": {
+        "child_age": 24,
+        "monthly_cost_increase": 900.0,
+        "expected_stay_months": 24
+      }
+    }
+  ]
+}

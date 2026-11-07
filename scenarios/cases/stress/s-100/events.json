@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tax_bill",
+      "date": "2026-09-19",
+      "details": {
+        "amount_due": 11200.0,
+        "due_date": "2026-11-22",
+        "reason": "capital gains"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "adult_child_moves_back",
+      "date": "2026-09-20",
+      "details": {
+        "child_age": 29,
+        "monthly_cost_increase": 500.0,
+        "expected_stay_months": null
+      }
+    },
+    {
+      "id": "e3",
+      "type": "startup_equity",
+      "date": "2026-10-16",
+      "details": {
+        "company": "Corvane Analytics",
+        "options": 51000,
+        "strike": 4.43,
+        "last_409a_price": 0.81,
+        "liquid": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e7",
+      "type": "lottery_win",
+      "date": "2025-11-20",
+      "details": {
+        "amount_after_tax": 712000.0,
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e8",
+      "type": "tax_bill",
+      "date": "2025-12-11",
+      "details": {
+        "amount_due": 5200.0,
+        "due_date": "2026-05-15",
+        "reason": "audit adjustment"
+      }
+    }
+  ]
+}

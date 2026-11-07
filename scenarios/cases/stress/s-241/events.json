@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "death_of_spouse",
+      "date": "2026-10-05",
+      "details": {
+        "life_insurance_payout": 112000.0,
+        "deposited_to": "CASH",
+        "spouse_income_lost": 147000.0,
+        "survivor_benefit_monthly": 2800
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-03",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1650.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-08-12",
+      "details": {
+        "amount": 57000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "disability",
+      "date": "2026-09-15",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 70,
+        "monthly_cost_increase": 650.0,
+        "expected_duration_months": 6
+      }
+    }
+  ]
+}

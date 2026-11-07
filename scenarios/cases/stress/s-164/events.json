@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-10-05",
+      "details": {
+        "amount_lost": 100300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2026-10-18",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 50,
+        "monthly_cost_increase": 1100.0,
+        "expected_duration_months": null
+      }
+    }
+  ]
+}

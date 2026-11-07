@@ -1,0 +1,22 @@
+{
+  "client_id": "s-028",
+  "name": "Fiona Fairbanks",
+  "age": 74,
+  "state": "MI",
+  "occupation": "retired logistics manager",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 160500,
+  "monthly_expenses": 8750,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.76,
+    "cash": 0.09
+  },
+  "monthly_contribution": 0.0
+}

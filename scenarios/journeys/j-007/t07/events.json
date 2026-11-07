@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "fraud_loss",
+      "date": "2025-08-29",
+      "details": {
+        "amount_lost": 44000,
+        "scam_type": "account takeover",
+        "recovery_expected": "partial",
+        "taken_from": "this account's CASH"
+      }
+    },
+    {
+      "id": "e9",
+      "type": "startup_equity",
+      "date": "2025-09-10",
+      "details": {
+        "company": "Quillon Software",
+        "options": 73000,
+        "strike": 0.85,
+        "last_409a_price": 6.04,
+        "liquid": false
+      }
+    }
+  ]
+}

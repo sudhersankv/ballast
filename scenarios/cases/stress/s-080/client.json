@@ -1,0 +1,26 @@
+{
+  "client_id": "s-080",
+  "name": "Samuel Nguyen",
+  "age": 58,
+  "state": "NY",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 139000,
+  "monthly_expenses": 7450,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.39,
+    "cash": 0.06
+  },
+  "monthly_contribution": 1450
+}

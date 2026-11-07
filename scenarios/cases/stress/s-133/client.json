@@ -1,0 +1,26 @@
+{
+  "client_id": "s-133",
+  "name": "Camila Pemberton",
+  "age": 53,
+  "state": "MA",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 365500,
+  "monthly_expenses": 15350,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.07,
+    "cash": 0.18
+  },
+  "monthly_contribution": 2250
+}

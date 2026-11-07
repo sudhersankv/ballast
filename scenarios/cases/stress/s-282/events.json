@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-10-24",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 24000,
+        "strike": 1.88,
+        "last_409a_price": 10.04,
+        "liquid": false
+      }
+    }
+  ]
+}

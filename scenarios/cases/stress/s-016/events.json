@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tax_bill",
+      "date": "2026-09-10",
+      "details": {
+        "amount_due": 8000.0,
+        "due_date": "2027-01-26",
+        "reason": "capital gains"
+      }
+    }
+  ]
+}

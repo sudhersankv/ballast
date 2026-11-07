@@ -1,0 +1,22 @@
+{
+  "client_id": "s-256",
+  "name": "Desmond Strand",
+  "age": 69,
+  "state": "NC",
+  "occupation": "retired police sergeant",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 151500,
+  "monthly_expenses": 7850,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 21,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.8,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "desk_shutdown",
+      "date": "2024-05-11",
+      "details": {
+        "garden_leave_months": 3,
+        "severance": 82000.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "furlough",
+      "date": "2024-06-16",
+      "details": {
+        "unpaid_weeks": 8,
+        "expected_return": "uncertain",
+        "benefits_continued": true
+      }
+    },
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2024-07-25",
+      "details": {
+        "balance": 33100.0,
+        "apr_pct": 19.9
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-169",
+  "name": "Aisha Marchetti",
+  "age": 54,
+  "state": "CA",
+  "occupation": "HVAC technician",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 50500,
+  "monthly_expenses": 4200,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.26,
+    "cash": 0.19
+  },
+  "monthly_contribution": 550
+}

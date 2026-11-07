@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "market_drop",
+      "date": "2025-04-29",
+      "details": {
+        "us_equity_change_pct": -41.0,
+        "intl_equity_change_pct": -49.7,
+        "bond_change_pct": 9.4,
+        "peak_date": "2024-06-30",
+        "trough_date": "2025-04-29"
+      }
+    }
+  ]
+}

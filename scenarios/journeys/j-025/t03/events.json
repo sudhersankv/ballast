@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "fraud_loss",
+      "date": "2024-12-27",
+      "details": {
+        "amount_lost": 11400,
+        "scam_type": "imposter",
+        "recovery_expected": "unknown",
+        "taken_from": "this account's CASH"
+      }
+    }
+  ]
+}

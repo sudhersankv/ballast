@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2026-08-15",
+      "details": {
+        "balance": 10300.0,
+        "apr_pct": 19.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "divorce",
+      "date": "2026-08-22",
+      "details": {
+        "assets_transferred_usd": 213000.0,
+        "alimony_monthly": 1200,
+        "child_support_monthly": 0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "gig_income",
+      "date": "2026-09-07",
+      "details": {
+        "avg_monthly_income": 4200.0,
+        "income_volatility_pct": 40,
+        "platforms": 2
+      }
+    }
+  ]
+}

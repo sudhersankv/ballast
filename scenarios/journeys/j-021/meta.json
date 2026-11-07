@@ -1,0 +1,136 @@
+{
+  "journey_id": "j-021",
+  "persona": {
+    "name": "Marcus Dubois",
+    "state": "CA",
+    "occupation": "credit trader",
+    "industry": "financial services",
+    "age_at_start": 57,
+    "risk_score": 3,
+    "employer": "Halvard Capital Group (HVCG)"
+  },
+  "arc": "t02: rsu_cliff+tax_bill+early_retirement_offer; t03: tuition_due+prop_trading_loss; t04: firm_collapse+gig_income+market_drop; t05: job_change; t07: bonus_cut+margin_call+market_drop; t08: gig_income; t09: crypto_loss+layoff; t10: crypto_loss; t11: job_change",
+  "regime": "bear market: US equity +20% over the journey, worst drawdown -28%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 57,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 57,
+      "events": [
+        "rsu_cliff",
+        "tax_bill",
+        "early_retirement_offer"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 57,
+      "events": [
+        "tuition_due",
+        "prop_trading_loss"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 57,
+      "events": [
+        "firm_collapse",
+        "gig_income",
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 58,
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 58,
+      "events": []
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 58,
+      "events": [
+        "bonus_cut",
+        "margin_call",
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 58,
+      "events": [
+        "gig_income"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 59,
+      "events": [
+        "crypto_loss",
+        "layoff"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 59,
+      "events": [
+        "crypto_loss"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 59,
+      "events": [
+        "job_change"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11"
+  ],
+  "unseen_late_checkpoint": "t07",
+  "quiet_checkpoint": "t06"
+}

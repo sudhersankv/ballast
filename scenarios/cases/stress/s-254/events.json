@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit_settlement",
+      "date": "2026-08-03",
+      "details": {
+        "amount": 122000.0,
+        "deposited_to": "CASH",
+        "taxable": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "startup_equity",
+      "date": "2026-09-05",
+      "details": {
+        "company": "Quillon Software",
+        "options": 42000,
+        "strike": 5.06,
+        "last_409a_price": 2.02,
+        "liquid": false
+      }
+    }
+  ]
+}

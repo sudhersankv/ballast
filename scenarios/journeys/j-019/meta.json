@@ -1,0 +1,143 @@
+{
+  "journey_id": "j-019",
+  "persona": {
+    "name": "Natalie Yilmaz",
+    "state": "FL",
+    "occupation": "attorney",
+    "industry": "other",
+    "age_at_start": 62,
+    "risk_score": 2,
+    "employer": null
+  },
+  "arc": "t02: serious_illness; t03: medical_bill; t05: layoff+credit_card_debt; t06: job_change; t07: layoff+crypto_loss+serious_illness; t08: job_change+adult_child_moves_back; t09: foreclosure_risk; t10: fraud_loss+gig_income; t11: parent_long_term_care; t12: inheritance",
+  "regime": "calm bull: US equity +33% over the journey, worst drawdown -9%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-02-01",
+      "split": "train",
+      "age": 62,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 62,
+      "events": [
+        "serious_illness"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 63,
+      "events": [
+        "medical_bill"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 63,
+      "events": []
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 63,
+      "events": [
+        "layoff",
+        "credit_card_debt"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 63,
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 64,
+      "events": [
+        "layoff",
+        "crypto_loss",
+        "serious_illness"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 64,
+      "events": [
+        "job_change",
+        "adult_child_moves_back"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 64,
+      "events": [
+        "foreclosure_risk"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 64,
+      "events": [
+        "fraud_loss",
+        "gig_income"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 65,
+      "events": [
+        "parent_long_term_care"
+      ]
+    },
+    {
+      "id": "t12",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 65,
+      "events": [
+        "inheritance"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06"
+  ],
+  "holdout": [
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11",
+    "t12"
+  ],
+  "unseen_late_checkpoint": "t12",
+  "quiet_checkpoint": "t06"
+}

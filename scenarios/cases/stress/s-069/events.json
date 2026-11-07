@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disability",
+      "date": "2026-09-27",
+      "details": {
+        "kind": "long_term",
+        "benefit_pct_of_income": 66,
+        "monthly_cost_increase": 900.0,
+        "expected_duration_months": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-09-22",
+      "details": {
+        "peril": "wildfire",
+        "damage_usd": 173000.0,
+        "insurance_covered_pct": 90,
+        "amount_due": 17300.0,
+        "due_date": "2027-01-31"
+      }
+    }
+  ]
+}

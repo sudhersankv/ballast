@@ -1,0 +1,29 @@
+{
+  "client_id": "s-223",
+  "name": "Omar Chen",
+  "age": 61,
+  "state": "OH",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 273000,
+  "monthly_expenses": 13100,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.62,
+    "cash": 0.03
+  },
+  "monthly_contribution": 1300,
+  "employer": "Halvard Capital Group (HVCG)",
+  "notes": "Halvard Capital Group filed for bankruptcy; unvested deferred compensation is an unsecured claim."
+}

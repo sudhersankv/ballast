@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "serious_illness",
+      "date": "2025-11-28",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1750.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e10",
+      "type": "market_drop",
+      "date": "2026-01-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -21.4,
+        "bond_change_pct": 5.7,
+        "peak_date": "2025-11-30",
+        "trough_date": "2026-01-30"
+      }
+    }
+  ]
+}

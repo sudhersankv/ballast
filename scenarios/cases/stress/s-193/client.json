@@ -1,0 +1,22 @@
+{
+  "client_id": "s-193",
+  "name": "Abigail Castellano",
+  "age": 69,
+  "state": "WA",
+  "occupation": "retired police sergeant",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 316000,
+  "monthly_expenses": 14150,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 21,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.77,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

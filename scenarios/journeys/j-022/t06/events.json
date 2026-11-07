@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "sabbatical",
+      "date": "2025-05-09",
+      "details": {
+        "unpaid_months": 2,
+        "amount_due": 11800.0,
+        "due_date": "2025-12-21"
+      }
+    },
+    {
+      "id": "e5",
+      "type": "credit_card_debt",
+      "date": "2025-05-21",
+      "details": {
+        "balance": 29100.0,
+        "apr_pct": 22.9
+      }
+    },
+    {
+      "id": "e6",
+      "type": "layoff",
+      "date": "2025-06-27",
+      "details": {
+        "severance": 4700.0,
+        "severance_weeks": 2,
+        "employer": "previous employer",
+        "last_day": "2025-06-27",
+        "cobra_monthly_premium": 2130
+      }
+    }
+  ]
+}

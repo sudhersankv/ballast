@@ -1,0 +1,51 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-08-03",
+      "details": {
+        "amount": 423000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "gig_income",
+      "date": "2026-08-04",
+      "details": {
+        "avg_monthly_income": 17500.0,
+        "income_volatility_pct": 25,
+        "platforms": 3
+      }
+    },
+    {
+      "id": "e3",
+      "type": "business_failure",
+      "date": "2026-08-06",
+      "details": {
+        "business": "retail shop",
+        "personal_guarantee_usd": 75000
+      }
+    },
+    {
+      "id": "e4",
+      "type": "bankruptcy",
+      "date": "2026-08-21",
+      "details": {
+        "chapter": 13,
+        "filed_by": "client"
+      }
+    },
+    {
+      "id": "e5",
+      "type": "credit_card_debt",
+      "date": "2026-09-02",
+      "details": {
+        "balance": 19700.0,
+        "apr_pct": 22.9
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-10-03",
+      "details": {
+        "peril": "hurricane",
+        "damage_usd": 76000.0,
+        "insurance_covered_pct": 80,
+        "amount_due": 15200.0,
+        "due_date": "2026-11-13"
+      }
+    }
+  ]
+}

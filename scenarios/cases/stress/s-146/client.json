@@ -1,0 +1,21 @@
+{
+  "client_id": "s-146",
+  "name": "Grant Kowalski",
+  "age": 71,
+  "state": "GA",
+  "occupation": "retired HVAC technician",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 79000,
+  "monthly_expenses": 6050,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

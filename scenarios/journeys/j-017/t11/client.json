@@ -1,0 +1,21 @@
+{
+  "client_id": "j-017-t11",
+  "name": "Darnell Brennan",
+  "age": 68,
+  "state": "TX",
+  "occupation": "software engineer",
+  "employment_status": "self-employed",
+  "marital_status": "widowed",
+  "annual_income": 94000,
+  "monthly_expenses": 13550,
+  "dependents": 2,
+  "risk_score": 1,
+  "horizon_years": 22,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.71,
+    "cash": 0.09
+  },
+  "monthly_contribution": 0.0
+}

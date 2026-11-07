@@ -1,0 +1,28 @@
+{
+  "client_id": "s-093",
+  "name": "Omar Mbeki",
+  "age": 27,
+  "state": "FL",
+  "occupation": "equity research analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 209500,
+  "monthly_expenses": 10150,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 38,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2064
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.46,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1500,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

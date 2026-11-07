@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-08-08",
+      "details": {
+        "peril": "tornado",
+        "damage_usd": 38000.0,
+        "insurance_covered_pct": 0,
+        "amount_due": 38000.0,
+        "due_date": "2027-03-21"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "startup_equity",
+      "date": "2026-10-25",
+      "details": {
+        "company": "Quillon Software",
+        "options": 25000,
+        "strike": 5.65,
+        "last_409a_price": 8.69,
+        "liquid": false
+      }
+    }
+  ]
+}

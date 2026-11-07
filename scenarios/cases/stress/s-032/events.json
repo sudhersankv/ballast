@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "furlough",
+      "date": "2026-10-20",
+      "details": {
+        "unpaid_weeks": 4,
+        "expected_return": "confirmed",
+        "benefits_continued": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "business_sale",
+      "date": "2026-10-23",
+      "details": {
+        "proceeds": 1224000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 276000.0
+      }
+    }
+  ]
+}

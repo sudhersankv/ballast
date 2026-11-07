@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "job_change",
+      "date": "2025-05-12",
+      "details": {
+        "new_income": 101500,
+        "previous_income": 91500,
+        "start_date": "2025-05-12",
+        "new_employer": "Orchard Labs"
+      }
+    },
+    {
+      "id": "e9",
+      "type": "child",
+      "date": "2025-06-17",
+      "details": {
+        "birth_date": "2025-06-17",
+        "adoption": false
+      }
+    }
+  ]
+}

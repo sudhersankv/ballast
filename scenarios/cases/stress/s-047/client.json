@@ -1,0 +1,21 @@
+{
+  "client_id": "s-047",
+  "name": "Yasmin Yilmaz",
+  "age": 74,
+  "state": "MI",
+  "occupation": "retired paralegal",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 177000,
+  "monthly_expenses": 8650,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.56,
+    "cash": 0.09
+  },
+  "monthly_contribution": 0.0
+}

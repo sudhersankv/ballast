@@ -1,0 +1,21 @@
+{
+  "client_id": "s-150",
+  "name": "Kenji Beaumont",
+  "age": 75,
+  "state": "NC",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 56000,
+  "monthly_expenses": 4300,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

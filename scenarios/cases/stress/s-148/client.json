@@ -1,0 +1,29 @@
+{
+  "client_id": "s-148",
+  "name": "Yasmin Sorensen",
+  "age": 61,
+  "state": "NC",
+  "occupation": "risk manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 263000,
+  "monthly_expenses": 13150,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.51,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1600,
+  "employer": "Halvard Capital Group (HVCG)",
+  "notes": "Severance paid to an outside checking account."
+}

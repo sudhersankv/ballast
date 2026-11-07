@@ -1,0 +1,26 @@
+{
+  "client_id": "s-014",
+  "name": "Rafael Okafor",
+  "age": 61,
+  "state": "MA",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 219000,
+  "monthly_expenses": 11950,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.26,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1600
+}

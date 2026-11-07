@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "business_sale",
+      "date": "2026-10-16",
+      "details": {
+        "proceeds": 1940000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 384000.0
+      }
+    }
+  ]
+}

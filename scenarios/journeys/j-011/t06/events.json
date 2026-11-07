@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "foreclosure_risk",
+      "date": "2025-03-09",
+      "details": {
+        "arrears_usd": 26700.0,
+        "amount_due": 26700.0,
+        "due_date": "2025-06-25",
+        "monthly_mortgage": 4050.0
+      }
+    }
+  ]
+}

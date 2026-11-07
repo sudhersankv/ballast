@@ -1,0 +1,21 @@
+{
+  "client_id": "s-054",
+  "name": "Lucia Lindqvist",
+  "age": 69,
+  "state": "WA",
+  "occupation": "retired retail store manager",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 91500,
+  "monthly_expenses": 6500,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 21,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

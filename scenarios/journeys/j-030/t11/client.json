@@ -1,0 +1,27 @@
+{
+  "client_id": "j-030-t11",
+  "name": "Connor Gallagher",
+  "age": 53,
+  "state": "MN",
+  "occupation": "consultant",
+  "industry": "financial services",
+  "employment_status": "unemployed",
+  "marital_status": "divorced",
+  "annual_income": 533500,
+  "monthly_expenses": 24100,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.42,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "marriage",
+      "date": "2026-01-12",
+      "details": {
+        "spouse_annual_income": 47000.0,
+        "spouse_has_separate_accounts": true
+      }
+    },
+    {
+      "id": "e7",
+      "type": "serious_illness",
+      "date": "2026-01-26",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": 600.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 4000
+      }
+    }
+  ]
+}

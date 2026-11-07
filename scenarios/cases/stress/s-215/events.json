@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "annual_review",
+      "date": "2026-10-14",
+      "details": {
+        "rating": "strong",
+        "merit_increase_pct": 0,
+        "note": "raise deferred to next cycle"
+      }
+    }
+  ]
+}

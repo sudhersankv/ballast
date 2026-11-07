@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "sabbatical",
+      "date": "2024-05-20",
+      "details": {
+        "unpaid_months": 2,
+        "amount_due": 17800.0,
+        "due_date": "2024-10-08"
+      }
+    }
+  ]
+}

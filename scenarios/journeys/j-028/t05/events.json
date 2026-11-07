@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "relocation",
+      "date": "2024-11-17",
+      "details": {
+        "amount_due": 18800.0,
+        "due_date": "2025-04-15",
+        "cost_of_living_change_pct": -15,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e5",
+      "type": "medical_bill",
+      "date": "2025-01-14",
+      "details": {
+        "amount_due": 6600.0,
+        "due_date": "2025-03-21",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

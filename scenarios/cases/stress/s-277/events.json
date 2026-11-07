@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "ipo_lockup",
+      "date": "2026-08-05",
+      "details": {
+        "symbol": "HLXR",
+        "lockup_end_date": "2027-03-15",
+        "locked_shares_value_outside_account": 727000.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-08-24",
+      "details": {
+        "amount": 46000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

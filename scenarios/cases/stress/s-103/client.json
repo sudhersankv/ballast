@@ -1,0 +1,21 @@
+{
+  "client_id": "s-103",
+  "name": "Tyrone Lundgren",
+  "age": 65,
+  "state": "CA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 121500,
+  "monthly_expenses": 7850,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.58,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1600
+}

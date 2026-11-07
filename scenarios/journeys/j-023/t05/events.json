@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "child",
+      "date": "2024-12-31",
+      "details": {
+        "birth_date": "2024-12-31",
+        "adoption": false
+      }
+    },
+    {
+      "id": "e4",
+      "type": "market_drop",
+      "date": "2025-01-30",
+      "details": {
+        "us_equity_change_pct": -21.8,
+        "intl_equity_change_pct": -19.6,
+        "bond_change_pct": -8.6,
+        "peak_date": "2024-07-31",
+        "trough_date": "2025-01-30"
+      }
+    }
+  ]
+}

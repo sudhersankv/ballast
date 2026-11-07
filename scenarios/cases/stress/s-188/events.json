@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "promotion_title_only",
+      "date": "2026-08-08",
+      "details": {
+        "new_title": "Vice President",
+        "pay_change": 0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-09-02",
+      "details": {
+        "amount_lost": 78000.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

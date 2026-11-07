@@ -1,0 +1,21 @@
+{
+  "client_id": "s-071",
+  "name": "Yasmin Sandoval",
+  "age": 65,
+  "state": "CA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 139500,
+  "monthly_expenses": 8600,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.54,
+    "cash": 0.06
+  },
+  "monthly_contribution": 1050
+}

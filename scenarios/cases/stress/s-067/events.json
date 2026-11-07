@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-09-11",
+      "details": {
+        "diagnosis_category": "neurological",
+        "monthly_cost_increase": 1400.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 9100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-09-14",
+      "details": {
+        "amount": 925000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "business_sale",
+      "date": "2026-10-22",
+      "details": {
+        "proceeds": 385000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 128000.0
+      }
+    }
+  ]
+}

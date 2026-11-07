@@ -1,0 +1,42 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "prop_trading_loss",
+      "date": "2024-12-07",
+      "details": {
+        "loss_usd": 62000.0,
+        "account": "personal brokerage (outside)"
+      }
+    },
+    {
+      "id": "e6",
+      "type": "margin_call",
+      "date": "2025-01-05",
+      "details": {
+        "amount_due": 17600.0,
+        "due_date": "2025-02-08",
+        "account": "outside margin account"
+      }
+    },
+    {
+      "id": "e7",
+      "type": "child",
+      "date": "2025-01-07",
+      "details": {
+        "birth_date": "2025-01-07",
+        "adoption": false
+      }
+    },
+    {
+      "id": "e8",
+      "type": "special_needs_diagnosis",
+      "date": "2025-01-21",
+      "details": {
+        "child_age": 7,
+        "monthly_cost_increase": 2000.0,
+        "insurance_coverage": "pending appeal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-09-09",
+      "details": {
+        "care_type": "assisted living",
+        "monthly_cost_increase": 3050.0,
+        "siblings_sharing_cost": 2
+      }
+    }
+  ]
+}

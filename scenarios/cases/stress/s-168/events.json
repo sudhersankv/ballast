@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-10-12",
+      "details": {
+        "amount": 221000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-10-23",
+      "details": {
+        "severance": 15500.0,
+        "severance_weeks": 5,
+        "employer": "previous employer",
+        "last_day": "2026-10-23",
+        "cobra_monthly_premium": 1490
+      }
+    }
+  ]
+}

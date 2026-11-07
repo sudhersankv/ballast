@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "crypto_loss",
+      "date": "2025-12-24",
+      "details": {
+        "amount_lost": 19900.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

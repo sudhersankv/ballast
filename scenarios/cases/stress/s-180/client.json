@@ -1,0 +1,26 @@
+{
+  "client_id": "s-180",
+  "name": "Elena Delgado",
+  "age": 50,
+  "state": "CA",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 76500,
+  "monthly_expenses": 6050,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.37,
+    "cash": 0.18
+  },
+  "monthly_contribution": 650
+}

@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tax_bill",
+      "date": "2026-09-01",
+      "details": {
+        "amount_due": 18900.0,
+        "due_date": "2027-01-20",
+        "reason": "self-employment tax"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "divorce",
+      "date": "2026-09-05",
+      "details": {
+        "assets_transferred_usd": 76000.0,
+        "alimony_monthly": -1500,
+        "child_support_monthly": 1300
+      }
+    },
+    {
+      "id": "e3",
+      "type": "lottery_win",
+      "date": "2026-09-07",
+      "details": {
+        "amount_after_tax": 167000.0,
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "relocation",
+      "date": "2026-08-15",
+      "details": {
+        "amount_due": 12800.0,
+        "due_date": "2027-01-08",
+        "cost_of_living_change_pct": -15,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "divorce",
+      "date": "2026-10-06",
+      "details": {
+        "assets_transferred_usd": 97000.0,
+        "alimony_monthly": 0,
+        "child_support_monthly": 1300
+      }
+    }
+  ]
+}

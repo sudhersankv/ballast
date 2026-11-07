@@ -1,0 +1,28 @@
+{
+  "client_id": "s-158",
+  "name": "Connor Brennan",
+  "age": 45,
+  "state": "AZ",
+  "occupation": "quant researcher",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 182000,
+  "monthly_expenses": 10000,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.34,
+    "cash": 0.06
+  },
+  "monthly_contribution": 1950,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

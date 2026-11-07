@@ -1,0 +1,26 @@
+{
+  "client_id": "s-191",
+  "name": "Elena Sandoval",
+  "age": 59,
+  "state": "OH",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 97500,
+  "monthly_expenses": 6900,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.75,
+    "cash": 0.1
+  },
+  "monthly_contribution": 800
+}

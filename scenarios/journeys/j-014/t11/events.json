@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "disability",
+      "date": "2026-06-21",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 70,
+        "monthly_cost_increase": 1000.0,
+        "expected_duration_months": 6
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-059",
+  "name": "Rosa Patel",
+  "age": 72,
+  "state": "IL",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 128500,
+  "monthly_expenses": 7650,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 0.0
+}

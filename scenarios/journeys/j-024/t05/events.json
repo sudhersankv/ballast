@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "bonus_cut",
+      "date": "2025-05-17",
+      "details": {
+        "expected_bonus": 30000.0,
+        "actual_bonus": 17000.0,
+        "reason": "firm revenue down"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "as_of": "2025-11-01",
+  "positions": [
+    {
+      "symbol": "US_EQ",
+      "units": 271.614,
+      "value": 81256.04
+    },
+    {
+      "symbol": "INTL_EQ",
+      "units": 473.207,
+      "value": 31378.36
+    },
+    {
+      "symbol": "BOND",
+      "units": 2783.139,
+      "value": 195793.83
+    },
+    {
+      "symbol": "HLXR",
+      "units": 196.68,
+      "value": 18554.79
+    },
+    {
+      "symbol": "CASH",
+      "units": 24709.71,
+      "value": 24709.71
+    }
+  ]
+}

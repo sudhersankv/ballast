@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "startup_equity",
+      "date": "2025-02-20",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 47000,
+        "strike": 2.9,
+        "last_409a_price": 7.2,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e7",
+      "type": "medical_bill",
+      "date": "2025-03-17",
+      "details": {
+        "amount_due": 10500.0,
+        "due_date": "2025-07-12",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

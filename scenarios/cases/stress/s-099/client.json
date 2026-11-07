@@ -1,0 +1,26 @@
+{
+  "client_id": "s-099",
+  "name": "Hannah Lundgren",
+  "age": 48,
+  "state": "NC",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 264000,
+  "monthly_expenses": 12350,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.23,
+    "cash": 0.17
+  },
+  "monthly_contribution": 3200
+}

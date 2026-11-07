@@ -1,0 +1,26 @@
+{
+  "client_id": "s-069",
+  "name": "Priya Nguyen",
+  "age": 54,
+  "state": "WA",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 208000,
+  "monthly_expenses": 9900,
+  "dependents": 2,
+  "risk_score": 2,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.53,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1350
+}

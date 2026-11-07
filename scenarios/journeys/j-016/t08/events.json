@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "foreclosure_risk",
+      "date": "2025-09-09",
+      "details": {
+        "arrears_usd": 18400.0,
+        "amount_due": 18400.0,
+        "due_date": "2025-11-25",
+        "monthly_mortgage": 2050.0
+      }
+    },
+    {
+      "id": "e10",
+      "type": "inheritance",
+      "date": "2025-10-02",
+      "details": {
+        "amount": 264000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

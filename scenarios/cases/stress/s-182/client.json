@@ -1,0 +1,28 @@
+{
+  "client_id": "s-182",
+  "name": "Tyrone Castellano",
+  "age": 47,
+  "state": "PA",
+  "occupation": "investment banking VP",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 256000,
+  "monthly_expenses": 12950,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.36,
+    "cash": 0.04
+  },
+  "monthly_contribution": 1950,
+  "employer": "Halvard Capital Group (HVCG)"
+}

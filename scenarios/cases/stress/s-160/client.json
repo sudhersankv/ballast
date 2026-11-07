@@ -1,0 +1,28 @@
+{
+  "client_id": "s-160",
+  "name": "Gloria Nguyen",
+  "age": 47,
+  "state": "TX",
+  "occupation": "risk manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 263000,
+  "monthly_expenses": 11000,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.49,
+    "cash": 0.06
+  },
+  "monthly_contribution": 2300,
+  "employer": "Halvard Capital Group (HVCG)"
+}

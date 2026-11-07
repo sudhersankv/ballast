@@ -1,0 +1,21 @@
+{
+  "client_id": "s-053",
+  "name": "Marcus Abernathy",
+  "age": 69,
+  "state": "MI",
+  "occupation": "retired elementary school teacher",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 48000,
+  "monthly_expenses": 4500,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 21,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.35,
+    "cash": 0.1
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,46 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "job_change",
+      "date": "2025-04-04",
+      "details": {
+        "new_income": 196000,
+        "previous_income": 207000,
+        "start_date": "2025-04-04",
+        "new_employer": "Corvane Analytics"
+      }
+    },
+    {
+      "id": "e6",
+      "type": "lawsuit",
+      "date": "2025-04-09",
+      "details": {
+        "claim_usd": 430000.0,
+        "insured": false,
+        "status": "filed"
+      }
+    },
+    {
+      "id": "e7",
+      "type": "legal_judgment",
+      "date": "2025-04-16",
+      "details": {
+        "amount_due": 41300.0,
+        "due_date": "2025-06-26"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "market_drop",
+      "date": "2025-04-29",
+      "details": {
+        "us_equity_change_pct": -17.3,
+        "intl_equity_change_pct": -11.2,
+        "bond_change_pct": 1.9,
+        "peak_date": "2025-02-28",
+        "trough_date": "2025-04-29"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "client_id": "j-027-t01",
+  "name": "Lucia Quintero",
+  "age": 31,
+  "state": "FL",
+  "occupation": "sales trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 212000,
+  "monthly_expenses": 10000,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 34,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2060
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.37,
+    "cash": 0.08
+  },
+  "monthly_contribution": 600,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

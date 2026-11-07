@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-06",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": 700.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 9100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-09-03",
+      "details": {
+        "amount_lost": 79200.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

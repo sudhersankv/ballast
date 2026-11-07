@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "business_failure",
+      "date": "2024-06-02",
+      "details": {
+        "business": "contracting firm",
+        "personal_guarantee_usd": 0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2024-06-15",
+      "details": {
+        "balance": 43000.0,
+        "apr_pct": 19.9
+      }
+    }
+  ]
+}

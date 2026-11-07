@@ -1,0 +1,136 @@
+{
+  "journey_id": "j-030",
+  "persona": {
+    "name": "Connor Gallagher",
+    "state": "MN",
+    "occupation": "rates trader",
+    "industry": "financial services",
+    "age_at_start": 51,
+    "risk_score": 3,
+    "employer": "Halvard Capital Group (HVCG)"
+  },
+  "arc": "t03: credit_card_debt+trading_blackout+prop_trading_loss+margin_call; t04: crypto_loss; t05: regulatory_ban; t06: home_purchase; t07: job_change+home_purchase; t08: serious_illness+market_drop; t09: medical_bill+adult_child_moves_back+layoff; t10: medical_bill+divorce; t11: job_change",
+  "regime": "bear market: US equity +49% over the journey, worst drawdown -20%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 51,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 51,
+      "events": []
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 51,
+      "events": [
+        "credit_card_debt",
+        "trading_blackout",
+        "prop_trading_loss",
+        "margin_call"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 52,
+      "events": [
+        "crypto_loss"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 52,
+      "events": [
+        "regulatory_ban"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 52,
+      "events": [
+        "home_purchase"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 52,
+      "events": [
+        "job_change",
+        "home_purchase"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 53,
+      "events": [
+        "serious_illness",
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 53,
+      "events": [
+        "medical_bill",
+        "adult_child_moves_back",
+        "layoff"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 53,
+      "events": [
+        "medical_bill",
+        "divorce"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 53,
+      "events": [
+        "job_change"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11"
+  ],
+  "unseen_late_checkpoint": "t09",
+  "quiet_checkpoint": "t11"
+}

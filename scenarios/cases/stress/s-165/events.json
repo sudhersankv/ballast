@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "pay_cut",
+      "date": "2026-10-06",
+      "details": {
+        "new_income": 176000.0,
+        "reason": "cost cutting"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-10-28",
+      "details": {
+        "amount_due": 6400.0,
+        "due_date": "2026-12-26",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

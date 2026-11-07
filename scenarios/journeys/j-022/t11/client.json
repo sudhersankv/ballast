@@ -1,0 +1,26 @@
+{
+  "client_id": "j-022-t11",
+  "name": "Wesley Mendoza",
+  "age": 56,
+  "state": "AZ",
+  "occupation": "police sergeant",
+  "employment_status": "unemployed",
+  "marital_status": "widowed",
+  "annual_income": 96500,
+  "monthly_expenses": 11100,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 9,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.4,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

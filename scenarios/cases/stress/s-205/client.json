@@ -1,0 +1,21 @@
+{
+  "client_id": "s-205",
+  "name": "Desmond Holloway",
+  "age": 73,
+  "state": "MI",
+  "occupation": "retired accountant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 48000,
+  "monthly_expenses": 4700,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.77,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

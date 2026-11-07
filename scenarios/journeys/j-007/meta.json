@@ -1,0 +1,134 @@
+{
+  "journey_id": "j-007",
+  "persona": {
+    "name": "Tyrone Oyelaran",
+    "state": "OH",
+    "occupation": "anesthesiologist",
+    "industry": "other",
+    "age_at_start": 56,
+    "risk_score": 3,
+    "employer": null
+  },
+  "arc": "t02: market_drop; t03: inheritance; t05: market_drop; t06: retirement+pension_buyout_offer+layoff+credit_card_debt; t07: fraud_loss+startup_equity; t08: crypto_loss; t09: job_change; t10: fraud_loss; t11: medical_bill+layoff+foreclosure_risk",
+  "regime": "crash and recovery: US equity -5% over the journey, worst drawdown -46%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 56,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 56,
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 56,
+      "events": [
+        "inheritance"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 56,
+      "events": []
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 57,
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 57,
+      "events": [
+        "retirement",
+        "pension_buyout_offer",
+        "layoff",
+        "credit_card_debt"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 57,
+      "events": [
+        "fraud_loss",
+        "startup_equity"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 57,
+      "events": [
+        "crypto_loss"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 58,
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 58,
+      "events": [
+        "fraud_loss"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 58,
+      "events": [
+        "medical_bill",
+        "layoff",
+        "foreclosure_risk"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11"
+  ],
+  "unseen_late_checkpoint": "t07",
+  "quiet_checkpoint": "t04"
+}

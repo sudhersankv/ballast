@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "child",
+      "date": "2025-09-25",
+      "details": {
+        "birth_date": "2025-09-25",
+        "adoption": false
+      }
+    },
+    {
+      "id": "e7",
+      "type": "parent_long_term_care",
+      "date": "2025-10-24",
+      "details": {
+        "care_type": "nursing home",
+        "monthly_cost_increase": null,
+        "siblings_sharing_cost": 0,
+        "note": "family has not agreed how to split the cost yet"
+      }
+    }
+  ]
+}

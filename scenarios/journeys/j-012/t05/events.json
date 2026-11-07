@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "disability",
+      "date": "2025-04-06",
+      "details": {
+        "kind": "long_term",
+        "benefit_pct_of_income": 50,
+        "monthly_cost_increase": 1300.0,
+        "expected_duration_months": 6
+      }
+    }
+  ]
+}

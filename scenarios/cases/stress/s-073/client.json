@@ -1,0 +1,26 @@
+{
+  "client_id": "s-073",
+  "name": "Malik Achebe",
+  "age": 40,
+  "state": "CO",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 181500,
+  "monthly_expenses": 10350,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 25,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2051
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.13,
+    "cash": 0.12
+  },
+  "monthly_contribution": 2100
+}

@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "layoff",
+      "date": "2025-05-15",
+      "details": {
+        "severance": 6100.0,
+        "severance_weeks": 2,
+        "employer": "previous employer",
+        "last_day": "2025-05-15",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e7",
+      "type": "crypto_loss",
+      "date": "2025-06-13",
+      "details": {
+        "amount_lost": 110900.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e8",
+      "type": "serious_illness",
+      "date": "2025-07-28",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1850.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 4000
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-08-03",
+      "details": {
+        "amount": 332000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

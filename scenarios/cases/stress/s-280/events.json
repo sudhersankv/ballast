@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "annual_review",
+      "date": "2026-08-19",
+      "details": {
+        "rating": "meets",
+        "merit_increase_pct": 0,
+        "note": "raise deferred to next cycle"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-10-20",
+      "details": {
+        "amount_lost": 6300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

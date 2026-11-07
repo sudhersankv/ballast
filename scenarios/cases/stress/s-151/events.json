@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "divorce",
+      "date": "2026-09-20",
+      "details": {
+        "assets_transferred_usd": 354000.0,
+        "alimony_monthly": 0,
+        "child_support_monthly": 0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-09-22",
+      "details": {
+        "amount_due": 27900.0,
+        "due_date": "2027-03-21",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e3",
+      "type": "job_change",
+      "date": "2026-10-22",
+      "details": {
+        "new_income": 290500.0,
+        "previous_income": 318500,
+        "start_date": "2026-10-22"
+      }
+    }
+  ]
+}

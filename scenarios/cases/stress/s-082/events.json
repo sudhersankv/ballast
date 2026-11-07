@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2026-09-09",
+      "details": {
+        "balance": 12400.0,
+        "apr_pct": 22.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "foreclosure_risk",
+      "date": "2026-09-16",
+      "details": {
+        "arrears_usd": 25200.0,
+        "amount_due": 25200.0,
+        "due_date": "2027-01-07",
+        "monthly_mortgage": 3400.0
+      }
+    }
+  ]
+}

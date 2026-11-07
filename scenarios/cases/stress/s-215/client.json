@@ -1,0 +1,26 @@
+{
+  "client_id": "s-215",
+  "name": "Victor Patel",
+  "age": 48,
+  "state": "NJ",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 158500,
+  "monthly_expenses": 8450,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.21,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1500
+}

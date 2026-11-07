@@ -1,0 +1,26 @@
+{
+  "client_id": "s-280",
+  "name": "Arjun Mbeki",
+  "age": 51,
+  "state": "NC",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 168000,
+  "monthly_expenses": 9750,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.11,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1450
+}

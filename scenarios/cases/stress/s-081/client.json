@@ -1,0 +1,22 @@
+{
+  "client_id": "s-081",
+  "name": "Imani Varga",
+  "age": 68,
+  "state": "MI",
+  "occupation": "retired physician assistant",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 90000,
+  "monthly_expenses": 6550,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 22,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.63,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "bonus_cut",
+      "date": "2025-09-13",
+      "details": {
+        "expected_bonus": 152000.0,
+        "actual_bonus": 94000.0,
+        "reason": "market downturn"
+      }
+    },
+    {
+      "id": "e12",
+      "type": "margin_call",
+      "date": "2025-10-26",
+      "details": {
+        "amount_due": 75400.0,
+        "due_date": "2025-11-07",
+        "account": "outside margin account"
+      }
+    },
+    {
+      "id": "e10",
+      "type": "market_drop",
+      "date": "2025-10-30",
+      "details": {
+        "us_equity_change_pct": -24.2,
+        "intl_equity_change_pct": -18.5,
+        "bond_change_pct": 14.0,
+        "peak_date": "2024-10-31",
+        "trough_date": "2025-10-30"
+      }
+    }
+  ]
+}

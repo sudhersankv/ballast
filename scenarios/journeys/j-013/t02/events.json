@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2024-10-30",
+      "details": {
+        "us_equity_change_pct": -26.0,
+        "intl_equity_change_pct": -24.8,
+        "bond_change_pct": 12.9,
+        "peak_date": "2023-10-31",
+        "trough_date": "2024-10-30"
+      }
+    }
+  ]
+}

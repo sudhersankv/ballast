@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "job_change",
+      "date": "2025-08-15",
+      "details": {
+        "new_income": 320500,
+        "previous_income": 401500,
+        "start_date": "2025-08-15",
+        "new_employer": "Larkspur Bank"
+      }
+    },
+    {
+      "id": "e9",
+      "type": "inheritance",
+      "date": "2025-10-26",
+      "details": {
+        "amount": 191000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

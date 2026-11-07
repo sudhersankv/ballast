@@ -1,0 +1,27 @@
+{
+  "client_id": "s-228",
+  "name": "Aisha Nguyen",
+  "age": 56,
+  "state": "CO",
+  "occupation": "research scientist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 119500,
+  "monthly_expenses": 6900,
+  "dependents": 2,
+  "risk_score": 2,
+  "horizon_years": 9,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2035
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.59,
+    "cash": 0.06
+  },
+  "monthly_contribution": 950,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

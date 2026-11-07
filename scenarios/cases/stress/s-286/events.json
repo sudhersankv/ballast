@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-08-20",
+      "details": {
+        "care_type": "home health aide",
+        "monthly_cost_increase": 2900.0,
+        "siblings_sharing_cost": 3
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-10-20",
+      "details": {
+        "amount": 133000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

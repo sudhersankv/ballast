@@ -1,0 +1,21 @@
+{
+  "client_id": "s-202",
+  "name": "Malik Holloway",
+  "age": 70,
+  "state": "UT",
+  "occupation": "retired UX designer",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 100500,
+  "monthly_expenses": 7100,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.25,
+    "cash": 0.15
+  },
+  "monthly_contribution": 0.0
+}

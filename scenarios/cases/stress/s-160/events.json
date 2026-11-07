@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-09-13",
+      "details": {
+        "diagnosis_category": "cardiac",
+        "monthly_cost_increase": 2000.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 9100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-10-23",
+      "details": {
+        "amount_due": 13200.0,
+        "due_date": "2027-02-22",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

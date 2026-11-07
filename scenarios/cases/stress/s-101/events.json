@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bonus_deferral",
+      "date": "2026-08-27",
+      "details": {
+        "total_bonus": 139000.0,
+        "cash_pct": 40,
+        "deferred_pct": 60,
+        "vesting_years": 3,
+        "deferred_in": "HVCG stock units"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-09-12",
+      "details": {
+        "amount_due": 15500.0,
+        "due_date": "2026-11-18",
+        "cost_of_living_change_pct": 25,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e3",
+      "type": "layoff",
+      "date": "2026-09-13",
+      "details": {
+        "severance": 30600.0,
+        "severance_weeks": 10,
+        "employer": "Halvard Capital Group",
+        "last_day": "2026-09-13",
+        "cobra_monthly_premium": 2130
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "client_id": "j-025-t09",
+  "name": "Darnell Lundgren",
+  "age": 29,
+  "state": "NJ",
+  "occupation": "HVAC technician",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 71000,
+  "monthly_expenses": 7900,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 36,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2064
+    },
+    {
+      "type": "education",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.25,
+    "cash": 0.15
+  },
+  "monthly_contribution": 450
+}

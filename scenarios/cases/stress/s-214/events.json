@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-10-27",
+      "details": {
+        "peril": "flood",
+        "damage_usd": 172000.0,
+        "insurance_covered_pct": 0,
+        "amount_due": 172000.0,
+        "due_date": "2027-04-22"
+      }
+    }
+  ]
+}

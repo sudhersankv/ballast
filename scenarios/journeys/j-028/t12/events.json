@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e17",
+      "type": "layoff",
+      "date": "2026-08-14",
+      "details": {
+        "severance": 18900.0,
+        "severance_weeks": 15,
+        "employer": "previous employer",
+        "last_day": "2026-08-14",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e18",
+      "type": "medical_bill",
+      "date": "2026-10-19",
+      "details": {
+        "amount_due": 21700.0,
+        "due_date": "2027-03-11",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

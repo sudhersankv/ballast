@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "bonus_deferral",
+      "date": "2026-08-12",
+      "details": {
+        "total_bonus": 67000.0,
+        "cash_pct": 50,
+        "deferred_pct": 50,
+        "vesting_years": 4,
+        "deferred_in": "MRTS stock units"
+      }
+    },
+    {
+      "id": "e9",
+      "type": "tuition_due",
+      "date": "2026-09-20",
+      "details": {
+        "amount_due": 51300.0,
+        "due_date": "2027-02-02",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

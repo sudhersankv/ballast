@@ -1,0 +1,26 @@
+{
+  "client_id": "s-116",
+  "name": "Gloria Holloway",
+  "age": 42,
+  "state": "TX",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 253500,
+  "monthly_expenses": 11950,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 23,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2049
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.21,
+    "cash": 0.14
+  },
+  "monthly_contribution": 2550
+}

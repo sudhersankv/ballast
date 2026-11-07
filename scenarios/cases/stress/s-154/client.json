@@ -1,0 +1,21 @@
+{
+  "client_id": "s-154",
+  "name": "Darnell Patel",
+  "age": 70,
+  "state": "AZ",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 128500,
+  "monthly_expenses": 8000,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.37,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

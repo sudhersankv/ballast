@@ -1,0 +1,28 @@
+{
+  "client_id": "s-088",
+  "name": "Connor Mbeki",
+  "age": 43,
+  "state": "MA",
+  "occupation": "risk manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 361000,
+  "monthly_expenses": 13150,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 22,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2048
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.28,
+    "cash": 0.12
+  },
+  "monthly_contribution": 3550,
+  "employer": "Halvard Capital Group (HVCG)"
+}

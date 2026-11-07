@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "inheritance",
+      "date": "2025-06-04",
+      "details": {
+        "amount": 195000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e10",
+      "type": "home_purchase",
+      "date": "2025-07-13",
+      "details": {
+        "home_price": 550000.0,
+        "down_payment_pct": 20,
+        "amount_due": 126500.0,
+        "due_date": "2025-10-26",
+        "monthly_housing_cost_change": -300.0
+      }
+    }
+  ]
+}

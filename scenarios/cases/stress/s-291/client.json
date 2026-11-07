@@ -1,0 +1,29 @@
+{
+  "client_id": "s-291",
+  "name": "Kenji Beaumont",
+  "age": 54,
+  "state": "WA",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 494000,
+  "monthly_expenses": 19250,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.38,
+    "cash": 0.07
+  },
+  "monthly_contribution": 650,
+  "employer": "Halvard Capital Group (HVCG)",
+  "notes": "Halvard Capital Group filed for bankruptcy; unvested deferred compensation is an unsecured claim."
+}

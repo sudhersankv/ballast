@@ -1,0 +1,55 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "early_retirement_offer",
+      "date": "2026-08-11",
+      "details": {
+        "lump_sum_offer": 38000.0,
+        "decision_deadline": "2026-11-30"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-08-15",
+      "details": {
+        "severance": 14100.0,
+        "severance_weeks": 15,
+        "employer": "previous employer",
+        "last_day": "2026-08-15",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e3",
+      "type": "serious_illness",
+      "date": "2026-08-27",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1700.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 9100
+      }
+    },
+    {
+      "id": "e4",
+      "type": "credit_card_debt",
+      "date": "2026-09-08",
+      "details": {
+        "balance": 43200.0,
+        "apr_pct": 19.9
+      }
+    },
+    {
+      "id": "e5",
+      "type": "medical_bill",
+      "date": "2026-09-27",
+      "details": {
+        "amount_due": 7500.0,
+        "due_date": "2027-01-07",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

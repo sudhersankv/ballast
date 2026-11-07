@@ -1,0 +1,21 @@
+{
+  "client_id": "s-192",
+  "name": "Darnell Beaumont",
+  "age": 70,
+  "state": "CA",
+  "occupation": "retired logistics manager",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 90000,
+  "monthly_expenses": 5700,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.56,
+    "cash": 0.09
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "fraud_loss",
+      "date": "2026-09-09",
+      "details": {
+        "amount_lost": 14200.0,
+        "scam_type": "romance",
+        "recovery_expected": "unknown",
+        "taken_from": "this account's CASH"
+      }
+    }
+  ]
+}

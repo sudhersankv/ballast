@@ -1,0 +1,26 @@
+{
+  "client_id": "j-014-t12",
+  "name": "Malik Beaumont",
+  "age": 50,
+  "state": "PA",
+  "occupation": "regional sales manager",
+  "employment_status": "on_disability",
+  "marital_status": "married",
+  "annual_income": 143000,
+  "monthly_expenses": 12900,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.05,
+    "cash": 0.15
+  },
+  "monthly_contribution": 0.0
+}

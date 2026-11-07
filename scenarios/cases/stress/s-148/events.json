@@ -1,0 +1,57 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-08-12",
+      "details": {
+        "new_income": 345000.0,
+        "previous_income": 263000,
+        "start_date": "2026-08-12"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-08-16",
+      "details": {
+        "severance": 45500.0,
+        "severance_weeks": 9,
+        "employer": "Halvard Capital Group",
+        "last_day": "2026-08-16",
+        "cobra_monthly_premium": 1490
+      }
+    },
+    {
+      "id": "e3",
+      "type": "serious_illness",
+      "date": "2026-08-27",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1850.0,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e4",
+      "type": "credit_card_debt",
+      "date": "2026-10-01",
+      "details": {
+        "balance": 36500.0,
+        "apr_pct": 22.9
+      }
+    },
+    {
+      "id": "e5",
+      "type": "foreclosure_risk",
+      "date": "2026-10-18",
+      "details": {
+        "arrears_usd": 25700.0,
+        "amount_due": 25700.0,
+        "due_date": "2027-01-20",
+        "monthly_mortgage": 4250.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "parent_long_term_care",
+      "date": "2026-01-14",
+      "details": {
+        "care_type": "assisted living",
+        "monthly_cost_increase": null,
+        "siblings_sharing_cost": 3,
+        "note": "family has not agreed how to split the cost yet"
+      }
+    }
+  ]
+}

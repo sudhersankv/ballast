@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2024-05-09",
+      "details": {
+        "amount_due": 11700.0,
+        "due_date": "2024-09-13",
+        "reason": "capital gains"
+      }
+    }
+  ]
+}

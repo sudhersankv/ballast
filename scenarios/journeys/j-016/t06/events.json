@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "medical_bill",
+      "date": "2025-03-17",
+      "details": {
+        "amount_due": 13200.0,
+        "due_date": "2025-05-22",
+        "payment_plan_available": true
+      }
+    },
+    {
+      "id": "e7",
+      "type": "tuition_due",
+      "date": "2025-04-10",
+      "details": {
+        "amount_due": 39600.0,
+        "due_date": "2025-12-14",
+        "school_type": "private nonprofit",
+        "aid_package_final": true
+      }
+    }
+  ]
+}

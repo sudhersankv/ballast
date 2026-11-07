@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "retirement",
+      "date": "2026-08-24",
+      "details": {
+        "pension_monthly": 0,
+        "social_security_monthly": 1900,
+        "start_date": "2026-08-24"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-09-13",
+      "details": {
+        "amount_lost": 113100.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

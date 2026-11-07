@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-13",
+      "details": {
+        "severance": 5500.0,
+        "severance_weeks": 4,
+        "employer": "Kestrel Freight",
+        "last_day": "2026-09-13",
+        "cobra_monthly_premium": 690
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-10-02",
+      "details": {
+        "amount": 611000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "job_change",
+      "date": "2026-10-07",
+      "details": {
+        "new_income": 63000.0,
+        "previous_income": 71500,
+        "start_date": "2026-10-07"
+      }
+    }
+  ]
+}

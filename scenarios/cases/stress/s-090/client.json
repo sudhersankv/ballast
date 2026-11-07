@@ -1,0 +1,22 @@
+{
+  "client_id": "s-090",
+  "name": "Elena Sandoval",
+  "age": 70,
+  "state": "OH",
+  "occupation": "retired retail store manager",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 305000,
+  "monthly_expenses": 12700,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.74,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

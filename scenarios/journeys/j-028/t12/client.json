@@ -1,0 +1,30 @@
+{
+  "client_id": "j-028-t12",
+  "name": "Connor Lindqvist",
+  "age": 37,
+  "state": "CA",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 65500,
+  "monthly_expenses": 6650,
+  "dependents": 4,
+  "risk_score": 4,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2057
+    },
+    {
+      "type": "education",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.14,
+    "cash": 0.11
+  },
+  "monthly_contribution": 450
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "j-008-t04",
+  "name": "Marcus Okafor",
+  "age": 41,
+  "state": "MA",
+  "occupation": "regional sales manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 91500,
+  "monthly_expenses": 6600,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 24,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2051
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.09,
+    "cash": 0.11
+  },
+  "monthly_contribution": 500,
+  "employer": "Kestrel Freight (KSTL)"
+}

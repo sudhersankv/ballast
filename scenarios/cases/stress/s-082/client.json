@@ -1,0 +1,22 @@
+{
+  "client_id": "s-082",
+  "name": "Rosa Delgado",
+  "age": 69,
+  "state": "CO",
+  "occupation": "retired UX designer",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 554000,
+  "monthly_expenses": 20900,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 21,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.57,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

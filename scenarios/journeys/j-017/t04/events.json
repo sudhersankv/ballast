@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "tax_bill",
+      "date": "2024-12-30",
+      "details": {
+        "amount_due": null,
+        "due_date": "2025-08-07",
+        "reason": "capital gains",
+        "note": "CPA still finalizing the return"
+      }
+    }
+  ]
+}

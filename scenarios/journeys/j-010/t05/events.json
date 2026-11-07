@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "inheritance",
+      "date": "2025-07-02",
+      "details": {
+        "amount": 104000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e5",
+      "type": "startup_equity",
+      "date": "2025-07-25",
+      "details": {
+        "company": "Quillon Software",
+        "options": 52000,
+        "strike": 0.94,
+        "last_409a_price": 7.17,
+        "liquid": false
+      }
+    }
+  ]
+}

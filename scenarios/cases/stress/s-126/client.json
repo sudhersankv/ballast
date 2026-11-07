@@ -1,0 +1,21 @@
+{
+  "client_id": "s-126",
+  "name": "Rosa Ferreira",
+  "age": 66,
+  "state": "TX",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 72000,
+  "monthly_expenses": 5000,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.76,
+    "cash": 0.09
+  },
+  "monthly_contribution": 0.0
+}

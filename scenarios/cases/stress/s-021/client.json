@@ -1,0 +1,26 @@
+{
+  "client_id": "s-021",
+  "name": "Gloria Whitaker",
+  "age": 39,
+  "state": "CA",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 160500,
+  "monthly_expenses": 9350,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.18,
+    "cash": 0.17
+  },
+  "monthly_contribution": 950
+}

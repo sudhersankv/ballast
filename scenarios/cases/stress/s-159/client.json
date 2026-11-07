@@ -1,0 +1,29 @@
+{
+  "client_id": "s-159",
+  "name": "Camila Gallagher",
+  "age": 49,
+  "state": "TX",
+  "occupation": "wealth advisor",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 395000,
+  "monthly_expenses": 16400,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.38,
+    "cash": 0.02
+  },
+  "monthly_contribution": 900,
+  "employer": "Aldenbrook Partners (ALDB)",
+  "notes": "Aldenbrook Partners filed for bankruptcy; unvested deferred compensation is an unsecured claim."
+}

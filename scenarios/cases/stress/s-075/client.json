@@ -1,0 +1,26 @@
+{
+  "client_id": "s-075",
+  "name": "Malik Quintero",
+  "age": 64,
+  "state": "FL",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 103000,
+  "monthly_expenses": 6250,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 1,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2027
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.2,
+    "cash": 0.05
+  },
+  "monthly_contribution": 800
+}

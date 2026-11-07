@@ -1,0 +1,26 @@
+{
+  "client_id": "s-262",
+  "name": "Arjun Mendoza",
+  "age": 49,
+  "state": "UT",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 182000,
+  "monthly_expenses": 10550,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.17,
+    "cash": 0.18
+  },
+  "monthly_contribution": 1250
+}

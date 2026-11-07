@@ -1,0 +1,21 @@
+{
+  "client_id": "s-206",
+  "name": "Samuel Castellano",
+  "age": 74,
+  "state": "MI",
+  "occupation": "retired police sergeant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 105000,
+  "monthly_expenses": 7100,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.76,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

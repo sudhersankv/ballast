@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "regulatory_ban",
+      "date": "2025-01-05",
+      "details": {
+        "duration_months": 6,
+        "regulator": "SEC"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "insider_status",
+      "date": "2025-01-28",
+      "details": {
+        "symbol": "MRTS",
+        "pre_clearance_required": true,
+        "status": "restricted list"
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-08-18",
+      "details": {
+        "spouse_annual_income": 118000.0,
+        "spouse_has_separate_accounts": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "credit_card_debt",
+      "date": "2026-09-14",
+      "details": {
+        "balance": 28400.0,
+        "apr_pct": 19.9
+      }
+    },
+    {
+      "id": "e3",
+      "type": "inheritance",
+      "date": "2026-10-05",
+      "details": {
+        "amount": 22000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

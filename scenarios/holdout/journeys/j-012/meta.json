@@ -1,0 +1,8 @@
+{
+  "journey_id": "j-012",
+  "real_window": {
+    "t01_history_end": "2010-06",
+    "last_history_end": "2012-12",
+    "collapse_checkpoint": "t06"
+  }
+}

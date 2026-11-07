@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bankruptcy",
+      "date": "2026-09-20",
+      "details": {
+        "chapter": 7,
+        "filed_by": "client"
+      }
+    }
+  ]
+}

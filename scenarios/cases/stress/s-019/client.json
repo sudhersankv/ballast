@@ -1,0 +1,21 @@
+{
+  "client_id": "s-019",
+  "name": "Connor Whitaker",
+  "age": 74,
+  "state": "PA",
+  "occupation": "retired civil engineer",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 105500,
+  "monthly_expenses": 6400,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.59,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

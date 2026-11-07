@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "business_failure",
+      "date": "2026-10-21",
+      "details": {
+        "business": "retail shop",
+        "personal_guarantee_usd": 0
+      }
+    }
+  ]
+}

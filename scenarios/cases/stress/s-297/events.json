@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lottery_win",
+      "date": "2026-08-16",
+      "details": {
+        "amount_after_tax": 650000.0,
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "divorce",
+      "date": "2026-10-16",
+      "details": {
+        "assets_transferred_usd": 1384000.0,
+        "alimony_monthly": 0,
+        "child_support_monthly": 0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "medical_bill",
+      "date": "2026-10-22",
+      "details": {
+        "amount_due": 26100.0,
+        "due_date": "2026-12-21",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

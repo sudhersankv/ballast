@@ -1,0 +1,21 @@
+{
+  "client_id": "s-230",
+  "name": "Abigail Takahashi",
+  "age": 67,
+  "state": "MA",
+  "occupation": "retired elementary school teacher",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 93500,
+  "monthly_expenses": 5800,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.56,
+    "cash": 0.09
+  },
+  "monthly_contribution": 0.0
+}

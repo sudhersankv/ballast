@@ -1,0 +1,28 @@
+{
+  "client_id": "s-058",
+  "name": "Hector Patel",
+  "age": 46,
+  "state": "TX",
+  "occupation": "operations analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 366500,
+  "monthly_expenses": 14400,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.38,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1700,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

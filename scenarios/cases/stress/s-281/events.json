@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "relocation",
+      "date": "2026-08-11",
+      "details": {
+        "amount_due": 16200.0,
+        "due_date": "2026-11-25",
+        "cost_of_living_change_pct": 25,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disaster_damage",
+      "date": "2026-09-13",
+      "details": {
+        "peril": "tornado",
+        "damage_usd": 177000.0,
+        "insurance_covered_pct": 0,
+        "amount_due": 177000.0,
+        "due_date": "2027-03-15"
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "journey_id": "j-022",
+  "persona": {
+    "name": "Wesley Mendoza",
+    "state": "AZ",
+    "occupation": "police sergeant",
+    "industry": "other",
+    "age_at_start": 53,
+    "risk_score": 3,
+    "employer": null
+  },
+  "arc": "t02: market_drop; t03: death_of_spouse+disaster_damage; t06: sabbatical+credit_card_debt+layoff; t07: job_change+market_drop; t08: parent_long_term_care; t09: parent_long_term_care; t10: home_purchase+layoff; t11: job_change+tuition_due",
+  "regime": "crash and recovery: US equity -11% over the journey, worst drawdown -32%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 53,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 54,
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 54,
+      "events": [
+        "death_of_spouse",
+        "disaster_damage"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 54,
+      "events": []
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 54,
+      "events": []
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "sabbatical",
+        "credit_card_debt",
+        "layoff"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "job_change",
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "parent_long_term_care"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "parent_long_term_care"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 56,
+      "events": [
+        "home_purchase",
+        "layoff"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 56,
+      "events": [
+        "job_change",
+        "tuition_due"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11"
+  ],
+  "unseen_late_checkpoint": "t08",
+  "quiet_checkpoint": "t05"
+}

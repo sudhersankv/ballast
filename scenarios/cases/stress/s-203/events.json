@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-08-25",
+      "details": {
+        "care_type": "nursing home",
+        "monthly_cost_increase": 1700.0,
+        "siblings_sharing_cost": 2
+      }
+    },
+    {
+      "id": "e3",
+      "type": "layoff",
+      "date": "2026-09-16",
+      "details": {
+        "severance": 3700.0,
+        "severance_weeks": 2,
+        "employer": "previous employer",
+        "last_day": "2026-09-16",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -50.3,
+        "intl_equity_change_pct": -55.9,
+        "bond_change_pct": 15.6,
+        "peak_date": "2025-06-30",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2007-09 global financial crisis"
+      }
+    }
+  ]
+}

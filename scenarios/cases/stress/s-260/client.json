@@ -1,0 +1,28 @@
+{
+  "client_id": "s-260",
+  "name": "Maya Rasmussen",
+  "age": 46,
+  "state": "NC",
+  "occupation": "investment banking VP",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 208500,
+  "monthly_expenses": 10600,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.19,
+    "cash": 0.06
+  },
+  "monthly_contribution": 2450,
+  "employer": "Halvard Capital Group (HVCG)"
+}

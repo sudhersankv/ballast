@@ -1,0 +1,25 @@
+{
+  "as_of": "2024-05-01",
+  "positions": [
+    {
+      "symbol": "US_EQ",
+      "units": 251.051,
+      "value": 75104.42
+    },
+    {
+      "symbol": "INTL_EQ",
+      "units": 384.721,
+      "value": 27042.04
+    },
+    {
+      "symbol": "BOND",
+      "units": 1944.395,
+      "value": 142679.71
+    },
+    {
+      "symbol": "CASH",
+      "units": 28836.5,
+      "value": 28836.5
+    }
+  ]
+}

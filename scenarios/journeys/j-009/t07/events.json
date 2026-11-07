@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "special_needs_diagnosis",
+      "date": "2025-11-20",
+      "details": {
+        "child_age": 4,
+        "monthly_cost_increase": 850.0,
+        "insurance_coverage": "partial"
+      }
+    }
+  ]
+}

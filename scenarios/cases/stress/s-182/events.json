@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "prop_trading_loss",
+      "date": "2026-09-16",
+      "details": {
+        "loss_usd": 81000.0,
+        "account": "personal brokerage (outside)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-09-18",
+      "details": {
+        "amount": 1334000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "trading_blackout",
+      "date": "2026-10-25",
+      "details": {
+        "symbol": "HVCG",
+        "window_opens": "2026-12-12"
+      }
+    }
+  ]
+}

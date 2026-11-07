@@ -1,0 +1,27 @@
+{
+  "client_id": "s-043",
+  "name": "Patrick Patel",
+  "age": 64,
+  "state": "NY",
+  "occupation": "pharmacist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 157000,
+  "monthly_expenses": 9400,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 1,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2027
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.57,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1050,
+  "notes": "Holdings shown are after the settlement transfer."
+}

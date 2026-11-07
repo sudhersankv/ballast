@@ -1,0 +1,45 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-30",
+      "details": {
+        "diagnosis_category": "neurological",
+        "monthly_cost_increase": null,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 4000,
+        "note": "treatment plan not final; costs still being estimated"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-08-30",
+      "details": {
+        "amount_due": 6600.0,
+        "due_date": "2027-03-03",
+        "reason": "RSU withholding shortfall"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "crypto_loss",
+      "date": "2026-09-24",
+      "details": {
+        "amount_lost": 75600.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "medical_bill",
+      "date": "2026-10-25",
+      "details": {
+        "amount_due": 2900.0,
+        "due_date": "2026-12-23",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

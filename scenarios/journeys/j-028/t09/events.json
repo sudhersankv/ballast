@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "layoff",
+      "date": "2025-11-12",
+      "details": {
+        "severance": 29600.0,
+        "severance_weeks": 18,
+        "employer": "previous employer",
+        "last_day": "2025-11-12",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e12",
+      "type": "foreclosure_risk",
+      "date": "2025-12-02",
+      "details": {
+        "arrears_usd": 12500.0,
+        "amount_due": 12500.0,
+        "due_date": "2026-03-09",
+        "monthly_mortgage": 3700.0
+      }
+    },
+    {
+      "id": "e13",
+      "type": "pay_cut",
+      "date": "2025-12-16",
+      "details": {
+        "new_income": 72500.0,
+        "reason": "cost cutting"
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "pay_cut",
+      "date": "2026-09-21",
+      "details": {
+        "new_income": 350500.0,
+        "reason": "reduced hours"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "regulatory_ban",
+      "date": "2026-10-07",
+      "details": {
+        "duration_months": 12,
+        "regulator": "FINRA"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "trading_blackout",
+      "date": "2026-10-24",
+      "details": {
+        "symbol": "MRTS",
+        "window_opens": "2026-11-13"
+      }
+    }
+  ]
+}

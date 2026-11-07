@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "trading_blackout",
+      "date": "2026-08-30",
+      "details": {
+        "symbol": "NMBX",
+        "window_opens": "2026-11-13"
+      }
+    }
+  ]
+}

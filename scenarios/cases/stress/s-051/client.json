@@ -1,0 +1,28 @@
+{
+  "client_id": "s-051",
+  "name": "Malik Sandoval",
+  "age": 41,
+  "state": "NC",
+  "occupation": "wealth advisor",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 384000,
+  "monthly_expenses": 16000,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 24,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2050
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.16,
+    "cash": 0.24
+  },
+  "monthly_contribution": 1700,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

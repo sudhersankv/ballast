@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "regulatory_ban",
+      "date": "2025-02-18",
+      "details": {
+        "duration_months": 6,
+        "regulator": "state regulator"
+      }
+    }
+  ]
+}

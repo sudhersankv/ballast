@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit",
+      "date": "2026-08-30",
+      "details": {
+        "claim_usd": 533000.0,
+        "insured": false,
+        "status": "discovery"
+      }
+    }
+  ]
+}

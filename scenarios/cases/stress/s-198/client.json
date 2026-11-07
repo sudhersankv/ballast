@@ -1,0 +1,26 @@
+{
+  "client_id": "s-198",
+  "name": "Fiona Holloway",
+  "age": 58,
+  "state": "CA",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 348500,
+  "monthly_expenses": 15600,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.15,
+    "cash": 0.1
+  },
+  "monthly_contribution": 3450
+}

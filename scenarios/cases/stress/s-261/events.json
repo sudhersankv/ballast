@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-08-12",
+      "details": {
+        "amount_lost": 107300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "gig_income",
+      "date": "2026-09-04",
+      "details": {
+        "avg_monthly_income": 5850.0,
+        "income_volatility_pct": 40,
+        "platforms": 4
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "fraud_loss",
+      "date": "2025-08-29",
+      "details": {
+        "amount_lost": 17100.0,
+        "scam_type": "imposter",
+        "recovery_expected": "partial",
+        "taken_from": "this account's CASH"
+      }
+    },
+    {
+      "id": "e6",
+      "type": "crypto_loss",
+      "date": "2025-10-10",
+      "details": {
+        "amount_lost": 21500.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

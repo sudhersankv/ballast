@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "market_drop",
+      "date": "2025-10-30",
+      "details": {
+        "us_equity_change_pct": -17.3,
+        "intl_equity_change_pct": -11.2,
+        "bond_change_pct": 1.9,
+        "peak_date": "2025-08-31",
+        "trough_date": "2025-10-30"
+      }
+    }
+  ]
+}

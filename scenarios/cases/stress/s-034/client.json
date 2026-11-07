@@ -1,0 +1,22 @@
+{
+  "client_id": "s-034",
+  "name": "Owen Chen",
+  "age": 72,
+  "state": "GA",
+  "occupation": "retired accountant",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 281500,
+  "monthly_expenses": 11550,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

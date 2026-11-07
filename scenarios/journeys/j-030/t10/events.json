@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e15",
+      "type": "medical_bill",
+      "date": "2026-05-13",
+      "details": {
+        "amount_due": 26400.0,
+        "due_date": "2026-09-24",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e16",
+      "type": "divorce",
+      "date": "2026-07-21",
+      "details": {
+        "assets_transferred_usd": 647000,
+        "alimony_monthly": 0,
+        "child_support_monthly": 0
+      }
+    }
+  ]
+}

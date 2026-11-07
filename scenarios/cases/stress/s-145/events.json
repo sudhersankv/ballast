@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "firm_collapse",
+      "date": "2026-08-07",
+      "details": {
+        "employer": "Aldenbrook Partners",
+        "symbol": "ALDB",
+        "stock_change_pct": -92.1,
+        "deferred_comp_lost_usd": 172000.0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "parent_long_term_care",
+      "date": "2026-10-21",
+      "details": {
+        "care_type": "home health aide",
+        "monthly_cost_increase": 1100.0,
+        "siblings_sharing_cost": 0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -42.1,
+        "intl_equity_change_pct": -38.2,
+        "bond_change_pct": 23.9,
+        "peak_date": "2024-10-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2000-02 dot-com bust"
+      }
+    }
+  ]
+}

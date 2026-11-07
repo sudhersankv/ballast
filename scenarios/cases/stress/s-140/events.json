@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "rsu_cliff",
+      "date": "2026-10-08",
+      "details": {
+        "symbol": "HVCG",
+        "vest_value": 54800.0,
+        "vest_date": "2026-10-08"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2026-10-20",
+      "details": {
+        "amount_due": 20600.0,
+        "due_date": "2027-05-21",
+        "school_type": "public in-state",
+        "aid_package_final": false
+      }
+    },
+    {
+      "id": "e3",
+      "type": "bonus_deferral",
+      "date": "2026-10-23",
+      "details": {
+        "total_bonus": 295000.0,
+        "cash_pct": 30,
+        "deferred_pct": 70,
+        "vesting_years": 4,
+        "deferred_in": "HVCG stock units"
+      }
+    }
+  ]
+}

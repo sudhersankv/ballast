@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-08-09",
+      "details": {
+        "new_income": 190500.0,
+        "previous_income": 160500,
+        "start_date": "2026-08-09"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "gig_income",
+      "date": "2026-09-05",
+      "details": {
+        "avg_monthly_income": 9100.0,
+        "income_volatility_pct": 40,
+        "platforms": 2
+      }
+    },
+    {
+      "id": "e3",
+      "type": "relocation",
+      "date": "2026-09-19",
+      "details": {
+        "amount_due": 17500.0,
+        "due_date": "2026-12-21",
+        "cost_of_living_change_pct": 0,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

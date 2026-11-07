@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "rsu_cliff",
+      "date": "2024-05-16",
+      "details": {
+        "symbol": "HVCG",
+        "vest_value": 247300.0,
+        "vest_date": "2024-05-16"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2024-07-22",
+      "details": {
+        "amount_due": 53400.0,
+        "due_date": "2025-01-22",
+        "reason": "audit adjustment"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "early_retirement_offer",
+      "date": "2024-07-25",
+      "details": {
+        "lump_sum_offer": 358000.0,
+        "decision_deadline": "2024-09-07"
+      }
+    }
+  ]
+}

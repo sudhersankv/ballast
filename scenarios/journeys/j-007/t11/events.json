@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e13",
+      "type": "medical_bill",
+      "date": "2026-08-24",
+      "details": {
+        "amount_due": 24100.0,
+        "due_date": "2027-02-11",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e14",
+      "type": "layoff",
+      "date": "2026-08-28",
+      "details": {
+        "severance": 4800.0,
+        "severance_weeks": 12,
+        "employer": "previous employer",
+        "last_day": "2026-08-28",
+        "cobra_monthly_premium": 690
+      }
+    },
+    {
+      "id": "e15",
+      "type": "foreclosure_risk",
+      "date": "2026-09-06",
+      "details": {
+        "arrears_usd": 13500.0,
+        "amount_due": 13500.0,
+        "due_date": "2026-12-04",
+        "monthly_mortgage": 2550.0
+      }
+    }
+  ]
+}

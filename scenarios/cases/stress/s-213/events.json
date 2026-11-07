@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-10",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1100.0,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 6000
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2026-09-20",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 50,
+        "monthly_cost_increase": 750.0,
+        "expected_duration_months": 12
+      }
+    }
+  ]
+}

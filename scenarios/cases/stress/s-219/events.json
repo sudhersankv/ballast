@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-08-26",
+      "details": {
+        "new_income": 302000.0,
+        "previous_income": 381500,
+        "start_date": "2026-08-26"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2026-09-01",
+      "details": {
+        "amount_due": 50300.0,
+        "due_date": "2027-06-04",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

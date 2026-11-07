@@ -1,0 +1,26 @@
+{
+  "client_id": "s-141",
+  "name": "Tyrone Rasmussen",
+  "age": 51,
+  "state": "NY",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 220500,
+  "monthly_expenses": 10900,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.2,
+    "cash": 0.05
+  },
+  "monthly_contribution": 2000
+}

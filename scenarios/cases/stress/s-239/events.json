@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-09-04",
+      "details": {
+        "new_income": 98500.0,
+        "previous_income": 106000,
+        "start_date": "2026-09-04"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -21.4,
+        "bond_change_pct": 5.7,
+        "peak_date": "2026-08-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "Feb-Mar 2020 COVID crash"
+      }
+    }
+  ]
+}

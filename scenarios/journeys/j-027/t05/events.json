@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "layoff",
+      "date": "2025-04-10",
+      "details": {
+        "severance": 13200.0,
+        "severance_weeks": 3,
+        "employer": "Meridian Trust Securities",
+        "last_day": "2025-04-10",
+        "cobra_monthly_premium": 1490
+      }
+    },
+    {
+      "id": "e9",
+      "type": "market_drop",
+      "date": "2025-04-29",
+      "details": {
+        "us_equity_change_pct": -21.8,
+        "intl_equity_change_pct": -19.6,
+        "bond_change_pct": -8.6,
+        "peak_date": "2024-10-31",
+        "trough_date": "2025-04-29"
+      }
+    }
+  ]
+}

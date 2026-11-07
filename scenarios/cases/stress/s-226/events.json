@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "death_of_spouse",
+      "date": "2026-09-27",
+      "details": {
+        "life_insurance_payout": 41000.0,
+        "deposited_to": "CASH",
+        "spouse_income_lost": 34000.0,
+        "survivor_benefit_monthly": 2100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "adult_child_moves_back",
+      "date": "2026-10-09",
+      "details": {
+        "child_age": 30,
+        "monthly_cost_increase": 700.0,
+        "expected_stay_months": 24
+      }
+    }
+  ]
+}

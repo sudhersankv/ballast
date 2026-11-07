@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-08-28",
+      "details": {
+        "peril": "tornado",
+        "damage_usd": 175000.0,
+        "insurance_covered_pct": 0,
+        "amount_due": 175000.0,
+        "due_date": "2027-04-08"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-09-08",
+      "details": {
+        "amount_lost": 106800.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

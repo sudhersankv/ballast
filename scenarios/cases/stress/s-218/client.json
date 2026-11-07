@@ -1,0 +1,28 @@
+{
+  "client_id": "s-218",
+  "name": "Rafael Mendoza",
+  "age": 55,
+  "state": "NC",
+  "occupation": "quant researcher",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 158500,
+  "monthly_expenses": 8850,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 1800,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

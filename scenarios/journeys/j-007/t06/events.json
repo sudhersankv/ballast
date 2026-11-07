@@ -1,0 +1,45 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "retirement",
+      "date": "2025-05-08",
+      "details": {
+        "pension_monthly": 0,
+        "social_security_monthly": 1900,
+        "start_date": "2025-05-08"
+      }
+    },
+    {
+      "id": "e5",
+      "type": "pension_buyout_offer",
+      "date": "2025-06-15",
+      "details": {
+        "lump_sum_offer": 226000.0,
+        "annuity_monthly": 2850.0,
+        "decision_deadline": "2025-10-11"
+      }
+    },
+    {
+      "id": "e6",
+      "type": "layoff",
+      "date": "2025-06-25",
+      "details": {
+        "severance": 65200.0,
+        "severance_weeks": 9,
+        "employer": "previous employer",
+        "last_day": "2025-06-25",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e7",
+      "type": "credit_card_debt",
+      "date": "2025-07-28",
+      "details": {
+        "balance": 28300.0,
+        "apr_pct": 22.9
+      }
+    }
+  ]
+}

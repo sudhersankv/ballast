@@ -1,0 +1,41 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2024-08-19",
+      "details": {
+        "balance": 40000.0,
+        "apr_pct": 22.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "trading_blackout",
+      "date": "2024-09-15",
+      "details": {
+        "symbol": "HVCG",
+        "window_opens": "2024-12-11"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "prop_trading_loss",
+      "date": "2024-10-01",
+      "details": {
+        "loss_usd": 156000.0,
+        "account": "personal brokerage (outside)"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "margin_call",
+      "date": "2024-10-10",
+      "details": {
+        "amount_due": 137800.0,
+        "due_date": "2024-11-05",
+        "account": "outside margin account"
+      }
+    }
+  ]
+}

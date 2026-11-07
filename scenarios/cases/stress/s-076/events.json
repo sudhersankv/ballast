@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "death_of_spouse",
+      "date": "2026-08-24",
+      "details": {
+        "life_insurance_payout": 616000.0,
+        "deposited_to": "CASH",
+        "spouse_income_lost": 58000.0,
+        "survivor_benefit_monthly": 0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "bonus_deferral",
+      "date": "2026-10-22",
+      "details": {
+        "total_bonus": 504000.0,
+        "cash_pct": 60,
+        "deferred_pct": 40,
+        "vesting_years": 5,
+        "deferred_in": "MRTS stock units"
+      }
+    }
+  ]
+}

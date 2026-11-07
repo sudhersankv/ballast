@@ -1,0 +1,27 @@
+{
+  "client_id": "s-242",
+  "name": "Rafael Rasmussen",
+  "age": 45,
+  "state": "AZ",
+  "occupation": "regional sales manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 73000,
+  "monthly_expenses": 4900,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.31,
+    "cash": 0.14
+  },
+  "monthly_contribution": 850,
+  "employer": "Kestrel Freight (KSTL)"
+}

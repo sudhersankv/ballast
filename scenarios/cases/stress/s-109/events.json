@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "adult_child_moves_back",
+      "date": "2026-10-13",
+      "details": {
+        "child_age": 25,
+        "monthly_cost_increase": 1200.0,
+        "expected_stay_months": 24
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e14",
+      "type": "inheritance",
+      "date": "2026-09-15",
+      "details": {
+        "amount": 346000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e15",
+      "type": "foreclosure_risk",
+      "date": "2026-09-18",
+      "details": {
+        "arrears_usd": 28300.0,
+        "amount_due": 28300.0,
+        "due_date": "2027-01-06",
+        "monthly_mortgage": 3750.0
+      }
+    },
+    {
+      "id": "e16",
+      "type": "fraud_loss",
+      "date": "2026-10-16",
+      "details": {
+        "amount_lost": 77800.0,
+        "scam_type": "romance",
+        "recovery_expected": "unknown",
+        "taken_from": "this account's CASH"
+      }
+    }
+  ]
+}

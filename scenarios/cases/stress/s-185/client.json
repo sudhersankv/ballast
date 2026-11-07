@@ -1,0 +1,28 @@
+{
+  "client_id": "s-185",
+  "name": "Omar Abernathy",
+  "age": 60,
+  "state": "CA",
+  "occupation": "investment banking VP",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 151000,
+  "monthly_expenses": 7750,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 5,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2031
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.6,
+    "cash": 0.05
+  },
+  "monthly_contribution": 3100,
+  "employer": "Halvard Capital Group (HVCG)"
+}

@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "prop_trading_loss",
+      "date": "2026-08-05",
+      "details": {
+        "loss_usd": 98000.0,
+        "account": "personal brokerage (outside)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "margin_call",
+      "date": "2026-10-13",
+      "details": {
+        "amount_due": 13900.0,
+        "due_date": "2026-11-03",
+        "account": "outside margin account"
+      }
+    }
+  ]
+}

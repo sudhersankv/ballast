@@ -1,0 +1,48 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "layoff",
+      "date": "2025-02-06",
+      "details": {
+        "severance": 24600.0,
+        "severance_weeks": 14,
+        "employer": "Kestrel Freight",
+        "last_day": "2025-02-06",
+        "cobra_monthly_premium": 1490
+      }
+    },
+    {
+      "id": "e5",
+      "type": "credit_card_debt",
+      "date": "2025-02-18",
+      "details": {
+        "balance": 9700.0,
+        "apr_pct": 29.9
+      }
+    },
+    {
+      "id": "e6",
+      "type": "startup_equity",
+      "date": "2025-03-17",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 54000,
+        "strike": 2.64,
+        "last_409a_price": 7.22,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e7",
+      "type": "fraud_loss",
+      "date": "2025-04-23",
+      "details": {
+        "amount_lost": 29500,
+        "scam_type": "account takeover",
+        "recovery_expected": "unknown",
+        "taken_from": "this account's CASH"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit",
+      "date": "2026-09-02",
+      "details": {
+        "claim_usd": 407000.0,
+        "insured": true,
+        "status": "settlement talks"
+      }
+    }
+  ]
+}

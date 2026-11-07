@@ -1,0 +1,22 @@
+{
+  "client_id": "s-295",
+  "name": "Grant Ramirez",
+  "age": 73,
+  "state": "NJ",
+  "occupation": "retired retail store manager",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 229000,
+  "monthly_expenses": 9950,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.33,
+    "cash": 0.12
+  },
+  "monthly_contribution": 0.0
+}

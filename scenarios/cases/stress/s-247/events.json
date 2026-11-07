@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lottery_win",
+      "date": "2026-08-13",
+      "details": {
+        "amount_after_tax": 205000.0,
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "parent_long_term_care",
+      "date": "2026-08-16",
+      "details": {
+        "care_type": "assisted living",
+        "monthly_cost_increase": 2650.0,
+        "siblings_sharing_cost": 1
+      }
+    },
+    {
+      "id": "e3",
+      "type": "crypto_loss",
+      "date": "2026-09-25",
+      "details": {
+        "amount_lost": 119300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

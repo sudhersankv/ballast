@@ -1,0 +1,4158 @@
+{
+  "s-001": {
+    "kind": "events",
+    "types": [
+      "home_purchase",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-06..2007-05",
+      "future": "2007-06..2008-05"
+    },
+    "draws": 3
+  },
+  "s-002": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 2
+  },
+  "s-003": {
+    "kind": "events",
+    "types": [
+      "fraud_loss",
+      "market_drop",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-004": {
+    "kind": "events",
+    "types": [
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "bear_2022",
+    "window": {
+      "history": "2018-10..2022-09",
+      "future": "2022-10..2023-09"
+    },
+    "draws": 1
+  },
+  "s-005": {
+    "kind": "events",
+    "types": [
+      "relocation",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2020-06..2024-05",
+      "future": "2024-06..2025-05"
+    },
+    "draws": 1
+  },
+  "s-006": {
+    "kind": "events",
+    "types": [
+      "pay_cut",
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1998-05..2002-04",
+      "future": "2002-05..2003-04"
+    },
+    "draws": 1
+  },
+  "s-007": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-12..2014-11",
+      "future": "2014-12..2015-11"
+    },
+    "draws": 6
+  },
+  "s-008": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "inheritance",
+      "lawsuit",
+      "legal_judgment"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2013-05..2017-04",
+      "future": "2017-05..2018-04"
+    },
+    "draws": 1
+  },
+  "s-009": {
+    "kind": "events",
+    "types": [
+      "deferred_comp_clawback",
+      "business_sale"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1996-04..2000-03",
+      "future": "2000-04..2001-03"
+    },
+    "draws": 1
+  },
+  "s-010": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "parent_long_term_care",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-12..2015-11",
+      "future": "2015-12..2016-11"
+    },
+    "draws": 2
+  },
+  "s-011": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2000-03..2004-02",
+      "future": "2004-03..2005-02"
+    },
+    "draws": 3
+  },
+  "s-012": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "divorce",
+      "lottery_win"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-08..2022-07",
+      "future": "2022-08..2023-07"
+    },
+    "draws": 1
+  },
+  "s-013": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "margin_call"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 1
+  },
+  "s-014": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-11..2012-10",
+      "future": "2012-11..2013-10"
+    },
+    "draws": 3
+  },
+  "s-015": {
+    "kind": "events",
+    "types": [
+      "layoff",
+      "disability"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2019-12..2023-11",
+      "future": "2023-12..2024-11"
+    },
+    "draws": 1
+  },
+  "s-016": {
+    "kind": "events",
+    "types": [
+      "tax_bill"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2019-01..2022-12",
+      "future": "2023-01..2023-12"
+    },
+    "draws": 2
+  },
+  "s-017": {
+    "kind": "events",
+    "types": [
+      "home_purchase",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-08..2022-07",
+      "future": "2022-08..2023-07"
+    },
+    "draws": 1
+  },
+  "s-018": {
+    "kind": "events",
+    "types": [
+      "sabbatical",
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-10..2003-09",
+      "future": "2003-10..2004-09"
+    },
+    "draws": 5
+  },
+  "s-019": {
+    "kind": "noise_only",
+    "types": [
+      "promotion_title_only"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2000-09..2004-08",
+      "future": "2004-09..2005-08"
+    },
+    "draws": 3
+  },
+  "s-020": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "bonus_cut"
+    ],
+    "fs": true,
+    "anchor": "bear_2022",
+    "window": {
+      "history": "2018-10..2022-09",
+      "future": "2022-10..2023-09"
+    },
+    "draws": 3
+  },
+  "s-021": {
+    "kind": "events",
+    "types": [
+      "business_failure",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2000-06..2004-05",
+      "future": "2004-06..2005-05"
+    },
+    "draws": 2
+  },
+  "s-022": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "death_of_spouse",
+      "margin_call"
+    ],
+    "fs": false,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-023": {
+    "kind": "events",
+    "types": [
+      "startup_equity",
+      "regulatory_ban"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2005-06..2009-05",
+      "future": "2009-06..2010-05"
+    },
+    "draws": 1
+  },
+  "s-024": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2013-07..2017-06",
+      "future": "2017-07..2018-06"
+    },
+    "draws": 1
+  },
+  "s-025": {
+    "kind": "events",
+    "types": [
+      "desk_shutdown",
+      "disaster_damage"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1994-05..1998-04",
+      "future": "1998-05..1999-04"
+    },
+    "draws": 3
+  },
+  "s-026": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "tax_bill",
+      "crypto_loss",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-01..2021-12",
+      "future": "2022-01..2022-12"
+    },
+    "draws": 4
+  },
+  "s-027": {
+    "kind": "events",
+    "types": [
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2009-04..2013-03",
+      "future": "2013-04..2014-03"
+    },
+    "draws": 1
+  },
+  "s-028": {
+    "kind": "events",
+    "types": [
+      "fraud_loss"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2012-08..2016-07",
+      "future": "2016-08..2017-07"
+    },
+    "draws": 3
+  },
+  "s-029": {
+    "kind": "events",
+    "types": [
+      "early_retirement_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2009-09..2013-08",
+      "future": "2013-09..2014-08"
+    },
+    "draws": 2
+  },
+  "s-030": {
+    "kind": "events",
+    "types": [
+      "lawsuit"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-08..2015-07",
+      "future": "2015-08..2016-07"
+    },
+    "draws": 2
+  },
+  "s-031": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2006-10..2010-09",
+      "future": "2010-10..2011-09"
+    },
+    "draws": 2
+  },
+  "s-032": {
+    "kind": "events",
+    "types": [
+      "furlough",
+      "business_sale"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-02..2014-01",
+      "future": "2014-02..2015-01"
+    },
+    "draws": 1
+  },
+  "s-033": {
+    "kind": "events",
+    "types": [
+      "fraud_loss",
+      "market_drop",
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 4
+  },
+  "s-034": {
+    "kind": "events",
+    "types": [
+      "startup_equity",
+      "tax_bill"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1994-06..1998-05",
+      "future": "1998-06..1999-05"
+    },
+    "draws": 2
+  },
+  "s-035": {
+    "kind": "noise_only",
+    "types": [
+      "crypto_loss",
+      "startup_equity"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2008-03..2012-02",
+      "future": "2012-03..2013-02"
+    },
+    "draws": 1
+  },
+  "s-036": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 1
+  },
+  "s-037": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back",
+      "serious_illness"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-11..2018-10",
+      "future": "2018-11..2019-10"
+    },
+    "draws": 2
+  },
+  "s-038": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "prop_trading_loss",
+      "tuition_due"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1997-07..2001-06",
+      "future": "2001-07..2002-06"
+    },
+    "draws": 2
+  },
+  "s-039": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2004-07..2008-06",
+      "future": "2008-07..2009-06"
+    },
+    "draws": 2
+  },
+  "s-040": {
+    "kind": "events",
+    "types": [
+      "disaster_damage",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-02..1998-01",
+      "future": "1998-02..1999-01"
+    },
+    "draws": 2
+  },
+  "s-041": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "adult_child_moves_back"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-05..2000-04",
+      "future": "2000-05..2001-04"
+    },
+    "draws": 1
+  },
+  "s-042": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "relocation",
+      "pay_cut",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-11..1995-10",
+      "future": "1995-11..1996-10"
+    },
+    "draws": 1
+  },
+  "s-043": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "furlough",
+      "divorce",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-04..2014-03",
+      "future": "2014-04..2015-03"
+    },
+    "draws": 1
+  },
+  "s-044": {
+    "kind": "events",
+    "types": [
+      "home_purchase",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2001-11..2005-10",
+      "future": "2005-11..2006-10"
+    },
+    "draws": 1
+  },
+  "s-045": {
+    "kind": "no_events",
+    "types": [],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-01..2006-12",
+      "future": "2007-01..2007-12"
+    },
+    "draws": 3
+  },
+  "s-046": {
+    "kind": "events",
+    "types": [
+      "pension_buyout_offer",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-05..1995-04",
+      "future": "1995-05..1996-04"
+    },
+    "draws": 2
+  },
+  "s-047": {
+    "kind": "events",
+    "types": [
+      "startup_equity",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-12..2007-11",
+      "future": "2007-12..2008-11"
+    },
+    "draws": 2
+  },
+  "s-048": {
+    "kind": "events",
+    "types": [
+      "lawsuit"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2016-01..2019-12",
+      "future": "2020-01..2020-12"
+    },
+    "draws": 3
+  },
+  "s-049": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "layoff",
+      "crypto_loss",
+      "tax_bill",
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2012-04..2016-03",
+      "future": "2016-04..2017-03"
+    },
+    "draws": 4
+  },
+  "s-050": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "adult_child_moves_back",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2015-09..2019-08",
+      "future": "2019-09..2020-08"
+    },
+    "draws": 1
+  },
+  "s-051": {
+    "kind": "no_events",
+    "types": [],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1992-05..1996-04",
+      "future": "1996-05..1997-04"
+    },
+    "draws": 1
+  },
+  "s-052": {
+    "kind": "events",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-05..2025-04",
+      "future": "2025-05..2026-04"
+    },
+    "draws": 1
+  },
+  "s-053": {
+    "kind": "events",
+    "types": [
+      "fraud_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-04..2014-03",
+      "future": "2014-04..2015-03"
+    },
+    "draws": 5
+  },
+  "s-054": {
+    "kind": "events",
+    "types": [
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-01..2011-12",
+      "future": "2012-01..2012-12"
+    },
+    "draws": 1
+  },
+  "s-055": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "tax_bill",
+      "child"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2015-11..2019-10",
+      "future": "2019-11..2020-10"
+    },
+    "draws": 1
+  },
+  "s-056": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-01..2021-12",
+      "future": "2022-01..2022-12"
+    },
+    "draws": 1
+  },
+  "s-057": {
+    "kind": "events",
+    "types": [
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-04..2018-03",
+      "future": "2018-04..2019-03"
+    },
+    "draws": 2
+  },
+  "s-058": {
+    "kind": "events",
+    "types": [
+      "desk_shutdown"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2015-07..2019-06",
+      "future": "2019-07..2020-06"
+    },
+    "draws": 2
+  },
+  "s-059": {
+    "kind": "events",
+    "types": [
+      "foreclosure_risk",
+      "medical_bill",
+      "gig_income"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-03..2003-02",
+      "future": "2003-03..2004-02"
+    },
+    "draws": 2
+  },
+  "s-060": {
+    "kind": "events",
+    "types": [
+      "gig_income"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2000-09..2004-08",
+      "future": "2004-09..2005-08"
+    },
+    "draws": 3
+  },
+  "s-061": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "gig_income",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-03..2023-02",
+      "future": "2023-03..2024-02"
+    },
+    "draws": 5
+  },
+  "s-062": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "lawsuit"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-01..2011-12",
+      "future": "2012-01..2012-12"
+    },
+    "draws": 2
+  },
+  "s-063": {
+    "kind": "events",
+    "types": [
+      "tuition_due"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2016-05..2020-04",
+      "future": "2020-05..2021-04"
+    },
+    "draws": 2
+  },
+  "s-064": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-04..2003-03",
+      "future": "2003-04..2004-03"
+    },
+    "draws": 6
+  },
+  "s-065": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "fraud_loss",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1993-10..1997-09",
+      "future": "1997-10..1998-09"
+    },
+    "draws": 6
+  },
+  "s-066": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "pension_buyout_offer",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1998-12..2002-11",
+      "future": "2002-12..2003-11"
+    },
+    "draws": 3
+  },
+  "s-067": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "inheritance",
+      "business_sale"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-11..2022-10",
+      "future": "2022-11..2023-10"
+    },
+    "draws": 1
+  },
+  "s-068": {
+    "kind": "noise_only",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1998-01..2001-12",
+      "future": "2002-01..2002-12"
+    },
+    "draws": 4
+  },
+  "s-069": {
+    "kind": "events",
+    "types": [
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2004-05..2008-04",
+      "future": "2008-05..2009-04"
+    },
+    "draws": 2
+  },
+  "s-070": {
+    "kind": "events",
+    "types": [
+      "gig_income",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2004-08..2008-07",
+      "future": "2008-08..2009-07"
+    },
+    "draws": 5
+  },
+  "s-071": {
+    "kind": "events",
+    "types": [
+      "gig_income"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2017-09..2021-08",
+      "future": "2021-09..2022-08"
+    },
+    "draws": 3
+  },
+  "s-072": {
+    "kind": "events",
+    "types": [
+      "bankruptcy",
+      "pension_buyout_offer",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-02..2018-01",
+      "future": "2018-02..2019-01"
+    },
+    "draws": 5
+  },
+  "s-073": {
+    "kind": "events",
+    "types": [
+      "child"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2020-05..2024-04",
+      "future": "2024-05..2025-04"
+    },
+    "draws": 1
+  },
+  "s-074": {
+    "kind": "events",
+    "types": [
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 1
+  },
+  "s-075": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care",
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-076": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "bonus_deferral"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1993-04..1997-03",
+      "future": "1997-04..1998-03"
+    },
+    "draws": 1
+  },
+  "s-077": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "divorce"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 1
+  },
+  "s-078": {
+    "kind": "events",
+    "types": [
+      "layoff",
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-11..2012-10",
+      "future": "2012-11..2013-10"
+    },
+    "draws": 5
+  },
+  "s-079": {
+    "kind": "events",
+    "types": [
+      "layoff",
+      "job_change",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-01..2006-12",
+      "future": "2007-01..2007-12"
+    },
+    "draws": 1
+  },
+  "s-080": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement",
+      "retirement"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-07..2011-06",
+      "future": "2011-07..2012-06"
+    },
+    "draws": 3
+  },
+  "s-081": {
+    "kind": "events",
+    "types": [
+      "bankruptcy"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2008-01..2011-12",
+      "future": "2012-01..2012-12"
+    },
+    "draws": 2
+  },
+  "s-082": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "foreclosure_risk"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2012-09..2016-08",
+      "future": "2016-09..2017-08"
+    },
+    "draws": 1
+  },
+  "s-083": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop"
+    ],
+    "fs": true,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 5
+  },
+  "s-084": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop",
+      "credit_card_debt"
+    ],
+    "fs": true,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-085": {
+    "kind": "events",
+    "types": [
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "bear_2022",
+    "window": {
+      "history": "2018-10..2022-09",
+      "future": "2022-10..2023-09"
+    },
+    "draws": 2
+  },
+  "s-086": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "retirement"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2006-01..2009-12",
+      "future": "2010-01..2010-12"
+    },
+    "draws": 6
+  },
+  "s-087": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "layoff",
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-03..2007-02",
+      "future": "2007-03..2008-02"
+    },
+    "draws": 7
+  },
+  "s-088": {
+    "kind": "events",
+    "types": [
+      "tuition_due",
+      "death_of_spouse"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2003-07..2007-06",
+      "future": "2007-07..2008-06"
+    },
+    "draws": 2
+  },
+  "s-089": {
+    "kind": "events",
+    "types": [
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1997-02..2001-01",
+      "future": "2001-02..2002-01"
+    },
+    "draws": 1
+  },
+  "s-090": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "business_failure",
+      "credit_card_debt"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2015-03..2019-02",
+      "future": "2019-03..2020-02"
+    },
+    "draws": 2
+  },
+  "s-091": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "inheritance",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-05..1996-04",
+      "future": "1996-05..1997-04"
+    },
+    "draws": 2
+  },
+  "s-092": {
+    "kind": "events",
+    "types": [
+      "business_sale",
+      "home_purchase",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2006-06..2010-05",
+      "future": "2010-06..2011-05"
+    },
+    "draws": 1
+  },
+  "s-093": {
+    "kind": "no_events",
+    "types": [],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2002-10..2006-09",
+      "future": "2006-10..2007-09"
+    },
+    "draws": 2
+  },
+  "s-094": {
+    "kind": "events",
+    "types": [
+      "retirement",
+      "furlough",
+      "sabbatical"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-09..2000-08",
+      "future": "2000-09..2001-08"
+    },
+    "draws": 1
+  },
+  "s-095": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "divorce",
+      "relocation"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2012-10..2016-09",
+      "future": "2016-10..2017-09"
+    },
+    "draws": 4
+  },
+  "s-096": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-04..2022-03",
+      "future": "2022-04..2023-03"
+    },
+    "draws": 1
+  },
+  "s-097": {
+    "kind": "events",
+    "types": [
+      "pay_cut",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2020-06..2024-05",
+      "future": "2024-06..2025-05"
+    },
+    "draws": 1
+  },
+  "s-098": {
+    "kind": "events",
+    "types": [
+      "bonus_deferral"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2020-04..2024-03",
+      "future": "2024-04..2025-03"
+    },
+    "draws": 5
+  },
+  "s-099": {
+    "kind": "noise_only",
+    "types": [
+      "pay_cut"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-08..2003-07",
+      "future": "2003-08..2004-07"
+    },
+    "draws": 2
+  },
+  "s-100": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "adult_child_moves_back",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-09..1996-08",
+      "future": "1996-09..1997-08"
+    },
+    "draws": 2
+  },
+  "s-101": {
+    "kind": "events",
+    "types": [
+      "bonus_deferral",
+      "relocation",
+      "layoff"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2005-11..2009-10",
+      "future": "2009-11..2010-10"
+    },
+    "draws": 1
+  },
+  "s-102": {
+    "kind": "events",
+    "types": [
+      "pay_cut",
+      "regulatory_ban",
+      "trading_blackout"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2017-05..2021-04",
+      "future": "2021-05..2022-04"
+    },
+    "draws": 1
+  },
+  "s-103": {
+    "kind": "events",
+    "types": [
+      "retirement",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2006-08..2010-07",
+      "future": "2010-08..2011-07"
+    },
+    "draws": 3
+  },
+  "s-104": {
+    "kind": "events",
+    "types": [
+      "carried_interest"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2013-07..2017-06",
+      "future": "2017-07..2018-06"
+    },
+    "draws": 4
+  },
+  "s-105": {
+    "kind": "noise_only",
+    "types": [
+      "promotion_title_only"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2000-03..2004-02",
+      "future": "2004-03..2005-02"
+    },
+    "draws": 1
+  },
+  "s-106": {
+    "kind": "events",
+    "types": [
+      "fraud_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-02..1996-01",
+      "future": "1996-02..1997-01"
+    },
+    "draws": 2
+  },
+  "s-107": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-04..2000-03",
+      "future": "2000-04..2001-03"
+    },
+    "draws": 1
+  },
+  "s-108": {
+    "kind": "events",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-08..2025-07",
+      "future": "2025-08..2026-07"
+    },
+    "draws": 1
+  },
+  "s-109": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1990-07..1994-06",
+      "future": "1994-07..1995-06"
+    },
+    "draws": 10
+  },
+  "s-110": {
+    "kind": "events",
+    "types": [
+      "disability",
+      "adult_child_moves_back"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2005-10..2009-09",
+      "future": "2009-10..2010-09"
+    },
+    "draws": 4
+  },
+  "s-111": {
+    "kind": "events",
+    "types": [
+      "relocation"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2020-11..2024-10",
+      "future": "2024-11..2025-10"
+    },
+    "draws": 4
+  },
+  "s-112": {
+    "kind": "noise_only",
+    "types": [
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-12..2012-11",
+      "future": "2012-12..2013-11"
+    },
+    "draws": 4
+  },
+  "s-113": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-02..2014-01",
+      "future": "2014-02..2015-01"
+    },
+    "draws": 1
+  },
+  "s-114": {
+    "kind": "events",
+    "types": [
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-02..2007-01",
+      "future": "2007-02..2008-01"
+    },
+    "draws": 5
+  },
+  "s-115": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2016-03..2020-02",
+      "future": "2020-03..2021-02"
+    },
+    "draws": 3
+  },
+  "s-116": {
+    "kind": "events",
+    "types": [
+      "fraud_loss",
+      "marriage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-09..2003-08",
+      "future": "2003-09..2004-08"
+    },
+    "draws": 1
+  },
+  "s-117": {
+    "kind": "events",
+    "types": [
+      "pay_cut",
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1993-01..1996-12",
+      "future": "1997-01..1997-12"
+    },
+    "draws": 8
+  },
+  "s-118": {
+    "kind": "events",
+    "types": [
+      "disability",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2001-11..2005-10",
+      "future": "2005-11..2006-10"
+    },
+    "draws": 1
+  },
+  "s-119": {
+    "kind": "events",
+    "types": [
+      "tuition_due"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-11..2011-10",
+      "future": "2011-11..2012-10"
+    },
+    "draws": 4
+  },
+  "s-120": {
+    "kind": "events",
+    "types": [
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-09..2000-08",
+      "future": "2000-09..2001-08"
+    },
+    "draws": 1
+  },
+  "s-121": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-11..1995-10",
+      "future": "1995-11..1996-10"
+    },
+    "draws": 3
+  },
+  "s-122": {
+    "kind": "events",
+    "types": [
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-08..2006-07",
+      "future": "2006-08..2007-07"
+    },
+    "draws": 1
+  },
+  "s-123": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "margin_call"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 1
+  },
+  "s-124": {
+    "kind": "noise_only",
+    "types": [
+      "pay_cut"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-03..2022-02",
+      "future": "2022-03..2023-02"
+    },
+    "draws": 2
+  },
+  "s-125": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-11..1999-10",
+      "future": "1999-11..2000-10"
+    },
+    "draws": 1
+  },
+  "s-126": {
+    "kind": "events",
+    "types": [
+      "lawsuit",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2006-11..2010-10",
+      "future": "2010-11..2011-10"
+    },
+    "draws": 3
+  },
+  "s-127": {
+    "kind": "noise_only",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2011-01..2014-12",
+      "future": "2015-01..2015-12"
+    },
+    "draws": 4
+  },
+  "s-128": {
+    "kind": "events",
+    "types": [
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-10..2012-09",
+      "future": "2012-10..2013-09"
+    },
+    "draws": 1
+  },
+  "s-129": {
+    "kind": "events",
+    "types": [
+      "prop_trading_loss",
+      "margin_call"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2013-11..2017-10",
+      "future": "2017-11..2018-10"
+    },
+    "draws": 2
+  },
+  "s-130": {
+    "kind": "events",
+    "types": [
+      "rsu_cliff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-01..2017-12",
+      "future": "2018-01..2018-12"
+    },
+    "draws": 2
+  },
+  "s-131": {
+    "kind": "events",
+    "types": [
+      "business_sale"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-08..2003-07",
+      "future": "2003-08..2004-07"
+    },
+    "draws": 1
+  },
+  "s-132": {
+    "kind": "events",
+    "types": [
+      "fraud_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-08..2015-07",
+      "future": "2015-08..2016-07"
+    },
+    "draws": 1
+  },
+  "s-133": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2001-05..2005-04",
+      "future": "2005-05..2006-04"
+    },
+    "draws": 5
+  },
+  "s-134": {
+    "kind": "events",
+    "types": [
+      "trading_blackout",
+      "firm_collapse",
+      "disability",
+      "market_drop"
+    ],
+    "fs": true,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 3
+  },
+  "s-135": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "sabbatical",
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-10..2006-09",
+      "future": "2006-10..2007-09"
+    },
+    "draws": 1
+  },
+  "s-136": {
+    "kind": "events",
+    "types": [
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2001-09..2005-08",
+      "future": "2005-09..2006-08"
+    },
+    "draws": 5
+  },
+  "s-137": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "disability",
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-09..2018-08",
+      "future": "2018-09..2019-08"
+    },
+    "draws": 1
+  },
+  "s-138": {
+    "kind": "events",
+    "types": [
+      "desk_shutdown",
+      "deferred_comp_clawback",
+      "lawsuit_settlement"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1994-08..1998-07",
+      "future": "1998-08..1999-07"
+    },
+    "draws": 2
+  },
+  "s-139": {
+    "kind": "noise_only",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-12..2015-11",
+      "future": "2015-12..2016-11"
+    },
+    "draws": 2
+  },
+  "s-140": {
+    "kind": "events",
+    "types": [
+      "rsu_cliff",
+      "tuition_due",
+      "bonus_deferral"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1991-04..1995-03",
+      "future": "1995-04..1996-03"
+    },
+    "draws": 3
+  },
+  "s-141": {
+    "kind": "events",
+    "types": [
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2020-06..2024-05",
+      "future": "2024-06..2025-05"
+    },
+    "draws": 3
+  },
+  "s-142": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "disaster_damage",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-04..1998-03",
+      "future": "1998-04..1999-03"
+    },
+    "draws": 2
+  },
+  "s-143": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "serious_illness",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 4
+  },
+  "s-144": {
+    "kind": "events",
+    "types": [
+      "tuition_due"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-09..2011-08",
+      "future": "2011-09..2012-08"
+    },
+    "draws": 1
+  },
+  "s-145": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop",
+      "parent_long_term_care"
+    ],
+    "fs": true,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 2
+  },
+  "s-146": {
+    "kind": "events",
+    "types": [
+      "serious_illness"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-04..1996-03",
+      "future": "1996-04..1997-03"
+    },
+    "draws": 2
+  },
+  "s-147": {
+    "kind": "events",
+    "types": [
+      "serious_illness"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2015-12..2019-11",
+      "future": "2019-12..2020-11"
+    },
+    "draws": 3
+  },
+  "s-148": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "layoff",
+      "serious_illness",
+      "credit_card_debt",
+      "foreclosure_risk"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2011-01..2014-12",
+      "future": "2015-01..2015-12"
+    },
+    "draws": 5
+  },
+  "s-149": {
+    "kind": "noise_only",
+    "types": [
+      "promotion_title_only"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1997-08..2001-07",
+      "future": "2001-08..2002-07"
+    },
+    "draws": 1
+  },
+  "s-150": {
+    "kind": "events",
+    "types": [
+      "disaster_damage",
+      "fraud_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-01..2022-12",
+      "future": "2023-01..2023-12"
+    },
+    "draws": 3
+  },
+  "s-151": {
+    "kind": "events",
+    "types": [
+      "divorce",
+      "medical_bill",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-02..2011-01",
+      "future": "2011-02..2012-01"
+    },
+    "draws": 3
+  },
+  "s-152": {
+    "kind": "events",
+    "types": [
+      "serious_illness"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1993-05..1997-04",
+      "future": "1997-05..1998-04"
+    },
+    "draws": 1
+  },
+  "s-153": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2013-09..2017-08",
+      "future": "2017-09..2018-08"
+    },
+    "draws": 2
+  },
+  "s-154": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "adult_child_moves_back",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2020-04..2024-03",
+      "future": "2024-04..2025-03"
+    },
+    "draws": 1
+  },
+  "s-155": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back",
+      "medical_bill"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1995-09..1999-08",
+      "future": "1999-09..2000-08"
+    },
+    "draws": 2
+  },
+  "s-156": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-12..1998-11",
+      "future": "1998-12..1999-11"
+    },
+    "draws": 1
+  },
+  "s-157": {
+    "kind": "events",
+    "types": [
+      "market_drop",
+      "legal_judgment",
+      "business_sale"
+    ],
+    "fs": true,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 3
+  },
+  "s-158": {
+    "kind": "events",
+    "types": [
+      "deferred_comp_clawback"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2020-06..2024-05",
+      "future": "2024-06..2025-05"
+    },
+    "draws": 3
+  },
+  "s-159": {
+    "kind": "events",
+    "types": [
+      "firm_collapse",
+      "market_drop"
+    ],
+    "fs": true,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 3
+  },
+  "s-160": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "medical_bill"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2014-04..2018-03",
+      "future": "2018-04..2019-03"
+    },
+    "draws": 2
+  },
+  "s-161": {
+    "kind": "events",
+    "types": [
+      "rsu_cliff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-08..2006-07",
+      "future": "2006-08..2007-07"
+    },
+    "draws": 2
+  },
+  "s-162": {
+    "kind": "events",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-11..2015-10",
+      "future": "2015-11..2016-10"
+    },
+    "draws": 3
+  },
+  "s-163": {
+    "kind": "events",
+    "types": [
+      "layoff",
+      "trading_blackout"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2013-09..2017-08",
+      "future": "2017-09..2018-08"
+    },
+    "draws": 3
+  },
+  "s-164": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-11..2022-10",
+      "future": "2022-11..2023-10"
+    },
+    "draws": 2
+  },
+  "s-165": {
+    "kind": "events",
+    "types": [
+      "pay_cut",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-08..2018-07",
+      "future": "2018-08..2019-07"
+    },
+    "draws": 2
+  },
+  "s-166": {
+    "kind": "no_events",
+    "types": [],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-05..2014-04",
+      "future": "2014-05..2015-04"
+    },
+    "draws": 2
+  },
+  "s-167": {
+    "kind": "events",
+    "types": [
+      "gig_income",
+      "market_drop",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 2
+  },
+  "s-168": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-01..2022-12",
+      "future": "2023-01..2023-12"
+    },
+    "draws": 2
+  },
+  "s-169": {
+    "kind": "events",
+    "types": [
+      "gig_income",
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2005-08..2009-07",
+      "future": "2009-08..2010-07"
+    },
+    "draws": 1
+  },
+  "s-170": {
+    "kind": "events",
+    "types": [
+      "furlough",
+      "layoff",
+      "inheritance",
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2001-08..2005-07",
+      "future": "2005-08..2006-07"
+    },
+    "draws": 3
+  },
+  "s-171": {
+    "kind": "events",
+    "types": [
+      "pension_buyout_offer"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2001-04..2005-03",
+      "future": "2005-04..2006-03"
+    },
+    "draws": 5
+  },
+  "s-172": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-06..2012-05",
+      "future": "2012-06..2013-05"
+    },
+    "draws": 1
+  },
+  "s-173": {
+    "kind": "events",
+    "types": [
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-01..1995-12",
+      "future": "1996-01..1996-12"
+    },
+    "draws": 3
+  },
+  "s-174": {
+    "kind": "events",
+    "types": [
+      "furlough"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1997-07..2001-06",
+      "future": "2001-07..2002-06"
+    },
+    "draws": 5
+  },
+  "s-175": {
+    "kind": "events",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-09..2025-08",
+      "future": "2025-09..2026-08"
+    },
+    "draws": 1
+  },
+  "s-176": {
+    "kind": "events",
+    "types": [
+      "fraud_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2012-03..2016-02",
+      "future": "2016-03..2017-02"
+    },
+    "draws": 2
+  },
+  "s-177": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "adult_child_moves_back",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-11..1999-10",
+      "future": "1999-11..2000-10"
+    },
+    "draws": 2
+  },
+  "s-178": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care",
+      "foreclosure_risk",
+      "business_sale"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2015-12..2019-11",
+      "future": "2019-12..2020-11"
+    },
+    "draws": 1
+  },
+  "s-179": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2017-01..2020-12",
+      "future": "2021-01..2021-12"
+    },
+    "draws": 2
+  },
+  "s-180": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-12..2011-11",
+      "future": "2011-12..2012-11"
+    },
+    "draws": 5
+  },
+  "s-181": {
+    "kind": "events",
+    "types": [
+      "student_loan_restart",
+      "child"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-06..2025-05",
+      "future": "2025-06..2026-05"
+    },
+    "draws": 1
+  },
+  "s-182": {
+    "kind": "events",
+    "types": [
+      "prop_trading_loss",
+      "inheritance",
+      "trading_blackout"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2017-01..2020-12",
+      "future": "2021-01..2021-12"
+    },
+    "draws": 4
+  },
+  "s-183": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "serious_illness"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-04..2023-03",
+      "future": "2023-04..2024-03"
+    },
+    "draws": 1
+  },
+  "s-184": {
+    "kind": "events",
+    "types": [
+      "fraud_loss",
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1993-01..1996-12",
+      "future": "1997-01..1997-12"
+    },
+    "draws": 2
+  },
+  "s-185": {
+    "kind": "events",
+    "types": [
+      "deferred_comp_clawback",
+      "tuition_due"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1999-02..2003-01",
+      "future": "2003-02..2004-01"
+    },
+    "draws": 5
+  },
+  "s-186": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "disability",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-02..2007-01",
+      "future": "2007-02..2008-01"
+    },
+    "draws": 1
+  },
+  "s-187": {
+    "kind": "events",
+    "types": [
+      "inheritance"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2003-12..2007-11",
+      "future": "2007-12..2008-11"
+    },
+    "draws": 2
+  },
+  "s-188": {
+    "kind": "noise_only",
+    "types": [
+      "promotion_title_only",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-06..1999-05",
+      "future": "1999-06..2000-05"
+    },
+    "draws": 3
+  },
+  "s-189": {
+    "kind": "events",
+    "types": [
+      "marriage",
+      "credit_card_debt",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-06..2015-05",
+      "future": "2015-06..2016-05"
+    },
+    "draws": 2
+  },
+  "s-190": {
+    "kind": "events",
+    "types": [
+      "trading_blackout"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-05..2015-04",
+      "future": "2015-05..2016-04"
+    },
+    "draws": 3
+  },
+  "s-191": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "home_purchase"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-03..2003-02",
+      "future": "2003-03..2004-02"
+    },
+    "draws": 3
+  },
+  "s-192": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-04..1995-03",
+      "future": "1995-04..1996-03"
+    },
+    "draws": 1
+  },
+  "s-193": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "gig_income",
+      "business_failure",
+      "bankruptcy",
+      "credit_card_debt"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1990-07..1994-06",
+      "future": "1994-07..1995-06"
+    },
+    "draws": 2
+  },
+  "s-194": {
+    "kind": "events",
+    "types": [
+      "lottery_win",
+      "furlough"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2013-12..2017-11",
+      "future": "2017-12..2018-11"
+    },
+    "draws": 2
+  },
+  "s-195": {
+    "kind": "events",
+    "types": [
+      "disaster_damage",
+      "marriage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1993-09..1997-08",
+      "future": "1997-09..1998-08"
+    },
+    "draws": 1
+  },
+  "s-196": {
+    "kind": "events",
+    "types": [
+      "business_failure",
+      "foreclosure_risk",
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "covid_2020",
+    "window": {
+      "history": "2016-04..2020-03",
+      "future": "2020-04..2021-03"
+    },
+    "draws": 1
+  },
+  "s-197": {
+    "kind": "events",
+    "types": [
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2005-11..2009-10",
+      "future": "2009-11..2010-10"
+    },
+    "draws": 1
+  },
+  "s-198": {
+    "kind": "no_events",
+    "types": [],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-11..2006-10",
+      "future": "2006-11..2007-10"
+    },
+    "draws": 1
+  },
+  "s-199": {
+    "kind": "events",
+    "types": [
+      "pay_cut",
+      "divorce",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-09..2018-08",
+      "future": "2018-09..2019-08"
+    },
+    "draws": 4
+  },
+  "s-200": {
+    "kind": "events",
+    "types": [
+      "bonus_deferral",
+      "deferred_comp_clawback",
+      "business_failure"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2001-12..2005-11",
+      "future": "2005-12..2006-11"
+    },
+    "draws": 1
+  },
+  "s-201": {
+    "kind": "events",
+    "types": [
+      "early_retirement_offer",
+      "layoff",
+      "serious_illness",
+      "credit_card_debt",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-02..2014-01",
+      "future": "2014-02..2015-01"
+    },
+    "draws": 1
+  },
+  "s-202": {
+    "kind": "events",
+    "types": [
+      "lawsuit"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-05..2025-04",
+      "future": "2025-05..2026-04"
+    },
+    "draws": 4
+  },
+  "s-203": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care",
+      "market_drop",
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 2
+  },
+  "s-204": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-08..2011-07",
+      "future": "2011-08..2012-07"
+    },
+    "draws": 6
+  },
+  "s-205": {
+    "kind": "events",
+    "types": [
+      "relocation",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1997-02..2001-01",
+      "future": "2001-02..2002-01"
+    },
+    "draws": 4
+  },
+  "s-206": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-06..1999-05",
+      "future": "1999-06..2000-05"
+    },
+    "draws": 1
+  },
+  "s-207": {
+    "kind": "noise_only",
+    "types": [
+      "promotion_title_only",
+      "pay_cut"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1997-07..2001-06",
+      "future": "2001-07..2002-06"
+    },
+    "draws": 3
+  },
+  "s-208": {
+    "kind": "events",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-03..2014-02",
+      "future": "2014-03..2015-02"
+    },
+    "draws": 1
+  },
+  "s-209": {
+    "kind": "no_events",
+    "types": [],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-09..1995-08",
+      "future": "1995-09..1996-08"
+    },
+    "draws": 2
+  },
+  "s-210": {
+    "kind": "events",
+    "types": [
+      "inheritance"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2019-04..2023-03",
+      "future": "2023-04..2024-03"
+    },
+    "draws": 1
+  },
+  "s-211": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "pay_cut"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-03..2018-02",
+      "future": "2018-03..2019-02"
+    },
+    "draws": 2
+  },
+  "s-212": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "student_loan_restart"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2013-10..2017-09",
+      "future": "2017-10..2018-09"
+    },
+    "draws": 2
+  },
+  "s-213": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-08..2006-07",
+      "future": "2006-08..2007-07"
+    },
+    "draws": 3
+  },
+  "s-214": {
+    "kind": "events",
+    "types": [
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2017-12..2021-11",
+      "future": "2021-12..2022-11"
+    },
+    "draws": 2
+  },
+  "s-215": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-02..2000-01",
+      "future": "2000-02..2001-01"
+    },
+    "draws": 1
+  },
+  "s-216": {
+    "kind": "events",
+    "types": [
+      "tuition_due"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2005-06..2009-05",
+      "future": "2009-06..2010-05"
+    },
+    "draws": 1
+  },
+  "s-217": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement",
+      "business_sale"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2020-03..2024-02",
+      "future": "2024-03..2025-02"
+    },
+    "draws": 1
+  },
+  "s-218": {
+    "kind": "events",
+    "types": [
+      "bonus_deferral"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2011-03..2015-02",
+      "future": "2015-03..2016-02"
+    },
+    "draws": 1
+  },
+  "s-219": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "tuition_due"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-08..2015-07",
+      "future": "2015-08..2016-07"
+    },
+    "draws": 2
+  },
+  "s-220": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-10..2014-09",
+      "future": "2014-10..2015-09"
+    },
+    "draws": 5
+  },
+  "s-221": {
+    "kind": "events",
+    "types": [
+      "fraud_loss"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2019-08..2023-07",
+      "future": "2023-08..2024-07"
+    },
+    "draws": 2
+  },
+  "s-222": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop",
+      "margin_call"
+    ],
+    "fs": true,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 6
+  },
+  "s-223": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop",
+      "parent_long_term_care"
+    ],
+    "fs": true,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 4
+  },
+  "s-224": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-06..2012-05",
+      "future": "2012-06..2013-05"
+    },
+    "draws": 2
+  },
+  "s-225": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review",
+      "promotion_title_only"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-12..1995-11",
+      "future": "1995-12..1996-11"
+    },
+    "draws": 1
+  },
+  "s-226": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "adult_child_moves_back"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-06..2014-05",
+      "future": "2014-06..2015-05"
+    },
+    "draws": 1
+  },
+  "s-227": {
+    "kind": "events",
+    "types": [
+      "home_purchase",
+      "disability"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2006-01..2009-12",
+      "future": "2010-01..2010-12"
+    },
+    "draws": 1
+  },
+  "s-228": {
+    "kind": "events",
+    "types": [
+      "marriage",
+      "ipo_lockup"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-06..1999-05",
+      "future": "1999-06..2000-05"
+    },
+    "draws": 1
+  },
+  "s-229": {
+    "kind": "events",
+    "types": [
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1993-06..1997-05",
+      "future": "1997-06..1998-05"
+    },
+    "draws": 1
+  },
+  "s-230": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-09..1995-08",
+      "future": "1995-09..1996-08"
+    },
+    "draws": 1
+  },
+  "s-231": {
+    "kind": "events",
+    "types": [
+      "ipo_lockup"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-11..2003-10",
+      "future": "2003-11..2004-10"
+    },
+    "draws": 2
+  },
+  "s-232": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2009-06..2013-05",
+      "future": "2013-06..2014-05"
+    },
+    "draws": 1
+  },
+  "s-233": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-01..2005-12",
+      "future": "2006-01..2006-12"
+    },
+    "draws": 3
+  },
+  "s-234": {
+    "kind": "events",
+    "types": [
+      "fraud_loss",
+      "job_change",
+      "home_purchase",
+      "relocation"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-06..1998-05",
+      "future": "1998-06..1999-05"
+    },
+    "draws": 2
+  },
+  "s-235": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2016-02..2020-01",
+      "future": "2020-02..2021-01"
+    },
+    "draws": 3
+  },
+  "s-236": {
+    "kind": "events",
+    "types": [
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 2
+  },
+  "s-237": {
+    "kind": "no_events",
+    "types": [],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1995-12..1999-11",
+      "future": "1999-12..2000-11"
+    },
+    "draws": 1
+  },
+  "s-238": {
+    "kind": "events",
+    "types": [
+      "disaster_damage",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2010-05..2014-04",
+      "future": "2014-05..2015-04"
+    },
+    "draws": 1
+  },
+  "s-239": {
+    "kind": "events",
+    "types": [
+      "job_change",
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "covid_2020",
+    "window": {
+      "history": "2016-04..2020-03",
+      "future": "2020-04..2021-03"
+    },
+    "draws": 1
+  },
+  "s-240": {
+    "kind": "events",
+    "types": [
+      "relocation",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-05..2012-04",
+      "future": "2012-05..2013-04"
+    },
+    "draws": 4
+  },
+  "s-241": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2009-10..2013-09",
+      "future": "2013-10..2014-09"
+    },
+    "draws": 1
+  },
+  "s-242": {
+    "kind": "no_events",
+    "types": [],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1993-06..1997-05",
+      "future": "1997-06..1998-05"
+    },
+    "draws": 1
+  },
+  "s-243": {
+    "kind": "events",
+    "types": [
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-10..2018-09",
+      "future": "2018-10..2019-09"
+    },
+    "draws": 4
+  },
+  "s-244": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop",
+      "divorce"
+    ],
+    "fs": true,
+    "anchor": "dotcom_2002",
+    "window": {
+      "history": "1998-10..2002-09",
+      "future": "2002-10..2003-09"
+    },
+    "draws": 1
+  },
+  "s-245": {
+    "kind": "events",
+    "types": [
+      "gig_income",
+      "job_change",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-07..2025-06",
+      "future": "2025-07..2026-06"
+    },
+    "draws": 1
+  },
+  "s-246": {
+    "kind": "events",
+    "types": [
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-07..1998-06",
+      "future": "1998-07..1999-06"
+    },
+    "draws": 2
+  },
+  "s-247": {
+    "kind": "events",
+    "types": [
+      "lottery_win",
+      "parent_long_term_care",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-09..2023-08",
+      "future": "2023-09..2024-08"
+    },
+    "draws": 1
+  },
+  "s-248": {
+    "kind": "events",
+    "types": [
+      "startup_equity",
+      "adult_child_moves_back",
+      "lottery_win"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-12..2003-11",
+      "future": "2003-12..2004-11"
+    },
+    "draws": 2
+  },
+  "s-249": {
+    "kind": "events",
+    "types": [
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-12..1998-11",
+      "future": "1998-12..1999-11"
+    },
+    "draws": 1
+  },
+  "s-250": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back",
+      "tuition_due"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-07..2015-06",
+      "future": "2015-07..2016-06"
+    },
+    "draws": 1
+  },
+  "s-251": {
+    "kind": "events",
+    "types": [
+      "relocation",
+      "divorce"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2001-01..2004-12",
+      "future": "2005-01..2005-12"
+    },
+    "draws": 2
+  },
+  "s-252": {
+    "kind": "events",
+    "types": [
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-06..2023-05",
+      "future": "2023-06..2024-05"
+    },
+    "draws": 1
+  },
+  "s-253": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "child"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-12..1999-11",
+      "future": "1999-12..2000-11"
+    },
+    "draws": 1
+  },
+  "s-254": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement",
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2016-11..2020-10",
+      "future": "2020-11..2021-10"
+    },
+    "draws": 8
+  },
+  "s-255": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2011-06..2015-05",
+      "future": "2015-06..2016-05"
+    },
+    "draws": 1
+  },
+  "s-256": {
+    "kind": "events",
+    "types": [
+      "medical_bill",
+      "serious_illness"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2003-07..2007-06",
+      "future": "2007-07..2008-06"
+    },
+    "draws": 1
+  },
+  "s-257": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop"
+    ],
+    "fs": true,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-258": {
+    "kind": "events",
+    "types": [
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2007-09..2011-08",
+      "future": "2011-09..2012-08"
+    },
+    "draws": 1
+  },
+  "s-259": {
+    "kind": "events",
+    "types": [
+      "lawsuit_settlement"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-05..2000-04",
+      "future": "2000-05..2001-04"
+    },
+    "draws": 4
+  },
+  "s-260": {
+    "kind": "events",
+    "types": [
+      "tax_bill",
+      "credit_card_debt",
+      "tuition_due"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2003-01..2006-12",
+      "future": "2007-01..2007-12"
+    },
+    "draws": 1
+  },
+  "s-261": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "gig_income"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2017-02..2021-01",
+      "future": "2021-02..2022-01"
+    },
+    "draws": 4
+  },
+  "s-262": {
+    "kind": "events",
+    "types": [
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-09..2025-08",
+      "future": "2025-09..2026-08"
+    },
+    "draws": 2
+  },
+  "s-263": {
+    "kind": "noise_only",
+    "types": [
+      "bonus_cut",
+      "annual_review"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "1998-02..2002-01",
+      "future": "2002-02..2003-01"
+    },
+    "draws": 1
+  },
+  "s-264": {
+    "kind": "noise_only",
+    "types": [
+      "promotion_title_only"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2015-12..2019-11",
+      "future": "2019-12..2020-11"
+    },
+    "draws": 2
+  },
+  "s-265": {
+    "kind": "events",
+    "types": [
+      "layoff",
+      "serious_illness"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-11..2007-10",
+      "future": "2007-11..2008-10"
+    },
+    "draws": 3
+  },
+  "s-266": {
+    "kind": "events",
+    "types": [
+      "credit_card_debt",
+      "divorce",
+      "gig_income"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2005-06..2009-05",
+      "future": "2009-06..2010-05"
+    },
+    "draws": 1
+  },
+  "s-267": {
+    "kind": "events",
+    "types": [
+      "disaster_damage",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-07..1996-06",
+      "future": "1996-07..1997-06"
+    },
+    "draws": 3
+  },
+  "s-268": {
+    "kind": "events",
+    "types": [
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "covid_2020",
+    "window": {
+      "history": "2016-04..2020-03",
+      "future": "2020-04..2021-03"
+    },
+    "draws": 1
+  },
+  "s-269": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1991-01..1994-12",
+      "future": "1995-01..1995-12"
+    },
+    "draws": 2
+  },
+  "s-270": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2013-02..2017-01",
+      "future": "2017-02..2018-01"
+    },
+    "draws": 1
+  },
+  "s-271": {
+    "kind": "events",
+    "types": [
+      "startup_equity",
+      "relocation",
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1996-03..2000-02",
+      "future": "2000-03..2001-02"
+    },
+    "draws": 1
+  },
+  "s-272": {
+    "kind": "events",
+    "types": [
+      "serious_illness",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2014-10..2018-09",
+      "future": "2018-10..2019-09"
+    },
+    "draws": 1
+  },
+  "s-273": {
+    "kind": "events",
+    "types": [
+      "tuition_due"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2009-11..2013-10",
+      "future": "2013-11..2014-10"
+    },
+    "draws": 1
+  },
+  "s-274": {
+    "kind": "events",
+    "types": [
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2021-01..2024-12",
+      "future": "2025-01..2025-12"
+    },
+    "draws": 2
+  },
+  "s-275": {
+    "kind": "events",
+    "types": [
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1997-09..2001-08",
+      "future": "2001-09..2002-08"
+    },
+    "draws": 2
+  },
+  "s-276": {
+    "kind": "events",
+    "types": [
+      "furlough",
+      "layoff",
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2003-12..2007-11",
+      "future": "2007-12..2008-11"
+    },
+    "draws": 3
+  },
+  "s-277": {
+    "kind": "events",
+    "types": [
+      "ipo_lockup",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-03..2015-02",
+      "future": "2015-03..2016-02"
+    },
+    "draws": 3
+  },
+  "s-278": {
+    "kind": "events",
+    "types": [
+      "special_needs_diagnosis",
+      "furlough",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-08..2012-07",
+      "future": "2012-08..2013-07"
+    },
+    "draws": 1
+  },
+  "s-279": {
+    "kind": "events",
+    "types": [
+      "market_drop"
+    ],
+    "fs": false,
+    "anchor": "covid_2020",
+    "window": {
+      "history": "2016-04..2020-03",
+      "future": "2020-04..2021-03"
+    },
+    "draws": 8
+  },
+  "s-280": {
+    "kind": "noise_only",
+    "types": [
+      "annual_review",
+      "crypto_loss"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-11..1996-10",
+      "future": "1996-11..1997-10"
+    },
+    "draws": 1
+  },
+  "s-281": {
+    "kind": "events",
+    "types": [
+      "relocation",
+      "disaster_damage"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2021-08..2025-07",
+      "future": "2025-08..2026-07"
+    },
+    "draws": 1
+  },
+  "s-282": {
+    "kind": "events",
+    "types": [
+      "startup_equity"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-06..1999-05",
+      "future": "1999-06..2000-05"
+    },
+    "draws": 2
+  },
+  "s-283": {
+    "kind": "events",
+    "types": [
+      "layoff"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-07..1996-06",
+      "future": "1996-07..1997-06"
+    },
+    "draws": 1
+  },
+  "s-284": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "death_of_spouse",
+      "market_drop",
+      "adult_child_moves_back"
+    ],
+    "fs": true,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-285": {
+    "kind": "events",
+    "types": [
+      "layoff",
+      "inheritance",
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2018-11..2022-10",
+      "future": "2022-11..2023-10"
+    },
+    "draws": 7
+  },
+  "s-286": {
+    "kind": "events",
+    "types": [
+      "parent_long_term_care",
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1995-11..1999-10",
+      "future": "1999-11..2000-10"
+    },
+    "draws": 2
+  },
+  "s-287": {
+    "kind": "events",
+    "types": [
+      "pay_cut"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1997-06..2001-05",
+      "future": "2001-06..2002-05"
+    },
+    "draws": 1
+  },
+  "s-288": {
+    "kind": "events",
+    "types": [
+      "job_change"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2002-02..2006-01",
+      "future": "2006-02..2007-01"
+    },
+    "draws": 2
+  },
+  "s-289": {
+    "kind": "events",
+    "types": [
+      "inheritance"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1999-09..2003-08",
+      "future": "2003-09..2004-08"
+    },
+    "draws": 2
+  },
+  "s-290": {
+    "kind": "events",
+    "types": [
+      "death_of_spouse",
+      "sabbatical",
+      "tax_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1992-05..1996-04",
+      "future": "1996-05..1997-04"
+    },
+    "draws": 2
+  },
+  "s-291": {
+    "kind": "fs_crisis",
+    "types": [
+      "firm_collapse",
+      "market_drop",
+      "parent_long_term_care",
+      "medical_bill"
+    ],
+    "fs": true,
+    "anchor": "gfc_2009",
+    "window": {
+      "history": "2005-03..2009-02",
+      "future": "2009-03..2010-02"
+    },
+    "draws": 1
+  },
+  "s-292": {
+    "kind": "events",
+    "types": [
+      "lottery_win",
+      "pension_buyout_offer"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2008-09..2012-08",
+      "future": "2012-09..2013-08"
+    },
+    "draws": 2
+  },
+  "s-293": {
+    "kind": "events",
+    "types": [
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2011-03..2015-02",
+      "future": "2015-03..2016-02"
+    },
+    "draws": 3
+  },
+  "s-294": {
+    "kind": "events",
+    "types": [
+      "marriage",
+      "disaster_damage"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2019-03..2023-02",
+      "future": "2023-03..2024-02"
+    },
+    "draws": 1
+  },
+  "s-295": {
+    "kind": "events",
+    "types": [
+      "crypto_loss",
+      "tax_bill"
+    ],
+    "fs": true,
+    "anchor": null,
+    "window": {
+      "history": "2007-01..2010-12",
+      "future": "2011-01..2011-12"
+    },
+    "draws": 1
+  },
+  "s-296": {
+    "kind": "events",
+    "types": [
+      "adult_child_moves_back"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2017-12..2021-11",
+      "future": "2021-12..2022-11"
+    },
+    "draws": 1
+  },
+  "s-297": {
+    "kind": "events",
+    "types": [
+      "lottery_win",
+      "divorce",
+      "medical_bill"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-08..1998-07",
+      "future": "1998-08..1999-07"
+    },
+    "draws": 2
+  },
+  "s-298": {
+    "kind": "no_events",
+    "types": [],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "1994-06..1998-05",
+      "future": "1998-06..1999-05"
+    },
+    "draws": 5
+  },
+  "s-299": {
+    "kind": "events",
+    "types": [
+      "divorce"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2016-03..2020-02",
+      "future": "2020-03..2021-02"
+    },
+    "draws": 2
+  },
+  "s-300": {
+    "kind": "events",
+    "types": [
+      "inheritance",
+      "business_failure",
+      "bankruptcy"
+    ],
+    "fs": false,
+    "anchor": null,
+    "window": {
+      "history": "2015-12..2019-11",
+      "future": "2019-12..2020-11"
+    },
+    "draws": 2
+  }
+}

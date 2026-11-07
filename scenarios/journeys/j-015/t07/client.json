@@ -1,0 +1,28 @@
+{
+  "client_id": "j-015-t07",
+  "name": "Victor Delgado",
+  "age": 49,
+  "state": "NJ",
+  "occupation": "equity research analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 254500,
+  "monthly_expenses": 11900,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.19,
+    "cash": 0.06
+  },
+  "monthly_contribution": 2150,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

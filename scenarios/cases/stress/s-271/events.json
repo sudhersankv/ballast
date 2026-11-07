@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-10-08",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 13000,
+        "strike": 0.62,
+        "last_409a_price": 5.7,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-10-14",
+      "details": {
+        "amount_due": 14300.0,
+        "due_date": "2027-01-14",
+        "cost_of_living_change_pct": 0,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e3",
+      "type": "disaster_damage",
+      "date": "2026-10-25",
+      "details": {
+        "peril": "tornado",
+        "damage_usd": 172000.0,
+        "insurance_covered_pct": 80,
+        "amount_due": 34400.0,
+        "due_date": "2027-03-19"
+      }
+    }
+  ]
+}

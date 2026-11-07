@@ -1,0 +1,26 @@
+{
+  "client_id": "s-275",
+  "name": "Elena Sorensen",
+  "age": 45,
+  "state": "TX",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 123000,
+  "monthly_expenses": 7600,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.21,
+    "cash": 0.24
+  },
+  "monthly_contribution": 1500
+}

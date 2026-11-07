@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "pay_cut",
+      "date": "2026-09-26",
+      "details": {
+        "new_income": 161000.0,
+        "reason": "reduced hours"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "pension_buyout_offer",
+      "date": "2026-09-30",
+      "details": {
+        "lump_sum_offer": 592000.0,
+        "annuity_monthly": 900.0,
+        "decision_deadline": "2026-12-03"
+      }
+    }
+  ]
+}

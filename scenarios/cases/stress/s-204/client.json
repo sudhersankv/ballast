@@ -1,0 +1,21 @@
+{
+  "client_id": "s-204",
+  "name": "Patrick Castellano",
+  "age": 68,
+  "state": "CA",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 120000,
+  "monthly_expenses": 7400,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 22,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.73,
+    "cash": 0.07
+  },
+  "monthly_contribution": 0.0
+}

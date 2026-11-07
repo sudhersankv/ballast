@@ -1,0 +1,21 @@
+{
+  "client_id": "s-100",
+  "name": "Omar Yilmaz",
+  "age": 72,
+  "state": "NJ",
+  "occupation": "retired registered nurse",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 100500,
+  "monthly_expenses": 6000,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.33,
+    "cash": 0.12
+  },
+  "monthly_contribution": 0.0
+}

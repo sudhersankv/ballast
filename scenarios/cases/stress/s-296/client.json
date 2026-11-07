@@ -1,0 +1,26 @@
+{
+  "client_id": "s-296",
+  "name": "Rosa Oyelaran",
+  "age": 62,
+  "state": "VA",
+  "occupation": "UX designer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 111000,
+  "monthly_expenses": 6700,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 3,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2029
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.48,
+    "cash": 0.17
+  },
+  "monthly_contribution": 1150
+}

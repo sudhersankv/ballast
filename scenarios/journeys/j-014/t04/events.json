@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2024-09-20",
+      "details": {
+        "balance": 43100.0,
+        "apr_pct": 19.9
+      }
+    }
+  ]
+}

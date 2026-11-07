@@ -1,0 +1,21 @@
+{
+  "client_id": "s-121",
+  "name": "Rafael Rasmussen",
+  "age": 71,
+  "state": "PA",
+  "occupation": "retired registered nurse",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 96000,
+  "monthly_expenses": 6000,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.58,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "s-135",
+  "name": "Lucia Beaumont",
+  "age": 46,
+  "state": "FL",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 172000,
+  "monthly_expenses": 9650,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.23,
+    "cash": 0.12
+  },
+  "monthly_contribution": 1600,
+  "notes": "Severance paid to an outside checking account."
+}

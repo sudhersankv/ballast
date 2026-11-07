@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e12",
+      "type": "parent_long_term_care",
+      "date": "2025-12-16",
+      "details": {
+        "care_type": "home health aide",
+        "monthly_cost_increase": 3550.0,
+        "siblings_sharing_cost": 3
+      }
+    },
+    {
+      "id": "e11",
+      "type": "market_drop",
+      "date": "2026-01-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -21.4,
+        "bond_change_pct": 5.7,
+        "peak_date": "2025-11-30",
+        "trough_date": "2026-01-30"
+      }
+    }
+  ]
+}

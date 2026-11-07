@@ -1,0 +1,21 @@
+{
+  "client_id": "s-177",
+  "name": "Malik Beaumont",
+  "age": 73,
+  "state": "FL",
+  "occupation": "retired civil engineer",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 50000,
+  "monthly_expenses": 4450,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.77,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

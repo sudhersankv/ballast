@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "deferred_comp_clawback",
+      "date": "2026-09-12",
+      "details": {
+        "amount_clawed": 76000.0,
+        "reason": "conduct review"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "business_sale",
+      "date": "2026-09-30",
+      "details": {
+        "proceeds": 1743000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 371000.0
+      }
+    }
+  ]
+}

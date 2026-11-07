@@ -1,0 +1,21 @@
+{
+  "client_id": "s-024",
+  "name": "Abigail Beaumont",
+  "age": 75,
+  "state": "PA",
+  "occupation": "retired UX designer",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 49000,
+  "monthly_expenses": 4250,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.4,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

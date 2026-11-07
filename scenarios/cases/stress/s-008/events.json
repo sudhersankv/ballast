@@ -1,0 +1,43 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tax_bill",
+      "date": "2026-08-09",
+      "details": {
+        "amount_due": 3500.0,
+        "due_date": "2026-12-15",
+        "reason": "RSU withholding shortfall"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-09-16",
+      "details": {
+        "amount": 200000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "lawsuit",
+      "date": "2026-09-20",
+      "details": {
+        "claim_usd": 286000.0,
+        "insured": true,
+        "status": "discovery"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "legal_judgment",
+      "date": "2026-10-24",
+      "details": {
+        "amount_due": 49200.0,
+        "due_date": "2027-01-06"
+      }
+    }
+  ]
+}

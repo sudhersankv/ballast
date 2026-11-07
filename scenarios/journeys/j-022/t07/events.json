@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "job_change",
+      "date": "2025-10-15",
+      "details": {
+        "new_income": 96500,
+        "previous_income": 122500,
+        "start_date": "2025-10-15",
+        "new_employer": "Corvane Analytics"
+      }
+    },
+    {
+      "id": "e7",
+      "type": "market_drop",
+      "date": "2025-10-30",
+      "details": {
+        "us_equity_change_pct": -19.4,
+        "intl_equity_change_pct": -9.0,
+        "bond_change_pct": 8.5,
+        "peak_date": "2025-05-31",
+        "trough_date": "2025-10-30"
+      }
+    }
+  ]
+}

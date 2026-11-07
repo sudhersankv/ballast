@@ -1,0 +1,27 @@
+{
+  "client_id": "s-272",
+  "name": "Kenji Quintero",
+  "age": 48,
+  "state": "TX",
+  "occupation": "clinical operations manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 204500,
+  "monthly_expenses": 9750,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.21,
+    "cash": 0.19
+  },
+  "monthly_contribution": 2600,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

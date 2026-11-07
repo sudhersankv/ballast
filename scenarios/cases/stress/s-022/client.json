@@ -1,0 +1,26 @@
+{
+  "client_id": "s-022",
+  "name": "Malik Sorensen",
+  "age": 57,
+  "state": "CA",
+  "occupation": "data scientist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 128000,
+  "monthly_expenses": 8000,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.13,
+    "cash": 0.12
+  },
+  "monthly_contribution": 1200
+}

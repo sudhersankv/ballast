@@ -1,0 +1,22 @@
+{
+  "client_id": "s-147",
+  "name": "Rafael Dubois",
+  "age": 74,
+  "state": "VA",
+  "occupation": "retired logistics manager",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 208000,
+  "monthly_expenses": 10550,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.38,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0
+}

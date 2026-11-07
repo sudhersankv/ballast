@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2024-06-03",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": 1650.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 4000
+      }
+    }
+  ]
+}

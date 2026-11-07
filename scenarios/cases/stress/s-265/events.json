@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-12",
+      "details": {
+        "severance": 43400.0,
+        "severance_weeks": 15,
+        "employer": "previous employer",
+        "last_day": "2026-09-12",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e2",
+      "type": "serious_illness",
+      "date": "2026-10-17",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": 500.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 6000
+      }
+    }
+  ]
+}

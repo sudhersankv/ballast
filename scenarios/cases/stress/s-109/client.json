@@ -1,0 +1,21 @@
+{
+  "client_id": "s-109",
+  "name": "Maya Abernathy",
+  "age": 65,
+  "state": "NY",
+  "occupation": "data scientist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 134000,
+  "monthly_expenses": 7800,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.75,
+    "cash": 0.05
+  },
+  "monthly_contribution": 1700
+}

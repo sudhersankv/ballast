@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "legal_judgment",
+      "date": "2026-08-23",
+      "details": {
+        "amount_due": 113900.0,
+        "due_date": "2027-02-24"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "business_sale",
+      "date": "2026-08-29",
+      "details": {
+        "proceeds": 272000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 328000.0
+      }
+    },
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -42.1,
+        "intl_equity_change_pct": -38.2,
+        "bond_change_pct": 23.9,
+        "peak_date": "2024-10-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2000-02 dot-com bust"
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "medical_bill",
+      "date": "2026-07-09",
+      "details": {
+        "amount_due": 3800.0,
+        "due_date": "2026-12-01",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e12",
+      "type": "tuition_due",
+      "date": "2026-07-12",
+      "details": {
+        "amount_due": 60800.0,
+        "due_date": "2026-10-05",
+        "school_type": "private nonprofit",
+        "aid_package_final": true
+      }
+    },
+    {
+      "id": "e10",
+      "type": "market_drop",
+      "date": "2026-07-30",
+      "details": {
+        "us_equity_change_pct": -21.8,
+        "intl_equity_change_pct": -19.6,
+        "bond_change_pct": -8.6,
+        "peak_date": "2026-01-31",
+        "trough_date": "2026-07-30"
+      }
+    }
+  ]
+}

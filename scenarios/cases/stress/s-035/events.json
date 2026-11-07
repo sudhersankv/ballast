@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-08-15",
+      "details": {
+        "amount_lost": 92300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "startup_equity",
+      "date": "2026-08-20",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 30000,
+        "strike": 1.72,
+        "last_409a_price": 5.46,
+        "liquid": false
+      }
+    }
+  ]
+}

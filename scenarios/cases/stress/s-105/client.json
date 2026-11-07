@@ -1,0 +1,26 @@
+{
+  "client_id": "s-105",
+  "name": "Priya Haddad",
+  "age": 54,
+  "state": "NY",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 136000,
+  "monthly_expenses": 8700,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.45,
+    "cash": 0.15
+  },
+  "monthly_contribution": 1700
+}

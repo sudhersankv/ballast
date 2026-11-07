@@ -1,0 +1,23 @@
+{
+  "client_id": "s-149",
+  "name": "Grant Chen",
+  "age": 65,
+  "state": "OR",
+  "occupation": "equity research analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 314500,
+  "monthly_expenses": 14250,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.63,
+    "cash": 0.17
+  },
+  "monthly_contribution": 700,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

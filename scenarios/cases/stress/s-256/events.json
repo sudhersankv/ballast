@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "medical_bill",
+      "date": "2026-08-03",
+      "details": {
+        "amount_due": 20200.0,
+        "due_date": "2027-03-09",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "serious_illness",
+      "date": "2026-08-16",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": null,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 6000,
+        "note": "treatment plan not final; costs still being estimated"
+      }
+    }
+  ]
+}

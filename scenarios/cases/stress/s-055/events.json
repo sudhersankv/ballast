@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2026-09-12",
+      "details": {
+        "balance": 9100.0,
+        "apr_pct": 22.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-10-20",
+      "details": {
+        "amount_due": 13900.0,
+        "due_date": "2026-12-13",
+        "reason": "RSU withholding shortfall"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "child",
+      "date": "2026-10-24",
+      "details": {
+        "birth_date": "2026-10-24",
+        "adoption": false
+      }
+    }
+  ]
+}

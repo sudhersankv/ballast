@@ -1,0 +1,21 @@
+{
+  "client_id": "s-107",
+  "name": "Connor Patel",
+  "age": 74,
+  "state": "CA",
+  "occupation": "retired accountant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 137000,
+  "monthly_expenses": 7450,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.8,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

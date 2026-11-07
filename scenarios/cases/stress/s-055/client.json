@@ -1,0 +1,26 @@
+{
+  "client_id": "s-055",
+  "name": "Nadia Abernathy",
+  "age": 43,
+  "state": "MN",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 162000,
+  "monthly_expenses": 9450,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 22,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2048
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.1,
+    "cash": 0.25
+  },
+  "monthly_contribution": 2000
+}

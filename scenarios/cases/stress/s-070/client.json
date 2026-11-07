@@ -1,0 +1,26 @@
+{
+  "client_id": "s-070",
+  "name": "Grant Whitaker",
+  "age": 51,
+  "state": "NC",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 113000,
+  "monthly_expenses": 6400,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.35,
+    "cash": 0.1
+  },
+  "monthly_contribution": 800
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-036",
+  "name": "Priya Sorensen",
+  "age": 59,
+  "state": "MI",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 76500,
+  "monthly_expenses": 5850,
+  "dependents": 2,
+  "risk_score": 2,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.44,
+    "cash": 0.16
+  },
+  "monthly_contribution": 850
+}

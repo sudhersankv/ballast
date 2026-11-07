@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-18",
+      "details": {
+        "severance": 25300.0,
+        "severance_weeks": 10,
+        "employer": "Nimbex Cloud",
+        "last_day": "2026-09-18",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

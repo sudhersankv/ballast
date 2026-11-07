@@ -1,0 +1,26 @@
+{
+  "client_id": "s-236",
+  "name": "Camila Varga",
+  "age": 59,
+  "state": "TX",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 103000,
+  "monthly_expenses": 6000,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.38,
+    "cash": 0.02
+  },
+  "monthly_contribution": 950
+}

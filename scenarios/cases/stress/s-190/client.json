@@ -1,0 +1,27 @@
+{
+  "client_id": "s-190",
+  "name": "Natalie Whitaker",
+  "age": 39,
+  "state": "GA",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 137500,
+  "monthly_expenses": 7450,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.28,
+    "cash": 0.17
+  },
+  "monthly_contribution": 1800,
+  "employer": "Nimbex Cloud (NMBX)"
+}

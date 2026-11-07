@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "carried_interest",
+      "date": "2026-10-23",
+      "details": {
+        "fund": "Opportunities Fund",
+        "estimated_value": 962000.0,
+        "expected_years_to_realize": 3,
+        "liquid": false
+      }
+    }
+  ]
+}

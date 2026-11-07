@@ -1,0 +1,27 @@
+{
+  "client_id": "j-009-t07",
+  "name": "Kenji Yilmaz",
+  "age": 27,
+  "state": "AZ",
+  "occupation": "operations analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 320500,
+  "monthly_expenses": 15700,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 38,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2066
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.31,
+    "cash": 0.09
+  },
+  "monthly_contribution": 2150
+}

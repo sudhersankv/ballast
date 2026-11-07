@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e15",
+      "type": "job_change",
+      "date": "2026-05-07",
+      "details": {
+        "new_income": 65500,
+        "previous_income": 72500.0,
+        "start_date": "2026-05-07",
+        "new_employer": "Orchard Labs"
+      }
+    },
+    {
+      "id": "e16",
+      "type": "relocation",
+      "date": "2026-07-11",
+      "details": {
+        "amount_due": 24200.0,
+        "due_date": "2026-10-22",
+        "cost_of_living_change_pct": -15,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-238",
+  "name": "Victor Okafor",
+  "age": 48,
+  "state": "MA",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 177000,
+  "monthly_expenses": 8600,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.06,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1000
+}

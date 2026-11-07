@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-09-08",
+      "details": {
+        "new_income": 136000.0,
+        "previous_income": 160000,
+        "start_date": "2026-09-08"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "student_loan_restart",
+      "date": "2026-10-24",
+      "details": {
+        "balance": 110900.0,
+        "monthly_payment": 1030.0
+      }
+    }
+  ]
+}

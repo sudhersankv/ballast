@@ -1,0 +1,26 @@
+{
+  "client_id": "s-195",
+  "name": "Tessa Abernathy",
+  "age": 55,
+  "state": "NC",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 140000,
+  "monthly_expenses": 8900,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.45,
+    "cash": 0.15
+  },
+  "monthly_contribution": 1100
+}

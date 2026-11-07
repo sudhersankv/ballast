@@ -1,0 +1,21 @@
+{
+  "client_id": "s-096",
+  "name": "Tessa Holloway",
+  "age": 71,
+  "state": "CA",
+  "occupation": "retired UX designer",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 172000,
+  "monthly_expenses": 8600,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.63,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0
+}

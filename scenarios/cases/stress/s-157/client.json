@@ -1,0 +1,22 @@
+{
+  "client_id": "s-157",
+  "name": "Malik Rasmussen",
+  "age": 71,
+  "state": "VA",
+  "occupation": "retired dental hygienist",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 103000,
+  "monthly_expenses": 6150,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 0.0
+}

@@ -105,3 +105,22 @@ For a layoff case like SPEC.md's example (risk 3, expenses 5,200, total 139k, AC
 | Sell 6k ACME and 16.2k US_EQ, buy 22.2k CASH, cited `event:e1` and `rule:concentration` | passes all; score 1.0 |
 | Same trades but buys don't match sells | valid_output fails, score 0 |
 | Same trades, one trade's reason_ref is `"because"` | fails cited (hard), passed = false |
+
+## 9. Extended rules (checker/rules_ext.py)
+
+These rules grade the stress population (`scenarios/cases/stress/`, journeys j-007 and later). They are **additive**. Each rule applies only when `events.json` contains one of its trigger event types, and none of those types appear in the original sets (practice, test, regression, drift, j-001..j-006), so those sets score exactly as before. `check.py` runs `RULES + RX.RULES` with the same score and pass formula (section 4). The rules use the same tolerances as section 1.
+
+| Rule | Sev | Applies when | Pass when |
+| --- | --- | --- | --- |
+| `restricted_symbol` | Hard | events contain `trading_blackout`, `insider_status` or `ipo_lockup` | no trade has a `symbol` equal to any of those events' `details.symbol` (employer stock is frozen during a blackout, pre-clearance or lockup) |
+| `known_cash_need` | Hard | events contain a known-need type: `home_purchase`, `tuition_due`, `tax_bill`, `margin_call`, `medical_bill`, `relocation`, `disaster_damage`, `foreclosure_risk`, `sabbatical` or `legal_judgment` | post-trade `CASH ≥ base × monthly_expenses + Σ amount_due` over those events, counting only those due within 366 days of `as_of` (no due date means due now). `base` is 6 if there is a layoff or an income-shock event, otherwise 3. An `amount_due` that is `null` (amount not known yet) counts as 0. |
+| `income_shock_fund` | Hard | events contain `furlough`, `disability`, `firm_collapse`, `desk_shutdown`, `regulatory_ban`, `gig_income`, `death_of_spouse` or `business_failure` | `cash_months ≥ 6` (same idea as the layoff rule, extended to other ways income stops or becomes unreliable) |
+| `care_cost_buffer` | Soft | events contain `serious_illness`, `disability`, `parent_long_term_care`, `adult_child_moves_back` or `special_needs_diagnosis` | `CASH ≥ 6 × (monthly_expenses + Σ details.monthly_cost_increase)`. A `null` increase counts as 0. |
+| `review_flag` | Soft | events contain a type in the map below | `flags` contains the mapped flag for every such event: `death_of_spouse`→`estate_review`; `bankruptcy`, `lawsuit`, `legal_judgment`, `regulatory_ban`, `deferred_comp_clawback`→`legal_review`; `fraud_loss`→`fraud_report`; `foreclosure_risk`, `credit_card_debt`, `margin_call`→`debt_review`; `pension_buyout_offer`, `early_retirement_offer`→`pension_election_review` |
+| `noise_no_churn` | Soft | every event is informational (`bonus_deferral`, `carried_interest`, `startup_equity`, `crypto_loss`, `bonus_cut`, `pay_cut`, `student_loan_restart`, `promotion_title_only`, `annual_review`), **and** every class is within ±0.05 of target, **and** the pre-trade holdings already pass risk_band, emergency_fund, concentration and glidepath | `trades == []` and `no_action_reason` is non-empty (the right answer to noise is to do nothing) |
+
+**[decision]** `noise_no_churn` includes glidepath in its "already compliant" test. The base `no_churn` rule does not, which is why the scenario generators must avoid the no_churn-vs-glidepath conflict for clients aged 55+.
+
+**[decision]** The generators keep a restricted symbol at 9.5% of the portfolio or less. Otherwise `restricted_symbol` (can't sell) and `concentration` (must sell) would make the case unsolvable. Real-world handling of an over-cap restricted position (a 10b5-1 plan, a hedge, waiting for the window) is outside the trade list.
+
+Other new event types are ungraded context: `rsu_cliff` (it may push employer stock over the concentration cap), `retirement`, windfalls, `prop_trading_loss` and `lawsuit_settlement`. The original rules still apply to them (risk_band after a windfall, concentration after a vest, and so on).

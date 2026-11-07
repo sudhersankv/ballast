@@ -1,0 +1,26 @@
+{
+  "client_id": "s-243",
+  "name": "Tyrone Sorensen",
+  "age": 59,
+  "state": "FL",
+  "occupation": "HVAC technician",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 56000,
+  "monthly_expenses": 4350,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.3,
+    "cash": 0.1
+  },
+  "monthly_contribution": 300
+}

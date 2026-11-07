@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "tax_bill",
+      "date": "2025-08-11",
+      "details": {
+        "amount_due": 9500.0,
+        "due_date": "2026-01-03",
+        "reason": "self-employment tax"
+      }
+    },
+    {
+      "id": "e6",
+      "type": "startup_equity",
+      "date": "2025-08-27",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 22000,
+        "strike": 4.4,
+        "last_409a_price": 8.39,
+        "liquid": false
+      }
+    }
+  ]
+}

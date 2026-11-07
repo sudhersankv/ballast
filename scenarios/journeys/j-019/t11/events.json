@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e14",
+      "type": "parent_long_term_care",
+      "date": "2026-05-08",
+      "details": {
+        "care_type": "home health aide",
+        "monthly_cost_increase": 4050.0,
+        "siblings_sharing_cost": 3
+      }
+    }
+  ]
+}

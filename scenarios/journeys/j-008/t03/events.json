@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2024-11-22",
+      "details": {
+        "amount_due": 7900.0,
+        "due_date": "2025-07-05",
+        "reason": "capital gains"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "relocation",
+      "date": "2025-01-10",
+      "details": {
+        "amount_due": 11200.0,
+        "due_date": "2025-04-17",
+        "cost_of_living_change_pct": -15,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

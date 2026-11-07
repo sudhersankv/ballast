@@ -1,0 +1,26 @@
+{
+  "client_id": "s-142",
+  "name": "Tessa Okafor",
+  "age": 55,
+  "state": "FL",
+  "occupation": "civil engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 98000,
+  "monthly_expenses": 6000,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 600
+}

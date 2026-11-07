@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "relocation",
+      "date": "2024-11-28",
+      "details": {
+        "amount_due": 11100.0,
+        "due_date": "2025-05-20",
+        "cost_of_living_change_pct": 10,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e4",
+      "type": "pay_cut",
+      "date": "2024-12-25",
+      "details": {
+        "new_income": 83500.0,
+        "reason": "cost cutting"
+      }
+    }
+  ]
+}

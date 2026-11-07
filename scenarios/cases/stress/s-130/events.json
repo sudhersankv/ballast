@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "rsu_cliff",
+      "date": "2026-08-18",
+      "details": {
+        "symbol": "KSTL",
+        "vest_value": 205000.0,
+        "vest_date": "2026-08-18"
+      }
+    }
+  ]
+}

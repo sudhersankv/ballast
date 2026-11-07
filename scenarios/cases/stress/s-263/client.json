@@ -1,0 +1,28 @@
+{
+  "client_id": "s-263",
+  "name": "Wesley Gallagher",
+  "age": 56,
+  "state": "MI",
+  "occupation": "risk manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 261500,
+  "monthly_expenses": 11650,
+  "dependents": 3,
+  "risk_score": 2,
+  "horizon_years": 9,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2035
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.56,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1100,
+  "employer": "Halvard Capital Group (HVCG)"
+}

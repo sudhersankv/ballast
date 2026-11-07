@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "adult_child_moves_back",
+      "date": "2026-09-11",
+      "details": {
+        "child_age": 26,
+        "monthly_cost_increase": 750.0,
+        "expected_stay_months": 12
+      }
+    },
+    {
+      "id": "e2",
+      "type": "startup_equity",
+      "date": "2026-10-18",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 72000,
+        "strike": 1.19,
+        "last_409a_price": 5.31,
+        "liquid": false
+      }
+    }
+  ]
+}

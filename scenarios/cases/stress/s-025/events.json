@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "desk_shutdown",
+      "date": "2026-09-01",
+      "details": {
+        "garden_leave_months": 3,
+        "severance": 27000.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disaster_damage",
+      "date": "2026-09-30",
+      "details": {
+        "peril": "tornado",
+        "damage_usd": 101000.0,
+        "insurance_covered_pct": 80,
+        "amount_due": 20200.0,
+        "due_date": "2027-02-10"
+      }
+    }
+  ]
+}

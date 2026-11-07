@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit_settlement",
+      "date": "2026-08-05",
+      "details": {
+        "amount": 95000.0,
+        "deposited_to": "CASH",
+        "taxable": false
+      }
+    }
+  ]
+}

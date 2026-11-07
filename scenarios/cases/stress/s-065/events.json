@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-03",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": null,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 4000,
+        "note": "treatment plan not final; costs still being estimated"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "fraud_loss",
+      "date": "2026-08-12",
+      "details": {
+        "amount_lost": 11500,
+        "scam_type": "account takeover",
+        "recovery_expected": "unknown",
+        "taken_from": "this account's CASH"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "medical_bill",
+      "date": "2026-10-09",
+      "details": {
+        "amount_due": 12400.0,
+        "due_date": "2027-03-14",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

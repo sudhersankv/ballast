@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit_settlement",
+      "date": "2026-08-07",
+      "details": {
+        "amount": 334000.0,
+        "deposited_to": "CASH",
+        "taxable": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "business_sale",
+      "date": "2026-09-26",
+      "details": {
+        "proceeds": 1328000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 277000.0
+      }
+    }
+  ]
+}

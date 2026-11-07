@@ -218,6 +218,128 @@ Events by checkpoint and v0-style **naive** result. "pass" or "FAIL" is the chec
   - Its diagnosis now uses the checker's tolerances (±0.005 on weights, ±$1).
   - Its glidepath target uses a 3-point buffer below the midpoint, and it rebalances a 55+ client proactively at any review with events. Otherwise a quiet next quarter could land in an unavoidable no_churn-vs-glidepath conflict, since EVAL's no_churn trigger ignores glidepath.
 
+## Stress population: messy lives at scale
+
+```bash
+python scenarios/stress.py           # 300 single cases -> cases/stress/s-001..s-300 (+ holdout/stress), self-check, stress_report.json
+python scenarios/journeys.py         # rebuilds j-001..j-006 (unchanged) and j-007..j-030 (journeys_ext.py), checks all
+```
+
+The original 60 cases and j-001..j-006 are byte-identical; their scores are also unchanged, because the extended rules never trigger on the original event types. The stress population adds:
+
+- **`events_catalog.py`**: 54 event types in 10 families (health, family, housing, work, windfall, loss, debt, legal, market, and **fs** for financial-services employees). Each type has a frequency source, an impact, and a randomized-severity detail maker, and about 12% of events have a key amount withheld (`null` plus a `note`). The full taxonomy table is in SOURCES.md.
+- **Cascades** (`stress.CASCADE`), for example:
+  - illness → disability → medical bills
+  - prop-trading loss → margin call
+  - firm collapse → employer stock −90 to 99% in the same quarter as a real crash, with deferred comp lost
+  - death of a spouse → an adult child moves back, plus a tax bill
+  - business failure → bankruptcy
+  - RSU cliff → tax bill and a trading blackout
+  - home purchase → relocation
+- **FS crisis template.** For about 25% of financial-services clients: the firm fails in a real crash, and up to two other shocks land in the same quarter (a parent's long-term care, a margin call, a divorce, ...).
+- **Noise-only cases** (about 7%): only informational events (deferred bonus, carried interest, crypto loss in an outside account, a title-only promotion, ...) on a compliant portfolio. The right answer is to do nothing, graded by `noise_no_churn`.
+- **Extended policy** (`checker/rules_ext.py`, EVAL.md section 9):
+  - restricted symbols are never traded (blackout, insider status, lockup)
+  - known cash needs within 12 months are held in cash on top of the emergency fund
+  - 6 months of cash after any income shock
+  - a care-cost buffer
+  - human-review flags
+  - no churn on noise
+- **Verified solvable.** Every case and checkpoint is checked: `oracle.recommend` scores 1.0 under `checker/check.py`, or the draw is redone. Generation is seeded and reproducible (two runs give identical hashes).
+
+**Population, 300 stress cases:**
+
+- **Age:** 22–75, median 58 (p25 49, p75 67).
+- **Income:** median $141k ($48k–$566k).
+- **Portfolio:** median $401k ($75k–$6.3M).
+- **Cash:** median 4 months of expenses (0 to 305).
+- **Financial services:** 69 of 300 are FS employees (23%).
+- **Risk scores:** 1 → 34, 2 → 90, 3 → 118, 4 → 54, 5 → 4.
+- **Events per case:** 0 → 9, 1 → 107, 2 → 111, 3 → 60, 4 → 9, 5 → 4.
+- **Kinds:** 262 general, 21 noise-only, 9 with no events, 8 FS crisis.
+
+**Difficulty by event family** (a case counts in every family it touches):
+
+| family | n | naive pass | do-nothing pass | naive EF breach in backtest | oracle EF breach |
+| --- | --- | --- | --- | --- | --- |
+| work | 107 | 0.18 | 0.07 | 38 | 0 |
+| health | 70 | 0.21 | 0.10 | 19 | 0 |
+| FS employees (any event) | 69 | 0.26 | 0.20 | 25 | 0 |
+| family | 55 | 0.27 | 0.09 | 11 | 0 |
+| loss | 54 | 0.22 | 0.02 | 15 | 0 |
+| windfall | 47 | 0.57 | 0.17 | 7 | 0 |
+| housing | 44 | 0.16 | 0.02 | 14 | 0 |
+| market | 33 | 0.21 | 0.09 | 16 | 0 |
+| fs (FS-specific events) | 30 | **0.07** | 0.03 | 16 | 0 |
+| debt | 28 | 0.14 | 0.11 | 9 | 0 |
+| legal | 11 | 0.45 | 0.18 | 3 | 0 |
+| noise only | 21 | 1.00 | 1.00 | 0 | 0 |
+| no events | 9 | 1.00 | 1.00 | 0 | 0 |
+| **all** | 300 | **0.34** | **0.18** | | |
+
+- **Naive failures by rule:**
+  - emergency_fund: 97
+  - known_cash_need: 97
+  - review_flag: 79
+  - care_cost_buffer: 61
+  - income_shock_fund: 54
+  - concentration: 37
+  - glidepath: 20
+  - event_job_change: 10
+  - restricted_symbol: 5 (naive sold frozen employer stock)
+  - event_marriage: 5
+  - event_child: 4
+- **Noise-only cases** pass naive. They test over-reaction by a strong model, not under-reaction.
+
+**Journeys j-007..j-030.**
+
+- **Shape:** 24 clients with 10–12 quarterly checkpoints each, 262 in total. Real windows run from 1996 to 2023; crash windows are oversampled. Exactly 8 clients work in financial services.
+- **Firm collapses:** j-015, j-021 and j-024 have their employer collapse inside a real crash.
+- **Messiness:**
+  - Event density is about 85% of quarters, with second and third events in the same quarter.
+  - Cascades run across quarters: a layoff leads to re-employment 1–3 quarters later; an illness leads to disability the next quarter.
+  - Known needs are actually paid on their due dates, so the cash really leaves the account.
+  - Each journey has a quiet quarter and an event type first seen in its holdout half.
+- **Wealth:** portfolios are held at 30–80 months of expenses, so cash floors bind.
+- **Results:** the oracle solves 262/262. Naive passes 47/127 train checkpoints and 56/135 holdout checkpoints, against 13/30 and 21/30 for the tidy j-001..j-006.
+
+### Ten example clients
+
+1. **s-134, Gloria Abernathy, 45, equity research analyst at Meridian Trust Securities, risk 4.**
+   - Her firm's trading blackout runs until mid-December.
+   - In the same quarter the firm collapses: MRTS −98.6%, $84k of deferred comp gone. She goes on disability (+$700/month care costs) while the dot-com bust has US stocks −42%.
+   - The right move is to raise 6 months of cash from the index funds and never touch the frozen MRTS shares. Naive sold MRTS during the blackout and left her short of cash.
+2. **s-223, Omar Chen, 61, credit trader at Halvard Capital Group, risk 2.**
+   - GFC-style crash (US −50%). HVCG is −94.8%, and $302k of deferred comp is lost in the bankruptcy.
+   - In the same quarter his father needs a home health aide, his share being $4,100/month.
+   - He holds a $1.7M portfolio but only 2.1 months of cash; he needs 6 months of (expenses + care).
+3. **s-291, Kenji Beaumont, 54, credit trader at Halvard Capital Group.** The same firm failure (HVCG −92%, $160k deferred comp lost) arrives with a parent's long-term care at $4,200/month and a $3.9k medical bill due in 3 weeks. Naive fails four rules at once.
+4. **s-129, Fiona Okafor, 39, rates trader at Halvard Capital Group, risk 4.**
+   - A $98k loss in her personal trading account triggers a $13.9k margin call due in days.
+   - HVCG is 13.5% of her portfolio and she has 1.9 months of cash.
+   - Needs: cash for the call plus 3 months, sell HVCG down under 10%, and a `debt_review` flag.
+5. **s-049, Rafael Brennan, 54, attorney.**
+   - Widowed: a $701k life-insurance payout lands in cash. Laid off the same quarter, with a $35.9k audit bill due in May and a $31k credit-card balance.
+   - Naive "rebalances" the insurance money back to his model allocation and leaves too little cash for 6 months + the tax bill.
+6. **j-021, Marcus Dubois, 57, credit trader at Halvard Capital Group. Real window: 2001–2004.**
+   - An RSU cliff vests, along with a tax bill and an early-retirement offer. Then tuition plus a prop-trading loss.
+   - Next quarter: HVCG collapses (−97%, $450k deferred comp lost) during the bear market. He turns to gig work and re-employs.
+   - Holdout quarters: a bonus cut plus a margin call in a second sell-off, then a layoff and crypto losses.
+7. **j-015, Victor Delgado, 48, equity research analyst at MRTS. Real window: 2007–2009.**
+   - A sabbatical and tuition in the calm train half.
+   - In the holdout half: a pension buyout offer, then the firm fails in the GFC in the same quarter as a serious illness. Medical bills follow, then a new job, then a second leg of the crash.
+8. **j-027, Lucia Quintero, 31, sales trader at MRTS. Real window: 2021–2023.**
+   - Desk shutdown, furlough and credit-card debt. Re-hired, then a prop-trading loss and margin call in the same quarter as the birth of a child later diagnosed with special needs. Laid off again in the 2022 bear market.
+   - Holdout: a lawsuit, medical bills, a disaster, and deferred bonuses that are pure noise.
+   - Naive fails all 11 checkpoints.
+9. **j-020, Jordan Sorensen, 53, solutions architect holding Nimbex Cloud stock. Real window: 1996–1999.**
+   - Early-retirement offer; tuition plus a disability; a relocation plus foreclosure risk; a parent's long-term care.
+   - At t12, after turning 55, a death of his spouse plus a pension buyout decision.
+   - Naive fails all 12 checkpoints.
+10. **j-024, Victor Lindqvist, 45, operations analyst at MRTS. Real window: 2019–2021.**
+    - An adult child moves back home and a bonus is cut.
+    - MRTS fails in the COVID crash. Startup equity (noise), then re-employment the same quarter a parent needs care, then tuition due alongside a deferred bonus.
+
 ## Generator guarantees
 
 - **True no_churn cases** are within ±4.5 points of every target and already pass the risk band, a cash floor of at least 3.2 months, and a single-stock cap of at most 9%. If the client is 55+, equity is already at or below the band midpoint. So "no trades" is the unique fully passing answer, and no case ever needs both no_churn and a glidepath trade.
@@ -244,6 +366,8 @@ Events by checkpoint and v0-style **naive** result. "pass" or "FAIL" is the chec
 - `oracle.py`: the reference recommender, the baselines, the solvability check and the backtest summary.
 - `backtest.py`: held-out forward metrics for any recommendation.
 - `journeys.py`, `journeys/` and `holdout/journeys/`: the per-client quarterly journeys (see above).
+- `events_catalog.py`, `stress.py` and `journeys_ext.py`: the stress taxonomy, the 300 single cases, and journeys j-007..j-030. `cases/stress_manifest.json` and `stress_report.json` hold the per-case kind, types and results.
+- `../checker/rules_ext.py`: the extended rules (EVAL.md section 9).
 - `overrides/`: drop-in per-case files (see its README).
 - `SOURCES.md`: parameter → value → source URL, failed sources, and related public benchmarks.
 - `fixtures/c-014/`: the SPEC.md example case used by checker tests (hand-made, not generated).

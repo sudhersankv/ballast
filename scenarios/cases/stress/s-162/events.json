@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-08-12",
+      "details": {
+        "company": "Orchard Labs",
+        "options": 58000,
+        "strike": 2.87,
+        "last_409a_price": 9.65,
+        "liquid": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-086",
+  "name": "Fiona Strand",
+  "age": 58,
+  "state": "PA",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 130000,
+  "monthly_expenses": 7950,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.33,
+    "cash": 0.07
+  },
+  "monthly_contribution": 700
+}

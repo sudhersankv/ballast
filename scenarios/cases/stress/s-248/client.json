@@ -1,0 +1,21 @@
+{
+  "client_id": "s-248",
+  "name": "Samuel Ferreira",
+  "age": 75,
+  "state": "FL",
+  "occupation": "retired registered nurse",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 74500,
+  "monthly_expenses": 5850,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.54,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

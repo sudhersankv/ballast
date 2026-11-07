@@ -1,0 +1,26 @@
+{
+  "client_id": "s-011",
+  "name": "Grant Mbeki",
+  "age": 48,
+  "state": "FL",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 298500,
+  "monthly_expenses": 14300,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.52,
+    "cash": 0.08
+  },
+  "monthly_contribution": 3450
+}

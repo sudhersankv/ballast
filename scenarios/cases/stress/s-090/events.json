@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "medical_bill",
+      "date": "2026-08-07",
+      "details": {
+        "amount_due": 5800.0,
+        "due_date": "2026-12-26",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "business_failure",
+      "date": "2026-09-19",
+      "details": {
+        "business": "consultancy",
+        "personal_guarantee_usd": 0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2026-10-16",
+      "details": {
+        "balance": 37000.0,
+        "apr_pct": 26.9
+      }
+    }
+  ]
+}

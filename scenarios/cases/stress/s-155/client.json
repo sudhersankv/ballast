@@ -1,0 +1,28 @@
+{
+  "client_id": "s-155",
+  "name": "Aisha Delgado",
+  "age": 56,
+  "state": "NC",
+  "occupation": "portfolio manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 391500,
+  "monthly_expenses": 14400,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 9,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2035
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.57,
+    "cash": 0.03
+  },
+  "monthly_contribution": 650,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

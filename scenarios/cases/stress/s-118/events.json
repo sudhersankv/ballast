@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disability",
+      "date": "2026-08-28",
+      "details": {
+        "kind": "long_term",
+        "benefit_pct_of_income": 60,
+        "monthly_cost_increase": 1250.0,
+        "expected_duration_months": 12
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-10-09",
+      "details": {
+        "amount": 185000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

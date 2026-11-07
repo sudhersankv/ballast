@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "home_purchase",
+      "date": "2024-10-07",
+      "details": {
+        "home_price": 370000.0,
+        "down_payment_pct": 5,
+        "amount_due": 29600.0,
+        "due_date": "2024-12-22",
+        "monthly_housing_cost_change": 1150.0
+      }
+    }
+  ]
+}

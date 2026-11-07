@@ -1,0 +1,22 @@
+{
+  "client_id": "s-042",
+  "name": "Brianna Yilmaz",
+  "age": 65,
+  "state": "NY",
+  "occupation": "regulatory affairs lead",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 82500,
+  "monthly_expenses": 6300,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.55,
+    "cash": 0.05
+  },
+  "monthly_contribution": 600,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

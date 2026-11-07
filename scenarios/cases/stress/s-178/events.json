@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-08-20",
+      "details": {
+        "care_type": "nursing home",
+        "monthly_cost_increase": 1150.0,
+        "siblings_sharing_cost": 0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "foreclosure_risk",
+      "date": "2026-08-21",
+      "details": {
+        "arrears_usd": 21800.0,
+        "amount_due": 21800.0,
+        "due_date": "2026-11-27",
+        "monthly_mortgage": 1600.0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "business_sale",
+      "date": "2026-10-17",
+      "details": {
+        "proceeds": 1743000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 159000.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-026",
+  "name": "Marcus Oyelaran",
+  "age": 75,
+  "state": "OH",
+  "occupation": "retired paralegal",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 69500,
+  "monthly_expenses": 4850,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.21,
+    "cash": 0.19
+  },
+  "monthly_contribution": 0.0
+}

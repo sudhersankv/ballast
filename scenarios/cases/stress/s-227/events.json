@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "home_purchase",
+      "date": "2026-10-01",
+      "details": {
+        "home_price": 470000.0,
+        "down_payment_pct": 5,
+        "amount_due": 37600.0,
+        "due_date": "2027-02-26",
+        "monthly_housing_cost_change": 550.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2026-10-08",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 70,
+        "monthly_cost_increase": 650.0,
+        "expected_duration_months": null
+      }
+    }
+  ]
+}

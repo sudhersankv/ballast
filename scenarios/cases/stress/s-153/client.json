@@ -1,0 +1,21 @@
+{
+  "client_id": "s-153",
+  "name": "Camila Beaumont",
+  "age": 65,
+  "state": "PA",
+  "occupation": "pharmacist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 146500,
+  "monthly_expenses": 8900,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.35,
+    "cash": 0.05
+  },
+  "monthly_contribution": 1200
+}

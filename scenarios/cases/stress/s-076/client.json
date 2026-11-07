@@ -1,0 +1,28 @@
+{
+  "client_id": "s-076",
+  "name": "Ingrid Achebe",
+  "age": 58,
+  "state": "OH",
+  "occupation": "sales trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 488500,
+  "monthly_expenses": 17350,
+  "dependents": 2,
+  "risk_score": 2,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 2600,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

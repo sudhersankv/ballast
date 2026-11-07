@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-09-05",
+      "details": {
+        "peril": "hurricane",
+        "damage_usd": 113000.0,
+        "insurance_covered_pct": 90,
+        "amount_due": null,
+        "due_date": "2027-03-17",
+        "note": "adjuster report pending"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "marriage",
+      "date": "2026-10-07",
+      "details": {
+        "spouse_annual_income": 119000.0,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "student_loan_restart",
+      "date": "2024-11-26",
+      "details": {
+        "balance": 29100.0,
+        "monthly_payment": 240.0
+      }
+    }
+  ]
+}

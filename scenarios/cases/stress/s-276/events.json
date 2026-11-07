@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "furlough",
+      "date": "2026-08-28",
+      "details": {
+        "unpaid_weeks": 4,
+        "expected_return": "uncertain",
+        "benefits_continued": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-09-14",
+      "details": {
+        "severance": 43800.0,
+        "severance_weeks": 15,
+        "employer": "previous employer",
+        "last_day": "2026-09-14",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e3",
+      "type": "pension_buyout_offer",
+      "date": "2026-10-10",
+      "details": {
+        "lump_sum_offer": 90000.0,
+        "annuity_monthly": 3400.0,
+        "decision_deadline": "2026-12-24"
+      }
+    }
+  ]
+}

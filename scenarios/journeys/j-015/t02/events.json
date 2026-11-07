@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "sabbatical",
+      "date": "2024-08-26",
+      "details": {
+        "unpaid_months": 2,
+        "amount_due": 23300.0,
+        "due_date": "2025-02-03"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2024-08-31",
+      "details": {
+        "amount_due": 24600.0,
+        "due_date": "2025-03-10",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-08-21",
+      "details": {
+        "peril": "flood",
+        "damage_usd": 62000.0,
+        "insurance_covered_pct": 50,
+        "amount_due": 31000.0,
+        "due_date": "2026-11-30"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "fraud_loss",
+      "date": "2026-09-05",
+      "details": {
+        "amount_lost": 9200,
+        "scam_type": "account takeover",
+        "recovery_expected": "unlikely",
+        "taken_from": "this account's CASH"
+      }
+    }
+  ]
+}

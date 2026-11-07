@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit_settlement",
+      "date": "2026-09-27",
+      "details": {
+        "amount": 318000.0,
+        "deposited_to": "CASH",
+        "taxable": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-09-30",
+      "details": {
+        "amount_due": 9400.0,
+        "due_date": "2026-12-17",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": true
+      }
+    }
+  ]
+}

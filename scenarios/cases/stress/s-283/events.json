@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-16",
+      "details": {
+        "severance": 6300.0,
+        "severance_weeks": 4,
+        "employer": "previous employer",
+        "last_day": "2026-09-16",
+        "cobra_monthly_premium": 1490
+      }
+    }
+  ]
+}

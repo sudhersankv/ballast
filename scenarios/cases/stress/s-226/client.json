@@ -1,0 +1,26 @@
+{
+  "client_id": "s-226",
+  "name": "Priya Abernathy",
+  "age": 58,
+  "state": "PA",
+  "occupation": "HVAC technician",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 65500,
+  "monthly_expenses": 4850,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.39,
+    "cash": 0.06
+  },
+  "monthly_contribution": 450
+}

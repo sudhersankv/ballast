@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e12",
+      "type": "medical_bill",
+      "date": "2026-02-21",
+      "details": {
+        "amount_due": 12600.0,
+        "due_date": "2026-06-19",
+        "payment_plan_available": true
+      }
+    },
+    {
+      "id": "e13",
+      "type": "adult_child_moves_back",
+      "date": "2026-02-24",
+      "details": {
+        "child_age": 30,
+        "monthly_cost_increase": 300.0,
+        "expected_stay_months": null
+      }
+    },
+    {
+      "id": "e14",
+      "type": "layoff",
+      "date": "2026-04-27",
+      "details": {
+        "severance": 153900.0,
+        "severance_weeks": 15,
+        "employer": "Halvard Capital Group",
+        "last_day": "2026-04-27",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

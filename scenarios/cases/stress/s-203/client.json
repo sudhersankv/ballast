@@ -1,0 +1,27 @@
+{
+  "client_id": "s-203",
+  "name": "Tyrone Iyer",
+  "age": 57,
+  "state": "PA",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 96500,
+  "monthly_expenses": 6700,
+  "dependents": 2,
+  "risk_score": 2,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.44,
+    "cash": 0.16
+  },
+  "monthly_contribution": 1150,
+  "notes": "Severance paid to an outside checking account."
+}

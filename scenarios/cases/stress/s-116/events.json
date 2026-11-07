@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "fraud_loss",
+      "date": "2026-08-08",
+      "details": {
+        "amount_lost": 23100,
+        "scam_type": "account takeover",
+        "recovery_expected": "unknown",
+        "taken_from": "this account's CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "marriage",
+      "date": "2026-09-10",
+      "details": {
+        "spouse_annual_income": 116000.0,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-22",
+      "details": {
+        "diagnosis_category": "cardiac",
+        "monthly_cost_increase": 1900.0,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-10-25",
+      "details": {
+        "amount_due": 20700.0,
+        "due_date": "2027-04-23",
+        "reason": "audit adjustment"
+      }
+    }
+  ]
+}

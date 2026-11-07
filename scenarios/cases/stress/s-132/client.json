@@ -1,0 +1,26 @@
+{
+  "client_id": "s-132",
+  "name": "Aisha Lindqvist",
+  "age": 40,
+  "state": "TX",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 167500,
+  "monthly_expenses": 8400,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 25,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2051
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.06,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1950
+}

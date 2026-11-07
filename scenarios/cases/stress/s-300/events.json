@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-08-04",
+      "details": {
+        "amount": 127000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "business_failure",
+      "date": "2026-08-27",
+      "details": {
+        "business": "consultancy",
+        "personal_guarantee_usd": 25000
+      }
+    },
+    {
+      "id": "e3",
+      "type": "bankruptcy",
+      "date": "2026-10-09",
+      "details": {
+        "chapter": 13,
+        "filed_by": "client"
+      }
+    }
+  ]
+}

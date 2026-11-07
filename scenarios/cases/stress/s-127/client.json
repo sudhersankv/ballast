@@ -1,0 +1,28 @@
+{
+  "client_id": "s-127",
+  "name": "Darnell Brennan",
+  "age": 53,
+  "state": "TX",
+  "occupation": "wealth advisor",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 230000,
+  "monthly_expenses": 11400,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.26,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1450,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

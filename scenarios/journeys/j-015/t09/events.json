@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "job_change",
+      "date": "2026-07-12",
+      "details": {
+        "new_income": 256000,
+        "previous_income": 254500,
+        "start_date": "2026-07-12",
+        "new_employer": "Larkspur Bank"
+      }
+    }
+  ]
+}

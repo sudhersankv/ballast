@@ -1,0 +1,26 @@
+{
+  "client_id": "s-041",
+  "name": "Hannah Achebe",
+  "age": 51,
+  "state": "NY",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 151000,
+  "monthly_expenses": 9350,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.22,
+    "cash": 0.13
+  },
+  "monthly_contribution": 1000
+}

@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "early_retirement_offer",
+      "date": "2026-09-04",
+      "details": {
+        "lump_sum_offer": 72000.0,
+        "decision_deadline": "2026-12-06"
+      }
+    }
+  ]
+}

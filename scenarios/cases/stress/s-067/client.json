@@ -1,0 +1,21 @@
+{
+  "client_id": "s-067",
+  "name": "Leila Sandoval",
+  "age": 67,
+  "state": "NC",
+  "occupation": "retired UX designer",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 121000,
+  "monthly_expenses": 6900,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.6,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

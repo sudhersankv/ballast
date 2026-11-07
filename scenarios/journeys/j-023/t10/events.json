@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "lawsuit",
+      "date": "2026-03-13",
+      "details": {
+        "claim_usd": 502000.0,
+        "insured": true,
+        "status": "discovery"
+      }
+    },
+    {
+      "id": "e12",
+      "type": "serious_illness",
+      "date": "2026-04-14",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": 1600.0,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 4000
+      }
+    }
+  ]
+}

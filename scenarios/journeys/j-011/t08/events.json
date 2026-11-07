@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "inheritance",
+      "date": "2025-08-07",
+      "details": {
+        "amount": 179000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e12",
+      "type": "serious_illness",
+      "date": "2025-08-28",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 700.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 6000
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-013",
+  "name": "Omar Yilmaz",
+  "age": 50,
+  "state": "PA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 168500,
+  "monthly_expenses": 9950,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.33,
+    "cash": 0.12
+  },
+  "monthly_contribution": 1400
+}

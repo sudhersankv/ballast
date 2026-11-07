@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tuition_due",
+      "date": "2026-10-20",
+      "details": {
+        "amount_due": 10100.0,
+        "due_date": "2026-12-09",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-220",
+  "name": "Trevor Abernathy",
+  "age": 63,
+  "state": "TX",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 172000,
+  "monthly_expenses": 8800,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 2,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2028
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.43,
+    "cash": 0.02
+  },
+  "monthly_contribution": 2250
+}

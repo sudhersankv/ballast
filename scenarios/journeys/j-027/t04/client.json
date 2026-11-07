@@ -1,0 +1,27 @@
+{
+  "client_id": "j-027-t04",
+  "name": "Lucia Quintero",
+  "age": 32,
+  "state": "FL",
+  "occupation": "sales trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 229500,
+  "monthly_expenses": 11000,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 33,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2060
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.37,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1900.0
+}

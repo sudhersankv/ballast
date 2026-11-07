@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e13",
+      "type": "pay_cut",
+      "date": "2026-03-05",
+      "details": {
+        "new_income": 108000.0,
+        "reason": "cost cutting"
+      }
+    },
+    {
+      "id": "e14",
+      "type": "home_purchase",
+      "date": "2026-03-27",
+      "details": {
+        "home_price": 395000.0,
+        "down_payment_pct": 5,
+        "amount_due": 31600.0,
+        "due_date": "2026-09-04",
+        "monthly_housing_cost_change": 500.0
+      }
+    }
+  ]
+}

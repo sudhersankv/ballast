@@ -1,0 +1,21 @@
+{
+  "client_id": "s-268",
+  "name": "Elena Kowalski",
+  "age": 72,
+  "state": "MA",
+  "occupation": "retired police sergeant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 204500,
+  "monthly_expenses": 10350,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.77,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

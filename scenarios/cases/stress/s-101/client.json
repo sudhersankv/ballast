@@ -1,0 +1,29 @@
+{
+  "client_id": "s-101",
+  "name": "Maya Nguyen",
+  "age": 47,
+  "state": "NJ",
+  "occupation": "rates trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 159000,
+  "monthly_expenses": 8600,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.37,
+    "cash": 0.03
+  },
+  "monthly_contribution": 2650,
+  "employer": "Halvard Capital Group (HVCG)",
+  "notes": "Severance paid to an outside checking account."
+}

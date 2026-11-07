@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-09-01",
+      "details": {
+        "spouse_annual_income": 153000.0,
+        "spouse_has_separate_accounts": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "ipo_lockup",
+      "date": "2026-09-29",
+      "details": {
+        "symbol": "HLXR",
+        "lockup_end_date": "2027-03-01",
+        "locked_shares_value_outside_account": 842000.0
+      }
+    }
+  ]
+}

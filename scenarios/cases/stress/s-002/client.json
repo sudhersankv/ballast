@@ -1,0 +1,21 @@
+{
+  "client_id": "s-002",
+  "name": "Mei Ferreira",
+  "age": 75,
+  "state": "CA",
+  "occupation": "retired civil engineer",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 56000,
+  "monthly_expenses": 4400,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.51,
+    "cash": 0.14
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "relocation",
+      "date": "2026-08-27",
+      "details": {
+        "amount_due": 10100.0,
+        "due_date": "2027-01-21",
+        "cost_of_living_change_pct": 0,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-10-05",
+      "details": {
+        "amount_due": 5200.0,
+        "due_date": "2027-03-22",
+        "reason": "capital gains"
+      }
+    }
+  ]
+}

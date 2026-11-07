@@ -1,0 +1,27 @@
+{
+  "client_id": "s-299",
+  "name": "Desmond Okafor",
+  "age": 39,
+  "state": "CA",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 177500,
+  "monthly_expenses": 8900,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.08,
+    "cash": 0.17
+  },
+  "monthly_contribution": 1350,
+  "notes": "Holdings shown are after the settlement transfer."
+}

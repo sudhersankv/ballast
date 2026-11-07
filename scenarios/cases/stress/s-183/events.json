@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-09-24",
+      "details": {
+        "amount": 74000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "serious_illness",
+      "date": "2026-10-03",
+      "details": {
+        "diagnosis_category": "cardiac",
+        "monthly_cost_increase": 1050.0,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 9100
+      }
+    }
+  ]
+}

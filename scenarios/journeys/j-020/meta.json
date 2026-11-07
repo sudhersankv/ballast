@@ -1,0 +1,140 @@
+{
+  "journey_id": "j-020",
+  "persona": {
+    "name": "Jordan Sorensen",
+    "state": "CA",
+    "occupation": "solutions architect",
+    "industry": "other",
+    "age_at_start": 53,
+    "risk_score": 3,
+    "employer": "Nimbex Cloud (NMBX)"
+  },
+  "arc": "t02: early_retirement_offer; t03: tuition_due+disability; t04: relocation+foreclosure_risk; t06: startup_equity+medical_bill; t07: parent_long_term_care; t08: market_drop; t09: crypto_loss; t11: crypto_loss; t12: death_of_spouse+pension_buyout_offer",
+  "regime": "choppy: US equity +73% over the journey, worst drawdown -17%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-02-01",
+      "split": "train",
+      "age": 53,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 53,
+      "events": [
+        "early_retirement_offer"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 53,
+      "events": [
+        "tuition_due",
+        "disability"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 53,
+      "events": [
+        "relocation",
+        "foreclosure_risk"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 54,
+      "events": []
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 54,
+      "events": [
+        "startup_equity",
+        "medical_bill"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 54,
+      "events": [
+        "parent_long_term_care"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 54,
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "crypto_loss"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 55,
+      "events": []
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "crypto_loss"
+      ]
+    },
+    {
+      "id": "t12",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 55,
+      "events": [
+        "death_of_spouse",
+        "pension_buyout_offer"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06"
+  ],
+  "holdout": [
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11",
+    "t12"
+  ],
+  "unseen_late_checkpoint": "t12",
+  "quiet_checkpoint": "t10"
+}

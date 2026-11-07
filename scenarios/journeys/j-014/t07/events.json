@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "bankruptcy",
+      "date": "2025-07-06",
+      "details": {
+        "chapter": 7,
+        "filed_by": "client"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "ipo_lockup",
+      "date": "2026-10-19",
+      "details": {
+        "symbol": "KSTL",
+        "lockup_end_date": "2027-01-28",
+        "locked_shares_value_outside_account": 725000.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "s-298",
+  "name": "Nadia Yilmaz",
+  "age": 23,
+  "state": "MI",
+  "occupation": "senior software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 91000,
+  "monthly_expenses": 6250,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 42,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2068
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.08,
+    "cash": 0.17
+  },
+  "monthly_contribution": 850,
+  "employer": "Nimbex Cloud (NMBX)"
+}

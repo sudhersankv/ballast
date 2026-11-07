@@ -1,0 +1,29 @@
+{
+  "client_id": "s-134",
+  "name": "Gloria Abernathy",
+  "age": 45,
+  "state": "CO",
+  "occupation": "equity research analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 160500,
+  "monthly_expenses": 9150,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.18,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1300,
+  "employer": "Meridian Trust Securities (MRTS)",
+  "notes": "Meridian Trust Securities filed for bankruptcy; unvested deferred compensation is an unsecured claim."
+}

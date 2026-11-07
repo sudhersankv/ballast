@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bonus_deferral",
+      "date": "2026-09-08",
+      "details": {
+        "total_bonus": 132000.0,
+        "cash_pct": 60,
+        "deferred_pct": 40,
+        "vesting_years": 5,
+        "deferred_in": "MRTS stock units"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "j-015-t09",
+  "name": "Victor Delgado",
+  "age": 50,
+  "state": "NJ",
+  "occupation": "equity research analyst",
+  "industry": "financial services",
+  "employment_status": "unemployed",
+  "marital_status": "single",
+  "annual_income": 254500,
+  "monthly_expenses": 13750,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.19,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

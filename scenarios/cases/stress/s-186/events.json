@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-08",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1750.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2026-08-17",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 70,
+        "monthly_cost_increase": 800.0,
+        "expected_duration_months": null
+      }
+    },
+    {
+      "id": "e3",
+      "type": "medical_bill",
+      "date": "2026-08-26",
+      "details": {
+        "amount_due": 18700.0,
+        "due_date": "2027-03-30",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

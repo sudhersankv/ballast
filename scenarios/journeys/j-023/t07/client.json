@@ -1,0 +1,31 @@
+{
+  "client_id": "j-023-t07",
+  "name": "Rafael Beaumont",
+  "age": 45,
+  "state": "TX",
+  "occupation": "solutions architect",
+  "employment_status": "on_disability",
+  "marital_status": "single",
+  "annual_income": 81000.0,
+  "monthly_expenses": 8250,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2048
+    },
+    {
+      "type": "education",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.06,
+    "cash": 0.14
+  },
+  "monthly_contribution": 0.0,
+  "employer": "Nimbex Cloud (NMBX)"
+}

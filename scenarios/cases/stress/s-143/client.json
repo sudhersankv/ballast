@@ -1,0 +1,21 @@
+{
+  "client_id": "s-143",
+  "name": "Tyrone Yilmaz",
+  "age": 73,
+  "state": "CA",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 49000,
+  "monthly_expenses": 4450,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.62,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

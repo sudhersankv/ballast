@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e12",
+      "type": "tax_bill",
+      "date": "2026-05-14",
+      "details": {
+        "amount_due": 17900.0,
+        "due_date": "2026-12-30",
+        "reason": "capital gains"
+      }
+    },
+    {
+      "id": "e13",
+      "type": "parent_long_term_care",
+      "date": "2026-06-18",
+      "details": {
+        "care_type": "nursing home",
+        "monthly_cost_increase": 4000.0,
+        "siblings_sharing_cost": 0
+      }
+    }
+  ]
+}

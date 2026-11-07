@@ -1,0 +1,21 @@
+{
+  "client_id": "s-037",
+  "name": "Tyrone Sorensen",
+  "age": 70,
+  "state": "NY",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 109500,
+  "monthly_expenses": 6800,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.57,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

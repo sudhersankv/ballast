@@ -1,0 +1,26 @@
+{
+  "client_id": "s-062",
+  "name": "Leila Beaumont",
+  "age": 53,
+  "state": "TX",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 202500,
+  "monthly_expenses": 9500,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.36,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1100
+}

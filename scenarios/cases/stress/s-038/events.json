@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-09-23",
+      "details": {
+        "new_income": 471000.0,
+        "previous_income": 420500,
+        "start_date": "2026-09-23"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "prop_trading_loss",
+      "date": "2026-09-29",
+      "details": {
+        "loss_usd": 235000.0,
+        "account": "personal brokerage (outside)"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "tuition_due",
+      "date": "2026-10-09",
+      "details": {
+        "amount_due": 48000.0,
+        "due_date": "2027-07-16",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

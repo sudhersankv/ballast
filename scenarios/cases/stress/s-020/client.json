@@ -1,0 +1,28 @@
+{
+  "client_id": "s-020",
+  "name": "Darnell Yilmaz",
+  "age": 48,
+  "state": "CA",
+  "occupation": "quant researcher",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 269500,
+  "monthly_expenses": 11200,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.18,
+    "cash": 0.07
+  },
+  "monthly_contribution": 2600,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

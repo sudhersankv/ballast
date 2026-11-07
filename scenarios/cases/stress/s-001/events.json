@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "home_purchase",
+      "date": "2026-08-07",
+      "details": {
+        "home_price": 380000.0,
+        "down_payment_pct": 10,
+        "amount_due": 49400.0,
+        "due_date": "2027-01-22",
+        "monthly_housing_cost_change": 650.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2026-10-21",
+      "details": {
+        "new_income": 71000.0,
+        "previous_income": 87000,
+        "start_date": "2026-10-21"
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "firm_collapse",
+      "date": "2024-11-17",
+      "details": {
+        "employer": "Halvard Capital Group",
+        "symbol": "HVCG",
+        "stock_change_pct": -97.1,
+        "deferred_comp_lost_usd": 450000.0
+      }
+    },
+    {
+      "id": "e8",
+      "type": "gig_income",
+      "date": "2025-01-22",
+      "details": {
+        "avg_monthly_income": 34150.0,
+        "income_volatility_pct": 60,
+        "platforms": 1
+      }
+    },
+    {
+      "id": "e7",
+      "type": "market_drop",
+      "date": "2025-01-30",
+      "details": {
+        "us_equity_change_pct": -17.1,
+        "intl_equity_change_pct": -7.9,
+        "bond_change_pct": 7.2,
+        "peak_date": "2024-01-31",
+        "trough_date": "2025-01-30"
+      }
+    }
+  ]
+}

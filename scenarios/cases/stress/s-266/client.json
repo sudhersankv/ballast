@@ -1,0 +1,22 @@
+{
+  "client_id": "s-266",
+  "name": "Trevor Lindqvist",
+  "age": 67,
+  "state": "CA",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 86500,
+  "monthly_expenses": 6250,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.57,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0,
+  "notes": "Holdings shown are after the settlement transfer."
+}

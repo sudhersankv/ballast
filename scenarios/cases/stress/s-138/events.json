@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "desk_shutdown",
+      "date": "2026-09-05",
+      "details": {
+        "garden_leave_months": 6,
+        "severance": 37000.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "deferred_comp_clawback",
+      "date": "2026-09-16",
+      "details": {
+        "amount_clawed": 177000.0,
+        "reason": "conduct review"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "lawsuit_settlement",
+      "date": "2026-10-09",
+      "details": {
+        "amount": 228000.0,
+        "deposited_to": "CASH",
+        "taxable": false
+      }
+    }
+  ]
+}

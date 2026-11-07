@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "home_purchase",
+      "date": "2026-09-24",
+      "details": {
+        "home_price": 695000.0,
+        "down_payment_pct": 5,
+        "amount_due": 55600.0,
+        "due_date": "2027-02-04",
+        "monthly_housing_cost_change": 1100.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-10-21",
+      "details": {
+        "amount_due": 11600.0,
+        "due_date": "2027-02-07",
+        "cost_of_living_change_pct": 10,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

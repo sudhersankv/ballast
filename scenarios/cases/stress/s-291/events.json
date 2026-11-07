@@ -1,0 +1,48 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "firm_collapse",
+      "date": "2026-08-05",
+      "details": {
+        "employer": "Halvard Capital Group",
+        "symbol": "HVCG",
+        "stock_change_pct": -92.3,
+        "deferred_comp_lost_usd": 160000.0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "parent_long_term_care",
+      "date": "2026-09-29",
+      "details": {
+        "care_type": "home health aide",
+        "monthly_cost_increase": 4200.0,
+        "siblings_sharing_cost": 0
+      }
+    },
+    {
+      "id": "e4",
+      "type": "medical_bill",
+      "date": "2026-10-14",
+      "details": {
+        "amount_due": 3900.0,
+        "due_date": "2026-11-24",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -50.3,
+        "intl_equity_change_pct": -55.9,
+        "bond_change_pct": 15.6,
+        "peak_date": "2025-06-30",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2007-09 global financial crisis"
+      }
+    }
+  ]
+}

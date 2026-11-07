@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-09-19",
+      "details": {
+        "amount": 745000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-09-19",
+      "details": {
+        "amount_due": 19700.0,
+        "due_date": "2027-02-23",
+        "cost_of_living_change_pct": 25,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

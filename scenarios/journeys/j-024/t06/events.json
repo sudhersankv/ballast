@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "firm_collapse",
+      "date": "2025-08-21",
+      "details": {
+        "employer": "Meridian Trust Securities",
+        "symbol": "MRTS",
+        "stock_change_pct": -97.4,
+        "deferred_comp_lost_usd": 82000.0
+      }
+    },
+    {
+      "id": "e4",
+      "type": "market_drop",
+      "date": "2025-10-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -21.4,
+        "bond_change_pct": 5.7,
+        "peak_date": "2025-08-31",
+        "trough_date": "2025-10-30"
+      }
+    }
+  ]
+}

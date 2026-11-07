@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-10-20",
+      "details": {
+        "company": "Quillon Software",
+        "options": 29000,
+        "strike": 2.84,
+        "last_409a_price": 1.19,
+        "liquid": false
+      }
+    }
+  ]
+}

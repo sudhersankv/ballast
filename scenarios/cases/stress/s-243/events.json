@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-09-06",
+      "details": {
+        "new_income": 53500.0,
+        "previous_income": 56000,
+        "start_date": "2026-09-06"
+      }
+    }
+  ]
+}

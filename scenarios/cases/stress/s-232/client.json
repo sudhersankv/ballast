@@ -1,0 +1,26 @@
+{
+  "client_id": "s-232",
+  "name": "Ingrid Delgado",
+  "age": 57,
+  "state": "TX",
+  "occupation": "registered nurse",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 105500,
+  "monthly_expenses": 6400,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.3,
+    "cash": 0.1
+  },
+  "monthly_contribution": 750
+}

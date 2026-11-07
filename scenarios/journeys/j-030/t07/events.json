@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "job_change",
+      "date": "2025-10-02",
+      "details": {
+        "new_income": 533500,
+        "previous_income": 649000,
+        "start_date": "2025-10-02",
+        "new_employer": "Orchard Labs"
+      }
+    },
+    {
+      "id": "e9",
+      "type": "home_purchase",
+      "date": "2025-10-10",
+      "details": {
+        "home_price": 2920000.0,
+        "down_payment_pct": 5,
+        "amount_due": 233600.0,
+        "due_date": "2026-03-21",
+        "monthly_housing_cost_change": 1600.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-144",
+  "name": "Gloria Kowalski",
+  "age": 57,
+  "state": "CA",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 80500,
+  "monthly_expenses": 5700,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.41,
+    "cash": 0.04
+  },
+  "monthly_contribution": 450
+}

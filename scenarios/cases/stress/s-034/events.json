@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-09-22",
+      "details": {
+        "company": "Quillon Software",
+        "options": 74000,
+        "strike": 4.51,
+        "last_409a_price": 2.44,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-10-28",
+      "details": {
+        "amount_due": 46100.0,
+        "due_date": "2027-03-16",
+        "reason": "capital gains"
+      }
+    }
+  ]
+}

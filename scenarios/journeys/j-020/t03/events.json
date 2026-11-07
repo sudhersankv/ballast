@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2024-05-26",
+      "details": {
+        "amount_due": 41400.0,
+        "due_date": "2024-11-25",
+        "school_type": "public in-state",
+        "aid_package_final": true
+      }
+    },
+    {
+      "id": "e3",
+      "type": "disability",
+      "date": "2024-06-08",
+      "details": {
+        "kind": "long_term",
+        "benefit_pct_of_income": 70,
+        "monthly_cost_increase": 550.0,
+        "expected_duration_months": 6
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "j-015-t10",
+  "name": "Victor Delgado",
+  "age": 50,
+  "state": "NJ",
+  "occupation": "operations manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 256000,
+  "monthly_expenses": 13750,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.19,
+    "cash": 0.06
+  },
+  "monthly_contribution": 2150.0
+}

@@ -35,6 +35,9 @@ try:  # prefer the real checker (source of truth); never edited from here
 except Exception:  # pragma: no cover - fallback when checker/ is absent
     _real_check = None
 
+sys.path.insert(0, str(REPO / "checker"))
+import rules_ext as RX  # noqa: E402  (extended rules; no-ops for the original event types)
+
 try:  # held-out forward backtest (needs PyYAML for config.yaml)
     sys.path.insert(0, str(ROOT))
     from backtest import backtest as _backtest, holdout_path as _bt_holdout  # type: ignore
@@ -63,10 +66,14 @@ def _diagnose(case: dict) -> dict:
     types = {e["type"] for e in case["events"]}
     need_m = 6 if "layoff" in types else 3
     eq = w["by_class"]["equity"]
+    # cash floor implied by base + extended rules (== need_m * expenses for the original event types)
+    cash_req = RX.required_cash(c, case["events"], case["holdings"].get("as_of", ""))
     return {
         "pre": pre, "w": w, "lo": lo, "hi": hi, "mid": (lo + hi) / 2, "types": types, "need_m": need_m,
+        "cash_req": cash_req, "restricted": RX.restricted_symbols(case["events"]),
+        "noise_only": bool(case["events"]) and all(e["type"] in RX.NOISE for e in case["events"]),
         "band_bad": not (lo - 0.005 <= eq <= hi + 0.005),   # checker tolerances (EVAL.md section 1)
-        "cash_bad": pre.get("CASH", 0.0) < need_m * c["monthly_expenses"] - 1,
+        "cash_bad": pre.get("CASH", 0.0) < cash_req - 1,
         "conc_bad": any(v > 0.105 for v in w["single_stocks"].values()),
         "glide_bad": c["age"] >= 55 and eq > (lo + hi) / 2 + 0.005,
         "drifted": any(abs(w["by_class"][k] - c["targets"][k]) > 0.05 for k in ("equity", "bond", "cash")),
@@ -95,6 +102,9 @@ def _profile_updates(case: dict, rec: dict) -> None:
             flags.append("beneficiary_and_titling_review")
         elif t == "inheritance":
             flags.append("inheritance_tax_basis_review")
+        if t in RX.REVIEW_FLAGS and RX.REVIEW_FLAGS[t] not in flags:
+            flags.append(RX.REVIEW_FLAGS[t])
+            rec["rationale"].append({"ref": f"event:{e['id']}", "text": f"Needs human review: {RX.REVIEW_FLAGS[t]}."})
 
 
 def recommend(case: dict) -> dict:
@@ -106,7 +116,8 @@ def recommend(case: dict) -> dict:
     _profile_updates(case, rec)
     # With events present no_churn cannot apply, so a 55+ client near the midpoint is rebalanced proactively
     # (keeps the next quiet quarter from landing in a no_churn-vs-glidepath conflict).
-    glide_near = bool(case["events"]) and c["age"] >= 55 and dx["w"]["by_class"]["equity"] > dx["mid"] - 0.02
+    glide_near = (bool(case["events"]) and not dx["noise_only"] and c["age"] >= 55
+                  and dx["w"]["by_class"]["equity"] > dx["mid"] - 0.02)
     if not (dx["band_bad"] or dx["cash_bad"] or dx["conc_bad"] or dx["glide_bad"] or dx["drifted"] or glide_near):
         rec["no_action_reason"] = ("Every asset class is within 5 points of target and the portfolio already meets "
                                    "the emergency-fund, risk-band and concentration checks.")
@@ -115,7 +126,7 @@ def recommend(case: dict) -> dict:
     lo, hi, mid = dx["lo"], dx["hi"], dx["mid"]
     exp = float(c["monthly_expenses"])
     tg = c["targets"]
-    cash_usd = max(tg["cash"] * T, dx["need_m"] * exp * 1.02 + 50)
+    cash_usd = max(tg["cash"] * T, dx["cash_req"] * 1.02 + 50)
     e = min(max(tg["equity"], lo + 0.01), hi - 0.01)
     if c["age"] >= 55:
         e = min(e, mid - 0.03)   # buffer so a quarter of market drift rarely re-crosses the midpoint
@@ -127,11 +138,14 @@ def recommend(case: dict) -> dict:
 
     # per-symbol post-trade values
     singles = {s: v for s, v in pre.items() if syms.get(s, {}).get("single_stock")}
-    post_single = {s: min(v, 0.09 * T) for s, v in singles.items()}
+    # restricted symbols (blackout / insider / lockup) are never traded
+    post_single = {s: (v if s in dx["restricted"] else min(v, 0.09 * T)) for s, v in singles.items()}
     fund_eq = e * T - sum(post_single.values())
     if fund_eq < 0:
-        scale = (e * T) / sum(post_single.values())
-        post_single = {s: v * scale for s, v in post_single.items()}
+        locked = sum(v for s, v in post_single.items() if s in dx["restricted"])
+        free = sum(v for s, v in post_single.items() if s not in dx["restricted"])
+        scale = max(e * T - locked, 0.0) / free if free else 1.0
+        post_single = {s: (v if s in dx["restricted"] else v * scale) for s, v in post_single.items()}
         fund_eq = 0.0
     us, intl = pre.get("US_EQ", 0.0), pre.get("INTL_EQ", 0.0)
     share_intl = intl / (us + intl) if us + intl > 0 else 0.3
@@ -141,6 +155,8 @@ def recommend(case: dict) -> dict:
     layoff = next((f"event:{x['id']}" for x in case["events"] if x["type"] == "layoff"), None)
     trades, cash_flow = [], 0.0
     for s, tv in target.items():
+        if s in dx["restricted"]:
+            continue
         diff = round(tv - pre.get(s, 0.0), 2)
         if abs(diff) < 1:
             continue

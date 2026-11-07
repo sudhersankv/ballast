@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e13",
+      "type": "lawsuit",
+      "date": "2025-12-02",
+      "details": {
+        "claim_usd": 122000.0,
+        "insured": false,
+        "status": "discovery"
+      }
+    }
+  ]
+}

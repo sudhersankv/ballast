@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "relocation",
+      "date": "2024-09-17",
+      "details": {
+        "amount_due": 16000.0,
+        "due_date": "2024-12-16",
+        "cost_of_living_change_pct": -15,
+        "employer_relocation_package": true
+      }
+    },
+    {
+      "id": "e5",
+      "type": "foreclosure_risk",
+      "date": "2024-10-11",
+      "details": {
+        "arrears_usd": 7900.0,
+        "amount_due": 7900.0,
+        "due_date": "2025-01-01",
+        "monthly_mortgage": 2700.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-048",
+  "name": "Natalie Ramirez",
+  "age": 70,
+  "state": "NC",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 99500,
+  "monthly_expenses": 6250,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.19,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

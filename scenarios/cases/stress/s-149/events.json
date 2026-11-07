@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "promotion_title_only",
+      "date": "2026-10-25",
+      "details": {
+        "new_title": "Director",
+        "pay_change": 0
+      }
+    }
+  ]
+}

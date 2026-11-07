@@ -1,0 +1,27 @@
+{
+  "client_id": "s-068",
+  "name": "Imani Delgado",
+  "age": 61,
+  "state": "TN",
+  "occupation": "supply-chain analyst",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 205500,
+  "monthly_expenses": 10200,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.23,
+    "cash": 0.02
+  },
+  "monthly_contribution": 1050,
+  "employer": "Kestrel Freight (KSTL)"
+}

@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "gig_income",
+      "date": "2026-08-28",
+      "details": {
+        "avg_monthly_income": 3200.0,
+        "income_volatility_pct": 60,
+        "platforms": 4
+      }
+    },
+    {
+      "id": "e2",
+      "type": "credit_card_debt",
+      "date": "2026-09-17",
+      "details": {
+        "balance": 10800.0,
+        "apr_pct": 19.9
+      }
+    }
+  ]
+}

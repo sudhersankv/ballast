@@ -1,0 +1,26 @@
+{
+  "client_id": "s-274",
+  "name": "Arjun Novak",
+  "age": 60,
+  "state": "CA",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 121500,
+  "monthly_expenses": 7900,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 5,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2031
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.47,
+    "cash": 0.13
+  },
+  "monthly_contribution": 1500
+}

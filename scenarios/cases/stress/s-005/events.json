@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "relocation",
+      "date": "2026-08-15",
+      "details": {
+        "amount_due": 9600.0,
+        "due_date": "2026-12-27",
+        "cost_of_living_change_pct": 10,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "job_change",
+      "date": "2026-08-22",
+      "details": {
+        "new_income": 187000.0,
+        "previous_income": 207500,
+        "start_date": "2026-08-22"
+      }
+    }
+  ]
+}

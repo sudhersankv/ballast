@@ -1,0 +1,27 @@
+{
+  "client_id": "s-231",
+  "name": "Tyrone Takahashi",
+  "age": 55,
+  "state": "IL",
+  "occupation": "supply-chain analyst",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 143000,
+  "monthly_expenses": 8300,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 1000,
+  "employer": "Kestrel Freight (KSTL)"
+}

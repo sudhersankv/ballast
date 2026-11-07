@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "inheritance",
+      "date": "2026-09-03",
+      "details": {
+        "amount": 83000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "pay_cut",
+      "date": "2026-10-02",
+      "details": {
+        "new_income": 97000.0,
+        "reason": "cost cutting"
+      }
+    }
+  ]
+}

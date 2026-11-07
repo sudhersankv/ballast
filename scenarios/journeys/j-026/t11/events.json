@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e13",
+      "type": "marriage",
+      "date": "2026-10-18",
+      "details": {
+        "spouse_annual_income": 70000.0,
+        "spouse_has_separate_accounts": true
+      }
+    }
+  ]
+}

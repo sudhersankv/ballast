@@ -1,0 +1,26 @@
+{
+  "client_id": "s-065",
+  "name": "Desmond Takahashi",
+  "age": 48,
+  "state": "CA",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 118500,
+  "monthly_expenses": 7750,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 17,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.38,
+    "cash": 0.02
+  },
+  "monthly_contribution": 900
+}

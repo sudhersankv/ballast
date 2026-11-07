@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "medical_bill",
+      "date": "2025-07-03",
+      "details": {
+        "amount_due": 9700.0,
+        "due_date": "2025-11-29",
+        "payment_plan_available": true
+      }
+    },
+    {
+      "id": "e4",
+      "type": "market_drop",
+      "date": "2025-07-30",
+      "details": {
+        "us_equity_change_pct": -17.7,
+        "intl_equity_change_pct": -22.3,
+        "bond_change_pct": 10.5,
+        "peak_date": "2025-02-28",
+        "trough_date": "2025-07-30"
+      }
+    }
+  ]
+}

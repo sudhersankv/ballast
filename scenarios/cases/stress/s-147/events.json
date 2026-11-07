@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-10-17",
+      "details": {
+        "diagnosis_category": "neurological",
+        "monthly_cost_increase": 1200.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 9100
+      }
+    }
+  ]
+}

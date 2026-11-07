@@ -1,0 +1,27 @@
+{
+  "client_id": "s-044",
+  "name": "Connor Takahashi",
+  "age": 56,
+  "state": "MN",
+  "occupation": "solutions architect",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 148000,
+  "monthly_expenses": 8700,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 9,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2035
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 1900,
+  "employer": "Nimbex Cloud (NMBX)"
+}

@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e14",
+      "type": "crypto_loss",
+      "date": "2026-02-13",
+      "details": {
+        "amount_lost": 90700.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e15",
+      "type": "layoff",
+      "date": "2026-04-20",
+      "details": {
+        "severance": 35800.0,
+        "severance_weeks": 10,
+        "employer": "Halvard Capital Group",
+        "last_day": "2026-04-20",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "j-019-t12",
+  "name": "Natalie Yilmaz",
+  "age": 65,
+  "state": "FL",
+  "occupation": "attorney",
+  "employment_status": "self-employed",
+  "marital_status": "single",
+  "annual_income": 185000,
+  "monthly_expenses": 16650,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 25,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2029
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.54,
+    "cash": 0.11
+  },
+  "monthly_contribution": 1400.0
+}

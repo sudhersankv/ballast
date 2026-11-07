@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "medical_bill",
+      "date": "2026-08-18",
+      "details": {
+        "amount_due": 24700.0,
+        "due_date": "2027-03-17",
+        "payment_plan_available": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "sabbatical",
+      "date": "2026-08-25",
+      "details": {
+        "unpaid_months": 2,
+        "amount_due": 19300.0,
+        "due_date": "2027-05-09"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "layoff",
+      "date": "2026-09-20",
+      "details": {
+        "severance": 72800.0,
+        "severance_weeks": 22,
+        "employer": "previous employer",
+        "last_day": "2026-09-20",
+        "cobra_monthly_premium": 1490
+      }
+    }
+  ]
+}

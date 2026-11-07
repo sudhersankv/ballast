@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "pay_cut",
+      "date": "2024-12-01",
+      "details": {
+        "new_income": 171500.0,
+        "reason": "cost cutting"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "s-201",
+  "name": "Samuel Sandoval",
+  "age": 57,
+  "state": "PA",
+  "occupation": "elementary school teacher",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 49000,
+  "monthly_expenses": 4750,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.3,
+    "cash": 0.1
+  },
+  "monthly_contribution": 250,
+  "notes": "Severance paid to an outside checking account."
+}

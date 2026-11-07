@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-08-23",
+      "details": {
+        "new_income": 187000.0,
+        "previous_income": 162500,
+        "start_date": "2026-08-23"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-10-10",
+      "details": {
+        "amount_due": 22900.0,
+        "due_date": "2026-12-08",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

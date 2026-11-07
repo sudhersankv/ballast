@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e12",
+      "type": "tax_bill",
+      "date": "2026-05-17",
+      "details": {
+        "amount_due": null,
+        "due_date": "2026-11-04",
+        "reason": "capital gains",
+        "note": "CPA still finalizing the return"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "client_id": "s-102",
+  "name": "Imani Takahashi",
+  "age": 47,
+  "state": "OH",
+  "occupation": "compliance officer",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 373500,
+  "monthly_expenses": 13750,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.2,
+    "cash": 0.05
+  },
+  "monthly_contribution": 1600,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

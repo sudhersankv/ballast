@@ -1,0 +1,26 @@
+{
+  "client_id": "s-114",
+  "name": "Trevor Fairbanks",
+  "age": 61,
+  "state": "IL",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 194000,
+  "monthly_expenses": 10850,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.78,
+    "cash": 0.07
+  },
+  "monthly_contribution": 2300
+}

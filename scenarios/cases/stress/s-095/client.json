@@ -1,0 +1,29 @@
+{
+  "client_id": "s-095",
+  "name": "Yasmin Takahashi",
+  "age": 47,
+  "state": "WA",
+  "occupation": "operations analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 231500,
+  "monthly_expenses": 10950,
+  "dependents": 2,
+  "risk_score": 5,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.9,
+    "bond": 0.06,
+    "cash": 0.04
+  },
+  "monthly_contribution": 2450,
+  "employer": "Meridian Trust Securities (MRTS)",
+  "notes": "Holdings shown are after the settlement transfer."
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "divorce",
+      "date": "2026-09-09",
+      "details": {
+        "assets_transferred_usd": 85000.0,
+        "alimony_monthly": 1200,
+        "child_support_monthly": 0
+      }
+    }
+  ]
+}

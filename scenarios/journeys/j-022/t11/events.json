@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e13",
+      "type": "job_change",
+      "date": "2026-09-09",
+      "details": {
+        "new_income": 92500,
+        "previous_income": 96500,
+        "start_date": "2026-09-09",
+        "new_employer": "Brightwater Health"
+      }
+    },
+    {
+      "id": "e14",
+      "type": "tuition_due",
+      "date": "2026-09-22",
+      "details": {
+        "amount_due": 18700.0,
+        "due_date": "2026-12-23",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-124",
+  "name": "Yasmin Chen",
+  "age": 65,
+  "state": "IL",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 71500,
+  "monthly_expenses": 5550,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.75,
+    "cash": 0.05
+  },
+  "monthly_contribution": 900
+}

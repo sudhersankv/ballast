@@ -1,0 +1,28 @@
+{
+  "client_id": "s-129",
+  "name": "Fiona Okafor",
+  "age": 39,
+  "state": "NY",
+  "occupation": "rates trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 110000,
+  "monthly_expenses": 6200,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.22,
+    "cash": 0.03
+  },
+  "monthly_contribution": 1200,
+  "employer": "Halvard Capital Group (HVCG)"
+}

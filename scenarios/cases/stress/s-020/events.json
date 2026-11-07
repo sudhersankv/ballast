@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "bonus_cut",
+      "date": "2026-08-31",
+      "details": {
+        "expected_bonus": 205000.0,
+        "actual_bonus": 138000.0,
+        "reason": "desk underperformed"
+      }
+    },
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -24.8,
+        "intl_equity_change_pct": -27.2,
+        "bond_change_pct": -10.1,
+        "peak_date": "2026-01-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2022 rate-shock bear market (stocks and bonds fell together)"
+      }
+    }
+  ]
+}

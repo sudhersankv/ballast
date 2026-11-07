@@ -1,0 +1,21 @@
+{
+  "client_id": "s-214",
+  "name": "Camila Strand",
+  "age": 67,
+  "state": "NC",
+  "occupation": "retired UX designer",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 150500,
+  "monthly_expenses": 9300,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.57,
+    "cash": 0.03
+  },
+  "monthly_contribution": 0.0
+}

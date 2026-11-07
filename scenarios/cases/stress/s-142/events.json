@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-09-27",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 500.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disaster_damage",
+      "date": "2026-10-02",
+      "details": {
+        "peril": "hurricane",
+        "damage_usd": 179000.0,
+        "insurance_covered_pct": 90,
+        "amount_due": 17900.0,
+        "due_date": "2026-12-21"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "disability",
+      "date": "2026-10-03",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 50,
+        "monthly_cost_increase": 400.0,
+        "expected_duration_months": 6
+      }
+    }
+  ]
+}

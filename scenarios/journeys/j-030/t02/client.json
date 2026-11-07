@@ -1,0 +1,28 @@
+{
+  "client_id": "j-030-t02",
+  "name": "Connor Gallagher",
+  "age": 51,
+  "state": "MN",
+  "occupation": "rates trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 649000,
+  "monthly_expenses": 22300,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.42,
+    "cash": 0.03
+  },
+  "monthly_contribution": 1650,
+  "employer": "Halvard Capital Group (HVCG)"
+}

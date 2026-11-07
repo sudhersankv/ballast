@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2024-12-03",
+      "details": {
+        "kind": "long_term",
+        "benefit_pct_of_income": 66,
+        "monthly_cost_increase": 600.0,
+        "expected_duration_months": 3
+      }
+    },
+    {
+      "id": "e3",
+      "type": "tuition_due",
+      "date": "2024-12-21",
+      "details": {
+        "amount_due": 12900.0,
+        "due_date": "2025-03-23",
+        "school_type": "public out-of-state",
+        "aid_package_final": true
+      }
+    }
+  ]
+}

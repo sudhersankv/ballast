@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-02-01",
+  "positions": [
+    {
+      "symbol": "US_EQ",
+      "units": 1731.666,
+      "value": 466528.14
+    },
+    {
+      "symbol": "INTL_EQ",
+      "units": 2190.206,
+      "value": 146283.86
+    },
+    {
+      "symbol": "BOND",
+      "units": 3795.194,
+      "value": 324109.57
+    },
+    {
+      "symbol": "HVCG",
+      "units": 5703.547,
+      "value": 12034.48
+    },
+    {
+      "symbol": "CASH",
+      "units": 46937.74,
+      "value": 46937.74
+    }
+  ]
+}

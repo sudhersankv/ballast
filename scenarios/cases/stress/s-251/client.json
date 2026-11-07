@@ -1,0 +1,23 @@
+{
+  "client_id": "s-251",
+  "name": "Owen Marchetti",
+  "age": 66,
+  "state": "CA",
+  "occupation": "retired paralegal",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 96500,
+  "monthly_expenses": 6400,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.5,
+    "cash": 0.15
+  },
+  "monthly_contribution": 0.0,
+  "notes": "Holdings shown are after the settlement transfer."
+}

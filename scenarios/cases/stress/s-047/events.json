@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-09-17",
+      "details": {
+        "company": "Quillon Software",
+        "options": 34000,
+        "strike": 0.27,
+        "last_409a_price": 5.25,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-10-15",
+      "details": {
+        "amount_lost": 57900.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

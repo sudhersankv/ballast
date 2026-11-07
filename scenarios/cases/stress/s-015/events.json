@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-09-01",
+      "details": {
+        "severance": 21800.0,
+        "severance_weeks": 2,
+        "employer": "Meridian Trust Securities",
+        "last_day": "2026-09-01",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2026-09-08",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 66,
+        "monthly_cost_increase": 900.0,
+        "expected_duration_months": null
+      }
+    }
+  ]
+}

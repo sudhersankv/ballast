@@ -1,0 +1,28 @@
+{
+  "client_id": "j-018-t02",
+  "name": "Abigail Holloway",
+  "age": 50,
+  "state": "IL",
+  "occupation": "sales trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 207000,
+  "monthly_expenses": 10750,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.12,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1000,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

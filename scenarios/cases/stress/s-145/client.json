@@ -1,0 +1,29 @@
+{
+  "client_id": "s-145",
+  "name": "Leila Novak",
+  "age": 60,
+  "state": "CA",
+  "occupation": "private equity associate",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 104500,
+  "monthly_expenses": 6250,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 5,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2031
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.32,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1950,
+  "employer": "Aldenbrook Partners (ALDB)",
+  "notes": "Aldenbrook Partners filed for bankruptcy; unvested deferred compensation is an unsecured claim."
+}

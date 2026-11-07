@@ -1,0 +1,21 @@
+{
+  "client_id": "s-240",
+  "name": "Samuel Beaumont",
+  "age": 67,
+  "state": "MA",
+  "occupation": "retired HVAC technician",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 102500,
+  "monthly_expenses": 6950,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

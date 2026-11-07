@@ -1,0 +1,28 @@
+{
+  "client_id": "s-237",
+  "name": "Owen Sandoval",
+  "age": 58,
+  "state": "CA",
+  "occupation": "equity research analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 205500,
+  "monthly_expenses": 9250,
+  "dependents": 2,
+  "risk_score": 1,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.71,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1150,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

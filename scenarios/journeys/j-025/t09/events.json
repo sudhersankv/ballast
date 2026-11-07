@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "margin_call",
+      "date": "2026-06-27",
+      "details": {
+        "amount_due": 8100.0,
+        "due_date": "2026-08-03",
+        "account": "outside margin account"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-085",
+  "name": "Camila Dubois",
+  "age": 72,
+  "state": "TX",
+  "occupation": "retired police sergeant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 248500,
+  "monthly_expenses": 11200,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.34,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

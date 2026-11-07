@@ -1,0 +1,21 @@
+{
+  "client_id": "s-027",
+  "name": "Arjun Kowalski",
+  "age": 72,
+  "state": "TX",
+  "occupation": "retired HVAC technician",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 96500,
+  "monthly_expenses": 6850,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 0.0
+}

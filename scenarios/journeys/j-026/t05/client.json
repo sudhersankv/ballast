@@ -1,0 +1,26 @@
+{
+  "client_id": "j-026-t05",
+  "name": "Omar Varga",
+  "age": 34,
+  "state": "FL",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 83500.0,
+  "monthly_expenses": 8500,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 31,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2058
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.11,
+    "cash": 0.14
+  },
+  "monthly_contribution": 800
+}

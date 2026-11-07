@@ -1,0 +1,21 @@
+{
+  "client_id": "j-029-t10",
+  "name": "Abigail Okafor",
+  "age": 66,
+  "state": "GA",
+  "occupation": "clinical operations manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 76500,
+  "monthly_expenses": 13550,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.58,
+    "cash": 0.07
+  },
+  "monthly_contribution": 650.0
+}

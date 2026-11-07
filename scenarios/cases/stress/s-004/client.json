@@ -1,0 +1,26 @@
+{
+  "client_id": "s-004",
+  "name": "Lucia Achebe",
+  "age": 57,
+  "state": "NJ",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 137000,
+  "monthly_expenses": 7400,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.37,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1100
+}

@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e7",
+      "type": "relocation",
+      "date": "2025-07-18",
+      "details": {
+        "amount_due": 4300.0,
+        "due_date": "2025-08-22",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": false
+      }
+    },
+    {
+      "id": "e6",
+      "type": "market_drop",
+      "date": "2025-07-30",
+      "details": {
+        "us_equity_change_pct": -17.7,
+        "intl_equity_change_pct": -22.3,
+        "bond_change_pct": 10.5,
+        "peak_date": "2025-02-28",
+        "trough_date": "2025-07-30"
+      }
+    }
+  ]
+}

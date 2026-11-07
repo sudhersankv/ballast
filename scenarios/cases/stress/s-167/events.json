@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "gig_income",
+      "date": "2026-08-23",
+      "details": {
+        "avg_monthly_income": 3200.0,
+        "income_volatility_pct": 40,
+        "platforms": 3
+      }
+    },
+    {
+      "id": "e3",
+      "type": "startup_equity",
+      "date": "2026-10-08",
+      "details": {
+        "company": "Quillon Software",
+        "options": 43000,
+        "strike": 3.59,
+        "last_409a_price": 9.23,
+        "liquid": false
+      }
+    },
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -42.1,
+        "intl_equity_change_pct": -38.2,
+        "bond_change_pct": 23.9,
+        "peak_date": "2024-10-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2000-02 dot-com bust"
+      }
+    }
+  ]
+}

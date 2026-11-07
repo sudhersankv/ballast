@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "marriage",
+      "date": "2026-08-12",
+      "details": {
+        "spouse_annual_income": 111000.0,
+        "spouse_has_separate_accounts": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disaster_damage",
+      "date": "2026-10-19",
+      "details": {
+        "peril": "hurricane",
+        "damage_usd": 99000.0,
+        "insurance_covered_pct": 90,
+        "amount_due": 9900.0,
+        "due_date": "2027-04-11"
+      }
+    }
+  ]
+}

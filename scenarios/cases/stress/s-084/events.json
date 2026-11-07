@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "firm_collapse",
+      "date": "2026-10-05",
+      "details": {
+        "employer": "Halvard Capital Group",
+        "symbol": "HVCG",
+        "stock_change_pct": -96.3,
+        "deferred_comp_lost_usd": 203000.0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2026-10-10",
+      "details": {
+        "balance": 21000.0,
+        "apr_pct": 19.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -50.3,
+        "intl_equity_change_pct": -55.9,
+        "bond_change_pct": 15.6,
+        "peak_date": "2025-06-30",
+        "trough_date": "2026-10-30",
+        "historical_analog": "2007-09 global financial crisis"
+      }
+    }
+  ]
+}

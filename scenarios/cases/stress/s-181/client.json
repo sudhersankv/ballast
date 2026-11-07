@@ -1,0 +1,26 @@
+{
+  "client_id": "s-181",
+  "name": "Patrick Mbeki",
+  "age": 37,
+  "state": "FL",
+  "occupation": "data scientist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 162500,
+  "monthly_expenses": 8300,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 28,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2054
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.15,
+    "cash": 0.25
+  },
+  "monthly_contribution": 1600
+}

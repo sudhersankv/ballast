@@ -1,0 +1,26 @@
+{
+  "client_id": "s-050",
+  "name": "Abigail Lindqvist",
+  "age": 50,
+  "state": "VA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 144500,
+  "monthly_expenses": 7850,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.31,
+    "cash": 0.14
+  },
+  "monthly_contribution": 1250
+}

@@ -1,0 +1,122 @@
+{
+  "journey_id": "j-008",
+  "persona": {
+    "name": "Marcus Okafor",
+    "state": "MA",
+    "occupation": "regional sales manager",
+    "industry": "other",
+    "age_at_start": 40,
+    "risk_score": 4,
+    "employer": "Kestrel Freight (KSTL)"
+  },
+  "arc": "t02: home_purchase; t03: tax_bill+relocation; t04: layoff+credit_card_debt+startup_equity+fraud_loss; t05: job_change+child; t06: child+fraud_loss; t09: tax_bill; t10: medical_bill",
+  "regime": "choppy: US equity +69% over the journey, worst drawdown -17%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 40,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 41,
+      "events": [
+        "home_purchase"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 41,
+      "events": [
+        "tax_bill",
+        "relocation"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 41,
+      "events": [
+        "layoff",
+        "credit_card_debt",
+        "startup_equity",
+        "fraud_loss"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-08-01",
+      "split": "train",
+      "age": 41,
+      "events": [
+        "job_change",
+        "child"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 42,
+      "events": [
+        "child",
+        "fraud_loss"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 42,
+      "events": []
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 42,
+      "events": []
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 42,
+      "events": [
+        "tax_bill"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 43,
+      "events": [
+        "medical_bill"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10"
+  ],
+  "unseen_late_checkpoint": "t10",
+  "quiet_checkpoint": "t08"
+}

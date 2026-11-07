@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "deferred_comp_clawback",
+      "date": "2026-08-18",
+      "details": {
+        "amount_clawed": 145000.0,
+        "reason": "conduct review"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2026-10-15",
+      "details": {
+        "amount_due": 60900.0,
+        "due_date": "2027-05-22",
+        "school_type": "public out-of-state",
+        "aid_package_final": true
+      }
+    }
+  ]
+}

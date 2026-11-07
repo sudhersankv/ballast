@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "gig_income",
+      "date": "2024-11-17",
+      "details": {
+        "avg_monthly_income": 6100.0,
+        "income_volatility_pct": 60,
+        "platforms": 2
+      }
+    }
+  ]
+}

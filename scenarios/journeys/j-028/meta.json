@@ -1,0 +1,146 @@
+{
+  "journey_id": "j-028",
+  "persona": {
+    "name": "Connor Lindqvist",
+    "state": "CA",
+    "occupation": "electrical engineer",
+    "industry": "other",
+    "age_at_start": 34,
+    "risk_score": 4,
+    "employer": null
+  },
+  "arc": "t02: layoff; t03: relocation+job_change; t05: relocation+medical_bill; t06: layoff+disability; t07: job_change; t08: inheritance+child; t09: layoff+foreclosure_risk+pay_cut; t10: tax_bill; t11: job_change+relocation; t12: layoff+medical_bill",
+  "regime": "calm bull: US equity +60% over the journey, worst drawdown -7%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-02-01",
+      "split": "train",
+      "age": 34,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 34,
+      "events": [
+        "layoff"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 35,
+      "events": [
+        "relocation",
+        "job_change"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 35,
+      "events": []
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 35,
+      "events": [
+        "relocation",
+        "medical_bill"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 35,
+      "events": [
+        "layoff",
+        "disability"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 36,
+      "events": [
+        "job_change"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 36,
+      "events": [
+        "inheritance",
+        "child"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 36,
+      "events": [
+        "layoff",
+        "foreclosure_risk",
+        "pay_cut"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 36,
+      "events": [
+        "tax_bill"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 37,
+      "events": [
+        "job_change",
+        "relocation"
+      ]
+    },
+    {
+      "id": "t12",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 37,
+      "events": [
+        "layoff",
+        "medical_bill"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06"
+  ],
+  "holdout": [
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11",
+    "t12"
+  ],
+  "unseen_late_checkpoint": "t08",
+  "quiet_checkpoint": "t07"
+}

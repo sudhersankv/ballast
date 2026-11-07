@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bonus_cut",
+      "date": "2026-09-04",
+      "details": {
+        "expected_bonus": 160000.0,
+        "actual_bonus": 52000.0,
+        "reason": "market downturn"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "annual_review",
+      "date": "2026-09-05",
+      "details": {
+        "rating": "meets",
+        "merit_increase_pct": 0,
+        "note": "raise deferred to next cycle"
+      }
+    }
+  ]
+}

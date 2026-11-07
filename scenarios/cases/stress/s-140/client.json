@@ -1,0 +1,28 @@
+{
+  "client_id": "s-140",
+  "name": "Brianna Pemberton",
+  "age": 62,
+  "state": "CA",
+  "occupation": "risk manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 259000,
+  "monthly_expenses": 12600,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 3,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2029
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.42,
+    "cash": 0.18
+  },
+  "monthly_contribution": 750,
+  "employer": "Halvard Capital Group (HVCG)"
+}

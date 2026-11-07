@@ -1,0 +1,28 @@
+{
+  "client_id": "s-025",
+  "name": "Camila Delgado",
+  "age": 64,
+  "state": "TX",
+  "occupation": "compliance officer",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 140500,
+  "monthly_expenses": 8000,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 1,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2027
+    }
+  ],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.8,
+    "cash": 0.05
+  },
+  "monthly_contribution": 850,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

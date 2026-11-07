@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2024-09-17",
+      "details": {
+        "severance": 40400.0,
+        "severance_weeks": 15,
+        "employer": "Helixar Therapeutics",
+        "last_day": "2024-09-17",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e3",
+      "type": "foreclosure_risk",
+      "date": "2024-10-03",
+      "details": {
+        "arrears_usd": 20000.0,
+        "amount_due": 20000.0,
+        "due_date": "2024-11-27",
+        "monthly_mortgage": 3800.0
+      }
+    },
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2024-10-30",
+      "details": {
+        "us_equity_change_pct": -17.3,
+        "intl_equity_change_pct": -19.5,
+        "bond_change_pct": -6.9,
+        "peak_date": "2024-02-29",
+        "trough_date": "2024-10-30"
+      }
+    }
+  ]
+}

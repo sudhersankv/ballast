@@ -1,0 +1,26 @@
+{
+  "client_id": "s-006",
+  "name": "Aisha Lundgren",
+  "age": 59,
+  "state": "TX",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 147000,
+  "monthly_expenses": 8100,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.25,
+    "cash": 0.15
+  },
+  "monthly_contribution": 1050
+}

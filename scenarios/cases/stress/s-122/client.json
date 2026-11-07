@@ -1,0 +1,27 @@
+{
+  "client_id": "s-122",
+  "name": "Leila Haddad",
+  "age": 49,
+  "state": "AZ",
+  "occupation": "research scientist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 104500,
+  "monthly_expenses": 6500,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.13,
+    "cash": 0.22
+  },
+  "monthly_contribution": 950,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

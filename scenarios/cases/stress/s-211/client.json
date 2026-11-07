@@ -1,0 +1,26 @@
+{
+  "client_id": "s-211",
+  "name": "Hannah Lundgren",
+  "age": 38,
+  "state": "TX",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 106000,
+  "monthly_expenses": 6100,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 27,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2053
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.33,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1100
+}

@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-08-04",
+      "details": {
+        "care_type": "home health aide",
+        "monthly_cost_increase": 4100.0,
+        "siblings_sharing_cost": 3
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-08-23",
+      "details": {
+        "amount_due": 22500.0,
+        "due_date": "2027-01-29",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

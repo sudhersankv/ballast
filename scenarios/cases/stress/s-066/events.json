@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-08-03",
+      "details": {
+        "amount_lost": 66500.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "pension_buyout_offer",
+      "date": "2026-09-15",
+      "details": {
+        "lump_sum_offer": 553000.0,
+        "annuity_monthly": 850.0,
+        "decision_deadline": "2027-01-19"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "tax_bill",
+      "date": "2026-10-10",
+      "details": {
+        "amount_due": 49600.0,
+        "due_date": "2027-02-14",
+        "reason": "capital gains"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "credit_card_debt",
+      "date": "2025-05-14",
+      "details": {
+        "balance": 12400.0,
+        "apr_pct": 19.9
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "parent_long_term_care",
+      "date": "2025-11-06",
+      "details": {
+        "care_type": "adult day care",
+        "monthly_cost_increase": 1050.0,
+        "siblings_sharing_cost": 3
+      }
+    },
+    {
+      "id": "e11",
+      "type": "gig_income",
+      "date": "2025-11-08",
+      "details": {
+        "avg_monthly_income": 7850.0,
+        "income_volatility_pct": 40,
+        "platforms": 1
+      }
+    }
+  ]
+}

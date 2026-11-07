@@ -1,0 +1,121 @@
+{
+  "journey_id": "j-013",
+  "persona": {
+    "name": "Arjun Rasmussen",
+    "state": "TN",
+    "occupation": "software engineer",
+    "industry": "other",
+    "age_at_start": 47,
+    "risk_score": 4,
+    "employer": null
+  },
+  "arc": "t02: market_drop; t03: pay_cut; t04: tuition_due; t05: market_drop; t06: tax_bill+startup_equity; t07: lottery_win+tax_bill; t08: parent_long_term_care+sabbatical; t09: inheritance",
+  "regime": "bear market: US equity -6% over the journey, worst drawdown -30%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 47,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 47,
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 48,
+      "events": [
+        "pay_cut"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 48,
+      "events": [
+        "tuition_due"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-08-01",
+      "split": "train",
+      "age": 48,
+      "events": [
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 48,
+      "events": [
+        "tax_bill",
+        "startup_equity"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 49,
+      "events": [
+        "lottery_win",
+        "tax_bill"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 49,
+      "events": [
+        "parent_long_term_care",
+        "sabbatical"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 49,
+      "events": [
+        "inheritance"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 49,
+      "events": []
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10"
+  ],
+  "unseen_late_checkpoint": "t07",
+  "quiet_checkpoint": "t10"
+}

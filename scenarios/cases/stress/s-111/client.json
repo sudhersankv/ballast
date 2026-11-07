@@ -1,0 +1,22 @@
+{
+  "client_id": "s-111",
+  "name": "Jordan Gallagher",
+  "age": 75,
+  "state": "GA",
+  "occupation": "retired elementary school teacher",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 170500,
+  "monthly_expenses": 9950,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.7,
+    "cash": 0.1
+  },
+  "monthly_contribution": 0.0
+}

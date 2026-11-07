@@ -1,0 +1,21 @@
+{
+  "client_id": "s-056",
+  "name": "Samuel Varga",
+  "age": 75,
+  "state": "TX",
+  "occupation": "retired logistics manager",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 135000,
+  "monthly_expenses": 8400,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 15,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.59,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

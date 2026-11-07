@@ -1,0 +1,21 @@
+{
+  "client_id": "s-033",
+  "name": "Tessa Holloway",
+  "age": 66,
+  "state": "MN",
+  "occupation": "retired logistics manager",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 65500,
+  "monthly_expenses": 5300,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.67,
+    "cash": 0.18
+  },
+  "monthly_contribution": 0.0
+}

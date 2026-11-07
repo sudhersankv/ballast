@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-08-08",
+      "details": {
+        "amount_lost": 110600.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-09-26",
+      "details": {
+        "severance": 55200.0,
+        "severance_weeks": 14,
+        "employer": "Kestrel Freight",
+        "last_day": "2026-09-26",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

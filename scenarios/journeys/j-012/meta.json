@@ -1,0 +1,127 @@
+{
+  "journey_id": "j-012",
+  "persona": {
+    "name": "Desmond Okafor",
+    "state": "VA",
+    "occupation": "sales trader",
+    "industry": "financial services",
+    "age_at_start": 35,
+    "risk_score": 4,
+    "employer": "Meridian Trust Securities (MRTS)"
+  },
+  "arc": "t04: credit_card_debt+deferred_comp_clawback; t05: disability; t06: medical_bill+market_drop; t08: marriage+serious_illness; t09: medical_bill; t10: crypto_loss; t11: relocation",
+  "regime": "choppy: US equity +46% over the journey, worst drawdown -18%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 35,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 35,
+      "events": []
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 35,
+      "events": []
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 35,
+      "events": [
+        "credit_card_debt",
+        "deferred_comp_clawback"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 36,
+      "events": [
+        "disability"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 36,
+      "events": [
+        "medical_bill",
+        "market_drop"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 36,
+      "events": []
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 36,
+      "events": [
+        "marriage",
+        "serious_illness"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 37,
+      "events": [
+        "medical_bill"
+      ]
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 37,
+      "events": [
+        "crypto_loss"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 37,
+      "events": [
+        "relocation"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11"
+  ],
+  "unseen_late_checkpoint": "t06",
+  "quiet_checkpoint": "t02"
+}

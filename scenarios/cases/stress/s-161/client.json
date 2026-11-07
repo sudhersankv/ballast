@@ -1,0 +1,27 @@
+{
+  "client_id": "s-161",
+  "name": "Jordan Lundgren",
+  "age": 50,
+  "state": "CA",
+  "occupation": "regulatory affairs lead",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 108000,
+  "monthly_expenses": 6200,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.23,
+    "cash": 0.12
+  },
+  "monthly_contribution": 700,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

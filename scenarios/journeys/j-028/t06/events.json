@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "layoff",
+      "date": "2025-03-26",
+      "details": {
+        "severance": 10200.0,
+        "severance_weeks": 6,
+        "employer": "previous employer",
+        "last_day": "2025-03-26",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e7",
+      "type": "disability",
+      "date": "2025-04-13",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 66,
+        "monthly_cost_increase": 200.0,
+        "expected_duration_months": 3
+      }
+    }
+  ]
+}

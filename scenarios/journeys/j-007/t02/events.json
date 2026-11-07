@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2024-07-30",
+      "details": {
+        "us_equity_change_pct": -15.8,
+        "intl_equity_change_pct": -14.2,
+        "bond_change_pct": 5.2,
+        "peak_date": "2023-11-30",
+        "trough_date": "2024-07-30"
+      }
+    }
+  ]
+}

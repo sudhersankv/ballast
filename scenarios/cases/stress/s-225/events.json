@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "annual_review",
+      "date": "2026-09-07",
+      "details": {
+        "rating": "strong",
+        "merit_increase_pct": 0,
+        "note": "raise deferred to next cycle"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "promotion_title_only",
+      "date": "2026-10-07",
+      "details": {
+        "new_title": "Principal",
+        "pay_change": 0
+      }
+    }
+  ]
+}

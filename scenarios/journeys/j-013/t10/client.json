@@ -1,0 +1,26 @@
+{
+  "client_id": "j-013-t10",
+  "name": "Arjun Rasmussen",
+  "age": 49,
+  "state": "TN",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 171500.0,
+  "monthly_expenses": 9700,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.14,
+    "cash": 0.11
+  },
+  "monthly_contribution": 2600
+}

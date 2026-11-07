@@ -1,0 +1,28 @@
+{
+  "client_id": "s-023",
+  "name": "Tessa Lundgren",
+  "age": 54,
+  "state": "GA",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 263500,
+  "monthly_expenses": 13100,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.32,
+    "cash": 0.13
+  },
+  "monthly_contribution": 1300,
+  "employer": "Halvard Capital Group (HVCG)"
+}

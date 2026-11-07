@@ -1,0 +1,28 @@
+{
+  "client_id": "s-038",
+  "name": "Arjun Beaumont",
+  "age": 47,
+  "state": "NJ",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 420500,
+  "monthly_expenses": 15450,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2044
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.31,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1400,
+  "employer": "Halvard Capital Group (HVCG)"
+}

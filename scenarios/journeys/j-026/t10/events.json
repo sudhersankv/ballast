@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e12",
+      "type": "job_change",
+      "date": "2026-07-28",
+      "details": {
+        "new_income": 70000,
+        "previous_income": 66000,
+        "start_date": "2026-07-28",
+        "new_employer": "Corvane Analytics"
+      }
+    }
+  ]
+}

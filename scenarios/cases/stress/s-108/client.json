@@ -1,0 +1,21 @@
+{
+  "client_id": "s-108",
+  "name": "Patrick Ferreira",
+  "age": 70,
+  "state": "NJ",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 125000,
+  "monthly_expenses": 7150,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.56,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

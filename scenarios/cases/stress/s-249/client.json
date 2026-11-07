@@ -1,0 +1,28 @@
+{
+  "client_id": "s-249",
+  "name": "Diego Varga",
+  "age": 49,
+  "state": "NC",
+  "occupation": "solutions architect",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 131500,
+  "monthly_expenses": 7350,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.13,
+    "cash": 0.07
+  },
+  "monthly_contribution": 750,
+  "employer": "Nimbex Cloud (NMBX)",
+  "notes": "Severance paid to an outside checking account."
+}

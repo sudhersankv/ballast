@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import rules as R  # noqa: E402
+import rules_ext as RX  # noqa: E402  (extended rules: apply only when their event types appear)
 
 PASS_SCORE = 0.8
 
@@ -42,11 +43,11 @@ def check(case_dir: str | Path, recommendation: dict | None, run_error: str | No
                 "violations": [{"rule": "valid_output", "severity": "hard", "detail": detail}],
                 "results": results}
 
-    for rule in R.RULES:
+    for rule in R.RULES + RX.RULES:
         res = rule(ctx)
         if res is None:
             continue
-        results.append({"rule": rule.__name__, "severity": R.SEVERITY[rule.__name__],
+        results.append({"rule": rule.__name__, "severity": {**R.SEVERITY, **RX.SEVERITY}[rule.__name__],
                         "passed": bool(res[0]), "detail": res[1]})
 
     n_pass = sum(r["passed"] for r in results)

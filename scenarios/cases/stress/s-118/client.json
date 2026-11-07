@@ -1,0 +1,26 @@
+{
+  "client_id": "s-118",
+  "name": "Hector Takahashi",
+  "age": 44,
+  "state": "TX",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 163000,
+  "monthly_expenses": 9700,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 21,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2047
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.18,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1650
+}

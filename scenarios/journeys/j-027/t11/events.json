@@ -1,0 +1,29 @@
+{
+  "events": [
+    {
+      "id": "e16",
+      "type": "disaster_damage",
+      "date": "2026-08-22",
+      "details": {
+        "peril": "hurricane",
+        "damage_usd": 54000.0,
+        "insurance_covered_pct": 90,
+        "amount_due": null,
+        "due_date": "2027-02-24",
+        "note": "adjuster report pending"
+      }
+    },
+    {
+      "id": "e17",
+      "type": "bonus_deferral",
+      "date": "2026-09-12",
+      "details": {
+        "total_bonus": 121000.0,
+        "cash_pct": 30,
+        "deferred_pct": 70,
+        "vesting_years": 4,
+        "deferred_in": "MRTS stock units"
+      }
+    }
+  ]
+}

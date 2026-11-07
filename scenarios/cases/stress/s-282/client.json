@@ -1,0 +1,21 @@
+{
+  "client_id": "s-282",
+  "name": "Ingrid Delgado",
+  "age": 73,
+  "state": "TX",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 93500,
+  "monthly_expenses": 6150,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.21,
+    "cash": 0.04
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,28 @@
+{
+  "client_id": "j-012-t08",
+  "name": "Desmond Okafor",
+  "age": 36,
+  "state": "VA",
+  "occupation": "sales trader",
+  "industry": "financial services",
+  "employment_status": "on_disability",
+  "marital_status": "single",
+  "annual_income": 250500,
+  "monthly_expenses": 13100,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 29,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2056
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.06,
+    "cash": 0.14
+  },
+  "monthly_contribution": 0.0,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

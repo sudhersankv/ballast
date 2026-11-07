@@ -1,0 +1,21 @@
+{
+  "client_id": "s-271",
+  "name": "Rosa Ramirez",
+  "age": 70,
+  "state": "CA",
+  "occupation": "retired HVAC technician",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 48000,
+  "monthly_expenses": 4500,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 20,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.5,
+    "cash": 0.1
+  },
+  "monthly_contribution": 0.0
+}

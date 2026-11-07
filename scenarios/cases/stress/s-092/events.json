@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "business_sale",
+      "date": "2026-08-29",
+      "details": {
+        "proceeds": 1367000.0,
+        "deposited_to": "CASH",
+        "earnout_possible": 234000.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "home_purchase",
+      "date": "2026-09-02",
+      "details": {
+        "home_price": 305000.0,
+        "down_payment_pct": 20,
+        "amount_due": 70200.0,
+        "due_date": "2027-04-21",
+        "monthly_housing_cost_change": 150.0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "relocation",
+      "date": "2026-09-21",
+      "details": {
+        "amount_due": 25000.0,
+        "due_date": "2027-02-27",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

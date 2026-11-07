@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "crypto_loss",
+      "date": "2026-01-09",
+      "details": {
+        "amount_lost": 4000.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "relocation",
+      "date": "2025-05-10",
+      "details": {
+        "amount_due": 13600.0,
+        "due_date": "2025-09-19",
+        "cost_of_living_change_pct": 10,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

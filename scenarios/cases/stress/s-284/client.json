@@ -1,0 +1,22 @@
+{
+  "client_id": "s-284",
+  "name": "Omar Pemberton",
+  "age": 66,
+  "state": "MI",
+  "occupation": "retired dental hygienist",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 395000,
+  "monthly_expenses": 15600,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.6,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

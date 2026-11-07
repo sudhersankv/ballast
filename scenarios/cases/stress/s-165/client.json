@@ -1,0 +1,26 @@
+{
+  "client_id": "s-165",
+  "name": "Connor Sorensen",
+  "age": 57,
+  "state": "WA",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 209000,
+  "monthly_expenses": 11000,
+  "dependents": 3,
+  "risk_score": 2,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.55,
+    "cash": 0.1
+  },
+  "monthly_contribution": 1450
+}

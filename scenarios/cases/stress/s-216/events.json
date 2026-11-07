@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tuition_due",
+      "date": "2026-10-11",
+      "details": {
+        "amount_due": 11400.0,
+        "due_date": "2027-08-04",
+        "school_type": "public in-state",
+        "aid_package_final": true
+      }
+    }
+  ]
+}

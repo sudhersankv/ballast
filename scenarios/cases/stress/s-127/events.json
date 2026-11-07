@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "startup_equity",
+      "date": "2026-10-17",
+      "details": {
+        "company": "Corvane Analytics",
+        "options": 31000,
+        "strike": 2.17,
+        "last_409a_price": 2.73,
+        "liquid": false
+      }
+    }
+  ]
+}

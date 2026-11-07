@@ -1,0 +1,27 @@
+{
+  "client_id": "s-246",
+  "name": "Priya Oyelaran",
+  "age": 45,
+  "state": "VA",
+  "occupation": "clinical operations manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 198000,
+  "monthly_expenses": 10200,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.31,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1200,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

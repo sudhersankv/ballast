@@ -1,0 +1,21 @@
+{
+  "client_id": "s-213",
+  "name": "Abigail Novak",
+  "age": 65,
+  "state": "CA",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 88500,
+  "monthly_expenses": 5500,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 25,
+  "goals": [],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.63,
+    "cash": 0.02
+  },
+  "monthly_contribution": 500
+}

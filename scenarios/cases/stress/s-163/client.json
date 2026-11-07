@@ -1,0 +1,29 @@
+{
+  "client_id": "s-163",
+  "name": "Darnell Whitaker",
+  "age": 54,
+  "state": "VA",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 265500,
+  "monthly_expenses": 12050,
+  "dependents": 2,
+  "risk_score": 5,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.9,
+    "bond": 0.06,
+    "cash": 0.04
+  },
+  "monthly_contribution": 2700,
+  "employer": "Halvard Capital Group (HVCG)",
+  "notes": "Severance paid to an outside checking account."
+}

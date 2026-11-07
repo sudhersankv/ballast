@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "adult_child_moves_back",
+      "date": "2026-10-03",
+      "details": {
+        "child_age": 26,
+        "monthly_cost_increase": 900.0,
+        "expected_stay_months": 6
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-10-15",
+      "details": {
+        "amount_due": 8900.0,
+        "due_date": "2026-12-30",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

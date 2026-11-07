@@ -1,0 +1,22 @@
+{
+  "client_id": "s-297",
+  "name": "Trevor Chen",
+  "age": 72,
+  "state": "GA",
+  "occupation": "retired paralegal",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 96500,
+  "monthly_expenses": 7000,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.23,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0,
+  "notes": "Holdings shown are after the settlement transfer."
+}

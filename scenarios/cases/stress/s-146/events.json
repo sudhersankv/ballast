@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-23",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1800.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 18200
+      }
+    }
+  ]
+}

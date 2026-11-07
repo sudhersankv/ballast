@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e14",
+      "type": "serious_illness",
+      "date": "2026-08-16",
+      "details": {
+        "diagnosis_category": "autoimmune",
+        "monthly_cost_increase": 1750.0,
+        "work_hours_reduced_pct": 0,
+        "insurance_out_of_pocket_max": 4000
+      }
+    },
+    {
+      "id": "e15",
+      "type": "early_retirement_offer",
+      "date": "2026-09-24",
+      "details": {
+        "lump_sum_offer": 64000.0,
+        "decision_deadline": "2026-12-28"
+      }
+    },
+    {
+      "id": "e16",
+      "type": "retirement",
+      "date": "2026-10-26",
+      "details": {
+        "pension_monthly": 2600,
+        "social_security_monthly": 2400,
+        "start_date": "2026-10-26"
+      }
+    }
+  ]
+}

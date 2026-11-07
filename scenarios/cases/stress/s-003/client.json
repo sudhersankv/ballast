@@ -1,0 +1,27 @@
+{
+  "client_id": "s-003",
+  "name": "Trevor Brennan",
+  "age": 51,
+  "state": "CA",
+  "occupation": "supply-chain analyst",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 202000,
+  "monthly_expenses": 9600,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.32,
+    "cash": 0.08
+  },
+  "monthly_contribution": 2150,
+  "employer": "Kestrel Freight (KSTL)"
+}

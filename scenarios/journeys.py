@@ -483,13 +483,16 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
     if not a.check:
-        for p in (OUT, HOLD):
-            if p.exists():
-                shutil.rmtree(p)
+        for j in JOURNEYS:          # only this file's journeys; j-007+ belong to journeys_ext.py
+            for p in (OUT / j["id"], HOLD / j["id"]):
+                if p.exists():
+                    shutil.rmtree(p)
         for j in JOURNEYS:
             res = build_journey(j)
             (OUT / j["id"] / "meta.json").write_text(json.dumps(res["meta"], indent=2) + "\n", encoding="utf-8")
             (HOLD / j["id"] / "meta.json").write_text(json.dumps(res["hidden"], indent=2) + "\n", encoding="utf-8")
+        import journeys_ext  # noqa: PLC0415  (messy journeys j-007+)
+        journeys_ext.main()
     rep = check_all()
     return 1 if rep["_unsolved"] else 0
 

@@ -1,0 +1,55 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "death_of_spouse",
+      "date": "2026-08-07",
+      "details": {
+        "life_insurance_payout": 701000.0,
+        "deposited_to": "CASH",
+        "spouse_income_lost": 145000.0,
+        "survivor_benefit_monthly": 2100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-08-21",
+      "details": {
+        "severance": 115800.0,
+        "severance_weeks": 20,
+        "employer": "previous employer",
+        "last_day": "2026-08-21",
+        "cobra_monthly_premium": 690
+      }
+    },
+    {
+      "id": "e3",
+      "type": "crypto_loss",
+      "date": "2026-09-09",
+      "details": {
+        "amount_lost": 70300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "tax_bill",
+      "date": "2026-10-11",
+      "details": {
+        "amount_due": 35900.0,
+        "due_date": "2027-05-14",
+        "reason": "audit adjustment"
+      }
+    },
+    {
+      "id": "e5",
+      "type": "credit_card_debt",
+      "date": "2026-10-15",
+      "details": {
+        "balance": 31200.0,
+        "apr_pct": 26.9
+      }
+    }
+  ]
+}

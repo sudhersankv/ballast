@@ -1,0 +1,28 @@
+{
+  "client_id": "s-009",
+  "name": "Victor Sandoval",
+  "age": 52,
+  "state": "MN",
+  "occupation": "quant researcher",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 111000,
+  "monthly_expenses": 6950,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 13,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2039
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.35,
+    "cash": 0.1
+  },
+  "monthly_contribution": 4050,
+  "employer": "Aldenbrook Partners (ALDB)"
+}

@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bankruptcy",
+      "date": "2026-08-07",
+      "details": {
+        "chapter": 7,
+        "filed_by": "client's business"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "pension_buyout_offer",
+      "date": "2026-09-14",
+      "details": {
+        "lump_sum_offer": 531000.0,
+        "annuity_monthly": 2300.0,
+        "decision_deadline": "2027-01-04"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "job_change",
+      "date": "2026-10-03",
+      "details": {
+        "new_income": 265500.0,
+        "previous_income": 301000,
+        "start_date": "2026-10-03"
+      }
+    }
+  ]
+}

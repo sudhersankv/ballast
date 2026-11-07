@@ -1,0 +1,26 @@
+{
+  "client_id": "s-294",
+  "name": "Lucia Abernathy",
+  "age": 51,
+  "state": "TX",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 268500,
+  "monthly_expenses": 11750,
+  "dependents": 3,
+  "risk_score": 4,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.8,
+    "bond": 0.13,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1500
+}

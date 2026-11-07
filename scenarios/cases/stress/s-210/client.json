@@ -1,0 +1,22 @@
+{
+  "client_id": "s-210",
+  "name": "Tyrone Abernathy",
+  "age": 71,
+  "state": "NY",
+  "occupation": "retired physician assistant",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 422500,
+  "monthly_expenses": 17900,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.52,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

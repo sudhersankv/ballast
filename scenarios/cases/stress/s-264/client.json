@@ -1,0 +1,26 @@
+{
+  "client_id": "s-264",
+  "name": "Gloria Kowalski",
+  "age": 64,
+  "state": "WA",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 264000,
+  "monthly_expenses": 11750,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 1,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2027
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.54,
+    "cash": 0.11
+  },
+  "monthly_contribution": 2750
+}

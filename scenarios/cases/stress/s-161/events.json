@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "rsu_cliff",
+      "date": "2026-09-16",
+      "details": {
+        "symbol": "HLXR",
+        "vest_value": 34700.0,
+        "vest_date": "2026-09-16"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-094",
+  "name": "Tessa Beaumont",
+  "age": 58,
+  "state": "MA",
+  "occupation": "civil engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 92500,
+  "monthly_expenses": 6150,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.53,
+    "cash": 0.07
+  },
+  "monthly_contribution": 650
+}

@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit_settlement",
+      "date": "2026-09-30",
+      "details": {
+        "amount": 78000.0,
+        "deposited_to": "CASH",
+        "taxable": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "crypto_loss",
+      "date": "2026-10-18",
+      "details": {
+        "amount_lost": 96300.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

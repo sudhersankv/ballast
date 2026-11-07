@@ -1,0 +1,135 @@
+{
+  "journey_id": "j-017",
+  "persona": {
+    "name": "Darnell Brennan",
+    "state": "TX",
+    "occupation": "software engineer",
+    "industry": "other",
+    "age_at_start": 65,
+    "risk_score": 1,
+    "employer": null
+  },
+  "arc": "t02: sabbatical; t03: disability; t04: tax_bill; t05: startup_equity; t06: lawsuit+relocation; t07: medical_bill+adult_child_moves_back+death_of_spouse; t08: parent_long_term_care+gig_income; t10: tax_bill+parent_long_term_care; t11: serious_illness+early_retirement_offer+retirement",
+  "regime": "choppy: US equity +97% over the journey, worst drawdown -17%",
+  "checkpoints": [
+    {
+      "id": "t01",
+      "as_of": "2024-05-01",
+      "split": "train",
+      "age": 65,
+      "events": []
+    },
+    {
+      "id": "t02",
+      "as_of": "2024-08-01",
+      "split": "train",
+      "age": 65,
+      "events": [
+        "sabbatical"
+      ]
+    },
+    {
+      "id": "t03",
+      "as_of": "2024-11-01",
+      "split": "train",
+      "age": 66,
+      "events": [
+        "disability"
+      ]
+    },
+    {
+      "id": "t04",
+      "as_of": "2025-02-01",
+      "split": "train",
+      "age": 66,
+      "events": [
+        "tax_bill"
+      ]
+    },
+    {
+      "id": "t05",
+      "as_of": "2025-05-01",
+      "split": "train",
+      "age": 66,
+      "events": [
+        "startup_equity"
+      ]
+    },
+    {
+      "id": "t06",
+      "as_of": "2025-08-01",
+      "split": "holdout",
+      "age": 66,
+      "events": [
+        "lawsuit",
+        "relocation"
+      ]
+    },
+    {
+      "id": "t07",
+      "as_of": "2025-11-01",
+      "split": "holdout",
+      "age": 67,
+      "events": [
+        "medical_bill",
+        "adult_child_moves_back",
+        "death_of_spouse"
+      ]
+    },
+    {
+      "id": "t08",
+      "as_of": "2026-02-01",
+      "split": "holdout",
+      "age": 67,
+      "events": [
+        "parent_long_term_care",
+        "gig_income"
+      ]
+    },
+    {
+      "id": "t09",
+      "as_of": "2026-05-01",
+      "split": "holdout",
+      "age": 67,
+      "events": []
+    },
+    {
+      "id": "t10",
+      "as_of": "2026-08-01",
+      "split": "holdout",
+      "age": 67,
+      "events": [
+        "tax_bill",
+        "parent_long_term_care"
+      ]
+    },
+    {
+      "id": "t11",
+      "as_of": "2026-11-01",
+      "split": "holdout",
+      "age": 68,
+      "events": [
+        "serious_illness",
+        "early_retirement_offer",
+        "retirement"
+      ]
+    }
+  ],
+  "train": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05"
+  ],
+  "holdout": [
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11"
+  ],
+  "unseen_late_checkpoint": "t06",
+  "quiet_checkpoint": "t09"
+}

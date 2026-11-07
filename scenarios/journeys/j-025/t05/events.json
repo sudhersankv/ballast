@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "home_purchase",
+      "date": "2025-05-07",
+      "details": {
+        "home_price": 245000.0,
+        "down_payment_pct": 5,
+        "amount_due": 19600.0,
+        "due_date": "2025-12-23",
+        "monthly_housing_cost_change": 800.0
+      }
+    }
+  ]
+}

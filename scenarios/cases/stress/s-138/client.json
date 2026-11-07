@@ -1,0 +1,28 @@
+{
+  "client_id": "s-138",
+  "name": "Yasmin Chen",
+  "age": 39,
+  "state": "FL",
+  "occupation": "sales trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 182000,
+  "monthly_expenses": 9200,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 26,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2052
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.03,
+    "cash": 0.22
+  },
+  "monthly_contribution": 1400,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-225",
+  "name": "Brianna Mbeki",
+  "age": 74,
+  "state": "CA",
+  "occupation": "retired police sergeant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 73000,
+  "monthly_expenses": 5850,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.69,
+    "cash": 0.16
+  },
+  "monthly_contribution": 0.0
+}

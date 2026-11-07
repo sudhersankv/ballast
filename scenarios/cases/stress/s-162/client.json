@@ -1,0 +1,26 @@
+{
+  "client_id": "s-162",
+  "name": "Hector Ramirez",
+  "age": 64,
+  "state": "MA",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 105000,
+  "monthly_expenses": 6350,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 1,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2027
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.61,
+    "cash": 0.04
+  },
+  "monthly_contribution": 1350
+}

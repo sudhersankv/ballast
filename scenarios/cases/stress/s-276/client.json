@@ -1,0 +1,27 @@
+{
+  "client_id": "s-276",
+  "name": "Imani Okafor",
+  "age": 52,
+  "state": "MN",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 152000,
+  "monthly_expenses": 8600,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 13,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2039
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.45,
+    "cash": 0.15
+  },
+  "monthly_contribution": 1950,
+  "notes": "Severance paid to an outside checking account."
+}

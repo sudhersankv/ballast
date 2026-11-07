@@ -1,0 +1,29 @@
+{
+  "client_id": "s-222",
+  "name": "Malik Sandoval",
+  "age": 49,
+  "state": "TX",
+  "occupation": "private equity associate",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 223500,
+  "monthly_expenses": 10450,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.3,
+    "cash": 0.15
+  },
+  "monthly_contribution": 2100,
+  "employer": "Aldenbrook Partners (ALDB)",
+  "notes": "Aldenbrook Partners filed for bankruptcy; unvested deferred compensation is an unsecured claim."
+}

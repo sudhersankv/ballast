@@ -1,0 +1,22 @@
+{
+  "client_id": "s-171",
+  "name": "Samuel Marchetti",
+  "age": 71,
+  "state": "CO",
+  "occupation": "retired elementary school teacher",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 142000,
+  "monthly_expenses": 7150,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.35,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

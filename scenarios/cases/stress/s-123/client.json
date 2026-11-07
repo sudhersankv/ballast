@@ -1,0 +1,26 @@
+{
+  "client_id": "s-123",
+  "name": "Wesley Novak",
+  "age": 45,
+  "state": "WA",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 103500,
+  "monthly_expenses": 6400,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 20,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.54,
+    "cash": 0.06
+  },
+  "monthly_contribution": 600
+}

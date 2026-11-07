@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2024-09-29",
+      "details": {
+        "severance": 26300.0,
+        "severance_weeks": 18,
+        "employer": "previous employer",
+        "last_day": "2024-09-29",
+        "cobra_monthly_premium": 690
+      }
+    },
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2024-10-19",
+      "details": {
+        "balance": 32800.0,
+        "apr_pct": 19.9
+      }
+    },
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2024-10-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -17.8,
+        "bond_change_pct": 4.7,
+        "peak_date": "2023-11-30",
+        "trough_date": "2024-10-30"
+      }
+    }
+  ]
+}

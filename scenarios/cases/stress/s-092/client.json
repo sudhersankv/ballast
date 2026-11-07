@@ -1,0 +1,26 @@
+{
+  "client_id": "s-092",
+  "name": "Brianna Quintero",
+  "age": 46,
+  "state": "MA",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 77500,
+  "monthly_expenses": 5900,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2045
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.32,
+    "cash": 0.08
+  },
+  "monthly_contribution": 800
+}

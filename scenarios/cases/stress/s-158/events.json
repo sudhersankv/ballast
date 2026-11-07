@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "deferred_comp_clawback",
+      "date": "2026-09-27",
+      "details": {
+        "amount_clawed": 125000.0,
+        "reason": "restatement"
+      }
+    }
+  ]
+}

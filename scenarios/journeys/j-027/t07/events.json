@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "job_change",
+      "date": "2025-08-31",
+      "details": {
+        "new_income": 195000,
+        "previous_income": 229500,
+        "start_date": "2025-08-31",
+        "new_employer": "Orchard Labs"
+      }
+    },
+    {
+      "id": "e12",
+      "type": "medical_bill",
+      "date": "2025-10-22",
+      "details": {
+        "amount_due": 16200.0,
+        "due_date": "2025-12-17",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

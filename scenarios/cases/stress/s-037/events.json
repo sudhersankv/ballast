@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "adult_child_moves_back",
+      "date": "2026-08-30",
+      "details": {
+        "child_age": 31,
+        "monthly_cost_increase": 900.0,
+        "expected_stay_months": 12
+      }
+    },
+    {
+      "id": "e2",
+      "type": "serious_illness",
+      "date": "2026-09-02",
+      "details": {
+        "diagnosis_category": "cardiac",
+        "monthly_cost_increase": 1100.0,
+        "work_hours_reduced_pct": 25,
+        "insurance_out_of_pocket_max": 18200
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "client_id": "s-130",
+  "name": "Lucia Rasmussen",
+  "age": 64,
+  "state": "OH",
+  "occupation": "operations director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 255000,
+  "monthly_expenses": 11100,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 1,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2027
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.53,
+    "cash": 0.07
+  },
+  "monthly_contribution": 3150,
+  "employer": "Kestrel Freight (KSTL)"
+}

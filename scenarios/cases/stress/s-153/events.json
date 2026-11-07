@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-09-28",
+      "details": {
+        "care_type": "assisted living",
+        "monthly_cost_increase": null,
+        "siblings_sharing_cost": 2,
+        "note": "family has not agreed how to split the cost yet"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "medical_bill",
+      "date": "2026-10-14",
+      "details": {
+        "amount_due": 10600.0,
+        "due_date": "2026-12-16",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "regulatory_ban",
+      "date": "2026-02-12",
+      "details": {
+        "duration_months": 6,
+        "regulator": "SEC"
+      }
+    },
+    {
+      "id": "e11",
+      "type": "crypto_loss",
+      "date": "2026-04-18",
+      "details": {
+        "amount_lost": 50700.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    }
+  ]
+}

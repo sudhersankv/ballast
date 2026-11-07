@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "adult_child_moves_back",
+      "date": "2024-08-10",
+      "details": {
+        "child_age": 27,
+        "monthly_cost_increase": 300.0,
+        "expected_stay_months": 12
+      }
+    },
+    {
+      "id": "e5",
+      "type": "tax_bill",
+      "date": "2024-08-27",
+      "details": {
+        "amount_due": 26800.0,
+        "due_date": "2025-05-14",
+        "reason": "RSU withholding shortfall"
+      }
+    }
+  ]
+}

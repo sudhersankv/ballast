@@ -1,0 +1,26 @@
+{
+  "client_id": "s-233",
+  "name": "Wesley Lundgren",
+  "age": 41,
+  "state": "TX",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 135500,
+  "monthly_expenses": 8700,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 24,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2050
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.27,
+    "cash": 0.13
+  },
+  "monthly_contribution": 1050
+}

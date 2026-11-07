@@ -1,0 +1,26 @@
+{
+  "client_id": "s-229",
+  "name": "Samuel Novak",
+  "age": 57,
+  "state": "OH",
+  "occupation": "police sergeant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 84000,
+  "monthly_expenses": 5350,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.58,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1000
+}

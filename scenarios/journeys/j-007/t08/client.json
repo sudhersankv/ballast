@@ -1,0 +1,26 @@
+{
+  "client_id": "j-007-t08",
+  "name": "Tyrone Oyelaran",
+  "age": 57,
+  "state": "OH",
+  "occupation": "anesthesiologist",
+  "employment_status": "unemployed",
+  "marital_status": "single",
+  "annual_income": 23000,
+  "monthly_expenses": 17300,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2035
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.37,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

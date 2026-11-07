@@ -1,0 +1,26 @@
+{
+  "client_id": "s-194",
+  "name": "Malik Fairbanks",
+  "age": 59,
+  "state": "WA",
+  "occupation": "software engineer",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 145500,
+  "monthly_expenses": 8000,
+  "dependents": 2,
+  "risk_score": 1,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.74,
+    "cash": 0.06
+  },
+  "monthly_contribution": 1900
+}

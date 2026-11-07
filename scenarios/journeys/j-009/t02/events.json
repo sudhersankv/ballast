@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "desk_shutdown",
+      "date": "2024-09-28",
+      "details": {
+        "garden_leave_months": 3,
+        "severance": 89000.0
+      }
+    },
+    {
+      "id": "e2",
+      "type": "bonus_cut",
+      "date": "2024-10-04",
+      "details": {
+        "expected_bonus": 48000.0,
+        "actual_bonus": 32000.0,
+        "reason": "desk underperformed"
+      }
+    }
+  ]
+}

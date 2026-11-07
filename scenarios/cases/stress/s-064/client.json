@@ -1,0 +1,27 @@
+{
+  "client_id": "s-064",
+  "name": "Imani Fairbanks",
+  "age": 50,
+  "state": "CA",
+  "occupation": "clinical operations manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 159000,
+  "monthly_expenses": 8900,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.29,
+    "cash": 0.11
+  },
+  "monthly_contribution": 1350,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

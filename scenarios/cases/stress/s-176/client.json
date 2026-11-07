@@ -1,0 +1,21 @@
+{
+  "client_id": "s-176",
+  "name": "Aisha Novak",
+  "age": 66,
+  "state": "NY",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 217500,
+  "monthly_expenses": 10650,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.2,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0
+}

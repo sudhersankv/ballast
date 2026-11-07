@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2026-08-21",
+      "details": {
+        "severance": 5100.0,
+        "severance_weeks": 2,
+        "employer": "previous employer",
+        "last_day": "2026-08-21",
+        "cobra_monthly_premium": 2130
+      }
+    },
+    {
+      "id": "e2",
+      "type": "credit_card_debt",
+      "date": "2026-10-12",
+      "details": {
+        "balance": 4400.0,
+        "apr_pct": 26.9
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2024-12-05",
+      "details": {
+        "balance": 40000.0,
+        "apr_pct": 29.9
+      }
+    },
+    {
+      "id": "e4",
+      "type": "business_failure",
+      "date": "2024-12-26",
+      "details": {
+        "business": "restaurant",
+        "personal_guarantee_usd": 75000
+      }
+    }
+  ]
+}

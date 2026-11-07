@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "annual_review",
+      "date": "2026-08-22",
+      "details": {
+        "rating": "exceeds",
+        "merit_increase_pct": 0,
+        "note": "raise deferred to next cycle"
+      }
+    }
+  ]
+}

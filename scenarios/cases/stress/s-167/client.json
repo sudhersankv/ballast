@@ -1,0 +1,21 @@
+{
+  "client_id": "s-167",
+  "name": "Aisha Achebe",
+  "age": 73,
+  "state": "OH",
+  "occupation": "retired physician assistant",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 48000,
+  "monthly_expenses": 4700,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.72,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

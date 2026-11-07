@@ -1,0 +1,27 @@
+{
+  "client_id": "s-277",
+  "name": "Yasmin Ramirez",
+  "age": 22,
+  "state": "CA",
+  "occupation": "research scientist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 80000,
+  "monthly_expenses": 5750,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 43,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2069
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.23,
+    "cash": 0.22
+  },
+  "monthly_contribution": 950,
+  "employer": "Helixar Therapeutics (HLXR)"
+}

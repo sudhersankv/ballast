@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e8",
+      "type": "parent_long_term_care",
+      "date": "2025-05-24",
+      "details": {
+        "care_type": "assisted living",
+        "monthly_cost_increase": 4450.0,
+        "siblings_sharing_cost": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-007",
+  "name": "Brianna Fairbanks",
+  "age": 49,
+  "state": "PA",
+  "occupation": "pharmacist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 172000,
+  "monthly_expenses": 8500,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 16,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2042
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.27,
+    "cash": 0.13
+  },
+  "monthly_contribution": 900
+}

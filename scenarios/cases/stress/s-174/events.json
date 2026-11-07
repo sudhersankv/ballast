@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "furlough",
+      "date": "2026-10-12",
+      "details": {
+        "unpaid_weeks": 12,
+        "expected_return": "confirmed",
+        "benefits_continued": false
+      }
+    }
+  ]
+}

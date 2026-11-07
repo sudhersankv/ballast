@@ -1,0 +1,21 @@
+{
+  "client_id": "s-031",
+  "name": "Hector Oyelaran",
+  "age": 73,
+  "state": "CO",
+  "occupation": "retired HVAC technician",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 88500,
+  "monthly_expenses": 6650,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 17,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.68,
+    "cash": 0.12
+  },
+  "monthly_contribution": 0.0
+}

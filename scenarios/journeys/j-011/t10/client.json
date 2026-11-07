@@ -1,0 +1,26 @@
+{
+  "client_id": "j-011-t10",
+  "name": "Leila Nguyen",
+  "age": 56,
+  "state": "CA",
+  "occupation": "senior software engineer",
+  "employment_status": "on_disability",
+  "marital_status": "married",
+  "annual_income": 130000,
+  "monthly_expenses": 11800,
+  "dependents": 4,
+  "risk_score": 2,
+  "horizon_years": 9,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2037
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.46,
+    "cash": 0.14
+  },
+  "monthly_contribution": 0.0
+}

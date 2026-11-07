@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "promotion_title_only",
+      "date": "2026-08-03",
+      "details": {
+        "new_title": "Principal",
+        "pay_change": 0
+      }
+    }
+  ]
+}

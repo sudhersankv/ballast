@@ -1,0 +1,26 @@
+{
+  "client_id": "s-270",
+  "name": "Maya Pemberton",
+  "age": 60,
+  "state": "VA",
+  "occupation": "UX designer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 123500,
+  "monthly_expenses": 8150,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 5,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2031
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.53,
+    "cash": 0.07
+  },
+  "monthly_contribution": 1300
+}

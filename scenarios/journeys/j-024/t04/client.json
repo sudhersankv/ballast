@@ -1,0 +1,28 @@
+{
+  "client_id": "j-024-t04",
+  "name": "Victor Lindqvist",
+  "age": 46,
+  "state": "FL",
+  "occupation": "operations analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 119000,
+  "monthly_expenses": 7350,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2046
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.37,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1250,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

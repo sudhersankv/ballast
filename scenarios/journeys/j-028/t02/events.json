@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "layoff",
+      "date": "2024-03-21",
+      "details": {
+        "severance": 60600.0,
+        "severance_weeks": 30,
+        "employer": "previous employer",
+        "last_day": "2024-03-21",
+        "cobra_monthly_premium": 2130
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-112",
+  "name": "Brianna Mbeki",
+  "age": 62,
+  "state": "CA",
+  "occupation": "sales director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 137000,
+  "monthly_expenses": 7500,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 3,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2029
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.52,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1400
+}

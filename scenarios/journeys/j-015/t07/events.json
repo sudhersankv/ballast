@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "e5",
+      "type": "firm_collapse",
+      "date": "2025-12-16",
+      "details": {
+        "employer": "Meridian Trust Securities",
+        "symbol": "MRTS",
+        "stock_change_pct": -91.8,
+        "deferred_comp_lost_usd": 98000.0
+      }
+    },
+    {
+      "id": "e7",
+      "type": "serious_illness",
+      "date": "2026-01-18",
+      "details": {
+        "diagnosis_category": "cardiac",
+        "monthly_cost_increase": 1850.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 6000
+      }
+    },
+    {
+      "id": "e6",
+      "type": "market_drop",
+      "date": "2026-01-30",
+      "details": {
+        "us_equity_change_pct": -38.1,
+        "intl_equity_change_pct": -47.3,
+        "bond_change_pct": 7.8,
+        "peak_date": "2025-01-31",
+        "trough_date": "2026-01-30"
+      }
+    }
+  ]
+}

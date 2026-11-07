@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2024-12-06",
+      "details": {
+        "balance": 36900.0,
+        "apr_pct": 22.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "deferred_comp_clawback",
+      "date": "2024-12-19",
+      "details": {
+        "amount_clawed": 100000.0,
+        "reason": "conduct review"
+      }
+    }
+  ]
+}

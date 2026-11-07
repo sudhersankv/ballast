@@ -1,0 +1,26 @@
+{
+  "client_id": "s-119",
+  "name": "Tyrone Yilmaz",
+  "age": 55,
+  "state": "VA",
+  "occupation": "logistics manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 122000,
+  "monthly_expenses": 7300,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 800
+}

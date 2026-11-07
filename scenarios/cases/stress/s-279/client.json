@@ -1,0 +1,26 @@
+{
+  "client_id": "s-279",
+  "name": "Samuel Ramirez",
+  "age": 35,
+  "state": "FL",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 179000,
+  "monthly_expenses": 9050,
+  "dependents": 3,
+  "risk_score": 3,
+  "horizon_years": 30,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2056
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.27,
+    "cash": 0.18
+  },
+  "monthly_contribution": 2400
+}

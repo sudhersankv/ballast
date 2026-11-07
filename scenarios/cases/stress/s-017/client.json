@@ -1,0 +1,27 @@
+{
+  "client_id": "s-017",
+  "name": "Owen Quintero",
+  "age": 60,
+  "state": "MI",
+  "occupation": "operations director",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 140000,
+  "monthly_expenses": 8000,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 5,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2031
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.63,
+    "cash": 0.02
+  },
+  "monthly_contribution": 900,
+  "employer": "Kestrel Freight (KSTL)"
+}

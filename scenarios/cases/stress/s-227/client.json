@@ -1,0 +1,26 @@
+{
+  "client_id": "s-227",
+  "name": "Hector Iyer",
+  "age": 59,
+  "state": "OR",
+  "occupation": "data scientist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 113500,
+  "monthly_expenses": 7000,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.36,
+    "cash": 0.09
+  },
+  "monthly_contribution": 750
+}

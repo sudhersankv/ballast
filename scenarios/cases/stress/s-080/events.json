@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lawsuit_settlement",
+      "date": "2026-08-15",
+      "details": {
+        "amount": 400000.0,
+        "deposited_to": "CASH",
+        "taxable": true
+      }
+    },
+    {
+      "id": "e2",
+      "type": "retirement",
+      "date": "2026-09-15",
+      "details": {
+        "pension_monthly": 2600,
+        "social_security_monthly": 3100,
+        "start_date": "2026-09-15"
+      }
+    }
+  ]
+}

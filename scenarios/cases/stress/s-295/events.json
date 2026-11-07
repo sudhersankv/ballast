@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-09-04",
+      "details": {
+        "amount_lost": 59600.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tax_bill",
+      "date": "2026-10-19",
+      "details": {
+        "amount_due": 34100.0,
+        "due_date": "2027-02-21",
+        "reason": "capital gains"
+      }
+    }
+  ]
+}

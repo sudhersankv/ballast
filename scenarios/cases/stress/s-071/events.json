@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "gig_income",
+      "date": "2026-10-27",
+      "details": {
+        "avg_monthly_income": 7950.0,
+        "income_volatility_pct": 25,
+        "platforms": 1
+      }
+    }
+  ]
+}

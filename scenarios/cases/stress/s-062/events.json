@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tax_bill",
+      "date": "2026-08-26",
+      "details": {
+        "amount_due": 21700.0,
+        "due_date": "2027-03-23",
+        "reason": "self-employment tax"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "lawsuit",
+      "date": "2026-10-06",
+      "details": {
+        "claim_usd": 136000.0,
+        "insured": true,
+        "status": "discovery"
+      }
+    }
+  ]
+}

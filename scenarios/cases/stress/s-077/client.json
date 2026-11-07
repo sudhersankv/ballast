@@ -1,0 +1,22 @@
+{
+  "client_id": "s-077",
+  "name": "Gloria Yilmaz",
+  "age": 72,
+  "state": "TN",
+  "occupation": "retired logistics manager",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 120000,
+  "monthly_expenses": 7250,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.39,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0,
+  "notes": "Holdings shown are after the settlement transfer."
+}

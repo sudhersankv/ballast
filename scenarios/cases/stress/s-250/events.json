@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "adult_child_moves_back",
+      "date": "2026-09-22",
+      "details": {
+        "child_age": 30,
+        "monthly_cost_increase": 550.0,
+        "expected_stay_months": null
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2026-09-22",
+      "details": {
+        "amount_due": 12000.0,
+        "due_date": "2026-12-13",
+        "school_type": "private nonprofit",
+        "aid_package_final": true
+      }
+    }
+  ]
+}

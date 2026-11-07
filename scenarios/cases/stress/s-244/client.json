@@ -1,0 +1,29 @@
+{
+  "client_id": "s-244",
+  "name": "Nadia Oyelaran",
+  "age": 57,
+  "state": "MA",
+  "occupation": "portfolio manager",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 464000,
+  "monthly_expenses": 19050,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 1450,
+  "employer": "Aldenbrook Partners (ALDB)",
+  "notes": "Aldenbrook Partners filed for bankruptcy; unvested deferred compensation is an unsecured claim. Holdings shown are after the settlement transfer."
+}

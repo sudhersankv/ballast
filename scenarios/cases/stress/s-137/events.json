@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2026-08-14",
+      "details": {
+        "balance": 32900.0,
+        "apr_pct": 29.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "disability",
+      "date": "2026-08-17",
+      "details": {
+        "kind": "long_term",
+        "benefit_pct_of_income": 66,
+        "monthly_cost_increase": 500.0,
+        "expected_duration_months": null
+      }
+    },
+    {
+      "id": "e3",
+      "type": "parent_long_term_care",
+      "date": "2026-08-25",
+      "details": {
+        "care_type": "assisted living",
+        "monthly_cost_increase": 2650.0,
+        "siblings_sharing_cost": 1
+      }
+    }
+  ]
+}

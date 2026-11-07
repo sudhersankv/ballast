@@ -1,0 +1,27 @@
+{
+  "client_id": "s-199",
+  "name": "Gloria Nguyen",
+  "age": 59,
+  "state": "PA",
+  "occupation": "anesthesiologist",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 317000,
+  "monthly_expenses": 15200,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.17,
+    "cash": 0.08
+  },
+  "monthly_contribution": 2700,
+  "notes": "Holdings shown are after the settlement transfer."
+}

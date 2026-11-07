@@ -1,0 +1,28 @@
+{
+  "client_id": "j-021-t01",
+  "name": "Marcus Dubois",
+  "age": 57,
+  "state": "CA",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 375500,
+  "monthly_expenses": 14600,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.38,
+    "cash": 0.07
+  },
+  "monthly_contribution": 750,
+  "employer": "Halvard Capital Group (HVCG)"
+}

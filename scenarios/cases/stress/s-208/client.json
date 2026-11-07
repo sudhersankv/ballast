@@ -1,0 +1,21 @@
+{
+  "client_id": "s-208",
+  "name": "Yasmin Rasmussen",
+  "age": 71,
+  "state": "IL",
+  "occupation": "retired elementary school teacher",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 75000,
+  "monthly_expenses": 5250,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.32,
+    "cash": 0.08
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,26 @@
+{
+  "client_id": "s-060",
+  "name": "Trevor Beaumont",
+  "age": 53,
+  "state": "MA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 113500,
+  "monthly_expenses": 6700,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.45,
+    "bond": 0.43,
+    "cash": 0.12
+  },
+  "monthly_contribution": 1150
+}

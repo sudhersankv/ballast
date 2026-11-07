@@ -1,0 +1,21 @@
+{
+  "client_id": "s-173",
+  "name": "Diego Lindqvist",
+  "age": 67,
+  "state": "IL",
+  "occupation": "retired paralegal",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 48000,
+  "monthly_expenses": 4450,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.47,
+    "cash": 0.13
+  },
+  "monthly_contribution": 0.0
+}

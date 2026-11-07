@@ -1,0 +1,26 @@
+{
+  "client_id": "s-137",
+  "name": "Malik Takahashi",
+  "age": 62,
+  "state": "MI",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 165000,
+  "monthly_expenses": 8700,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 3,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2029
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.16,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1950
+}

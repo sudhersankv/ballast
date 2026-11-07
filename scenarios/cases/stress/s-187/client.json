@@ -1,0 +1,22 @@
+{
+  "client_id": "s-187",
+  "name": "Leila Yilmaz",
+  "age": 68,
+  "state": "GA",
+  "occupation": "retired civil engineer",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 135500,
+  "monthly_expenses": 7500,
+  "dependents": 1,
+  "risk_score": 1,
+  "horizon_years": 22,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.67,
+    "cash": 0.13
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "tuition_due",
+      "date": "2024-08-18",
+      "details": {
+        "amount_due": 49300.0,
+        "due_date": "2025-02-19",
+        "school_type": "private nonprofit",
+        "aid_package_final": false
+      }
+    },
+    {
+      "id": "e5",
+      "type": "prop_trading_loss",
+      "date": "2024-09-06",
+      "details": {
+        "loss_usd": 189000.0,
+        "account": "personal brokerage (outside)"
+      }
+    }
+  ]
+}

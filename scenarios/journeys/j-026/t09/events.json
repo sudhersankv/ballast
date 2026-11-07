@@ -1,0 +1,37 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "gig_income",
+      "date": "2026-02-18",
+      "details": {
+        "avg_monthly_income": 5500.0,
+        "income_volatility_pct": 40,
+        "platforms": 3
+      }
+    },
+    {
+      "id": "e10",
+      "type": "layoff",
+      "date": "2026-03-15",
+      "details": {
+        "severance": 8000.0,
+        "severance_weeks": 5,
+        "employer": "previous employer",
+        "last_day": "2026-03-15",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e11",
+      "type": "foreclosure_risk",
+      "date": "2026-03-22",
+      "details": {
+        "arrears_usd": 22200.0,
+        "amount_due": 22200.0,
+        "due_date": "2026-07-02",
+        "monthly_mortgage": 4450.0
+      }
+    }
+  ]
+}

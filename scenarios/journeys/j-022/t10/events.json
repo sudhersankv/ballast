@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "id": "e11",
+      "type": "home_purchase",
+      "date": "2026-05-07",
+      "details": {
+        "home_price": 290000.0,
+        "down_payment_pct": 10,
+        "amount_due": 37700.0,
+        "due_date": "2027-03-13",
+        "monthly_housing_cost_change": -150.0
+      }
+    },
+    {
+      "id": "e12",
+      "type": "layoff",
+      "date": "2026-05-23",
+      "details": {
+        "severance": 26000.0,
+        "severance_weeks": 14,
+        "employer": "previous employer",
+        "last_day": "2026-05-23",
+        "cobra_monthly_premium": 760
+      }
+    }
+  ]
+}

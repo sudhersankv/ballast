@@ -1,0 +1,27 @@
+{
+  "client_id": "s-136",
+  "name": "Hector Iyer",
+  "age": 50,
+  "state": "CA",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 95000,
+  "monthly_expenses": 6750,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.11,
+    "cash": 0.14
+  },
+  "monthly_contribution": 600,
+  "notes": "Severance paid to an outside checking account."
+}

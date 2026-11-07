@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lottery_win",
+      "date": "2026-10-01",
+      "details": {
+        "amount_after_tax": 801000.0,
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "pension_buyout_offer",
+      "date": "2026-10-21",
+      "details": {
+        "lump_sum_offer": 276000.0,
+        "annuity_monthly": 3300.0,
+        "decision_deadline": "2026-12-18"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "pension_buyout_offer",
+      "date": "2024-03-24",
+      "details": {
+        "lump_sum_offer": 157000.0,
+        "annuity_monthly": 2900.0,
+        "decision_deadline": "2024-06-24"
+      }
+    }
+  ]
+}

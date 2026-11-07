@@ -1,0 +1,26 @@
+{
+  "client_id": "s-010",
+  "name": "Maya Sorensen",
+  "age": 44,
+  "state": "IL",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 133000,
+  "monthly_expenses": 7950,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 21,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2047
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.28,
+    "cash": 0.17
+  },
+  "monthly_contribution": 1600
+}

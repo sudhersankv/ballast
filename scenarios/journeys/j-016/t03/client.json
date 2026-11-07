@@ -1,0 +1,26 @@
+{
+  "client_id": "j-016-t03",
+  "name": "Grant Rasmussen",
+  "age": 53,
+  "state": "MI",
+  "occupation": "electrical engineer",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 160000,
+  "monthly_expenses": 9650,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 12,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.15,
+    "cash": 0.1
+  },
+  "monthly_contribution": 1300
+}

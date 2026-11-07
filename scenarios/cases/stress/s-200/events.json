@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bonus_deferral",
+      "date": "2026-08-03",
+      "details": {
+        "total_bonus": 116000.0,
+        "cash_pct": 30,
+        "deferred_pct": 70,
+        "vesting_years": 4,
+        "deferred_in": "MRTS stock units"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "deferred_comp_clawback",
+      "date": "2026-08-15",
+      "details": {
+        "amount_clawed": 46000.0,
+        "reason": "restatement"
+      }
+    },
+    {
+      "id": "e3",
+      "type": "business_failure",
+      "date": "2026-08-25",
+      "details": {
+        "business": "retail shop",
+        "personal_guarantee_usd": 75000
+      }
+    }
+  ]
+}

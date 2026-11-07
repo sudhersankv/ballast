@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "death_of_spouse",
+      "date": "2024-10-11",
+      "details": {
+        "life_insurance_payout": 263000.0,
+        "deposited_to": "CASH",
+        "spouse_income_lost": 136000.0,
+        "survivor_benefit_monthly": 0
+      }
+    },
+    {
+      "id": "e3",
+      "type": "disaster_damage",
+      "date": "2024-10-26",
+      "details": {
+        "peril": "hurricane",
+        "damage_usd": 168000.0,
+        "insurance_covered_pct": 50,
+        "amount_due": 84000.0,
+        "due_date": "2024-12-12"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "client_id": "j-010-t09",
+  "name": "Desmond Mbeki",
+  "age": 46,
+  "state": "CA",
+  "occupation": "registered nurse",
+  "employment_status": "on_disability",
+  "marital_status": "single",
+  "annual_income": 111500,
+  "monthly_expenses": 8850,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 19,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2047
+    },
+    {
+      "type": "education",
+      "target_year": 2043
+    }
+  ],
+  "targets": {
+    "equity": 0.55,
+    "bond": 0.34,
+    "cash": 0.11
+  },
+  "monthly_contribution": 0.0
+}

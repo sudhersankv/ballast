@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e7",
+      "type": "medical_bill",
+      "date": "2025-05-09",
+      "details": {
+        "amount_due": 6500.0,
+        "due_date": "2025-09-19",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

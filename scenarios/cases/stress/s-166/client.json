@@ -1,0 +1,21 @@
+{
+  "client_id": "s-166",
+  "name": "Omar Abernathy",
+  "age": 67,
+  "state": "IL",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 113500,
+  "monthly_expenses": 7050,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.54,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2024-05-26",
+      "details": {
+        "amount_due": 9000.0,
+        "due_date": "2024-10-31",
+        "cost_of_living_change_pct": 10,
+        "employer_relocation_package": true
+      }
+    },
+    {
+      "id": "e3",
+      "type": "job_change",
+      "date": "2024-07-15",
+      "details": {
+        "new_income": 88000,
+        "previous_income": 105000,
+        "start_date": "2024-07-15",
+        "new_employer": "Larkspur Bank"
+      }
+    }
+  ]
+}

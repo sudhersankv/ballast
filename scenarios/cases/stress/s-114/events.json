@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "tax_bill",
+      "date": "2026-09-29",
+      "details": {
+        "amount_due": 26700.0,
+        "due_date": "2027-04-26",
+        "reason": "RSU withholding shortfall"
+      }
+    }
+  ]
+}

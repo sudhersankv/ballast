@@ -1,0 +1,26 @@
+{
+  "client_id": "s-156",
+  "name": "Tessa Mbeki",
+  "age": 63,
+  "state": "NY",
+  "occupation": "attorney",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 174500,
+  "monthly_expenses": 9800,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 2,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2028
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.31,
+    "cash": 0.09
+  },
+  "monthly_contribution": 1500
+}

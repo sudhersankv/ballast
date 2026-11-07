@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "sabbatical",
+      "date": "2026-06-06",
+      "details": {
+        "unpaid_months": 2,
+        "amount_due": 18600.0,
+        "due_date": "2026-09-30"
+      }
+    },
+    {
+      "id": "e11",
+      "type": "parent_long_term_care",
+      "date": "2026-06-29",
+      "details": {
+        "care_type": "nursing home",
+        "monthly_cost_increase": 4250.0,
+        "siblings_sharing_cost": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "disaster_damage",
+      "date": "2026-10-01",
+      "details": {
+        "peril": "flood",
+        "damage_usd": 95000.0,
+        "insurance_covered_pct": 50,
+        "amount_due": 47500.0,
+        "due_date": "2026-12-14"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "inheritance",
+      "date": "2026-10-25",
+      "details": {
+        "amount": 1288000.0,
+        "form": "cash",
+        "deposited_to": "CASH"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client_id": "s-293",
+  "name": "Hector Whitaker",
+  "age": 74,
+  "state": "VA",
+  "occupation": "retired registered nurse",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 77500,
+  "monthly_expenses": 6150,
+  "dependents": 0,
+  "risk_score": 1,
+  "horizon_years": 16,
+  "goals": [],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.73,
+    "cash": 0.07
+  },
+  "monthly_contribution": 0.0
+}

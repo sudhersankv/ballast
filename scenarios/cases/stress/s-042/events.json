@@ -1,0 +1,46 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "serious_illness",
+      "date": "2026-08-27",
+      "details": {
+        "diagnosis_category": "cancer",
+        "monthly_cost_increase": 1400.0,
+        "work_hours_reduced_pct": 50,
+        "insurance_out_of_pocket_max": 18200
+      }
+    },
+    {
+      "id": "e2",
+      "type": "relocation",
+      "date": "2026-09-12",
+      "details": {
+        "amount_due": 8200.0,
+        "due_date": "2026-12-09",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": true
+      }
+    },
+    {
+      "id": "e3",
+      "type": "pay_cut",
+      "date": "2026-10-05",
+      "details": {
+        "new_income": 70000.0,
+        "reason": "cost cutting"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "disability",
+      "date": "2026-10-13",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 66,
+        "monthly_cost_increase": 800.0,
+        "expected_duration_months": 6
+      }
+    }
+  ]
+}

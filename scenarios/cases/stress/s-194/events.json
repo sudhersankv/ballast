@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "lottery_win",
+      "date": "2026-09-23",
+      "details": {
+        "amount_after_tax": 404000.0,
+        "deposited_to": "CASH"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "furlough",
+      "date": "2026-10-19",
+      "details": {
+        "unpaid_weeks": 26,
+        "expected_return": "confirmed",
+        "benefits_continued": false
+      }
+    }
+  ]
+}

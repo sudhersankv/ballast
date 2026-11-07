@@ -1,0 +1,22 @@
+{
+  "client_id": "s-115",
+  "name": "Abigail Beaumont",
+  "age": 67,
+  "state": "OH",
+  "occupation": "retired elementary school teacher",
+  "industry": "financial services",
+  "employment_status": "retired",
+  "marital_status": "married",
+  "annual_income": 326500,
+  "monthly_expenses": 13600,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 23,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.39,
+    "cash": 0.21
+  },
+  "monthly_contribution": 0.0
+}

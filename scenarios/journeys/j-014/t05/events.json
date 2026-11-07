@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "business_failure",
+      "date": "2024-12-19",
+      "details": {
+        "business": "restaurant",
+        "personal_guarantee_usd": 0
+      }
+    }
+  ]
+}

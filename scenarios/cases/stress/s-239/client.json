@@ -1,0 +1,26 @@
+{
+  "client_id": "s-239",
+  "name": "Darnell Haddad",
+  "age": 61,
+  "state": "FL",
+  "occupation": "accountant",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 106000,
+  "monthly_expenses": 7250,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 4,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2030
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.31,
+    "cash": 0.09
+  },
+  "monthly_contribution": 550
+}

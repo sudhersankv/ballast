@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e13",
+      "type": "disability",
+      "date": "2025-12-07",
+      "details": {
+        "kind": "short_term",
+        "benefit_pct_of_income": 50,
+        "monthly_cost_increase": 900.0,
+        "expected_duration_months": null
+      }
+    },
+    {
+      "id": "e14",
+      "type": "medical_bill",
+      "date": "2025-12-10",
+      "details": {
+        "amount_due": 8300.0,
+        "due_date": "2026-02-21",
+        "payment_plan_available": false
+      }
+    }
+  ]
+}

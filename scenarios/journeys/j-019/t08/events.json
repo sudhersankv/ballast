@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e9",
+      "type": "job_change",
+      "date": "2025-08-25",
+      "details": {
+        "new_income": 169500,
+        "previous_income": 158000,
+        "start_date": "2025-08-25",
+        "new_employer": "Corvane Analytics"
+      }
+    },
+    {
+      "id": "e10",
+      "type": "adult_child_moves_back",
+      "date": "2025-09-15",
+      "details": {
+        "child_age": 31,
+        "monthly_cost_increase": 750.0,
+        "expected_stay_months": 6
+      }
+    }
+  ]
+}

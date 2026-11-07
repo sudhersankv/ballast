@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "crypto_loss",
+      "date": "2026-08-07",
+      "details": {
+        "amount_lost": 26000.0,
+        "account": "outside exchange (not in this portfolio)"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "layoff",
+      "date": "2026-08-17",
+      "details": {
+        "severance": 6800.0,
+        "severance_weeks": 2,
+        "employer": "previous employer",
+        "last_day": "2026-08-17",
+        "cobra_monthly_premium": 690
+      }
+    },
+    {
+      "id": "e3",
+      "type": "credit_card_debt",
+      "date": "2026-10-02",
+      "details": {
+        "balance": 11600.0,
+        "apr_pct": 19.9
+      }
+    }
+  ]
+}

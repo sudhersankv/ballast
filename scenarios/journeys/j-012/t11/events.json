@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "e10",
+      "type": "relocation",
+      "date": "2026-10-04",
+      "details": {
+        "amount_due": 4500.0,
+        "due_date": "2027-02-10",
+        "cost_of_living_change_pct": -15,
+        "employer_relocation_package": false
+      }
+    }
+  ]
+}

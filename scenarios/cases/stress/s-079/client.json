@@ -1,0 +1,27 @@
+{
+  "client_id": "s-079",
+  "name": "Owen Yilmaz",
+  "age": 55,
+  "state": "NY",
+  "occupation": "paralegal",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 52000,
+  "monthly_expenses": 4450,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.21,
+    "cash": 0.19
+  },
+  "monthly_contribution": 700,
+  "notes": "Severance paid to an outside checking account."
+}

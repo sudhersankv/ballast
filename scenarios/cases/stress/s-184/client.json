@@ -1,0 +1,26 @@
+{
+  "client_id": "s-184",
+  "name": "Elena Mendoza",
+  "age": 55,
+  "state": "GA",
+  "occupation": "physician assistant",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 117500,
+  "monthly_expenses": 7200,
+  "dependents": 1,
+  "risk_score": 2,
+  "horizon_years": 10,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2036
+    }
+  ],
+  "targets": {
+    "equity": 0.35,
+    "bond": 0.55,
+    "cash": 0.1
+  },
+  "monthly_contribution": 1200
+}

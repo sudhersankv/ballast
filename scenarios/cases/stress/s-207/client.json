@@ -1,0 +1,27 @@
+{
+  "client_id": "s-207",
+  "name": "Owen Oyelaran",
+  "age": 58,
+  "state": "TX",
+  "occupation": "supply-chain analyst",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 155000,
+  "monthly_expenses": 9150,
+  "dependents": 3,
+  "risk_score": 1,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.2,
+    "bond": 0.65,
+    "cash": 0.15
+  },
+  "monthly_contribution": 1950,
+  "employer": "Kestrel Freight (KSTL)"
+}

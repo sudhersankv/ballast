@@ -1,0 +1,21 @@
+{
+  "client_id": "s-267",
+  "name": "Maya Lindqvist",
+  "age": 72,
+  "state": "IL",
+  "occupation": "retired police sergeant",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 248000,
+  "monthly_expenses": 12500,
+  "dependents": 1,
+  "risk_score": 3,
+  "horizon_years": 18,
+  "goals": [],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.38,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0
+}

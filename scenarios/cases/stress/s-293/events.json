@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "medical_bill",
+      "date": "2026-08-23",
+      "details": {
+        "amount_due": 12600.0,
+        "due_date": "2027-01-30",
+        "payment_plan_available": true
+      }
+    }
+  ]
+}

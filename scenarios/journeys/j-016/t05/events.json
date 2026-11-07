@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "e4",
+      "type": "layoff",
+      "date": "2024-11-07",
+      "details": {
+        "severance": 43100.0,
+        "severance_weeks": 14,
+        "employer": "previous employer",
+        "last_day": "2024-11-07",
+        "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e5",
+      "type": "tuition_due",
+      "date": "2024-12-29",
+      "details": {
+        "amount_due": 20800.0,
+        "due_date": "2025-10-03",
+        "school_type": "public out-of-state",
+        "aid_package_final": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "client_id": "s-216",
+  "name": "Rafael Pemberton",
+  "age": 51,
+  "state": "FL",
+  "occupation": "credit trader",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 158500,
+  "monthly_expenses": 8850,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 14,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2040
+    }
+  ],
+  "targets": {
+    "equity": 0.65,
+    "bond": 0.32,
+    "cash": 0.03
+  },
+  "monthly_contribution": 3200,
+  "employer": "Halvard Capital Group (HVCG)"
+}

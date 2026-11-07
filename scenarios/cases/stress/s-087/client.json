@@ -1,0 +1,27 @@
+{
+  "client_id": "s-087",
+  "name": "Natalie Strand",
+  "age": 58,
+  "state": "WA",
+  "occupation": "product manager",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 177500,
+  "monthly_expenses": 9450,
+  "dependents": 3,
+  "risk_score": 2,
+  "horizon_years": 7,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2033
+    }
+  ],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.52,
+    "cash": 0.08
+  },
+  "monthly_contribution": 2100,
+  "notes": "Severance paid to an outside checking account."
+}

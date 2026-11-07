@@ -1,0 +1,21 @@
+{
+  "client_id": "s-179",
+  "name": "Samuel Iyer",
+  "age": 66,
+  "state": "NY",
+  "occupation": "retired dental hygienist",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 98500,
+  "monthly_expenses": 6050,
+  "dependents": 0,
+  "risk_score": 2,
+  "horizon_years": 24,
+  "goals": [],
+  "targets": {
+    "equity": 0.4,
+    "bond": 0.54,
+    "cash": 0.06
+  },
+  "monthly_contribution": 0.0
+}

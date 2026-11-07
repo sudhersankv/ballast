@@ -1,0 +1,28 @@
+{
+  "client_id": "s-200",
+  "name": "Priya Nguyen",
+  "age": 50,
+  "state": "CA",
+  "occupation": "operations analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 90000,
+  "monthly_expenses": 5750,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 15,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2041
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.15,
+    "cash": 0.1
+  },
+  "monthly_contribution": 1250,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

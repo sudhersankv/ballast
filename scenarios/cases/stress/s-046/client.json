@@ -1,0 +1,26 @@
+{
+  "client_id": "s-046",
+  "name": "Lucia Patel",
+  "age": 57,
+  "state": "NC",
+  "occupation": "HVAC technician",
+  "employment_status": "employed",
+  "marital_status": "married",
+  "annual_income": 71500,
+  "monthly_expenses": 5900,
+  "dependents": 2,
+  "risk_score": 1,
+  "horizon_years": 8,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2034
+    }
+  ],
+  "targets": {
+    "equity": 0.15,
+    "bond": 0.81,
+    "cash": 0.04
+  },
+  "monthly_contribution": 400
+}

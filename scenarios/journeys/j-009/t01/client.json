@@ -1,0 +1,28 @@
+{
+  "client_id": "j-009-t01",
+  "name": "Kenji Yilmaz",
+  "age": 25,
+  "state": "AZ",
+  "occupation": "operations analyst",
+  "industry": "financial services",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 401500,
+  "monthly_expenses": 15350,
+  "dependents": 0,
+  "risk_score": 3,
+  "horizon_years": 40,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2066
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.31,
+    "cash": 0.09
+  },
+  "monthly_contribution": 600,
+  "employer": "Meridian Trust Securities (MRTS)"
+}

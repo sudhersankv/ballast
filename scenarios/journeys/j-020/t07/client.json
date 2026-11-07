@@ -1,0 +1,27 @@
+{
+  "client_id": "j-020-t07",
+  "name": "Jordan Sorensen",
+  "age": 54,
+  "state": "CA",
+  "occupation": "solutions architect",
+  "employment_status": "on_disability",
+  "marital_status": "married",
+  "annual_income": 79500,
+  "monthly_expenses": 5050,
+  "dependents": 2,
+  "risk_score": 3,
+  "horizon_years": 11,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2038
+    }
+  ],
+  "targets": {
+    "equity": 0.6,
+    "bond": 0.35,
+    "cash": 0.05
+  },
+  "monthly_contribution": 0.0,
+  "employer": "Nimbex Cloud (NMBX)"
+}

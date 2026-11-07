@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "retirement",
+      "date": "2026-08-23",
+      "details": {
+        "pension_monthly": 0,
+        "social_security_monthly": 1900,
+        "start_date": "2026-08-23"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "furlough",
+      "date": "2026-10-09",
+      "details": {
+        "unpaid_weeks": 26,
+        "expected_return": "uncertain",
+        "benefits_continued": true
+      }
+    },
+    {
+      "id": "e3",
+      "type": "sabbatical",
+      "date": "2026-10-21",
+      "details": {
+        "unpaid_months": 2,
+        "amount_due": 12300.0,
+        "due_date": "2027-01-11"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "bonus_deferral",
+      "date": "2026-08-23",
+      "details": {
+        "total_bonus": 76000.0,
+        "cash_pct": 50,
+        "deferred_pct": 50,
+        "vesting_years": 3,
+        "deferred_in": "ALDB stock units"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "promotion_title_only",
+      "date": "2026-09-03",
+      "details": {
+        "new_title": "Vice President",
+        "pay_change": 0
+      }
+    }
+  ]
+}

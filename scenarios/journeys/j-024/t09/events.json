@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "e6",
+      "type": "job_change",
+      "date": "2026-06-08",
+      "details": {
+        "new_income": 125000,
+        "previous_income": 119000,
+        "start_date": "2026-06-08",
+        "new_employer": "Brightwater Health"
+      }
+    },
+    {
+      "id": "e7",
+      "type": "parent_long_term_care",
+      "date": "2026-07-14",
+      "details": {
+        "care_type": "adult day care",
+        "monthly_cost_increase": 1300.0,
+        "siblings_sharing_cost": 0
+      }
+    }
+  ]
+}

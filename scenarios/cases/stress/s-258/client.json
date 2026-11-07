@@ -1,0 +1,26 @@
+{
+  "client_id": "s-258",
+  "name": "Kenji Dubois",
+  "age": 59,
+  "state": "WA",
+  "occupation": "data scientist",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 128500,
+  "monthly_expenses": 6900,
+  "dependents": 2,
+  "risk_score": 4,
+  "horizon_years": 6,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2032
+    }
+  ],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.14,
+    "cash": 0.11
+  },
+  "monthly_contribution": 1250
+}

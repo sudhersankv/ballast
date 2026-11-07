@@ -1,0 +1,21 @@
+{
+  "client_id": "s-292",
+  "name": "Imani Achebe",
+  "age": 68,
+  "state": "OH",
+  "occupation": "retired paralegal",
+  "employment_status": "retired",
+  "marital_status": "single",
+  "annual_income": 119500,
+  "monthly_expenses": 6650,
+  "dependents": 0,
+  "risk_score": 4,
+  "horizon_years": 22,
+  "goals": [],
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.23,
+    "cash": 0.02
+  },
+  "monthly_contribution": 0.0
+}

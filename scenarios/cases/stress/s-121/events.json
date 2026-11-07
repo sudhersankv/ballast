@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2026-08-12",
+      "details": {
+        "balance": 37000.0,
+        "apr_pct": 29.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "pension_buyout_offer",
+      "date": "2026-10-02",
+      "details": {
+        "lump_sum_offer": 304000.0,
+        "annuity_monthly": 1850.0,
+        "decision_deadline": "2027-01-18"
+      }
+    }
+  ]
+}

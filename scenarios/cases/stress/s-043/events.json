@@ -1,0 +1,44 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "credit_card_debt",
+      "date": "2026-09-10",
+      "details": {
+        "balance": 37100.0,
+        "apr_pct": 29.9
+      }
+    },
+    {
+      "id": "e2",
+      "type": "furlough",
+      "date": "2026-09-21",
+      "details": {
+        "unpaid_weeks": 4,
+        "expected_return": "uncertain",
+        "benefits_continued": true
+      }
+    },
+    {
+      "id": "e3",
+      "type": "divorce",
+      "date": "2026-10-06",
+      "details": {
+        "assets_transferred_usd": 362000.0,
+        "alimony_monthly": 1200,
+        "child_support_monthly": 700
+      }
+    },
+    {
+      "id": "e4",
+      "type": "relocation",
+      "date": "2026-10-27",
+      "details": {
+        "amount_due": 16500.0,
+        "due_date": "2026-12-15",
+        "cost_of_living_change_pct": -5,
+        "employer_relocation_package": true
+      }
+    }
+  ]
+}
