@@ -51,6 +51,10 @@ So the output is not a black box that got better. It is a list of specific, audi
 
 ---
 
+### The harder version of the problem: nobody tells the agent
+
+In real life, clients rarely tell their advisor that something changed. The signal is in their data: paychecks stop, a home-care payment appears, an HR portal posts a desk wind-down. So the agent is **connected** to the client's accounts (read-only, with consent, every read logged) and has to **discover** what changed before it can act. The grader still knows the truth, so we can score whether it noticed.
+
 ## 3. Today's use case: a portfolio agent per client
 
 A wealth-management firm has many clients. Their lives change: layoffs, raises, marriages, new children, divorces, inheritances. Markets change too: crashes, rallies, rate shocks. A plan written at onboarding goes stale fast.
@@ -129,12 +133,13 @@ All clients are synthetic. All policy numbers are illustrative, not financial ad
 
 ## 6. The runtime: every handler
 
-"Handler" here means a piece of the system with one job, its inputs, and its outputs. There are **12 runtime handlers** plus the web app.
+"Handler" here means a piece of the system with one job, its inputs, and its outputs. There are **13 runtime handlers** plus the web app.
 
 | # | Handler | File | Job | Needs |
 | --- | --- | --- | --- | --- |
 | 1 | Case runner | `agent/run_case.py` | Runs one client case through Pi in a sandbox; enforces turn and time limits; records every step | Pi (Node 22.19+), a model key, Linux user `agent` |
 | 2 | Portfolio calculator | `agent/tools/portfolio.py` | The agent's tool: current weights, cash in months, what trades would do. The checker uses the same math | Python only |
+| 2b | Client data connectors | `agent/tools/clientdata.py` | Read-only access to the client's bank transactions, payroll, employer portal (trading windows, HR notices), calendar, messages and credit report. When a client is connected, the harness hides `events.json`; the agent must find the life change itself | Client consent per source; synthetic feeds in `connectors/` |
 | 3 | Checker | `checker/check.py`, `rules.py` | Grades a recommendation: 10 rules, score, pass, violations | Python only |
 | 4 | Drift indicator | `checker/drift.py` | Green / yellow / red from a window of graded runs | Python only |
 | 5 | Backtest | `scenarios/backtest.py` | Replays the 12 held-out months: return, drawdown, cash coverage, forced sales | Held-out market files |
