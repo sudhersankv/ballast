@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "runtime"), str(ROOT / "checker"), str(ROOT / "agent")]
 
 import mentor  # noqa: E402
+import snap  # noqa: E402
 from check import check, load_case  # noqa: E402
 from drift import drift_level, trusted_rules_from  # noqa: E402
 from run_case import run_case  # noqa: E402
@@ -216,11 +217,42 @@ def drift() -> None:
     baseline = (gen[-1].get("test") or {}).get("mean_score", 1.0) if gen else 1.0
     trusted = trusted_rules_from([r["check"] for r in evaluate(current, "test")])
     log(f"\n== drift monitor on v{current} (baseline {baseline:.3f}, trusted {sorted(trusted)}) ==")
-    drift_res = evaluate(current, "drift")
+    # Gate 1 (Snap, before running): which new events put rules at risk that the playbook doesn't cover?
+    _, cur_pb = load_pb(current)
+    gates = []
+    for d in case_dirs("drift"):
+        case = load_case(d)
+        if case["events"]:
+            try:
+                g = snap.event_gate(case, case["events"][-1], cur_pb)
+                g["case_id"] = case["client"]["client_id"]
+                gates.append(g)
+            except Exception as e:
+                log(f"  snap event gate failed on {d.name}: {e}")
+    flagged = [g for g in gates if g["rerun_now"]]
+    if gates:
+        store.log_drift({"level": "yellow" if flagged else "green", "action": "event_gate", "gates": gates,
+                         "from_version": current, "to_version": current, "violations": [],
+                         "rolling_score": None, "baseline": baseline, "case_ids": [g["case_id"] for g in flagged]})
+        log(f"  snap event gate: {len(flagged)}/{len(gates)} new events put rules at risk with no playbook coverage "
+            f"({', '.join(sorted({r for g in flagged for r in g['at_risk']})) or 'none'})")
+    # Run flagged cases first (early warning), then the rest.
+    order = {g["case_id"]: i for i, g in enumerate(flagged)}
+    dirs = sorted(case_dirs("drift"), key=lambda d: order.get(d.name, 999))
+    drift_res = evaluate(current, "drift", dirs)
     report = drift_level([r["check"] for r in drift_res], baseline, trusted)
+    # Gate 2 (Snap, after running): independent verdict on the window; rules stay authoritative.
+    verdict = None
+    try:
+        window = [{**r["check"], "tags": "/".join(e["type"] for e in load_case(r["case_dir"])["events"])} for r in drift_res]
+        verdict = snap.window_verdict(window, baseline, trusted, report)
+        log(f"  snap verdict: level {verdict['level']} (rules say {report['level']}), rollback p={verdict['rollback_p']}, "
+            f"rule at risk {verdict['rule']}, novel p={verdict['novel_p']}, urgency {verdict['urgency']}/3")
+    except Exception as e:
+        log(f"  snap window verdict failed: {e}")
     store.log_drift({"level": report["level"], "rolling_score": report["rolling_score"], "baseline": baseline,
                      "violations": report["violations"][:50], "action": "none" if report["level"] == "green" else "detected",
-                     "from_version": current, "to_version": current, "case_ids": report["case_ids"]})
+                     "from_version": current, "to_version": current, "case_ids": report["case_ids"], "snap": verdict})
     log(f"  level: {report['level']} ({'; '.join(report['reasons']) or 'ok'})")
     if report["level"] == "green":
         return
@@ -250,7 +282,10 @@ def drift() -> None:
     good_reg = evaluate(good, "regression")
     fails = failures_for_mentor(drift_res)
     analysis_text = json.dumps({"summary": analysis.get("summary"), "handoff": analysis.get("handoff"),
-                                "patterns": analysis.get("patterns")}, indent=1)
+                                "patterns": analysis.get("patterns"),
+                                "snap_verdict": {k: (verdict or {}).get(k) for k in ("rule", "novel_p", "urgency")},
+                                "events_at_risk": [{"event": g["event"], "at_risk": g["at_risk"]} for g in flagged]},
+                               indent=1)
     latest = max(p["version"] for p in store.find("playbooks"))
     for attempt in range(1, MAX_ATTEMPTS + 1):
         out = propose(good, fails, {"practice": "n/a", "test": baseline}, analysis_text)

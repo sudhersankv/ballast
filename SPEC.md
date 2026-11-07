@@ -175,6 +175,19 @@ Runs after every agent run and over a rolling window. Interface (one record per 
 
 The `violations` list is the most important field: it is what Muse reads to fix the agent.
 
+### SubQ in the drift checker (two models, three jobs)
+
+| Layer | Model | When | Question it answers | Authority |
+| --- | --- | --- | --- | --- |
+| Rule checker | code (`checker/`) | every run | Did this recommendation break a rule? | **Source of truth** for pass/fail and red |
+| Event gate | SubQ Snap `subq-snap-1.1` (`POST /v1/systemone`) | each new life event (MongoDB change stream) and each drift case, *before* the agent runs | Which rules does this event put at risk (one noul per rule)? Does the current playbook cover it (noul)? How urgent (score)? | Early warning: at-risk + uncovered events are re-run first |
+| Window verdict | SubQ Snap | after a batch of runs | Roll back (noul)? Level (choice)? Which rule (choice, with `not_found`)? New condition or forgetting (noul)? Urgency (score)? | Second opinion; disagreements with the rules are logged |
+| Drift analyst | SubQ `subq-preview` (chat, long context) | after rollback | Read every run, client timeline and playbook version in one pass; name the systematic pattern | Diagnosis handed to Muse with Snap's verdict |
+
+Snap thresholds are calibrated against the checker (`runtime/snap_calibrate.py` → `runtime/snap_thresholds.json`). First calibration over 39 event cases and 14 labelled windows: event gate F1 0.94 (precision 0.98, recall 0.90) at p ≥ 0.6, ~0.8 s and ~1.4K input tokens per call; window level agreed with the rule indicator 14/14 and named the failing rule on 6/6 red windows. Snap gives moderate rollback probability (0.17–0.31) for a single isolated hard failure and ≥ 0.99 for a pattern, so rollback stays rule-driven and Snap supplies severity and diagnosis.
+
+Live path: `runtime/inject_event.py` inserts a life event → `runtime/watch.py` (change stream) → Snap event gate → re-run the client's agent → checker → red on a trusted hard rule → drift mode (rollback, SubQ analysis, Muse fix, verify).
+
 ## The playbook (harness config)
 
 One versioned YAML file per version. Version 0 is the teammate's initial guideline.

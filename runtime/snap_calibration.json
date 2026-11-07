@@ -1,0 +1,171 @@
+{
+ "event_gate": {
+  "threshold": 0.6,
+  "overall": {
+   "f1": 0.939,
+   "precision": 0.979,
+   "recall": 0.902,
+   "tp": 46,
+   "fp": 1,
+   "fn": 5
+  },
+  "per_rule": {
+   "risk_band": {
+    "f1": 0.75,
+    "precision": 0.667,
+    "recall": 0.857,
+    "tp": 6,
+    "fp": 3,
+    "fn": 1,
+    "n": 39
+   },
+   "emergency_fund": {
+    "f1": 0.966,
+    "precision": 0.933,
+    "recall": 1.0,
+    "tp": 14,
+    "fp": 1,
+    "fn": 0,
+    "n": 39
+   },
+   "concentration": {
+    "f1": 0.909,
+    "precision": 1.0,
+    "recall": 0.833,
+    "tp": 5,
+    "fp": 0,
+    "fn": 1,
+    "n": 17
+   },
+   "event_job_change": {
+    "f1": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tp": 9,
+    "fp": 0,
+    "fn": 0,
+    "n": 9
+   },
+   "event_child": {
+    "f1": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tp": 10,
+    "fp": 0,
+    "fn": 0,
+    "n": 10
+   },
+   "event_marriage": {
+    "f1": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tp": 5,
+    "fp": 0,
+    "fn": 0,
+    "n": 5
+   }
+  },
+  "cases": 39,
+  "avg_seconds": 0.8,
+  "avg_tokens": 1414
+ },
+ "window": {
+  "threshold": 0.05,
+  "rollback": {
+   "f1": 1.0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "tp": 6,
+   "fp": 0,
+   "fn": 0
+  },
+  "level_agreement": "14/14",
+  "at_risk_rule_correct_on_red": "6/6",
+  "windows": [
+   {
+    "rule_level": "green",
+    "snap_level": "green",
+    "rollback_p": 0.001,
+    "snap_rule": "not_found"
+   },
+   {
+    "rule_level": "green",
+    "snap_level": "green",
+    "rollback_p": 0.001,
+    "snap_rule": "not_found"
+   },
+   {
+    "rule_level": "green",
+    "snap_level": "green",
+    "rollback_p": 0.001,
+    "snap_rule": "not_found"
+   },
+   {
+    "rule_level": "green",
+    "snap_level": "green",
+    "rollback_p": 0.001,
+    "snap_rule": "not_found"
+   },
+   {
+    "rule_level": "green",
+    "snap_level": "green",
+    "rollback_p": 0.001,
+    "snap_rule": "not_found"
+   },
+   {
+    "rule_level": "red",
+    "snap_level": "red",
+    "rollback_p": 0.305,
+    "snap_rule": "risk_band"
+   },
+   {
+    "rule_level": "red",
+    "snap_level": "red",
+    "rollback_p": 0.171,
+    "snap_rule": "risk_band"
+   },
+   {
+    "rule_level": "red",
+    "snap_level": "red",
+    "rollback_p": 0.987,
+    "snap_rule": "concentration"
+   },
+   {
+    "rule_level": "red",
+    "snap_level": "red",
+    "rollback_p": 0.996,
+    "snap_rule": "emergency_fund"
+   },
+   {
+    "rule_level": "red",
+    "snap_level": "red",
+    "rollback_p": 0.99,
+    "snap_rule": "emergency_fund"
+   },
+   {
+    "rule_level": "red",
+    "snap_level": "red",
+    "rollback_p": 0.995,
+    "snap_rule": "emergency_fund"
+   },
+   {
+    "rule_level": "yellow",
+    "snap_level": "yellow",
+    "rollback_p": 0.014,
+    "snap_rule": "event_child"
+   },
+   {
+    "rule_level": "yellow",
+    "snap_level": "yellow",
+    "rollback_p": 0.016,
+    "snap_rule": "event_child"
+   },
+   {
+    "rule_level": "yellow",
+    "snap_level": "yellow",
+    "rollback_p": 0.014,
+    "snap_rule": "event_job_change"
+   }
+  ]
+ }
+}
