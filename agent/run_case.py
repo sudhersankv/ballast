@@ -181,7 +181,8 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
     shutil.rmtree(tmp, ignore_errors=True)
     if not keep_workdir:
         shutil.rmtree(work.parent, ignore_errors=True)
-    return {"case_id": case_id, "recommendation": recommendation, "turns": turns,
+    return {"case_id": case_id, "model": resolve_model(playbook),
+            "recommendation": recommendation, "turns": turns,
             "tokens_in": tin, "tokens_out": tout, "seconds": seconds,
             "trace_path": str(trace_path), "error": error}
 

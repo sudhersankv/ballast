@@ -120,6 +120,7 @@ class Store:
             "playbook_version": playbook_version,
             "case_id": check.get("case_id") or run.get("case_id"),
             "set": set_name,
+            "model": run.get("model"),
             "score": check.get("score"),
             "passed": check.get("passed"),
             "violations": check.get("violations", []),
