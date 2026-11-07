@@ -1,4 +1,4 @@
-# Ballast web platform. Deploy from this folder: fly deploy --remote-only --ha=false
+# ballast. web platform. Deploy from this folder: fly deploy --remote-only --ha=false
 app = "ballast-web"
 primary_region = "sjc"
 
@@ -6,7 +6,8 @@ primary_region = "sjc"
   dockerfile = "Dockerfile"
 
 [env]
-  MONGODB_DB = "ballast"
+  MONGODB_DB = "ballast"      # story / replay (falls back to seed.json)
+  LIVE_DB = "ballast_dev"     # /live view; override per request with ?db=ballast
 
 [http_service]
   internal_port = 8080

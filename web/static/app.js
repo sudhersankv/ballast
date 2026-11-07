@@ -722,7 +722,20 @@
     $("#sheet").addEventListener("click", (e) => { if (e.target === $("#sheet")) $("#sheet").close(); });
   }
 
+  async function liveDot() {
+    try {
+      const r = await fetch("/api/live/status");
+      if (!r.ok) return;
+      const s = await r.json();
+      const a = document.querySelector(".live-link");
+      a.classList.toggle("on", !!s.active);
+      a.title = s.active ? "A training run is in progress" : s.last_activity ? "No runs in the last 2 minutes" : "No training run yet";
+    } catch (_) { /* the live view is optional on this page */ }
+  }
+
   async function init() {
+    liveDot();
+    setInterval(() => { if (!document.hidden) liveDot(); }, 20000);
     bind();
     bindHow();
     renderLayers();

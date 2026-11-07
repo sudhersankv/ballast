@@ -163,6 +163,141 @@ def client_detail(cid: str, demo: int = 0):
     return {**c, "history": history}
 
 
+# ---------------------------------------------------------------- live view
+LIVE_DBS = {"ballast_dev", "ballast"}
+SET_SIZES = {"practice": 20, "test": 20, "regression": 10, "drift": 10}
+SLIM = {"_id": 0, "run_id": 1, "playbook_version": 1, "set": 1, "case_id": 1, "model": 1, "score": 1, "passed": 1,
+        "turns": 1, "seconds": 1, "error": 1, "created_at": 1, "violations": 1, "tokens_in": 1, "tokens_out": 1}
+
+
+def _db(name: str | None):
+    """Mongo database for the live view. Raises 503 if Mongo isn't configured."""
+    name = name or os.environ.get("LIVE_DB", "ballast_dev")
+    if name not in LIVE_DBS:
+        raise HTTPException(400, f"db must be one of {sorted(LIVE_DBS)}")
+    uri = os.environ.get("MONGODB_URI")
+    if not uri:
+        raise HTTPException(503, "MONGODB_URI is not set on the server")
+    if "client" not in _cache:
+        from pymongo import MongoClient
+
+        _cache["client"] = MongoClient(uri, serverSelectionTimeoutMS=3000)
+    return _cache["client"][name], name
+
+
+def _mongo_guard(fn):
+    try:
+        return fn()
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(503, f"MongoDB unreachable ({e.__class__.__name__})")
+
+
+def _slim(r: dict) -> dict:
+    v = r.pop("violations", None) or []
+    r["n_violations"] = len(v)
+    r["top_violation"] = f"{v[0].get('rule')}: {v[0].get('detail')}" if v else None
+    if r.get("error"):
+        r["error"] = str(r["error"])[:160]
+    return r
+
+
+@app.get("/api/live/status")
+def live_status(db: str | None = None):
+    from datetime import datetime, timezone
+
+    def q():
+        d, name = _db(db)
+        a = d.runs.find_one({}, {"_id": 0, "created_at": 1}, sort=[("created_at", -1)])
+        b = d.loop_log.find_one({}, {"_id": 0, "created_at": 1}, sort=[("created_at", -1)])
+        return name, [x["created_at"] for x in (a, b) if x]
+
+    name, stamps = _mongo_guard(q)
+    latest = max(stamps) if stamps else None
+    age = None
+    if latest:
+        try:
+            age = round((datetime.now(timezone.utc) - datetime.fromisoformat(latest)).total_seconds(), 1)
+        except ValueError:
+            pass
+    return {"db": name, "last_activity": latest, "age_seconds": age, "active": age is not None and age < 120}
+
+
+@app.get("/api/live")
+def live(since: str | None = None, db: str | None = None, session: str | None = None):
+    """New log lines and slim runs since `since` for the latest (or given) session, plus progress per block."""
+    def q():
+        d, name = _db(db)
+        last = d.loop_log.find_one({}, {"_id": 0, "session": 1}, sort=[("created_at", -1)])
+        sess = session or (last or {}).get("session")
+        if not sess:
+            return {"db": name, "session": None, "started_at": None, "log": [], "runs": [], "progress": None,
+                    "blocks": [], "versions": []}
+        first = d.loop_log.find_one({"session": sess}, {"_id": 0, "created_at": 1}, sort=[("created_at", 1)])
+        start = first["created_at"] if first else ""
+        lq = {"session": sess, **({"created_at": {"$gt": since}} if since else {})}
+        log = list(d.loop_log.find(lq, {"_id": 0}).sort("created_at", 1).limit(800))
+        runs = [_slim(r) for r in d.runs.find({"created_at": {"$gt": max(start, since or "")}}, SLIM)
+                .sort("created_at", 1).limit(800)]
+        pipe = [{"$match": {"created_at": {"$gte": start}}},
+                {"$group": {"_id": {"v": "$playbook_version", "s": "$set"}, "done": {"$sum": 1},
+                            "passed": {"$sum": {"$cond": ["$passed", 1, 0]}}, "mean": {"$avg": "$score"},
+                            "first": {"$min": "$created_at"}, "last": {"$max": "$created_at"}}},
+                {"$sort": {"first": 1}}]
+        blocks = [{"version": b["_id"]["v"], "set": b["_id"]["s"], "done": b["done"], "passed": b["passed"],
+                   "failed": b["done"] - b["passed"], "mean": round(b["mean"] or 0, 3),
+                   "total": max(SET_SIZES.get(b["_id"]["s"], b["done"]), b["done"]), "first": b["first"], "last": b["last"]}
+                  for b in d.runs.aggregate(pipe)]
+        versions = list(d.playbooks.find({}, {"_id": 0, "version": 1, "parent": 1, "status": 1, "changelog": 1,
+                                                "created_at": 1}).sort("version", 1))
+        return {"db": name, "session": sess, "started_at": start, "log": log, "runs": runs,
+                "progress": blocks[-1] if blocks else None, "blocks": blocks, "versions": versions}
+
+    return _mongo_guard(q)
+
+
+@app.get("/api/runs/{run_id}")
+def run_detail(run_id: str, db: str | None = None):
+    """Full run (trace steps, rule-by-rule results, recommendation) plus the client's profile."""
+    def q():
+        d, name = _db(db)
+        r = d.runs.find_one({"run_id": run_id}, {"_id": 0})
+        c = d.clients.find_one({"client_id": r["case_id"]}, {"_id": 0, "last_recommendation": 0}) if r else None
+        return name, r, c
+
+    name, r, c = _mongo_guard(q)
+    if not r:
+        r = next((x for x in SEED["runs"] if x["run_id"] == run_id), None)
+        if not r:
+            raise HTTPException(404, f"No run {run_id} in {name}")
+        c = next((x for x in SEED["clients"] if x["client_id"] == r["case_id"]), None)
+    return {**r, "client": c, "db": name}
+
+
+@app.get("/api/live/versions/{v}")
+def live_version(v: int, db: str | None = None):
+    """Playbook YAML, diff vs parent, and generation metrics + compliance verdict, from the live db."""
+    def q():
+        d, name = _db(db)
+        p = d.playbooks.find_one({"version": v}, {"_id": 0})
+        par = d.playbooks.find_one({"version": p["parent"]}, {"_id": 0}) if p and p.get("parent") is not None else None
+        gens = list(d.generations.find({"version": v}, {"_id": 0}).sort("created_at", 1))
+        return name, p, par, gens
+
+    name, p, par, gens = _mongo_guard(q)
+    if not p:
+        raise HTTPException(404, f"No playbook v{v} in {name}")
+    diff = list(difflib.unified_diff((par or {}).get("yaml", "").splitlines(), p.get("yaml", "").splitlines(),
+                                     fromfile=f"v{p.get('parent')}", tofile=f"v{v}", lineterm="", n=2))
+    return {**p, "diff": diff, "generations": gens, "db": name}
+
+
+@app.get("/live")
+def live_page():
+    return FileResponse(HERE / "static" / "live.html")
+
+
 @app.get("/api/analysis")
 def analysis(demo: int = 0):
     """SubQ long-context drift analyses (newest last)."""
