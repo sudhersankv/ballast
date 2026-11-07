@@ -135,6 +135,11 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
 
     turns = tin = tout = 0
     error = None
+    steps: list[dict] = []  # compact per-step trace for the live UI
+
+    def clip(x, n=400):
+        s = x if isinstance(x, str) else json.dumps(x, default=str)
+        return s if len(s) <= n else s[:n] + "…"
     t0 = time.time()
     proc = subprocess.Popen(cmd, cwd=work, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                             text=True, encoding="utf-8", errors="replace")
@@ -149,9 +154,21 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
                 except json.JSONDecodeError:
                     continue
                 kind = ev.get("type")
+                if kind == "tool_execution_start":
+                    steps.append({"turn": turns, "kind": "tool", "tool": ev.get("toolName"),
+                                  "args": clip(ev.get("args"), 300)})
+                elif kind == "tool_execution_end" and steps:
+                    content = (ev.get("result") or {}).get("content") or []
+                    text = " ".join(c.get("text", "") for c in content if isinstance(c, dict))
+                    steps[-1]["result"] = clip(text)
+                    steps[-1]["error"] = bool(ev.get("isError"))
                 if kind == "message_end" and (ev.get("message") or {}).get("role") == "assistant":
                     a, b = _usage(ev)
                     tin, tout = tin + a, tout + b
+                    said = " ".join(c.get("text", "") for c in ev["message"].get("content", [])
+                                    if isinstance(c, dict) and c.get("type") == "text").strip()
+                    if said:
+                        steps.append({"turn": turns, "kind": "say", "text": clip(said, 600)})
                 elif kind == "turn_end":
                     turns += 1
                     if turns >= max_turns:
@@ -184,7 +201,7 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False) -> d
     return {"case_id": case_id, "model": resolve_model(playbook),
             "recommendation": recommendation, "turns": turns,
             "tokens_in": tin, "tokens_out": tout, "seconds": seconds,
-            "trace_path": str(trace_path), "error": error}
+            "trace_path": str(trace_path), "error": error, "steps": steps[:60]}
 
 
 if __name__ == "__main__":

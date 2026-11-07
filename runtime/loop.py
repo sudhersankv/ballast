@@ -39,8 +39,16 @@ store = Store()
 _cache: dict[tuple[int, str, str], list[dict]] = {}
 
 
+SESSION = f"s-{int(__import__('time').time())}"
+
+
 def log(msg: str) -> None:
+    """Console + `loop_log` collection, so the UI can stream the live run."""
     print(msg, flush=True)
+    try:
+        store.insert("loop_log", {"session": SESSION, "msg": msg.strip()})
+    except Exception:
+        pass
 
 
 def pb_path(v: int) -> Path:

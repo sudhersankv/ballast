@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 
 COLLECTIONS = ("playbooks", "generations", "runs", "drift_events", "clients", "life_events",
-               "drift_analysis", "benchmarks")
+               "drift_analysis", "benchmarks", "loop_log")
 FALLBACK_DIR = ROOT / "runs" / "store"
 
 
@@ -130,6 +130,9 @@ class Store:
             "tokens_out": run.get("tokens_out"),
             "seconds": run.get("seconds"),
             "error": run.get("error"),
+            "turns": run.get("turns"),
+            "steps": run.get("steps", []),
+            "results": check.get("results", []),
         })
 
     def log_generation(self, doc: dict) -> dict:
