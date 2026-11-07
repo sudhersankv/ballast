@@ -265,7 +265,7 @@ def drift() -> None:
         store.set_playbook_status(current, "rolled_back")
         store.log_drift({"level": "red", "rolling_score": report["rolling_score"], "baseline": baseline,
                          "violations": [], "action": "rollback", "from_version": current, "to_version": good,
-                         "case_ids": report["case_ids"]})
+                         "case_ids": report["case_ids"], "snap": verdict})
         log(f"  rolled back v{current} -> v{good}")
     drifted = [Path(r["case_dir"]) for r in drift_res if r["check"]["case_id"] in report["case_ids"]]
 
