@@ -13,5 +13,8 @@ RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 COPY . .
 
+# Sandbox: Pi runs as `agent`, which cannot read /app (checker rules, scenarios, secrets).
+RUN useradd -m -s /bin/bash agent && chmod 700 /app
+
 # Idle by default; jobs run via `fly ssh console -C` or `fly machine run ... -- <cmd>`.
 CMD ["sleep", "infinity"]
