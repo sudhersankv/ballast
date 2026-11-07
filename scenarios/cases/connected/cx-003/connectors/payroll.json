@@ -1,0 +1,11 @@
+{
+  "employer": "Lumen Freight",
+  "status": "active",
+  "stubs": [
+    {
+      "date": "2026-10-31",
+      "gross": 7710,
+      "net": 5330
+    }
+  ]
+}

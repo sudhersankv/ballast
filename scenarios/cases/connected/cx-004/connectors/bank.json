@@ -1,0 +1,95 @@
+{
+  "as_of": "2026-11-01",
+  "transactions": [
+    {
+      "date": "2026-08-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -2900,
+      "category": "housing"
+    },
+    {
+      "date": "2026-08-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -1000,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-08-15",
+      "description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+      "amount": 4480,
+      "category": "income"
+    },
+    {
+      "date": "2026-08-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-08-30",
+      "description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+      "amount": 4480,
+      "category": "income"
+    },
+    {
+      "date": "2026-09-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -2900,
+      "category": "housing"
+    },
+    {
+      "date": "2026-09-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -1000,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-09-14",
+      "description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+      "amount": 4480,
+      "category": "income"
+    },
+    {
+      "date": "2026-09-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-09-29",
+      "description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+      "amount": 4480,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -2900,
+      "category": "housing"
+    },
+    {
+      "date": "2026-10-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -1000,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-10-15",
+      "description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+      "amount": 4990,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-10-31",
+      "description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+      "amount": 4990,
+      "category": "income"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "portal": "Halvard HR",
+  "insider_status": "covered person",
+  "trading_windows": [
+    {
+      "symbol": "HLXR",
+      "status": "BLACKOUT",
+      "from": "2026-10-15",
+      "until": "2026-12-15",
+      "note": "Q4 earnings + restructuring"
+    }
+  ],
+  "notices": [
+    {
+      "date": "2026-10-28",
+      "title": "Rates trading desk wind-down",
+      "body": "The rates desk will be wound down effective 2026-12-31. Affected employees will be contacted individually."
+    }
+  ]
+}

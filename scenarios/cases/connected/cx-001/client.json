@@ -1,0 +1,27 @@
+{
+  "client_id": "cx-001",
+  "name": "Dana Reyes",
+  "age": 41,
+  "state": "NY",
+  "occupation": "rates trader",
+  "employer": "Halvard Capital Group",
+  "employment_status": "employed",
+  "marital_status": "single",
+  "annual_income": 310000,
+  "monthly_expenses": 11800,
+  "dependents": 1,
+  "risk_score": 4,
+  "horizon_years": 24,
+  "targets": {
+    "equity": 0.75,
+    "bond": 0.15,
+    "cash": 0.1
+  },
+  "monthly_contribution": 4000,
+  "goals": [
+    {
+      "type": "retirement",
+      "target_year": 2050
+    }
+  ]
+}

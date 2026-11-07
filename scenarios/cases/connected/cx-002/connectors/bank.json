@@ -1,0 +1,113 @@
+{
+  "as_of": "2026-11-01",
+  "transactions": [
+    {
+      "date": "2026-08-01",
+      "description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+      "amount": 2810,
+      "category": "income"
+    },
+    {
+      "date": "2026-08-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -2300,
+      "category": "housing"
+    },
+    {
+      "date": "2026-08-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -1100,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-08-15",
+      "description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+      "amount": 2810,
+      "category": "income"
+    },
+    {
+      "date": "2026-08-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-08-29",
+      "description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+      "amount": 2810,
+      "category": "income"
+    },
+    {
+      "date": "2026-09-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -2300,
+      "category": "housing"
+    },
+    {
+      "date": "2026-09-12",
+      "description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+      "amount": 2810,
+      "category": "income"
+    },
+    {
+      "date": "2026-09-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -1100,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-09-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-09-26",
+      "description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+      "amount": 2810,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-02",
+      "description": "DESERT VALLEY HLTH SEVERANCE",
+      "amount": 6000,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -2300,
+      "category": "housing"
+    },
+    {
+      "date": "2026-10-05",
+      "description": "COBRA PREMIUM - WAGEWORKS",
+      "amount": -1420,
+      "category": "insurance"
+    },
+    {
+      "date": "2026-10-10",
+      "description": "AZ DES UNEMPLOYMENT INS",
+      "amount": 640,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -1100,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-10-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-10-24",
+      "description": "AZ DES UNEMPLOYMENT INS",
+      "amount": 640,
+      "category": "income"
+    }
+  ]
+}

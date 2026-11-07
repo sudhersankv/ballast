@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "parent_long_term_care",
+      "date": "2026-09-20",
+      "details": {
+        "monthly_cost_increase": 4100
+      }
+    },
+    {
+      "id": "e2",
+      "type": "tuition_due",
+      "date": "2026-10-01",
+      "details": {
+        "amount_due": 43350,
+        "due_date": "2027-03-01"
+      }
+    }
+  ]
+}

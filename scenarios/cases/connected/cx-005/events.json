@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "child",
+      "date": "2027-03-15",
+      "details": {
+        "count": 2,
+        "note": "twins expected"
+      }
+    }
+  ]
+}

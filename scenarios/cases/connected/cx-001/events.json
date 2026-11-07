@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "desk_shutdown",
+      "date": "2026-10-28",
+      "details": {
+        "effective": "2026-12-31"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "trading_blackout",
+      "date": "2026-10-15",
+      "details": {
+        "symbol": "HLXR",
+        "until": "2026-12-15"
+      }
+    }
+  ]
+}

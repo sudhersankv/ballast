@@ -1,0 +1,17 @@
+{
+  "employer": "Arden Aerospace",
+  "status": "active",
+  "title_change": "Senior Principal Engineer (2026-10-01)",
+  "stubs": [
+    {
+      "date": "2026-09-30",
+      "gross": 6250,
+      "net": 4480
+    },
+    {
+      "date": "2026-10-31",
+      "gross": 7000,
+      "net": 4990
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "as_of": "2026-11-01",
+  "transactions": [
+    {
+      "date": "2026-08-01",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-08-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -3400,
+      "category": "housing"
+    },
+    {
+      "date": "2026-08-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -950,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-08-15",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-08-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-08-29",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-09-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -3400,
+      "category": "housing"
+    },
+    {
+      "date": "2026-09-12",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-09-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -950,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-09-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-09-26",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-03",
+      "description": "RENT/MORTGAGE",
+      "amount": -3400,
+      "category": "housing"
+    },
+    {
+      "date": "2026-10-10",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-12",
+      "description": "WHOLE FOODS / TRADER JOES",
+      "amount": -950,
+      "category": "groceries"
+    },
+    {
+      "date": "2026-10-18",
+      "description": "UTILITIES",
+      "amount": -260,
+      "category": "utilities"
+    },
+    {
+      "date": "2026-10-19",
+      "description": "BABYLIST REGISTRY",
+      "amount": -480,
+      "category": "shopping"
+    },
+    {
+      "date": "2026-10-24",
+      "description": "PAYROLL PIXELWELL DIRECT DEP",
+      "amount": 3910,
+      "category": "income"
+    },
+    {
+      "date": "2026-10-27",
+      "description": "STANFORD HEALTH - OB CLINIC",
+      "amount": -350,
+      "category": "medical"
+    }
+  ]
+}

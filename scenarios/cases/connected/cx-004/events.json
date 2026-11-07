@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "type": "job_change",
+      "date": "2026-10-01",
+      "details": {
+        "new_income": 168000,
+        "employer": "Arden Aerospace (promotion)"
+      }
+    }
+  ]
+}

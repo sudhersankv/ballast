@@ -1,0 +1,11 @@
+{
+  "employer": "Pixelwell",
+  "status": "active",
+  "stubs": [
+    {
+      "date": "2026-10-31",
+      "gross": 5330,
+      "net": 3910
+    }
+  ]
+}

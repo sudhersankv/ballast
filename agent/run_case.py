@@ -115,6 +115,16 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_s
     shutil.copytree(case_dir_p, work)
     (work / "tools").mkdir(exist_ok=True)
     shutil.copy(TOOLS, work / "tools" / "portfolio.py")
+    task = TASK
+    if (work / "connectors").exists():
+        # Connected client: life events are NOT handed over; the agent must discover them from
+        # read-only data connectors. events.json stays with the grader only.
+        (work / "events.json").unlink(missing_ok=True)
+        shutil.copy(TOOLS.parent / "clientdata.py", work / "tools" / "clientdata.py")
+        task += (" This client has connected their accounts: run `python tools/clientdata.py sources` to see "
+                 "which read-only data sources you can check (bank, payroll, employer, calendar, messages, credit). "
+                 "There is no events.json; find out what has changed in the client's life from their data, and "
+                 "cite what you found in the rationale.")
     prompt_path, skill_dirs = materialize(playbook, harness)
     write_models_json(agent_dir)
 
@@ -126,7 +136,7 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_s
     # filesystem instead of deciding. The playbook prompt is the whole system prompt.
     # --system-prompt takes literal text (only --append-system-prompt reads files).
     cmd += ["--system-prompt", prompt_path.read_text(encoding="utf-8"), "--tools", tools,
-            "--model", (model or resolve_model(playbook)), TASK]
+            "--model", (model or resolve_model(playbook)), task]
 
     TRACES.mkdir(parents=True, exist_ok=True)
     trace_path = TRACES / f"{case_id}-v{playbook.get('version', 'x')}-{int(time.time())}.jsonl"
