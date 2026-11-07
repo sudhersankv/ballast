@@ -1,4 +1,4 @@
-﻿"""Ballast web: FastAPI JSON API + static single-page app.
+﻿"""ballast. web: FastAPI JSON API + static single-page app.
 
 Reads MongoDB (MONGODB_URI, MONGODB_DB). Falls back to seed.json when Mongo is
 unreachable or the runtime hasn't written playbooks/generations yet.
@@ -9,6 +9,7 @@ import os
 import time
 from pathlib import Path
 
+import yaml
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -291,6 +292,118 @@ def live_version(v: int, db: str | None = None):
     diff = list(difflib.unified_diff((par or {}).get("yaml", "").splitlines(), p.get("yaml", "").splitlines(),
                                      fromfile=f"v{p.get('parent')}", tofile=f"v{v}", lineterm="", n=2))
     return {**p, "diff": diff, "generations": gens, "db": name}
+
+
+# ---------------------------------------------------------------- lineage (the genome view)
+def _elements(text: str) -> list[dict]:
+    """Playbook YAML -> ordered base pairs: prompt, each skill, max_turns."""
+    try:
+        d = yaml.safe_load(text or "") or {}
+    except yaml.YAMLError:
+        return [{"key": "prompt", "kind": "prompt", "name": "prompt", "desc": "unparseable YAML", "body": text or ""}]
+    out = [{"key": "prompt", "kind": "prompt", "name": "prompt", "desc": "Instructions every case starts from",
+            "body": str(d.get("prompt") or "").strip()}]
+    for s in d.get("skills") or []:
+        out.append({"key": f"skill:{s.get('name')}", "kind": "skill", "name": str(s.get("name")),
+                    "desc": str(s.get("description") or ""), "body": str(s.get("body") or "").strip()})
+    out.append({"key": "max_turns", "kind": "limit", "name": f"max_turns {d.get('max_turns')}",
+                "desc": "Turn budget per case", "body": str(d.get("max_turns"))})
+    return out
+
+
+def _mutations(parent: list[dict] | None, child: list[dict]) -> dict:
+    if parent is None:
+        return {"added": [], "removed": [], "edited": []}
+    p, c = {e["key"]: e for e in parent}, {e["key"]: e for e in child}
+    return {
+        "added": [c[k] for k in c if k not in p],
+        "removed": [p[k] for k in p if k not in c],
+        "edited": [{**c[k], "before": p[k]["body"], "before_name": p[k]["name"]}
+                   for k in c if k in p and (c[k]["body"] != p[k]["body"] or c[k]["desc"] != p[k]["desc"])],
+    }
+
+
+def _latest(runs: list[dict], version, set_name: str) -> dict:
+    """Latest run per case for one version and set."""
+    out = {}
+    for r in runs:
+        if r.get("playbook_version") == version and r.get("set") == set_name:
+            if r["case_id"] not in out or str(r.get("created_at")) > str(out[r["case_id"]].get("created_at")):
+                out[r["case_id"]] = r
+    return out
+
+
+def _rule_counts(rs: dict) -> dict:
+    n = {}
+    for r in rs.values():
+        for x in r.get("violations") or []:
+            n[x["rule"]] = n.get(x["rule"], 0) + 1
+    return n
+
+
+@app.get("/api/lineage")
+def lineage(db: str | None = None, demo: int = 0):
+    """Every playbook version as a genome: its base pairs, the mutations from its parent, why Muse made them
+    (the parent's practice failures), and what it learned (rule-level change on unseen test clients)."""
+    if db:
+        def q():
+            d, _ = _db(db)
+            return {"playbooks": list(d.playbooks.find({}, {"_id": 0})),
+                    "generations": list(d.generations.find({}, {"_id": 0})),
+                    "runs": list(d.runs.find({}, {"_id": 0, "steps": 0, "recommendation": 0}))}
+        data = _mongo_guard(q)
+    else:
+        data, _ = _load(bool(demo))
+    pbs = {p["version"]: p for p in data["playbooks"]}
+    gens = {}
+    for g in sorted(data["generations"], key=lambda g: str(g.get("created_at"))):
+        gens[g["version"]] = g
+    runs = data["runs"]
+    out = []
+    for v in sorted(pbs):
+        p = pbs[v]
+        els = _elements(p.get("yaml", ""))
+        par = pbs.get(p.get("parent"))
+        par_els = _elements(par["yaml"]) if par else None
+        # why: what the parent got wrong on the practice set (the only set Muse sees)
+        why_set = "practice"
+        par_prac = _latest(runs, p.get("parent"), "practice") if par else {}
+        if par and not par_prac:
+            why_set, par_prac = "test", _latest(runs, p.get("parent"), "test")
+        why = sorted(({"rule": k, "count": n, "total": len(par_prac)} for k, n in _rule_counts(par_prac).items()),
+                     key=lambda x: -x["count"])[:4]
+        for w in why:
+            ex = next((x for r in par_prac.values() for x in r.get("violations") or [] if x["rule"] == w["rule"]), None)
+            w["example"] = ex["detail"] if ex else None
+        # learned: rule-level change on unseen test clients, parent -> child
+        before, after = (_latest(runs, p.get("parent"), "test") if par else {}), _latest(runs, v, "test")
+        cb, ca = _rule_counts(before), _rule_counts(after)
+        rules = sorted(({"rule": k, "before": cb.get(k, 0), "after": ca.get(k, 0)} for k in set(cb) | set(ca)),
+                       key=lambda x: (x["after"] - x["before"], -x["before"]))
+        example = None
+        for rr in rules:
+            if rr["before"] > rr["after"]:
+                for cid, r0 in before.items():
+                    v0 = next((x for x in r0.get("violations") or [] if x["rule"] == rr["rule"]), None)
+                    r1 = after.get(cid)
+                    if v0 and r1 and not any(x["rule"] == rr["rule"] for x in r1.get("violations") or []):
+                        res = next((x for x in r1.get("results") or [] if x.get("rule") == rr["rule"]), None)
+                        example = {"case_id": cid, "rule": rr["rule"], "before": v0["detail"],
+                                   "after": (res or {}).get("detail") or "passes"}
+                        break
+            if example:
+                break
+        mean = lambda rs: round(sum(r.get("score") or 0 for r in rs.values()) / len(rs), 3) if rs else None
+        g = gens.get(v)
+        out.append({
+            "version": v, "parent": p.get("parent"), "status": p.get("status"), "changelog": p.get("changelog", ""),
+            "elements": els, "mutations": _mutations(par_els, els),
+            "why": why, "why_set": why_set,
+            "learned": {"rules": rules, "score_before": mean(before), "score_after": mean(after),
+                        "cases": len(after), "example": example},
+            "gate": {k: g.get(k) for k in ("mode", "test", "regression", "practice", "decision", "reason", "compliance")} if g else None,
+        })
+    return out
 
 
 @app.get("/live")

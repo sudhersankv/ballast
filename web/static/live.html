@@ -9,7 +9,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2304110C'/%3E%3Ctext x='9' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='%23E8FFF4'%3Eb%3C/text%3E%3Crect x='40' y='37' width='9' height='9' fill='%236CFFC0'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("ballast-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
@@ -17,8 +18,8 @@
 <header class="top">
   <a class="wordmark" href="/" aria-label="ballast. home">ballast<span>.</span></a>
   <nav class="nav" aria-label="Sections">
-    <a href="/#replay">Replay</a>
-    <a href="/#how">How it works</a>
+    <a href="/#genome">Genome</a>
+    <a href="/#how">The loop</a>
     <a href="/#stack-sec">Stack</a>
     <a href="/live" class="live-link" aria-current="page"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
@@ -31,7 +32,7 @@
   <section class="live-head">
     <div>
       <h1 class="sec-h">Live training run</h1>
-      <p class="sec-sub" id="live-sub">Every case lands here as the agent finishes it. Open any cell for the full trace.</p>
+      <p class="sec-sub" id="live-sub">Each case appears when the agent finishes it. Open a tile for the full trace.</p>
     </div>
     <div class="seg" role="group" aria-label="Database">
       <button data-db="ballast_dev" aria-pressed="true">ballast_dev</button>
@@ -45,8 +46,8 @@
       <div class="prog-row">
         <span class="prog-num" id="prog-num">0<small>/0</small></span>
         <div class="prog-tally">
-          <span class="t-pass"><i></i><b id="t-pass">0</b> passed</span>
-          <span class="t-fail"><i></i><b id="t-fail">0</b> failed</span>
+          <span class="t-pass"><b id="t-pass">0</b> passed</span>
+          <span class="t-fail"><b id="t-fail">0</b> failed</span>
           <span class="t-mean">mean <b id="t-mean">–</b></span>
         </div>
       </div>

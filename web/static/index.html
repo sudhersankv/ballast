@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ballast.</title>
-<meta name="description" content="ballast. is a personal portfolio agent for every client. It gets measurably better with every run, catches its own drift, and never ships an upgrade it can't prove.">
+<meta name="description" content="ballast. gives advisory firms a portfolio agent for every client. It adapts to life changes, cites every trade, and only ships upgrades it can prove.">
 <meta property="og:title" content="ballast.">
-<meta property="og:description" content="A personal portfolio agent that gets measurably better with every run.">
-<meta name="theme-color" content="#04110C">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2304110C'/%3E%3Ctext x='9' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='%23E8FFF4'%3Eb%3C/text%3E%3Crect x='40' y='37' width='9' height='9' fill='%236CFFC0'/%3E%3C/svg%3E">
+<meta property="og:description" content="A portfolio agent for every client that gets measurably better with every run.">
+<meta name="theme-color" content="#07160f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307160f'/%3E%3Ctext x='9' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='%23ecf8f1'%3Eb%3C/text%3E%3Crect x='40' y='37' width='9' height='9' fill='%236ff0b1'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("ballast-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
@@ -20,39 +21,41 @@
 <header class="top">
   <a class="wordmark" href="#top" aria-label="ballast. home">ballast<span>.</span></a>
   <nav class="nav" aria-label="Sections">
-    <a href="#replay">Replay</a>
-    <a href="#how">How it works</a>
+    <a href="#genome">Genome</a>
+    <a href="#how">The loop</a>
     <a href="#stack-sec">Stack</a>
     <a href="#clients-sec">Clients</a>
     <a href="/live" class="live-link"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
   <div class="top-right">
     <span id="source" class="source" hidden>Demo data</span>
+    <button class="theme" id="theme" aria-label="Switch color theme">Light</button>
     <span class="light" id="light" role="status" aria-live="polite"><i></i><b>Aligned</b></span>
   </div>
 </header>
 
 <main id="main">
-  <section class="intro" id="top">
-    <p class="track"><span class="track-dot" aria-hidden="true"></span>Hackathon track: gets measurably better with every run</p>
-    <h1 class="intro-h">A portfolio agent for every client that gets measurably better with every run.</h1>
-    <div class="intro-cols">
-      <p>Each client gets their own agent. It rebalances their portfolio to their risk profile and life events, like a layoff or a new child, and only recommends. A person approves every trade.</p>
-      <p>Muse rewrites the agent's playbook from its failures. An upgrade ships only if it beats its parent on clients it has never seen, keeps every regression case passing, and clears an independent Gemini compliance review.</p>
-    </div>
-    <p class="powered">Powered by <b>Muse</b>, Meta Model API</p>
+  <section class="intro" id="top" aria-labelledby="intro-h">
+    <h1 class="intro-h" id="intro-h">Every client gets their own agent.</h1>
+    <p class="lede">ballast. gives advisory firms a portfolio agent for each client. It rebalances to the client's risk profile and to what is happening in their life: a layoff, a new child, a marriage, an inheritance.</p>
+    <dl class="pitch">
+      <div><dt>Who it's for</dt><dd>Registered investment advisers and the households they serve, especially when life changes fast.</dd></div>
+      <div><dt>What you get</dt><dd>A recommendation for every client with a cited reason for every trade. An advisor approves it. ballast. never trades on its own.</dd></div>
+      <div><dt>Why trust it</dt><dd>It ships an upgrade only if it beats the last version on clients it has never seen. When conditions shift, it catches its own drift and rolls back.</dd></div>
+    </dl>
+    <p class="meta-row"><span>Hackathon track: gets measurably better with every run</span><span>Powered by <b class="muse-t">Muse</b>, Meta Model API</span></p>
   </section>
 
-  <section id="replay" class="replay" aria-labelledby="replay-h">
-    <div class="replay-head">
-      <h2 class="sec-h" id="replay-h">Watch it learn</h2>
-      <p class="sec-sub">A replay of the training runs. Step through it, or press play.</p>
+  <section id="genome" class="genome-sec" aria-labelledby="genome-h">
+    <div class="sec-head">
+      <h2 class="sec-h" id="genome-h">The genome</h2>
+      <p class="sec-sub">Each agent runs on a playbook: a prompt, a set of skills and a turn budget. Muse rewrites it from real failures. Every change is a mutation, and only mutations that prove themselves on unseen clients survive.</p>
     </div>
 
-    <div class="stage">
+    <div class="stage" id="stage">
       <div class="story">
-        <p class="step-count" id="step-count">Step 1 of 9</p>
-        <h3 id="step-title" class="step-title" tabindex="-1">v0: the starting playbook</h3>
+        <p class="step-count" id="step-count">Step 1</p>
+        <h3 id="step-title" class="step-title">v0: the starting playbook</h3>
         <p id="step-body" class="step-body"></p>
         <div class="score">
           <span class="score-num" id="score-num">63</span>
@@ -62,18 +65,26 @@
           </div>
         </div>
         <div class="controls" role="group" aria-label="Replay controls">
-          <button class="btn ghost" id="prev" aria-label="Previous step">Back</button>
+          <button class="btn" id="prev">Back</button>
           <button class="btn primary" id="next">Next step</button>
-          <button class="btn ghost" id="play" aria-pressed="false">Play</button>
+          <button class="btn" id="play" aria-pressed="false">Play</button>
         </div>
       </div>
-      <figure class="stack-fig">
-        <svg id="stack" class="stack" viewBox="0 0 600 520" role="img" aria-labelledby="stack-desc"><desc id="stack-desc">Playbook versions stacked as slabs</desc></svg>
-        <figcaption id="stack-cap">Each slab is a playbook version that passed the gate.</figcaption>
+      <figure class="helix-fig">
+        <svg id="helix" class="helix" viewBox="0 0 640 380" role="img" aria-labelledby="helix-desc"><desc id="helix-desc">The current playbook drawn as a double helix</desc></svg>
+        <ul class="pairs" id="pairs" aria-label="Base pairs in this playbook"></ul>
+        <ol class="rail" id="rail" aria-label="Lineage"></ol>
       </figure>
     </div>
 
     <ol class="steps" id="steps" aria-label="Replay steps"></ol>
+
+    <div class="mut" id="mut">
+      <div class="mut-col"><h4>Why it changed</h4><div id="mut-why"></div></div>
+      <div class="mut-col"><h4>What changed</h4><div id="mut-what"></div></div>
+      <div class="mut-col"><h4>What it learned</h4><div id="mut-learned"></div></div>
+      <p class="mut-ex" id="mut-ex" hidden></p>
+    </div>
 
     <div class="gate">
       <div class="gate-head">
@@ -84,63 +95,56 @@
       <div class="stamp" id="stamp" aria-live="polite"></div>
     </div>
 
-    <div class="evidence">
-      <div class="panel">
-        <h3 class="panel-h">What broke on unseen clients</h3>
-        <p class="panel-sub" id="viol-sub">Policy violations at this step</p>
-        <ul class="viol" id="viol"></ul>
-      </div>
-      <div class="panel">
-        <h3 class="panel-h">What Muse changed in the playbook</h3>
-        <p class="panel-sub" id="diff-sub">Playbook diff</p>
-        <pre class="diff" id="diff" tabindex="0" aria-label="Playbook diff"></pre>
-      </div>
-    </div>
-
     <div class="panel curve-wrap">
-      <h3 class="panel-h">Score by version on unseen clients</h3>
-      <p class="panel-sub">Each point is a full backtest on 20 clients the agent never trained on.</p>
+      <h3 class="panel-h">Score by version</h3>
+      <p class="panel-sub">Average policy score on 20 clients the agent never trained on. Each point is a full backtest.</p>
       <svg id="curve" class="curve" viewBox="0 0 720 260" role="img" aria-label="Test score by playbook version"></svg>
     </div>
   </section>
 
   <section id="how" class="how" aria-labelledby="how-h">
-    <h2 class="sec-h" id="how-h">How it works</h2>
-    <p class="sec-sub">Two loops run on the same parts. One improves the agent. The other catches it when it drifts.</p>
+    <div class="sec-head">
+      <h2 class="sec-h" id="how-h">The loop</h2>
+      <p class="sec-sub">Two loops run on the same parts. One improves the agent. The other catches it when it drifts.</p>
+    </div>
     <div class="how-tabs" role="tablist" aria-label="Loop">
-      <button role="tab" id="tab-improve" aria-selected="true" aria-controls="how-panel">Improve every run</button>
+      <button role="tab" id="tab-improve" aria-selected="true" aria-controls="how-panel">Improve</button>
       <button role="tab" id="tab-drift" aria-selected="false" aria-controls="how-panel" tabindex="-1">Catch drift</button>
     </div>
     <div class="how-body" id="how-panel" role="tabpanel" aria-labelledby="tab-improve">
-      <svg id="loop" class="loop" viewBox="0 0 760 460" role="img" aria-label="Loop diagram"></svg>
+      <svg id="loop" class="loop" viewBox="0 0 760 500" role="img" aria-label="Loop diagram"></svg>
       <div class="how-side">
         <ol class="how-steps" id="how-steps"></ol>
         <div class="how-ctrl">
-          <button class="btn ghost small" id="how-prev" aria-label="Previous hop">Back</button>
-          <button class="btn ghost small" id="how-next">Next hop</button>
+          <button class="btn small" id="how-prev">Back</button>
+          <button class="btn small" id="how-next">Next hop</button>
         </div>
       </div>
     </div>
-    <p class="fact">Each case runs Pi in its own sandbox, as an unprivileged user that can't read the checker. On the layoff case, one run took 9 turns and produced a recommendation with every trade cited.</p>
+    <p class="fact">Each case runs Pi in its own sandbox, as an unprivileged user that cannot read the checker. On the layoff case, one run took 9 turns and produced a recommendation with every trade cited.</p>
   </section>
 
   <section id="stack-sec" class="stack-sec" aria-labelledby="stack-h">
-    <h2 class="sec-h" id="stack-h">Stack</h2>
-    <p class="sec-sub">Every part has one job. Pick a layer to see what it does.</p>
+    <div class="sec-head">
+      <h2 class="sec-h" id="stack-h">Stack</h2>
+      <p class="sec-sub">Every part has one job. Pick a layer to see it.</p>
+    </div>
     <div class="stack-body">
       <svg id="layers" class="layers" viewBox="0 0 520 560" role="img" aria-label="Exploded architecture diagram"></svg>
       <ul class="bento" id="bento"></ul>
     </div>
     <div class="panel bench">
       <h3 class="panel-h">Model benchmark</h3>
-      <p class="panel-sub">Same playbook, same 20 unseen clients, a different model running the agent. The harness tags every run with its model, so any of them can be swapped in and compared.</p>
+      <p class="panel-sub" id="bench-sub">Same playbook, same 20 unseen clients, a different model running the agent. Every run records its model.</p>
       <table class="bench-t" id="bench"></table>
     </div>
   </section>
 
   <section id="clients-sec" class="clients-sec" aria-labelledby="clients-h">
-    <h2 class="sec-h" id="clients-h">Clients and their agents</h2>
-    <p class="sec-sub">Each agent is shaped by its client's profile and keeps adapting as their life changes. Open one to see its latest recommendation.</p>
+    <div class="sec-head">
+      <h2 class="sec-h" id="clients-h">Clients</h2>
+      <p class="sec-sub">Each agent is shaped by its client's profile and keeps adapting as their life changes. Open one to see its latest recommendation.</p>
+    </div>
     <ul class="clients" id="clients"></ul>
   </section>
 

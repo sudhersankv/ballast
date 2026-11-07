@@ -53,10 +53,11 @@
   const active = () => S.lastAt && Date.now() - Date.parse(S.lastAt) < 120000;
   function renderStatus() {
     const st = $("#status");
-    if (S.err) { st.dataset.level = "red"; st.querySelector("b").textContent = "Offline"; $("#live-sub").textContent = `Can't read ${S.db}: ${S.err}`; return; }
+    if (S.err) { st.dataset.level = "red"; st.querySelector("b").textContent = "Offline"; $("#live-sub").textContent = `Can't read ${S.db}: ${S.err}. Retrying every 3 s.`; return; }
     const on = active();
-    st.dataset.level = on ? "green" : "idle";
-    st.querySelector("b").textContent = on ? "Live" : S.session ? `Idle, last run ${ago(S.lastAt)}` : "No session";
+    // connecting -> live -> stale (session exists, no rows for 2 min) -> idle (no session)
+    st.dataset.level = on ? "live" : S.session ? "yellow" : "idle";
+    st.querySelector("b").textContent = on ? "Live" : S.session ? `Stale, last run ${ago(S.lastAt)}` : "No session";
     document.querySelector(".live-link")?.classList.toggle("on", !!on);
   }
 
@@ -172,8 +173,8 @@
           : `<p class="sub">The agent didn't produce a recommendation.</p>`}
         <h4>Agent trace</h4>
         ${(r.steps || []).length ? `<ol class="trace">${r.steps.map((s) => s.kind === "say"
-          ? `<li class="say"><span class="tn">Turn ${esc(s.turn)}</span><p>${esc(s.text)}</p></li>`
-          : `<li class="tool ${s.error ? "e" : ""}"><span class="tn">Turn ${esc(s.turn)}</span><b>${esc(s.tool)}</b><code>${esc(s.args)}</code>${s.result ? `<details><summary>Result${s.error ? " (error)" : ""}</summary><pre>${esc(s.result)}</pre></details>` : ""}</li>`).join("")}</ol>`
+          ? `<li class="say"><span class="tn"><span class="tag">Said</span>Turn ${esc(s.turn)}</span><p>${esc(s.text)}</p></li>`
+          : `<li class="tool ${s.error ? "e" : ""}"><span class="tn"><span class="tag">${s.error ? "Tool error" : "Tool"}</span>Turn ${esc(s.turn)}</span><b>${esc(s.tool)}</b><code>${esc(s.args)}</code>${s.result ? `<details><summary>Result</summary><pre>${esc(s.result)}</pre></details>` : ""}</li>`).join("")}</ol>`
           : `<p class="sub">No trace steps recorded for this run.</p>`}`);
     } catch (e) {
       openSheet(`<h3 id="sheet-title">Run didn't load</h3><p class="sub">${esc(e.message)}. Close this and try again.</p>`);

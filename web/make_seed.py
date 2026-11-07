@@ -270,13 +270,36 @@ for i in range(20):
         n_rules = 6 + (1 if ev else 0)
         score = round(max(0.0, 1 - len(viol) / n_rules), 2)
         hard = any(x["severity"] == "hard" for x in viol)
-        runs.append({
-            "run_id": f"r-{v}{i + 1:03d}", "playbook_version": v, "case_id": cid, "set": "test", "model": "muse",
-            "score": score, "passed": (not hard) and score >= 0.8, "violations": viol,
-            "recommendation": rec if v == 5 else None,
-            "tokens_in": random.randint(9000, 16000), "tokens_out": random.randint(700, 1600),
-            "seconds": round(random.uniform(24, 70), 1), "created_at": g["created_at"],
-        })
+        # rule-by-rule results, with the numeric detail a passing check reports too
+        need = 6 if ev == "layoff" else 3
+        cash_after = 6.0 if ev == "layoff" else round(cash_now / expenses + 1.2, 1)
+        passing = {
+            "valid_output": "ok",
+            "risk_band": f"equity {tgt_eq:.0%} within {lo:.0%}-{hi:.0%} for risk {risk}",
+            "emergency_fund": f"cash {cash_after} months, needs {need}" + (" after layoff" if ev == "layoff" else ""),
+            "cited": "all trades cited",
+            "concentration": f"ACME {min(single / total, 0.09):.1%} of portfolio, max 10%",
+            "no_churn": "no trades; every class within 5 points",
+            "event_child": f"education goal added for {2026 + 18}",
+            "event_marriage": "joint_profile_review flagged; risk score unchanged",
+            "event_job_change": "monthly contribution raised to $2,200",
+            "glidepath": "equity at or below the band midpoint",
+        }
+        applicable = ["valid_output", "risk_band", "emergency_fund", "cited", "concentration"]
+        applicable += {"child": ["event_child"], "marriage": ["event_marriage"], "job_change": ["event_job_change"],
+                       "age55": ["glidepath"], None: ["no_churn"]}.get(ev, [])
+        bad = {x["rule"]: x for x in viol}
+        results = [{"rule": r, "severity": "hard" if r in ("valid_output", "risk_band", "emergency_fund", "cited", "concentration") else "soft",
+                    "passed": r not in bad, "detail": bad[r]["detail"] if r in bad else passing[r]} for r in applicable]
+        for set_name, case in (("test", cid), ("practice", f"p-{i + 1:03d}")):
+            runs.append({
+                "run_id": f"r-{v}{i + 1:03d}" if set_name == "test" else f"p-{v}{i + 1:03d}",
+                "playbook_version": v, "case_id": case, "set": set_name, "model": "muse",
+                "score": score, "passed": (not hard) and score >= 0.8, "violations": viol, "results": results,
+                "recommendation": rec if v == 5 and set_name == "test" else None,
+                "tokens_in": random.randint(9000, 16000), "tokens_out": random.randint(700, 1600),
+                "seconds": round(random.uniform(24, 70), 1), "created_at": g["created_at"],
+            })
 
 drift_analysis = [{
     "time": ts(192), "analyst": "subq", "model": "subq-snap-1.1",
