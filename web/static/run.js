@@ -103,7 +103,8 @@
           if (race.every((x) => x.done)) {
             // accuracy is judged separately from speed
             const best = Math.max(...race.map((x) => x.score ?? -1));
-            race.forEach((x) => { if (x.score === best && best >= 0) { x.col.box.classList.add("accurate"); x.col.el("place").innerHTML += ` <b class="acc">◆ most accurate ${best.toFixed(3)}</b>`; } });
+            const top = race.filter((x) => x.score === best && best >= 0);
+            top.forEach((x) => { x.col.box.classList.add("accurate"); x.col.el("place").innerHTML += ` <b class="acc">◆ ${top.length > 1 ? "tied on accuracy" : "most accurate"} ${best.toFixed(3)}</b>`; });
           }
         }
         loadJobs();
