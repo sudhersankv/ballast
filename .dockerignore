@@ -1,0 +1,8 @@
+.env
+.venv/
+.git/
+__pycache__/
+runs/
+traces/
+*.jsonl
+Self-Improving Portfolio Agent Build Spec.md

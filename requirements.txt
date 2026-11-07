@@ -1,0 +1,7 @@
+pymongo
+pyyaml
+pydantic
+python-dotenv
+httpx
+openai
+google-genai
