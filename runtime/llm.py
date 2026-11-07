@@ -50,8 +50,9 @@ def config(provider: str) -> tuple[str, str, str]:
 
 
 def chat(provider: str, system: str, user: str, max_tokens: int = 8000,
-         temperature: float = 0.2) -> Reply:
-    base, key, model = config(provider)
+         temperature: float = 0.2, model: str | None = None) -> Reply:
+    base, key, default_model = config(provider)
+    model = model or default_model
     client = OpenAI(base_url=base, api_key=key, timeout=300)
     t0 = time.time()
     r = client.chat.completions.create(

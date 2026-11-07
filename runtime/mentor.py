@@ -8,6 +8,7 @@ analyze_drift(runs, playbooks) -> {"provider", "patterns", "runs_read", "tokens_
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 
@@ -102,7 +103,10 @@ def mentor_propose(parent_yaml: str, failures: list[str], scores: dict, analysis
         next=parent["version"] + 1, current=parent["version"])
     if feedback:
         prompt += f"\n\nYOUR PREVIOUS ATTEMPT WAS REJECTED: {feedback}\nFix that and try again."
-    reply = llm.chat(llm.role("mentor", "muse"), "You write precise YAML playbooks.", prompt, max_tokens=12000)
+    provider = llm.role("mentor", "muse")
+    # Muse Wonder (deeper reasoning) writes playbooks; Muse Spark runs the agent.
+    model = os.environ.get("MUSE_MENTOR_MODEL") if provider == "muse" else None
+    reply = llm.chat(provider, "You write precise YAML playbooks.", prompt, max_tokens=16000, model=model)
     text = extract_yaml(reply.text)
     try:
         cand = yaml.safe_load(text)
