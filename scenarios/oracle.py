@@ -35,6 +35,12 @@ try:  # prefer the real checker (source of truth); never edited from here
 except Exception:  # pragma: no cover - fallback when checker/ is absent
     _real_check = None
 
+try:  # held-out forward backtest (needs PyYAML for config.yaml)
+    sys.path.insert(0, str(ROOT))
+    from backtest import backtest as _backtest, holdout_path as _bt_holdout  # type: ignore
+except Exception:  # pragma: no cover
+    _backtest = _bt_holdout = None
+
 
 def load_case(d: Path) -> dict:
     j = lambda n: json.loads((d / f"{n}.json").read_text(encoding="utf-8"))  # noqa: E731
@@ -245,9 +251,11 @@ def main() -> int:
     print(f"scoring with: {'checker/check.py' if _real_check else 'built-in minimal rules'}")
     print(f"{'set':<11}{'n':>3}  {'oracle solvable':>16}  {'naive pass':>10}  {'naive mean':>10}  {'do-nothing pass':>15}")
     bad = 0
+    bt_rows: list[str] = []
     for s in SETS:
         dirs = sorted(p for p in (ROOT / "cases" / s).iterdir() if p.is_dir()) if (ROOT / "cases" / s).exists() else []
         ok = nv_pass = nv_sum = dn_pass = 0
+        bt_acc = {k: {"ret": [], "mdd": [], "cov": [], "breach": 0} for k in ("oracle", "naive", "hold")}
         for d in dirs:
             case = load_case(d)
             try:
@@ -269,8 +277,25 @@ def main() -> int:
             nv_pass += nv["passed"]
             nv_sum += nv["score"]
             dn_pass += score(case, do_nothing(case))["passed"]
+            if _backtest is not None and _bt_holdout(d).exists():
+                for name, r in (("oracle", rec), ("naive", naive(case)), ("hold", do_nothing(case))):
+                    b = _backtest(d, r)
+                    acc = bt_acc[name]
+                    acc["ret"].append(b["forward_return"])
+                    acc["mdd"].append(b["max_drawdown"])
+                    acc["cov"].append(b["min_cash_coverage_months"])
+                    acc["breach"] += b["emergency_fund_breached"]
         n = len(dirs) or 1
         print(f"{s:<11}{len(dirs):>3}  {ok:>10}/{len(dirs):<5}  {nv_pass / n:>10.2f}  {nv_sum / n:>10.2f}  {dn_pass / n:>15.2f}")
+        for name, acc in bt_acc.items():
+            if acc["ret"]:
+                m = len(acc["ret"])
+                bt_rows.append(f"{s:<11}{name:<8}{sum(acc['ret']) / m:>+10.3f}{min(acc['ret']):>+10.3f}"
+                               f"{sum(acc['mdd']) / m:>+10.3f}{sorted(acc['cov'])[m // 2]:>12.1f}{acc['breach']:>6}/{m}")
+    if bt_rows:
+        print("\nheld-out backtest (scenarios/holdout; extra metric, not a policy rule)")
+        print(f"{'set':<11}{'rec':<8}{'mean ret':>10}{'worst ret':>10}{'mean mdd':>10}{'med min cov':>12}{'EF breach':>9}")
+        print("\n".join(bt_rows))
     return 1 if bad else 0
 
 

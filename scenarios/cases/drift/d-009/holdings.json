@@ -3,23 +3,23 @@
   "positions": [
     {
       "symbol": "US_EQ",
-      "units": 919.405,
-      "value": 184092.46
-    },
-    {
-      "symbol": "INTL_EQ",
-      "units": 1054.816,
-      "value": 51169.12
+      "units": 434.838,
+      "value": 87715.52
     },
     {
       "symbol": "BOND",
-      "units": 3200.376,
-      "value": 202711.82
+      "units": 891.277,
+      "value": 58334.08
+    },
+    {
+      "symbol": "NMBX",
+      "units": 385.0,
+      "value": 8932.0
     },
     {
       "symbol": "CASH",
-      "units": 58232.77,
-      "value": 58232.77
+      "units": 40985.92,
+      "value": 40985.92
     }
   ]
 }

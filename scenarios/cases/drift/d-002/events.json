@@ -1,29 +1,29 @@
 {
   "events": [
     {
-      "id": "e1",
-      "type": "market_drop",
-      "date": "2026-09-18",
-      "details": {
-        "us_equity_change_pct": -30.0,
-        "intl_equity_change_pct": -30.2,
-        "bond_change_pct": 0.0,
-        "peak_date": "2026-08-12",
-        "trough_date": "2026-09-18",
-        "historical_analog": "2020-style crash"
-      }
-    },
-    {
       "id": "e2",
       "type": "layoff",
       "date": "2026-10-12",
       "details": {
-        "severance": 18000,
-        "severance_weeks": 7,
-        "tenure_years": 7,
+        "severance": 38500,
+        "severance_weeks": 15,
+        "tenure_years": 10,
         "employer": "Pinebrook Media",
         "last_day": "2026-10-12",
         "cobra_monthly_premium": 760
+      }
+    },
+    {
+      "id": "e1",
+      "type": "market_drop",
+      "date": "2026-10-30",
+      "details": {
+        "us_equity_change_pct": -20.2,
+        "intl_equity_change_pct": -21.4,
+        "bond_change_pct": 5.7,
+        "peak_date": "2026-08-31",
+        "trough_date": "2026-10-30",
+        "historical_analog": "Feb-Mar 2020 COVID crash"
       }
     }
   ]

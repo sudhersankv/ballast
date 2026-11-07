@@ -13,7 +13,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 4
+      "draws": 4,
+      "market_source": "real",
+      "overrides": []
     },
     "c-002": {
       "set": "practice",
@@ -21,7 +23,9 @@
       "tags": [
         "marriage"
       ],
-      "draws": 46
+      "draws": 46,
+      "market_source": "real",
+      "overrides": []
     },
     "c-003": {
       "set": "practice",
@@ -31,7 +35,9 @@
         "single_stock>10%",
         "no_events"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-004": {
       "set": "practice",
@@ -40,7 +46,9 @@
         "child",
         "layoff"
       ],
-      "draws": 3
+      "draws": 3,
+      "market_source": "real",
+      "overrides": []
     },
     "c-005": {
       "set": "practice",
@@ -49,7 +57,9 @@
         "layoff",
         "single_stock>10%"
       ],
-      "draws": 3
+      "draws": 3,
+      "market_source": "real",
+      "overrides": []
     },
     "c-006": {
       "set": "practice",
@@ -59,7 +69,9 @@
         "single_stock",
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-007": {
       "set": "practice",
@@ -67,7 +79,9 @@
       "tags": [
         "layoff"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-008": {
       "set": "practice",
@@ -75,7 +89,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-009": {
       "set": "practice",
@@ -84,7 +100,9 @@
         "age55+",
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-010": {
       "set": "practice",
@@ -92,7 +110,9 @@
       "tags": [
         "child"
       ],
-      "draws": 69
+      "draws": 69,
+      "market_source": "real",
+      "overrides": []
     },
     "c-011": {
       "set": "practice",
@@ -101,7 +121,9 @@
         "job_change",
         "single_stock"
       ],
-      "draws": 5
+      "draws": 5,
+      "market_source": "real",
+      "overrides": []
     },
     "c-012": {
       "set": "practice",
@@ -109,7 +131,9 @@
       "tags": [
         "job_change"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-013": {
       "set": "practice",
@@ -118,7 +142,9 @@
         "child",
         "single_stock"
       ],
-      "draws": 37
+      "draws": 37,
+      "market_source": "real",
+      "overrides": []
     },
     "c-014": {
       "set": "practice",
@@ -126,7 +152,9 @@
       "tags": [
         "job_change"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-015": {
       "set": "practice",
@@ -135,7 +163,9 @@
         "child",
         "job_change"
       ],
-      "draws": 13
+      "draws": 13,
+      "market_source": "real",
+      "overrides": []
     },
     "c-016": {
       "set": "practice",
@@ -143,7 +173,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-017": {
       "set": "practice",
@@ -151,7 +183,9 @@
       "tags": [
         "marriage"
       ],
-      "draws": 32
+      "draws": 32,
+      "market_source": "real",
+      "overrides": []
     },
     "c-018": {
       "set": "practice",
@@ -159,7 +193,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 1896
+      "draws": 1896,
+      "market_source": "real",
+      "overrides": []
     },
     "c-019": {
       "set": "practice",
@@ -168,7 +204,9 @@
         "layoff",
         "single_stock"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-020": {
       "set": "practice",
@@ -177,7 +215,9 @@
         "single_stock",
         "no_events"
       ],
-      "draws": 9
+      "draws": 9,
+      "market_source": "real",
+      "overrides": []
     },
     "c-021": {
       "set": "test",
@@ -186,7 +226,9 @@
         "job_change",
         "marriage"
       ],
-      "draws": 52
+      "draws": 52,
+      "market_source": "real",
+      "overrides": []
     },
     "c-022": {
       "set": "test",
@@ -194,7 +236,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 3
+      "draws": 3,
+      "market_source": "real",
+      "overrides": []
     },
     "c-023": {
       "set": "test",
@@ -203,7 +247,9 @@
         "child",
         "job_change"
       ],
-      "draws": 21
+      "draws": 21,
+      "market_source": "real",
+      "overrides": []
     },
     "c-024": {
       "set": "test",
@@ -212,7 +258,9 @@
         "layoff",
         "single_stock>10%"
       ],
-      "draws": 3
+      "draws": 3,
+      "market_source": "real",
+      "overrides": []
     },
     "c-025": {
       "set": "test",
@@ -221,7 +269,9 @@
         "age55+",
         "no_events"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-026": {
       "set": "test",
@@ -229,7 +279,9 @@
       "tags": [
         "layoff"
       ],
-      "draws": 4
+      "draws": 4,
+      "market_source": "real",
+      "overrides": []
     },
     "c-027": {
       "set": "test",
@@ -238,7 +290,9 @@
         "job_change",
         "single_stock"
       ],
-      "draws": 5
+      "draws": 5,
+      "market_source": "real",
+      "overrides": []
     },
     "c-028": {
       "set": "test",
@@ -246,7 +300,9 @@
       "tags": [
         "marriage"
       ],
-      "draws": 12
+      "draws": 12,
+      "market_source": "real",
+      "overrides": []
     },
     "c-029": {
       "set": "test",
@@ -255,7 +311,9 @@
         "age55+",
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-030": {
       "set": "test",
@@ -264,7 +322,9 @@
         "child",
         "single_stock"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-031": {
       "set": "test",
@@ -273,7 +333,9 @@
         "single_stock",
         "no_events"
       ],
-      "draws": 447
+      "draws": 447,
+      "market_source": "real",
+      "overrides": []
     },
     "c-032": {
       "set": "test",
@@ -282,7 +344,9 @@
         "child",
         "layoff"
       ],
-      "draws": 9
+      "draws": 9,
+      "market_source": "real",
+      "overrides": []
     },
     "c-033": {
       "set": "test",
@@ -291,7 +355,9 @@
         "job_change",
         "single_stock"
       ],
-      "draws": 4
+      "draws": 4,
+      "market_source": "real",
+      "overrides": []
     },
     "c-034": {
       "set": "test",
@@ -300,7 +366,9 @@
         "single_stock",
         "no_events"
       ],
-      "draws": 3
+      "draws": 3,
+      "market_source": "real",
+      "overrides": []
     },
     "c-035": {
       "set": "test",
@@ -308,7 +376,9 @@
       "tags": [
         "child"
       ],
-      "draws": 14
+      "draws": 14,
+      "market_source": "real",
+      "overrides": []
     },
     "c-036": {
       "set": "test",
@@ -317,7 +387,9 @@
         "layoff",
         "single_stock>10%"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-037": {
       "set": "test",
@@ -326,7 +398,9 @@
         "age55+",
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-038": {
       "set": "test",
@@ -335,7 +409,9 @@
         "job_change",
         "single_stock"
       ],
-      "draws": 511
+      "draws": 511,
+      "market_source": "real",
+      "overrides": []
     },
     "c-039": {
       "set": "test",
@@ -345,7 +421,9 @@
         "single_stock>10%",
         "no_events"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-040": {
       "set": "test",
@@ -353,7 +431,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-041": {
       "set": "regression",
@@ -362,7 +442,9 @@
         "age55+",
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-042": {
       "set": "regression",
@@ -371,7 +453,9 @@
         "layoff",
         "single_stock>10%"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-043": {
       "set": "regression",
@@ -379,7 +463,9 @@
       "tags": [
         "marriage"
       ],
-      "draws": 12
+      "draws": 12,
+      "market_source": "real",
+      "overrides": []
     },
     "c-044": {
       "set": "regression",
@@ -387,7 +473,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 8
+      "draws": 8,
+      "market_source": "real",
+      "overrides": []
     },
     "c-045": {
       "set": "regression",
@@ -395,7 +483,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-046": {
       "set": "regression",
@@ -403,7 +493,9 @@
       "tags": [
         "layoff"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-047": {
       "set": "regression",
@@ -411,7 +503,9 @@
       "tags": [
         "child"
       ],
-      "draws": 61
+      "draws": 61,
+      "market_source": "real",
+      "overrides": []
     },
     "c-048": {
       "set": "regression",
@@ -420,7 +514,9 @@
         "single_stock>10%",
         "no_events"
       ],
-      "draws": 2
+      "draws": 2,
+      "market_source": "real",
+      "overrides": []
     },
     "c-049": {
       "set": "regression",
@@ -428,7 +524,9 @@
       "tags": [
         "job_change"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "c-050": {
       "set": "regression",
@@ -436,7 +534,9 @@
       "tags": [
         "no_events"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "d-001": {
       "set": "drift",
@@ -444,7 +544,9 @@
       "tags": [
         "divorce"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "d-002": {
       "set": "drift",
@@ -453,7 +555,9 @@
         "layoff",
         "market_drop"
       ],
-      "draws": 6
+      "draws": 6,
+      "market_source": "real",
+      "overrides": []
     },
     "d-003": {
       "set": "drift",
@@ -462,7 +566,9 @@
         "inheritance",
         "single_stock"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "d-004": {
       "set": "drift",
@@ -471,7 +577,9 @@
         "divorce",
         "job_change"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "d-005": {
       "set": "drift",
@@ -480,7 +588,9 @@
         "divorce",
         "single_stock>10%"
       ],
-      "draws": 1
+      "draws": 1,
+      "market_source": "real",
+      "overrides": []
     },
     "d-006": {
       "set": "drift",
@@ -488,15 +598,20 @@
       "tags": [
         "inheritance"
       ],
-      "draws": 5
+      "draws": 5,
+      "market_source": "real",
+      "overrides": []
     },
     "d-007": {
       "set": "drift",
-      "archetype": "market_drop_2020",
+      "archetype": "market_drop_gfc",
       "tags": [
-        "market_drop"
+        "market_drop",
+        "single_stock"
       ],
-      "draws": 17
+      "draws": 12,
+      "market_source": "real",
+      "overrides": []
     },
     "d-008": {
       "set": "drift",
@@ -505,15 +620,20 @@
         "market_drop",
         "single_stock>10%"
       ],
-      "draws": 3
+      "draws": 3,
+      "market_source": "real",
+      "overrides": []
     },
     "d-009": {
       "set": "drift",
       "archetype": "market_drop_2022",
       "tags": [
-        "market_drop"
+        "market_drop",
+        "single_stock"
       ],
-      "draws": 26
+      "draws": 17,
+      "market_source": "real",
+      "overrides": []
     },
     "d-010": {
       "set": "drift",
@@ -523,7 +643,9 @@
         "inheritance",
         "single_stock"
       ],
-      "draws": 61
+      "draws": 61,
+      "market_source": "real",
+      "overrides": []
     }
   }
 }

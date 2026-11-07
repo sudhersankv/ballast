@@ -1,0 +1,103 @@
+# ballast. scenario calibration config: every tunable number the generator, market model and backtest use.
+# A teammate's config with the same keys can replace this file. Sources for each value: scenarios/SOURCES.md.
+# Illustrative demo calibration, not financial advice.
+
+as_of: "2026-11-01"
+review_window: ["2026-08-03", "2026-10-28"]   # life events happened since the last review
+seeds: {practice: 1001, test: 2002, regression: 3003, drift: 4004}
+
+# ------------------------------------------------------------------ asset universe (SPEC.md)
+assets:
+  US_EQ:   {class: equity, price: 268.40, proxy: "CRSP US total market TR (Fama-French Mkt+RF) ~ S&P 500 TR"}
+  INTL_EQ: {class: equity, price: 63.15,  proxy: "Fama-French Developed ex-US market TR ~ MSCI EAFE TR"}
+  BOND:    {class: bond,   price: 72.80,  proxy: "FRED GS10 duration model ~ US Aggregate"}
+  CASH:    {class: cash,   price: 1.0,    proxy: "1-month T-bill (Fama-French RF)"}
+single_stocks:          # invented companies and tickers; returns simulated as rf + beta*(US-rf) + idiosyncratic noise
+  HLXR: {price: 142.30, company: "Helixar Therapeutics", beta: 1.6, idio_vol_annual: 0.45,
+         roles: ["research scientist", "clinical operations manager", "regulatory affairs lead"]}
+  NMBX: {price: 38.75,  company: "Nimbex Cloud",         beta: 1.4, idio_vol_annual: 0.35,
+         roles: ["senior software engineer", "product manager", "solutions architect"]}
+  KSTL: {price: 611.20, company: "Kestrel Freight",      beta: 1.1, idio_vol_annual: 0.25,
+         roles: ["operations director", "supply-chain analyst", "regional sales manager"]}
+
+# ------------------------------------------------------------------ market history + held-out window
+market:
+  returns_csv: data/monthly_returns.csv   # month,US_EQ,INTL_EQ,BOND,CASH; refresh: python scenarios/fetch_market_data.py
+  history_months: 48                      # shown to the agent in market.json "history"
+  holdout_months: 12                      # scenarios/holdout/<set>/<id>/future.json; never in a case dir
+  bond_duration: 6.0                      # used by fetch_market_data.py's GS10 bond model
+  anchor_earliest: "1994-06"              # earliest window end (history must start after 1990-07)
+  calm_max_trailing_drawdown: -0.12       # non-drift cases avoid windows ending inside a crash
+  # Fallback if returns_csv is missing: simulate monthly returns (annualized mu/vol, correlation).
+  simulate:
+    mu:  {US_EQ: 0.10, INTL_EQ: 0.07, BOND: 0.045, CASH: 0.03}
+    vol: {US_EQ: 0.155, INTL_EQ: 0.165, BOND: 0.045, CASH: 0.006}
+    corr:
+      US_EQ:   {US_EQ: 1.0, INTL_EQ: 0.77, BOND: 0.0, CASH: 0.0}
+      INTL_EQ: {US_EQ: 0.77, INTL_EQ: 1.0, BOND: 0.05, CASH: 0.0}
+      BOND:    {US_EQ: 0.0, INTL_EQ: 0.05, BOND: 1.0, CASH: 0.1}
+      CASH:    {US_EQ: 0.0, INTL_EQ: 0.0, BOND: 0.1, CASH: 1.0}
+  # Real troughs used by market_drop cases (window ends here, so history shows the fall and future the rebound).
+  drop_anchors:
+    gfc_2009:    {end: "2009-02", label: "2007-09 global financial crisis"}
+    dotcom_2002: {end: "2002-09", label: "2000-02 dot-com bust"}
+    covid_2020:  {end: "2020-03", label: "Feb-Mar 2020 COVID crash"}
+    bear_2022:   {end: "2022-09", label: "2022 rate-shock bear market (stocks and bonds fell together)"}
+  drop_lookback_months: 24                # peak is searched this far back from the anchor
+
+# ------------------------------------------------------------------ backtest (extra metric, not a policy rule)
+backtest:
+  unemployed_draw_months: 6     # unemployed clients fund expenses from CASH for this many held-out months
+  employed_floor_months: 3      # employed clients: breach if month-end cash < this many months of expenses
+  cash_earns_rf: true           # CASH accrues the T-bill return
+
+# ------------------------------------------------------------------ policy mirror (EVAL.md; used only to build consistent targets)
+risk_bands: {1: [0.10, 0.30], 2: [0.30, 0.50], 3: [0.50, 0.70], 4: [0.70, 0.85], 5: [0.85, 1.00]}
+model_equity:      {1: [0.20], 2: [0.40, 0.45], 3: [0.55, 0.60, 0.65], 4: [0.75, 0.80], 5: [0.88, 0.90]}
+low_half_equity:   {1: [0.15, 0.20], 2: [0.35, 0.40], 3: [0.55, 0.60], 4: [0.75], 5: [0.90]}
+stale_equity:      {1: [0.25], 2: [0.45], 3: [0.65], 4: [0.80], 5: [0.94]}
+cash_sleeve_choices: [0.03, 0.04, 0.05, 0.05, 0.06, 0.08]
+cash_sleeve_min_months: 3.5
+
+# ------------------------------------------------------------------ households
+household:
+  # age bucket "lo-hi": SCF 2022 median family income ($k) and conditional median retirement balance ($k)
+  scf_median_income_k:  {"18-34": 60.5, "35-44": 85.9, "45-54": 91.9, "55-64": 81.9, "65-74": 60.9, "75-99": 49.1}
+  scf_median_retire_k:  {"18-34": 18.9, "35-44": 45.0, "45-54": 133.0, "55-64": 185.0, "65-74": 200.0, "75-99": 130.0}
+  investor_income_mult: 1.45
+  inflate_2022_2026: 1.14
+  income_sigma: 0.42
+  income_clamp: [48000, 420000]
+  taxable_mult: 1.6
+  total_sigma: 0.5
+  total_clamp: [40000, 2500000]
+  # BLS CE 2025 [mean income, mean annual expenditure] for quintiles 2..5
+  ce_quintiles: [[46080, 51405], [78584, 68983], [126349, 92250], [286188, 159512]]
+  expense_noise: [0.88, 1.08]
+  min_monthly_expenses: 2600
+  contribution_rate: [0.06, 0.16]
+  risk_weights: {"18-34": [0, 1, 3, 4, 2], "35-44": [0, 1, 4, 4, 1], "45-54": [0, 2, 5, 3, 1],
+                 "55-64": [1, 3, 5, 2, 0], "65-99": [2, 4, 3, 1, 0]}
+  p_no_intl: 0.2
+  intl_share: [0.15, 0.40]
+  p_small_single: 0.3
+  small_single_weight: [0.02, 0.075]
+
+# ------------------------------------------------------------------ life events
+events:
+  layoff:
+    tenure_years: [2, 14]
+    weeks_per_year_choices: [1, 1, 1, 1.5, 2]
+    severance_weeks_clamp: [2, 40]
+    cobra_single: [690, 760, 820]
+    cobra_family: [760, 810, 1490, 2130]
+  job_change:
+    raise: [1.10, 1.32]
+    pay_cut: [0.80, 0.93]
+    p_signing_bonus: 0.4
+    signing_bonus: [0.05, 0.12]
+    match_pct_choices: [3, 4, 5, 6]
+  marriage: {spouse_income_median: 80000, spouse_income_sigma: 0.4}
+  child: {p_adoption: 0.08}
+  divorce: {transfer_ratio: [0.8, 1.0], expense_ratio: [0.80, 0.95], child_support: [600, 1400]}
+  inheritance: {default_multiple: [0.6, 1.8]}

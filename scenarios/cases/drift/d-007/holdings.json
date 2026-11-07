@@ -3,23 +3,23 @@
   "positions": [
     {
       "symbol": "US_EQ",
-      "units": 239.985,
-      "value": 42575.74
-    },
-    {
-      "symbol": "INTL_EQ",
-      "units": 547.003,
-      "value": 22837.38
+      "units": 758.546,
+      "value": 101159.69
     },
     {
       "symbol": "BOND",
-      "units": 137.792,
-      "value": 10031.26
+      "units": 244.156,
+      "value": 20550.61
+    },
+    {
+      "symbol": "KSTL",
+      "units": 11.388,
+      "value": 1345.04
     },
     {
       "symbol": "CASH",
-      "units": 24513.54,
-      "value": 24513.54
+      "units": 42371.17,
+      "value": 42371.17
     }
   ]
 }

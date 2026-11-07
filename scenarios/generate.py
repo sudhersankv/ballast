@@ -1,9 +1,11 @@
 """Synthetic client-case generator for ballast.
 
-Writes scenarios/cases/{practice,test,regression,drift}/<case_id>/{client,holdings,market,events}.json
-plus scenarios/cases/manifest.json (archetype + tags per case; never copied into an agent's case dir).
+Writes scenarios/cases/{practice,test,regression,drift}/<case_id>/{client,holdings,market,events}.json,
+the held-out forward window scenarios/holdout/<set>/<case_id>/future.json (never inside a case dir),
+and scenarios/cases/manifest.json (archetype + tags per case; never copied into an agent's case dir).
+All numeric calibration comes from scenarios/config.yaml; market paths come from market_model.py.
 
-Deterministic: every case draws from random.Random(SET_SEED * 1000 + index). Stdlib only.
+Deterministic: every case draws from random.Random(SET_SEED * 1000 + index). Stdlib + PyYAML.
 Distributions are calibrated to public US data; see scenarios/SOURCES.md for every parameter.
 All clients are synthetic (random first/last name pairs, invented employers and tickers).
 
@@ -25,45 +27,37 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT.parent / "agent" / "tools"))
 import portfolio as pf  # noqa: E402  (shared post-trade math: same numbers as agent + checker)
 
-AS_OF = "2026-11-01"
-REVIEW_WINDOW = (date(2026, 8, 3), date(2026, 10, 28))  # life events happened since the last review
-SEEDS = {"practice": 1001, "test": 2002, "regression": 3003, "drift": 4004}
+import market_model as mm  # noqa: E402  (market history + held-out window)
 
-# ---------------------------------------------------------------- asset universe (SPEC.md)
-# Fund prices are illustrative levels of broad index ETFs; single stocks are invented.
-BASE_MARKET = {
-    "US_EQ":   {"price": 268.40, "class": "equity"},
-    "INTL_EQ": {"price": 63.15,  "class": "equity"},
-    "BOND":    {"price": 72.80,  "class": "bond"},
-    "HLXR":    {"price": 142.30, "class": "equity", "single_stock": True},
-    "NMBX":    {"price": 38.75,  "class": "equity", "single_stock": True},
-    "KSTL":    {"price": 611.20, "class": "equity", "single_stock": True},
-    "CASH":    {"price": 1.0,    "class": "cash"},
-}
-EMPLOYERS = {  # invented companies behind the invented tickers
-    "HLXR": ("Helixar Therapeutics", ["research scientist", "clinical operations manager", "regulatory affairs lead"]),
-    "NMBX": ("Nimbex Cloud", ["senior software engineer", "product manager", "solutions architect"]),
-    "KSTL": ("Kestrel Freight", ["operations director", "supply-chain analyst", "regional sales manager"]),
-}
-SINGLE_BETA = {"HLXR": 1.6, "NMBX": 1.4, "KSTL": 1.1}  # drawdown multiplier vs US_EQ (assumption)
+# ---------------------------------------------------------------- calibration: everything numeric lives in config.yaml
+CFG = mm.load_config()
+AS_OF = CFG["as_of"]
+REVIEW_WINDOW = tuple(date.fromisoformat(x) for x in CFG["review_window"])
+SEEDS = CFG["seeds"]
+BASE_MARKET = {s: {"price": a["price"], "class": a["class"]} for s, a in CFG["assets"].items() if s != "CASH"}
+BASE_MARKET.update({t: {"price": v["price"], "class": "equity", "single_stock": True}
+                    for t, v in CFG["single_stocks"].items()})
+BASE_MARKET["CASH"] = {"price": CFG["assets"]["CASH"]["price"], "class": "cash"}
+EMPLOYERS = {t: (v["company"], v["roles"]) for t, v in CFG["single_stocks"].items()}
 
-BANDS = {1: (0.10, 0.30), 2: (0.30, 0.50), 3: (0.50, 0.70), 4: (0.70, 0.85), 5: (0.85, 1.00)}  # EVAL.md
-MODEL_EQUITY = {1: [0.20], 2: [0.40, 0.45], 3: [0.55, 0.60, 0.65], 4: [0.75, 0.80], 5: [0.88, 0.90]}
-LOW_HALF_EQUITY = {1: [0.15, 0.20], 2: [0.35, 0.40], 3: [0.55, 0.60], 4: [0.75], 5: [0.90]}   # <= band midpoint
-STALE_EQUITY = {1: [0.25], 2: [0.45], 3: [0.65], 4: [0.80], 5: [0.94]}                        # > band midpoint
 
-# ---------------------------------------------------------------- calibration tables (SOURCES.md)
-# SCF 2022 median before-tax family income by age of reference person, $k (Fed bulletin Table 1).
-SCF_MEDIAN_INCOME_K = {(18, 34): 60.5, (35, 44): 85.9, (45, 54): 91.9, (55, 64): 81.9, (65, 74): 60.9, (75, 99): 49.1}
-# SCF 2022 conditional median retirement-account balance by age, $k (secondary summaries of SCF 2022).
-SCF_MEDIAN_RETIRE_K = {(18, 34): 18.9, (35, 44): 45.0, (45, 54): 133.0, (55, 64): 185.0, (65, 74): 200.0, (75, 99): 130.0}
-INVESTOR_INCOME_MULT = 1.45   # stock-holding families skew to upper-middle income (SCF Box 2) - assumption
-INFLATE_2022_2026 = 1.14      # CPI-U drift 2022->2026 - assumption
-# BLS CE 2025: (mean income before taxes, mean annual expenditures) by income quintile.
-CE_QUINTILES = [(46080, 51405), (78584, 68983), (126349, 92250), (286188, 159512)]
-# Risk-score mix by age (assumption shaped by target-date glide paths: ~90% equity young, ~50% at 65).
-RISK_WEIGHTS = {(18, 34): [0, 1, 3, 4, 2], (35, 44): [0, 1, 4, 4, 1], (45, 54): [0, 2, 5, 3, 1],
-                (55, 64): [1, 3, 5, 2, 0], (65, 99): [2, 4, 3, 1, 0]}
+def _int_keys(d: dict) -> dict:
+    return {int(k): v for k, v in d.items()}
+
+
+def _age_keys(d: dict) -> dict:
+    return {tuple(int(x) for x in str(k).split("-")): v for k, v in d.items()}
+
+
+BANDS = {int(k): tuple(v) for k, v in CFG["risk_bands"].items()}
+MODEL_EQUITY = _int_keys(CFG["model_equity"])
+LOW_HALF_EQUITY = _int_keys(CFG["low_half_equity"])   # <= band midpoint
+STALE_EQUITY = _int_keys(CFG["stale_equity"])         # > band midpoint
+HH, EV = CFG["household"], CFG["events"]
+SCF_MEDIAN_INCOME_K = _age_keys(HH["scf_median_income_k"])
+SCF_MEDIAN_RETIRE_K = _age_keys(HH["scf_median_retire_k"])
+CE_QUINTILES = [tuple(x) for x in HH["ce_quintiles"]]
+RISK_WEIGHTS = _age_keys(HH["risk_weights"])
 
 FIRST = ["Maya", "Jordan", "Priya", "Marcus", "Elena", "Tyrone", "Hannah", "Diego", "Aisha", "Connor", "Mei",
          "Rafael", "Brianna", "Samuel", "Nadia", "Trevor", "Leila", "Owen", "Camila", "Darnell", "Ingrid",
@@ -135,14 +129,14 @@ class Retry(Exception):
 # ---------------------------------------------------------------- household sampling
 def sample_household(rng: random.Random, age: int, risk: int | None) -> dict:
     retired = age >= 66
-    med_inc = bucket(SCF_MEDIAN_INCOME_K, age) * 1000 * INFLATE_2022_2026 * INVESTOR_INCOME_MULT
-    income = min(max(lognorm(rng, med_inc, 0.42), 48_000), 420_000)
+    med_inc = bucket(SCF_MEDIAN_INCOME_K, age) * 1000 * HH["inflate_2022_2026"] * HH["investor_income_mult"]
+    income = min(max(lognorm(rng, med_inc, HH["income_sigma"]), HH["income_clamp"][0]), HH["income_clamp"][1])
     income = round_to(income, 500)
-    ratio = expense_ratio(income) * rng.uniform(0.88, 1.08)
-    monthly_exp = round_to(max(income * ratio / 12, 2600), 50)
-    med_T = bucket(SCF_MEDIAN_RETIRE_K, age) * 1000 * INFLATE_2022_2026 * 1.6  # retirement + taxable accounts
-    total = lognorm(rng, med_T * (income / med_inc) ** 0.9, 0.5)
-    total = round_to(min(max(total, 40_000), 2_500_000), 100)
+    ratio = expense_ratio(income) * rng.uniform(*HH["expense_noise"])
+    monthly_exp = round_to(max(income * ratio / 12, HH["min_monthly_expenses"]), 50)
+    med_T = bucket(SCF_MEDIAN_RETIRE_K, age) * 1000 * HH["inflate_2022_2026"] * HH["taxable_mult"]  # + taxable
+    total = lognorm(rng, med_T * (income / med_inc) ** 0.9, HH["total_sigma"])
+    total = round_to(min(max(total, HH["total_clamp"][0]), HH["total_clamp"][1]), 100)
     if risk is None:
         risk = rng.choices([1, 2, 3, 4, 5], weights=bucket(RISK_WEIGHTS, age))[0]
     if retired:
@@ -151,7 +145,7 @@ def sample_household(rng: random.Random, age: int, risk: int | None) -> dict:
     else:
         fits = [o[2] for o in OCCUPATIONS if o[0] <= income <= o[1]] or [OCCUPATIONS[-2][2]]
         occ = rng.choice(fits)
-        contrib = round_to(income * rng.uniform(0.06, 0.16) / 12, 50)  # Vanguard HAS total deferral ~12%
+        contrib = round_to(income * rng.uniform(*HH["contribution_rate"]) / 12, 50)  # Vanguard HAS total deferral ~12%
     married = rng.random() < (0.35 if age < 30 else 0.6)
     deps = 0 if age < 27 else rng.choices([0, 1, 2, 3], weights=[4, 3, 3, 1])[0] if age < 60 else rng.choice([0, 0, 1])
     return {"age": age, "income": income, "monthly_exp": monthly_exp, "total": total, "risk": risk,
@@ -190,7 +184,7 @@ def reprice(positions, market) -> list[dict]:
             for p in positions]
 
 
-def make_case(rng: random.Random, cid: str, arch: dict) -> dict:
+def make_case(rng: random.Random, cid: str, arch: dict, world: dict) -> dict:
     """Build one case for archetype `arch`. Raises Retry if the draw misses the archetype's constraints."""
     age = rng.randint(*arch.get("age", (27, 54)))
     hh = sample_household(rng, age, arch.get("risk"))
@@ -213,7 +207,7 @@ def make_case(rng: random.Random, cid: str, arch: dict) -> dict:
         tc = min(max(round(wc + rng.uniform(-0.02, 0.02), 2), 0.02), 0.20)
     else:
         # model-portfolio cash sleeve: a round number that covers ~3.5 months of expenses (advisor convention)
-        tc = max(rng.choice([0.03, 0.04, 0.05, 0.05, 0.06, 0.08]), math.ceil(3.5 * exp / T * 100) / 100)
+        tc = max(rng.choice(CFG["cash_sleeve_choices"]), math.ceil(CFG["cash_sleeve_min_months"] * exp / T * 100) / 100)
         if tc > 0.20:
             raise Retry("cash sleeve too large")
     tb = round(1 - te - tc, 2)
@@ -240,9 +234,9 @@ def make_case(rng: random.Random, cid: str, arch: dict) -> dict:
     if arch.get("single"):
         employer_tkr = rng.choice(list(EMPLOYERS))
         singles[employer_tkr] = rng.uniform(*arch["single"])
-    elif rng.random() < arch.get("p_small_single", 0.3):
-        singles[rng.choice(list(EMPLOYERS))] = rng.uniform(0.02, 0.075)   # a "fun money" direct stock pick
-    intl = 0.0 if rng.random() < 0.2 else rng.uniform(0.15, 0.40)
+    elif rng.random() < arch.get("p_small_single", HH["p_small_single"]):
+        singles[rng.choice(list(EMPLOYERS))] = rng.uniform(*HH["small_single_weight"])  # "fun money" stock pick
+    intl = 0.0 if rng.random() < HH["p_no_intl"] else rng.uniform(*HH["intl_share"])
 
     market = json.loads(json.dumps(BASE_MARKET))
     positions = build_positions(rng, T, we, wc, singles, intl, market)
@@ -272,36 +266,38 @@ def make_case(rng: random.Random, cid: str, arch: dict) -> dict:
         eid = f"e{i}"
         det: dict = {}
         if etype == "layoff":
-            tenure = rng.randint(2, 14)
-            weeks = min(max(2, round(tenure * rng.choice([1, 1, 1, 1.5, 2]))), 40)
+            L = EV["layoff"]
+            tenure = rng.randint(*L["tenure_years"])
+            weeks = min(max(L["severance_weeks_clamp"][0], round(tenure * rng.choice(L["weeks_per_year_choices"]))),
+                        L["severance_weeks_clamp"][1])
             det = {"severance": round_to(income / 52 * weeks, 100), "severance_weeks": weeks,
                    "tenure_years": tenure, "employer": employer or rng.choice(OLD_EMPLOYERS),
                    "last_day": d.isoformat(),
-                   "cobra_monthly_premium": rng.choice([760, 810, 1490, 2130]) if hh["deps"] or hh["married"]
-                   else rng.choice([690, 760, 820])}
+                   "cobra_monthly_premium": rng.choice(L["cobra_family"]) if hh["deps"] or hh["married"]
+                   else rng.choice(L["cobra_single"])}
             employment = "unemployed"
             notes.append(f"Laid off {d:%b %d}; severance paid as a lump sum to an outside checking account.")
         elif etype == "job_change":
             if arch.get("pay_cut"):
-                new_inc = round_to(income * rng.uniform(0.80, 0.93), 500)
+                new_inc = round_to(income * rng.uniform(*EV["job_change"]["pay_cut"]), 500)
                 notes.append("Took a lower-paying role with a shorter commute and better hours.")
             else:
-                new_inc = round_to(income * rng.uniform(1.10, 1.32), 500)
+                new_inc = round_to(income * rng.uniform(*EV["job_change"]["raise"]), 500)
             det = {"new_income": new_inc, "previous_income": income, "new_employer": rng.choice(NEW_EMPLOYERS),
-                   "start_date": d.isoformat(), "employer_401k_match_pct": rng.choice([3, 4, 5, 6])}
-            if rng.random() < 0.4 and not arch.get("pay_cut"):
-                det["signing_bonus"] = round_to(new_inc * rng.uniform(0.05, 0.12), 500)
+                   "start_date": d.isoformat(), "employer_401k_match_pct": rng.choice(EV["job_change"]["match_pct_choices"])}
+            if rng.random() < EV["job_change"]["p_signing_bonus"] and not arch.get("pay_cut"):
+                det["signing_bonus"] = round_to(new_inc * rng.uniform(*EV["job_change"]["signing_bonus"]), 500)
         elif etype == "marriage":
             sp_age = max(23, age + rng.randint(-4, 4))
             det = {"spouse_name": f"{rng.choice(FIRST)} {rng.choice(LAST)}", "spouse_age": sp_age,
-                   "spouse_annual_income": round_to(lognorm(rng, 80_000, 0.4), 1000),
+                   "spouse_annual_income": round_to(lognorm(rng, EV["marriage"]["spouse_income_median"], EV["marriage"]["spouse_income_sigma"]), 1000),
                    "spouse_has_separate_accounts": True}
             marital = "married"
         elif etype == "child":
-            det = {"child_name": rng.choice(KIDS), "birth_date": d.isoformat(), "adoption": rng.random() < 0.08}
+            det = {"child_name": rng.choice(KIDS), "birth_date": d.isoformat(), "adoption": rng.random() < EV["child"]["p_adoption"]}
             notes.append("Newborn at home; one parent on unpaid leave until January.")
         elif etype == "inheritance":
-            amt = round_to(rng.uniform(*arch.get("inherit_x", (0.6, 1.8))) * T, 1000)
+            amt = round_to(rng.uniform(*arch.get("inherit_x", EV["inheritance"]["default_multiple"])) * T, 1000)
             det = {"amount": amt, "source": rng.choice(["estate of a parent", "estate of a grandparent",
                                                         "estate of an aunt"]),
                    "form": "cash", "deposited_to": "CASH", "deposit_date": d.isoformat()}
@@ -312,31 +308,28 @@ def make_case(rng: random.Random, cid: str, arch: dict) -> dict:
             notes.append("Inheritance proceeds were deposited into the brokerage cash sweep.")
         elif etype == "divorce":
             # holdings already reflect the post-settlement split; household now runs on one income
-            transferred = round_to(T * rng.uniform(0.8, 1.0), 1000)
+            transferred = round_to(T * rng.uniform(*EV["divorce"]["transfer_ratio"]), 1000)
             det = {"final_date": d.isoformat(), "assets_transferred_usd": transferred,
                    "custody": "shared" if hh["deps"] else None,
-                   "child_support_monthly": round_to(rng.uniform(600, 1400), 50) if hh["deps"] else 0}
-            expenses = round_to(exp * rng.uniform(0.80, 0.95), 50)   # smaller household, but a second home
+                   "child_support_monthly": round_to(rng.uniform(*EV["divorce"]["child_support"]), 50) if hh["deps"] else 0}
+            expenses = round_to(exp * rng.uniform(*EV["divorce"]["expense_ratio"]), 50)   # smaller household, but a second home
             marital = "divorced"
             notes.append("Holdings shown are after the court-ordered transfer to the former spouse.")
         elif etype == "market_drop":
-            us = arch["drop"]
-            intl_d = us * rng.uniform(0.9, 1.1)
-            bond_d = arch.get("bond_drop", 0.0)
-            for s, m in market.items():
-                if s == "US_EQ":
-                    m["price"] = r2(m["price"] * (1 + us))
-                elif s == "INTL_EQ":
-                    m["price"] = r2(m["price"] * (1 + intl_d))
-                elif s == "BOND":
-                    m["price"] = r2(m["price"] * (1 + bond_d))
-                elif m.get("single_stock"):
-                    m["price"] = r2(m["price"] * max(0.15, 1 + us * SINGLE_BETA[s]))
+            # real peak-to-trough path from the replayed window (history ends at the anchor trough)
+            dd = mm.drop_from_world(world, CFG["market"]["drop_lookback_months"])
+            for sym, m in market.items():
+                if sym != "CASH":
+                    m["price"] = r2(m["price"] * (1 + dd["change"][sym]))
             positions = reprice(positions, market)
-            det = {"us_equity_change_pct": round(100 * us, 1), "intl_equity_change_pct": round(100 * intl_d, 1),
-                   "bond_change_pct": round(100 * bond_d, 1),
-                   "peak_date": (d - timedelta(days=rng.randint(33, 75))).isoformat(),
-                   "trough_date": d.isoformat(), "historical_analog": arch["analog"]}
+            last = date.fromisoformat(AS_OF) - timedelta(days=1)
+            d = last - timedelta(days=1)
+            det = {"us_equity_change_pct": round(100 * dd["change"]["US_EQ"], 1),
+                   "intl_equity_change_pct": round(100 * dd["change"]["INTL_EQ"], 1),
+                   "bond_change_pct": round(100 * dd["change"]["BOND"], 1),
+                   "peak_date": mm.month_ends(last, dd["months_since_peak"] + 1)[0],
+                   "trough_date": d.isoformat(),
+                   "historical_analog": CFG["market"]["drop_anchors"][arch["drop_anchor"]]["label"]}
         events.append({"id": eid, "type": etype, "date": d.isoformat(), "details": det})
 
     w = weights_of(positions, market)
@@ -377,8 +370,11 @@ def make_case(rng: random.Random, cid: str, arch: dict) -> dict:
     if notes:
         client["notes"] = " ".join(notes)
     holdings = {"as_of": AS_OF, "positions": positions}
-    return {"client": client, "holdings": holdings, "market": {"as_of": AS_OF, "symbols": market},
-            "events": {"events": events}}
+    prices_now = {sym: m["price"] for sym, m in market.items()}
+    market_json = {"as_of": AS_OF, "symbols": market, "history": mm.history_block(world, prices_now, AS_OF)}
+    events.sort(key=lambda e: e["date"])
+    return {"client": client, "holdings": holdings, "market": market_json, "events": {"events": events},
+            "future": mm.future_block(world, prices_now, AS_OF, cid)}
 
 
 # ---------------------------------------------------------------- archetypes
@@ -456,18 +452,17 @@ DRIFT = [
       check=lambda **k: k["cmo"] < 2.8),
     A("divorce_concentration", events=["divorce"], drift="tol", age=(38, 54), cash_months=(1.5, 2.6),
       single=(0.13, 0.22), check=lambda **k: k["cmo"] < 2.8 and k["max_single"] > 0.12),
-    A("market_drop_2020", events=["market_drop"], drift="tol", drop=-0.339,
-      analog="Feb-Mar 2020 COVID crash (S&P 500 -33.9%)", risk=4, check=lambda **k: k["eq"] < k["lo"] - 0.01),
-    A("market_drop_2022", events=["market_drop"], drift="tol", drop=-0.254, bond_drop=-0.13,
-      analog="Jan-Oct 2022 bear market (S&P 500 -25.4%, US agg bonds about -13%)", risk=3,
+    A("market_drop_gfc", events=["market_drop"], drift="tol", drop_anchor="gfc_2009", risk=4,
       check=lambda **k: k["eq"] < k["lo"] - 0.01),
-    A("market_drop+layoff", events=["market_drop", "layoff"], drift="tol", drop=-0.30, cash_months=(1.5, 3.5),
-      analog="2020-style crash", risk=3),
+    A("market_drop_2022", events=["market_drop"], drift="tol", drop_anchor="bear_2022", risk=3,
+      check=lambda **k: k["eq"] < k["targets"]["equity"] - 0.055),
+    A("market_drop+layoff", events=["market_drop", "layoff"], drift="tol", drop_anchor="covid_2020",
+      cash_months=(1.5, 3.5), risk=3),
     A("inheritance+child", events=["inheritance", "child"], drift="tol", age=(29, 40), inherit_x=(0.4, 0.9),
       check=lambda **k: k["eq"] < k["lo"] - 0.02),
     A("divorce+job_change", events=["divorce", "job_change"], drift="over", age=(35, 52), cash_months=(1.5, 3.0)),
-    A("market_drop+concentration", events=["market_drop"], drift="tol", drop=-0.22, single=(0.13, 0.2),
-      analog="2018-style 20%+ correction", risk=4, check=lambda **k: k["max_single"] > 0.105),
+    A("market_drop+concentration", events=["market_drop"], drift="tol", drop_anchor="dotcom_2002",
+      single=(0.2, 0.35), risk=4, check=lambda **k: k["max_single"] > 0.105),
 ]
 
 SETS = {
@@ -498,30 +493,64 @@ def tags_for(case: dict) -> list[str]:
     return tags
 
 
+def apply_overrides(case: dict, set_name: str, cid: str, world: dict) -> list[str]:
+    """Drop-in data: scenarios/overrides/<set>/<case_id>/{client,holdings,market,events,future}.json
+    replaces the generated file (same schema as the case files). A market.json override reprices the
+    holdings at the same units (value = units * price stays exact). If the override has no "history",
+    the generated history is rescaled to the new prices; future.json is rescaled the same way unless it
+    is overridden too. Run oracle.py afterwards: an override can make a case unsolvable."""
+    odir = ROOT / "overrides" / set_name / cid
+    if not odir.is_dir():
+        return []
+    done = []
+    for fname in ("client", "holdings", "events", "market", "future"):
+        f = odir / f"{fname}.json"
+        if not f.exists():
+            continue
+        data = json.loads(f.read_text(encoding="utf-8"))
+        if fname == "market":
+            prices = {s: m["price"] for s, m in data["symbols"].items()}
+            data.setdefault("history", mm.history_block(world, prices, data.get("as_of", AS_OF)))
+            case["holdings"]["positions"] = reprice(case["holdings"]["positions"], data["symbols"])
+            if not (odir / "future.json").exists():
+                case["future"] = mm.future_block(world, prices, data.get("as_of", AS_OF), cid)
+        case[fname] = data
+        done.append(fname)
+    return done
+
+
 def generate(write: bool = True) -> dict:
     out_root = ROOT / "cases"
     manifest = {"generated_as_of": AS_OF, "seeds": SEEDS, "cases": {}}
     for set_name, items in SETS.items():
         set_dir = out_root / set_name
-        if write and set_dir.exists():
-            shutil.rmtree(set_dir)
+        hold_dir = ROOT / "holdout" / set_name
+        for d in (set_dir, hold_dir):
+            if write and d.exists():
+                shutil.rmtree(d)
         for idx, (cid, arch) in enumerate(shuffled(set_name, items)):
             rng = random.Random(SEEDS[set_name] * 1000 + idx)
+            world = mm.build_world(SEEDS[set_name] * 1000 + idx + 7_000_000, CFG, arch.get("drop_anchor"))
             for attempt in range(5000):
                 try:
-                    case = make_case(rng, cid, arch)
+                    case = make_case(rng, cid, arch, world)
                     break
                 except Retry:
                     continue
             else:
                 raise RuntimeError(f"{cid}: could not satisfy archetype {arch['name']}")
+            overridden = apply_overrides(case, set_name, cid, world)
             manifest["cases"][cid] = {"set": set_name, "archetype": arch["name"], "tags": tags_for(case),
-                                      "draws": attempt + 1}
+                                      "draws": attempt + 1, "market_source": world["source"],
+                                      "overrides": overridden}
             if write:
                 d = set_dir / cid
                 d.mkdir(parents=True, exist_ok=True)
                 for fname in ("client", "holdings", "market", "events"):
                     (d / f"{fname}.json").write_text(json.dumps(case[fname], indent=2) + "\n", encoding="utf-8")
+                hd = hold_dir / cid
+                hd.mkdir(parents=True, exist_ok=True)
+                (hd / "future.json").write_text(json.dumps(case["future"], indent=2) + "\n", encoding="utf-8")
     if write:
         (out_root / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     return manifest

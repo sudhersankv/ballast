@@ -1,26 +1,26 @@
 {
   "client_id": "d-007",
-  "name": "Diego Oyelaran",
-  "age": 51,
-  "state": "MA",
-  "occupation": "civil engineer",
+  "name": "Priya Haddad",
+  "age": 54,
+  "state": "CA",
+  "occupation": "sales director",
   "employment_status": "employed",
   "marital_status": "married",
-  "annual_income": 89500,
-  "monthly_expenses": 5850,
-  "dependents": 2,
+  "annual_income": 137500,
+  "monthly_expenses": 8050,
+  "dependents": 0,
   "risk_score": 4,
-  "horizon_years": 14,
+  "horizon_years": 11,
   "goals": [
     {
       "type": "retirement",
-      "target_year": 2040
+      "target_year": 2037
     }
   ],
   "targets": {
-    "equity": 0.75,
-    "bond": 0.05,
-    "cash": 0.2
+    "equity": 0.8,
+    "bond": 0.03,
+    "cash": 0.17
   },
-  "monthly_contribution": 900
+  "monthly_contribution": 1150
 }
