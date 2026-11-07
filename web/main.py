@@ -444,6 +444,40 @@ def cases():
     return CASES
 
 
+# ---------------------------------------------------------------- connected client data
+CONNECTED = json.loads((HERE / "connected.json").read_text()) if (HERE / "connected.json").exists() else []
+
+
+def _connected_job(case: str):
+    """Latest finished job for this connected case (from the Run-it worker), with its full steps and result."""
+    try:
+        d, _ = _db(None)
+        return d.jobs.find_one({"case": case, "status": {"$in": ["done", "error"]}}, {"_id": 0}, sort=[("created_at", -1)])
+    except Exception:
+        return None
+
+
+@app.get("/api/connected")
+def connected_list():
+    out = []
+    for c in CONNECTED:
+        cl = c.get("client") or {}
+        j = _connected_job(c["case"])
+        out.append({"id": c["id"], "case": c["case"], "name": cl.get("name"), "age": cl.get("age"), "occupation": cl.get("occupation"),
+                    "sources": list((c.get("connectors") or {}).keys()), "truth_n": len(c.get("truth") or []),
+                    "job": {"job_id": j["job_id"], "status": j["status"], "score": ((j.get("result") or {}).get("check") or {}).get("score"),
+                            "model": j.get("model")} if j else None})
+    return out
+
+
+@app.get("/api/connected/{cid}")
+def connected_one(cid: str):
+    c = next((x for x in CONNECTED if x["id"] == cid), None)
+    if not c:
+        raise HTTPException(404, f"No connected client {cid}")
+    return {**c, "job": _connected_job(c["case"])}
+
+
 @app.get("/api/playbook_versions")
 def playbook_versions(journey: str | None = None, db: str | None = None):
     def q():

@@ -140,6 +140,8 @@
     result: { check: { score: r.score, passed: r.passed, violations: r.violations, results: r.results }, recommendation: r.recommendation,
               backtest: r.backtest, turns: r.turns, tokens_in: r.tokens_in, tokens_out: r.tokens_out, seconds: r.seconds, model: r.model, error: r.error },
   });
+  window.ballastVerdict = verdictHTML;
+  window.ballastPickCase = (c) => { $("#rf-filter").value = ""; fillCases(); $("#rf-case").value = c; onCase(); $("#run-it").scrollIntoView({ behavior: "smooth" }); };
   window.ballastReplay = async (kind, id, db) => {
     try {
       if (kind === "job") { const j = await get(`/api/jobs/${encodeURIComponent(id)}`); replay({ model: j.model, case: j.case, steps: j.steps || [], result: j.result }); }

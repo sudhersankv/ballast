@@ -1,0 +1,1137 @@
+[
+{
+"id": "cx-001",
+"case": "connected/cx-001",
+"client": {
+"client_id": "cx-001",
+"name": "Dana Reyes",
+"age": 41,
+"state": "NY",
+"occupation": "rates trader",
+"employer": "Halvard Capital Group",
+"employment_status": "employed",
+"marital_status": "single",
+"annual_income": 310000,
+"monthly_expenses": 11800,
+"dependents": 1,
+"risk_score": 4,
+"horizon_years": 24,
+"targets": {
+"equity": 0.75,
+"bond": 0.15,
+"cash": 0.1
+},
+"monthly_contribution": 4000,
+"goals": [
+{
+"type": "retirement",
+"target_year": 2050
+}
+]
+},
+"holdings": {
+"as_of": "2026-11-01",
+"positions": [
+{
+"symbol": "US_EQ",
+"units": 1415.7973,
+"value": 380000.0
+},
+{
+"symbol": "INTL_EQ",
+"units": 1425.1781,
+"value": 90000.0
+},
+{
+"symbol": "BOND",
+"units": 1167.5824,
+"value": 85000.0
+},
+{
+"symbol": "HLXR",
+"units": 393.5348,
+"value": 56000.0
+},
+{
+"symbol": "CASH",
+"units": 40000.0,
+"value": 40000.0
+}
+]
+},
+"connectors": {
+"bank": {
+"as_of": "2026-11-01",
+"transactions": [
+{
+"date": "2026-08-03",
+"description": "RENT/MORTGAGE",
+"amount": -6200,
+"category": "housing"
+},
+{
+"date": "2026-08-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1300,
+"category": "groceries"
+},
+{
+"date": "2026-08-15",
+"description": "PAYROLL HALVARD CAP DIRECT DEP",
+"amount": 5420,
+"category": "income"
+},
+{
+"date": "2026-08-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-08-20",
+"description": "TUTORING - LITTLE SCHOLARS",
+"amount": -650,
+"category": "childcare"
+},
+{
+"date": "2026-08-29",
+"description": "PAYROLL HALVARD CAP DIRECT DEP",
+"amount": 5420,
+"category": "income"
+},
+{
+"date": "2026-09-03",
+"description": "RENT/MORTGAGE",
+"amount": -6200,
+"category": "housing"
+},
+{
+"date": "2026-09-12",
+"description": "PAYROLL HALVARD CAP DIRECT DEP",
+"amount": 5420,
+"category": "income"
+},
+{
+"date": "2026-09-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1300,
+"category": "groceries"
+},
+{
+"date": "2026-09-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-09-20",
+"description": "TUTORING - LITTLE SCHOLARS",
+"amount": -650,
+"category": "childcare"
+},
+{
+"date": "2026-09-26",
+"description": "PAYROLL HALVARD CAP DIRECT DEP",
+"amount": 5420,
+"category": "income"
+},
+{
+"date": "2026-10-03",
+"description": "RENT/MORTGAGE",
+"amount": -6200,
+"category": "housing"
+},
+{
+"date": "2026-10-10",
+"description": "PAYROLL HALVARD CAP DIRECT DEP",
+"amount": 5420,
+"category": "income"
+},
+{
+"date": "2026-10-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1300,
+"category": "groceries"
+},
+{
+"date": "2026-10-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-10-20",
+"description": "TUTORING - LITTLE SCHOLARS",
+"amount": -650,
+"category": "childcare"
+},
+{
+"date": "2026-10-24",
+"description": "PAYROLL HALVARD CAP DIRECT DEP",
+"amount": 5420,
+"category": "income"
+}
+]
+},
+"calendar": {
+"upcoming": [
+{
+"date": "2026-12-15",
+"title": "HLXR trading window opens"
+}
+]
+},
+"credit": {
+"score": 781,
+"balances": [
+{
+"type": "card",
+"balance": 3200
+}
+]
+},
+"employer": {
+"portal": "Halvard HR",
+"insider_status": "covered person",
+"trading_windows": [
+{
+"symbol": "HLXR",
+"status": "BLACKOUT",
+"from": "2026-10-15",
+"until": "2026-12-15",
+"note": "Q4 earnings + restructuring"
+}
+],
+"notices": [
+{
+"date": "2026-10-28",
+"title": "Rates trading desk wind-down",
+"body": "The rates desk will be wound down effective 2026-12-31. Affected employees will be contacted individually."
+}
+]
+},
+"messages": {
+"messages": [
+{
+"date": "2026-10-29",
+"text": "Crazy week. Lots of rumors on the floor. Can we talk about my HLXR shares when you get a sec?"
+}
+]
+},
+"payroll": {
+"employer": "Halvard Capital Group",
+"status": "active",
+"base_salary": 210000,
+"bonus": {
+"2025_total": 260000,
+"paid_cash": 78000,
+"deferred": 182000,
+"deferred_pct": 0.7,
+"vests": "2027-2029, forfeited on termination for cause"
+},
+"stubs": [
+{
+"date": "2026-10-15",
+"gross": 8750,
+"net": 5420
+},
+{
+"date": "2026-10-31",
+"gross": 8750,
+"net": 5420
+}
+]
+}
+},
+"truth": [
+{
+"id": "e1",
+"type": "desk_shutdown",
+"date": "2026-10-28",
+"details": {
+"effective": "2026-12-31"
+}
+},
+{
+"id": "e2",
+"type": "trading_blackout",
+"date": "2026-10-15",
+"details": {
+"symbol": "HLXR",
+"until": "2026-12-15"
+}
+}
+]
+},
+{
+"id": "cx-002",
+"case": "connected/cx-002",
+"client": {
+"client_id": "cx-002",
+"name": "Miguel Santos",
+"age": 36,
+"state": "AZ",
+"occupation": "ICU nurse",
+"employer": "Desert Valley Health",
+"employment_status": "employed",
+"marital_status": "married",
+"annual_income": 96000,
+"monthly_expenses": 6400,
+"dependents": 2,
+"risk_score": 3,
+"horizon_years": 29,
+"targets": {
+"equity": 0.6,
+"bond": 0.28,
+"cash": 0.12
+},
+"monthly_contribution": 900,
+"goals": [
+{
+"type": "retirement",
+"target_year": 2055
+}
+]
+},
+"holdings": {
+"as_of": "2026-11-01",
+"positions": [
+{
+"symbol": "US_EQ",
+"units": 342.772,
+"value": 92000.0
+},
+{
+"symbol": "INTL_EQ",
+"units": 380.0475,
+"value": 24000.0
+},
+{
+"symbol": "BOND",
+"units": 631.8681,
+"value": 46000.0
+},
+{
+"symbol": "CASH",
+"units": 21000.0,
+"value": 21000.0
+}
+]
+},
+"connectors": {
+"bank": {
+"as_of": "2026-11-01",
+"transactions": [
+{
+"date": "2026-08-01",
+"description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+"amount": 2810,
+"category": "income"
+},
+{
+"date": "2026-08-03",
+"description": "RENT/MORTGAGE",
+"amount": -2300,
+"category": "housing"
+},
+{
+"date": "2026-08-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1100,
+"category": "groceries"
+},
+{
+"date": "2026-08-15",
+"description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+"amount": 2810,
+"category": "income"
+},
+{
+"date": "2026-08-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-08-29",
+"description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+"amount": 2810,
+"category": "income"
+},
+{
+"date": "2026-09-03",
+"description": "RENT/MORTGAGE",
+"amount": -2300,
+"category": "housing"
+},
+{
+"date": "2026-09-12",
+"description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+"amount": 2810,
+"category": "income"
+},
+{
+"date": "2026-09-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1100,
+"category": "groceries"
+},
+{
+"date": "2026-09-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-09-26",
+"description": "PAYROLL DESERT VALLEY HLTH DIRECT DEP",
+"amount": 2810,
+"category": "income"
+},
+{
+"date": "2026-10-02",
+"description": "DESERT VALLEY HLTH SEVERANCE",
+"amount": 6000,
+"category": "income"
+},
+{
+"date": "2026-10-03",
+"description": "RENT/MORTGAGE",
+"amount": -2300,
+"category": "housing"
+},
+{
+"date": "2026-10-05",
+"description": "COBRA PREMIUM - WAGEWORKS",
+"amount": -1420,
+"category": "insurance"
+},
+{
+"date": "2026-10-10",
+"description": "AZ DES UNEMPLOYMENT INS",
+"amount": 640,
+"category": "income"
+},
+{
+"date": "2026-10-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1100,
+"category": "groceries"
+},
+{
+"date": "2026-10-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-10-24",
+"description": "AZ DES UNEMPLOYMENT INS",
+"amount": 640,
+"category": "income"
+}
+]
+},
+"calendar": {
+"upcoming": [
+{
+"date": "2026-11-05",
+"title": "COBRA premium due",
+"amount": 1420
+}
+]
+},
+"credit": {
+"score": 742,
+"balances": [
+{
+"type": "card",
+"balance": 2100
+},
+{
+"type": "auto",
+"balance": 14800
+}
+]
+},
+"messages": {
+"messages": []
+},
+"payroll": {
+"employer": "Desert Valley Health",
+"status": "no pay stubs since 2026-09-26",
+"stubs": [
+{
+"date": "2026-09-12",
+"gross": 3690,
+"net": 2810
+},
+{
+"date": "2026-09-26",
+"gross": 3690,
+"net": 2810
+}
+]
+}
+},
+"truth": [
+{
+"id": "e1",
+"type": "layoff",
+"date": "2026-09-30",
+"details": {
+"severance": 6000,
+"reported": false
+}
+}
+]
+},
+{
+"id": "cx-003",
+"case": "connected/cx-003",
+"client": {
+"client_id": "cx-003",
+"name": "Aisha Karim",
+"age": 47,
+"state": "IL",
+"occupation": "product manager",
+"employer": "Lumen Freight",
+"employment_status": "employed",
+"marital_status": "married",
+"annual_income": 185000,
+"monthly_expenses": 9200,
+"dependents": 2,
+"risk_score": 3,
+"horizon_years": 18,
+"targets": {
+"equity": 0.62,
+"bond": 0.28,
+"cash": 0.1
+},
+"monthly_contribution": 2500,
+"goals": [
+{
+"type": "retirement",
+"target_year": 2044
+}
+]
+},
+"holdings": {
+"as_of": "2026-11-01",
+"positions": [
+{
+"symbol": "US_EQ",
+"units": 856.93,
+"value": 230000.01
+},
+{
+"symbol": "INTL_EQ",
+"units": 950.1188,
+"value": 60000.0
+},
+{
+"symbol": "BOND",
+"units": 1648.3516,
+"value": 120000.0
+},
+{
+"symbol": "CASH",
+"units": 45000.0,
+"value": 45000.0
+}
+]
+},
+"connectors": {
+"bank": {
+"as_of": "2026-11-01",
+"transactions": [
+{
+"date": "2026-08-01",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-08-03",
+"description": "RENT/MORTGAGE",
+"amount": -3800,
+"category": "housing"
+},
+{
+"date": "2026-08-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1400,
+"category": "groceries"
+},
+{
+"date": "2026-08-15",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-08-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-08-29",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-09-03",
+"description": "RENT/MORTGAGE",
+"amount": -3800,
+"category": "housing"
+},
+{
+"date": "2026-09-12",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-09-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1400,
+"category": "groceries"
+},
+{
+"date": "2026-09-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-09-22",
+"description": "WALGREENS - MOBILITY AIDS",
+"amount": -640,
+"category": "medical"
+},
+{
+"date": "2026-09-26",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-10-01",
+"description": "SUNRISE HOME CARE LLC",
+"amount": -4100,
+"category": "care"
+},
+{
+"date": "2026-10-03",
+"description": "RENT/MORTGAGE",
+"amount": -3800,
+"category": "housing"
+},
+{
+"date": "2026-10-10",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-10-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1400,
+"category": "groceries"
+},
+{
+"date": "2026-10-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-10-24",
+"description": "PAYROLL LUMEN FREIGHT DIRECT DEP",
+"amount": 5330,
+"category": "income"
+},
+{
+"date": "2026-11-01",
+"description": "SUNRISE HOME CARE LLC",
+"amount": -4100,
+"category": "care"
+}
+]
+},
+"calendar": {
+"upcoming": [
+{
+"date": "2027-03-01",
+"title": "Spring tuition - Northbridge University",
+"amount": 43350
+}
+]
+},
+"credit": {
+"score": 768,
+"balances": [
+{
+"type": "mortgage",
+"balance": 312000
+}
+]
+},
+"messages": {
+"messages": [
+{
+"date": "2026-09-21",
+"text": "Mom moved in with us after her fall. We hired a home aide for weekdays."
+}
+]
+},
+"payroll": {
+"employer": "Lumen Freight",
+"status": "active",
+"stubs": [
+{
+"date": "2026-10-31",
+"gross": 7710,
+"net": 5330
+}
+]
+}
+},
+"truth": [
+{
+"id": "e1",
+"type": "parent_long_term_care",
+"date": "2026-09-20",
+"details": {
+"monthly_cost_increase": 4100
+}
+},
+{
+"id": "e2",
+"type": "tuition_due",
+"date": "2026-10-01",
+"details": {
+"amount_due": 43350,
+"due_date": "2027-03-01"
+}
+}
+]
+},
+{
+"id": "cx-004",
+"case": "connected/cx-004",
+"client": {
+"client_id": "cx-004",
+"name": "Tom Becker",
+"age": 58,
+"state": "OH",
+"occupation": "mechanical engineer",
+"employer": "Arden Aerospace",
+"employment_status": "employed",
+"marital_status": "married",
+"annual_income": 150000,
+"monthly_expenses": 7600,
+"dependents": 0,
+"risk_score": 3,
+"horizon_years": 9,
+"targets": {
+"equity": 0.58,
+"bond": 0.32,
+"cash": 0.1
+},
+"monthly_contribution": 1500,
+"goals": [
+{
+"type": "retirement",
+"target_year": 2035
+}
+]
+},
+"holdings": {
+"as_of": "2026-11-01",
+"positions": [
+{
+"symbol": "US_EQ",
+"units": 1154.9925,
+"value": 309999.99
+},
+{
+"symbol": "INTL_EQ",
+"units": 1108.4719,
+"value": 70000.0
+},
+{
+"symbol": "BOND",
+"units": 2060.4396,
+"value": 150000.0
+},
+{
+"symbol": "CASH",
+"units": 60000.0,
+"value": 60000.0
+}
+]
+},
+"connectors": {
+"bank": {
+"as_of": "2026-11-01",
+"transactions": [
+{
+"date": "2026-08-03",
+"description": "RENT/MORTGAGE",
+"amount": -2900,
+"category": "housing"
+},
+{
+"date": "2026-08-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1000,
+"category": "groceries"
+},
+{
+"date": "2026-08-15",
+"description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+"amount": 4480,
+"category": "income"
+},
+{
+"date": "2026-08-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-08-30",
+"description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+"amount": 4480,
+"category": "income"
+},
+{
+"date": "2026-09-03",
+"description": "RENT/MORTGAGE",
+"amount": -2900,
+"category": "housing"
+},
+{
+"date": "2026-09-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1000,
+"category": "groceries"
+},
+{
+"date": "2026-09-14",
+"description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+"amount": 4480,
+"category": "income"
+},
+{
+"date": "2026-09-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-09-29",
+"description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+"amount": 4480,
+"category": "income"
+},
+{
+"date": "2026-10-03",
+"description": "RENT/MORTGAGE",
+"amount": -2900,
+"category": "housing"
+},
+{
+"date": "2026-10-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -1000,
+"category": "groceries"
+},
+{
+"date": "2026-10-15",
+"description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+"amount": 4990,
+"category": "income"
+},
+{
+"date": "2026-10-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-10-31",
+"description": "PAYROLL ARDEN AEROSPACE DIRECT DEP",
+"amount": 4990,
+"category": "income"
+}
+]
+},
+"calendar": {
+"upcoming": []
+},
+"credit": {
+"score": 805,
+"balances": []
+},
+"messages": {
+"messages": [
+{
+"date": "2026-10-03",
+"text": "Got the promotion! Nothing else new on our end."
+}
+]
+},
+"payroll": {
+"employer": "Arden Aerospace",
+"status": "active",
+"title_change": "Senior Principal Engineer (2026-10-01)",
+"stubs": [
+{
+"date": "2026-09-30",
+"gross": 6250,
+"net": 4480
+},
+{
+"date": "2026-10-31",
+"gross": 7000,
+"net": 4990
+}
+]
+}
+},
+"truth": [
+{
+"id": "e1",
+"type": "job_change",
+"date": "2026-10-01",
+"details": {
+"new_income": 168000,
+"employer": "Arden Aerospace (promotion)"
+}
+}
+]
+},
+{
+"id": "cx-005",
+"case": "connected/cx-005",
+"client": {
+"client_id": "cx-005",
+"name": "Priya Shah",
+"age": 33,
+"state": "CA",
+"occupation": "UX designer",
+"employer": "Pixelwell",
+"employment_status": "employed",
+"marital_status": "married",
+"annual_income": 128000,
+"monthly_expenses": 7100,
+"dependents": 0,
+"risk_score": 4,
+"horizon_years": 32,
+"targets": {
+"equity": 0.78,
+"bond": 0.1,
+"cash": 0.12
+},
+"monthly_contribution": 1200,
+"goals": [
+{
+"type": "retirement",
+"target_year": 2058
+}
+]
+},
+"holdings": {
+"as_of": "2026-11-01",
+"positions": [
+{
+"symbol": "US_EQ",
+"units": 521.6095,
+"value": 139999.99
+},
+{
+"symbol": "INTL_EQ",
+"units": 475.0594,
+"value": 30000.0
+},
+{
+"symbol": "BOND",
+"units": 260.989,
+"value": 19000.0
+},
+{
+"symbol": "CASH",
+"units": 26000.0,
+"value": 26000.0
+}
+]
+},
+"connectors": {
+"bank": {
+"as_of": "2026-11-01",
+"transactions": [
+{
+"date": "2026-08-01",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-08-03",
+"description": "RENT/MORTGAGE",
+"amount": -3400,
+"category": "housing"
+},
+{
+"date": "2026-08-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -950,
+"category": "groceries"
+},
+{
+"date": "2026-08-15",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-08-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-08-29",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-09-03",
+"description": "RENT/MORTGAGE",
+"amount": -3400,
+"category": "housing"
+},
+{
+"date": "2026-09-12",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-09-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -950,
+"category": "groceries"
+},
+{
+"date": "2026-09-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-09-26",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-10-03",
+"description": "RENT/MORTGAGE",
+"amount": -3400,
+"category": "housing"
+},
+{
+"date": "2026-10-10",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-10-12",
+"description": "WHOLE FOODS / TRADER JOES",
+"amount": -950,
+"category": "groceries"
+},
+{
+"date": "2026-10-18",
+"description": "UTILITIES",
+"amount": -260,
+"category": "utilities"
+},
+{
+"date": "2026-10-19",
+"description": "BABYLIST REGISTRY",
+"amount": -480,
+"category": "shopping"
+},
+{
+"date": "2026-10-24",
+"description": "PAYROLL PIXELWELL DIRECT DEP",
+"amount": 3910,
+"category": "income"
+},
+{
+"date": "2026-10-27",
+"description": "STANFORD HEALTH - OB CLINIC",
+"amount": -350,
+"category": "medical"
+}
+]
+},
+"calendar": {
+"upcoming": [
+{
+"date": "2027-03-15",
+"title": "Due date (twins)"
+}
+]
+},
+"credit": {
+"score": 752,
+"balances": [
+{
+"type": "card",
+"balance": 9400,
+"trend": "up 3 months in a row"
+}
+]
+},
+"messages": {
+"messages": [
+{
+"date": "2026-10-20",
+"text": "Big news: we're expecting twins in March!"
+}
+]
+},
+"payroll": {
+"employer": "Pixelwell",
+"status": "active",
+"stubs": [
+{
+"date": "2026-10-31",
+"gross": 5330,
+"net": 3910
+}
+]
+}
+},
+"truth": [
+{
+"id": "e1",
+"type": "child",
+"date": "2027-03-15",
+"details": {
+"count": 2,
+"note": "twins expected"
+}
+}
+]
+}
+]

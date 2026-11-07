@@ -31,6 +31,10 @@ def main(root: str) -> None:
     for d in sorted((root / "fixtures").glob("*")):
         if (d / "client.json").exists():
             out.append({"case": f"fixtures/{d.name}", "group": "fixtures", **preview(d)})
+    for d in sorted((root / "cases" / "connected").glob("*")):
+        if (d / "client.json").exists():
+            # connected clients: life events are hidden from the agent, so the preview hides them too
+            out.append({"case": f"connected/{d.name}", "group": "connected", **preview(d), "events": [], "connected": True})
     for s in ("test", "practice", "regression", "drift"):
         for d in sorted((root / "cases" / s).glob("*")):
             if (d / "client.json").exists():
