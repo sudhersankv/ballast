@@ -30,7 +30,7 @@ def extract_yaml(text: str) -> str:
 
 def summarize_failure(case: dict, run: dict, check: dict) -> str:
     c = case["client"]
-    ev = ", ".join(e["type"] for e in case["events"]) or "none"
+    ev = ", ".join(f"{e['type']} ({e.get('date')}, {json.dumps(e.get('details') or {})})" for e in case["events"]) or "none"
     rec = run.get("recommendation") or {}
     trades = "; ".join(f"{t.get('action')} {t.get('symbol')} ${t.get('amount_usd'):,} ({t.get('reason_ref')})"
                        for t in rec.get("trades", []) if isinstance(t.get("amount_usd"), (int, float))) or "no trades"
@@ -89,6 +89,11 @@ def validate_playbook(cand: dict, parent: dict, max_changes: int = 3) -> list[st
         errs.append(f"{n} changes from parent, max {max_changes}")
     if CASE_ID.search(yaml.safe_dump(cand)):
         errs.append("mentions a case id")
+    lessons = cand.get("lessons") or []
+    if not isinstance(lessons, list) or any(not isinstance(l, dict) or "lesson" not in l for l in lessons):
+        errs.append("lessons must be a list of {lesson, root_cause, triggered_by, rule, skill}")
+    elif len(lessons) < len(parent.get("lessons") or []):
+        errs.append("dropped earlier lessons; keep every existing lesson")
     return errs
 
 
