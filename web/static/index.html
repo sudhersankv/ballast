@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ballast</title>
+<meta name="description" content="A personal portfolio agent that gets measurably better with every run, catches its own drift, and never ships an upgrade it can't prove.">
+<meta name="theme-color" content="#E4EEE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C231B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 4 28 11 16 18 4 11Z' fill='%232C8A5A'/%3E%3Cpath d='M4 15 16 22 28 15v4L16 26 4 19Z' fill='%230F3328'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <a class="brand" href="#replay" aria-label="Ballast home">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4 28 11 16 18 4 11Z"/><path class="m2" d="M4 15 16 22 28 15v4L16 26 4 19Z"/></svg>
+    <span>Ballast</span>
+  </a>
+  <p class="track">Gets measurably better with every run</p>
+  <div class="top-right">
+    <span class="muse">Powered by Muse, Meta Model API</span>
+    <span id="source" class="source" hidden>Demo data</span>
+    <span class="light" id="light" role="status" aria-live="polite"><i></i><b>Aligned</b></span>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Replay: the guided demo -->
+  <section id="replay" class="replay" aria-labelledby="step-title">
+    <div class="rosette" aria-hidden="true"><svg id="rosette" viewBox="-200 -200 400 400"></svg></div>
+
+    <div class="story">
+      <p class="mobile-tags"><span>Gets measurably better with every run</span><span class="m">Powered by Muse, Meta Model API</span></p>
+      <p class="step-count" id="step-count">Step 1 of 9</p>
+      <h1 id="step-title" class="step-title">v0: the starting playbook</h1>
+      <p id="step-body" class="step-body"></p>
+
+      <div class="score">
+        <span class="score-num" id="score-num">63</span>
+        <div class="score-meta">
+          <span id="score-label">average check score on 20 unseen clients</span>
+          <span class="delta" id="score-delta"></span>
+        </div>
+      </div>
+
+      <div class="controls" role="group" aria-label="Replay controls">
+        <button class="btn ghost" id="prev" aria-label="Previous step">Back</button>
+        <button class="btn primary" id="next">Next step</button>
+        <button class="btn ghost" id="play" aria-pressed="false">Play replay</button>
+      </div>
+      <ol class="steps" id="steps" aria-label="Replay steps"></ol>
+    </div>
+
+    <figure class="stack-fig">
+      <svg id="stack" class="stack" viewBox="0 0 440 470" role="img" aria-labelledby="stack-desc"><desc id="stack-desc">Playbook versions stacked as slabs</desc></svg>
+      <figcaption id="stack-cap">Each slab is a playbook version that passed the gate.</figcaption>
+    </figure>
+  </section>
+
+  <!-- Ship gate -->
+  <section class="gate" aria-labelledby="gate-h">
+    <div class="gate-head">
+      <h2 id="gate-h">Ship gate</h2>
+      <p>An upgrade ships only when all three checks pass. Muse never sees the test or regression clients.</p>
+    </div>
+    <ol class="gate-checks" id="gate"></ol>
+    <div class="stamp" id="stamp" aria-live="polite"></div>
+  </section>
+
+  <!-- Evidence -->
+  <section class="evidence">
+    <div class="plate">
+      <div class="plate-head">
+        <h2>What broke on unseen clients</h2>
+        <p id="viol-sub">Policy violations at this step</p>
+      </div>
+      <ul class="viol" id="viol"></ul>
+    </div>
+    <div class="plate">
+      <div class="plate-head">
+        <h2>What Muse changed</h2>
+        <p id="diff-sub">Playbook diff</p>
+      </div>
+      <pre class="diff" id="diff" tabindex="0" aria-label="Playbook diff"></pre>
+    </div>
+  </section>
+
+  <!-- Curve -->
+  <section class="curve-sec" aria-labelledby="curve-h">
+    <div class="plate-head">
+      <h2 id="curve-h">Score by version, unseen clients</h2>
+      <p>Each point is a full backtest on 20 clients the agent never trained on.</p>
+    </div>
+    <svg id="curve" class="curve" viewBox="0 0 720 260" role="img" aria-label="Test score by playbook version"></svg>
+  </section>
+
+  <!-- Clients -->
+  <section class="clients-sec" aria-labelledby="clients-h">
+    <div class="plate-head">
+      <h2 id="clients-h">Clients and their agents</h2>
+      <p>Every client gets an agent shaped by their profile. Open one to see its latest recommendation.</p>
+    </div>
+    <ul class="clients" id="clients"></ul>
+  </section>
+
+  <p class="disclaimer">Synthetic clients. Illustrative policy, not financial advice. Ballast recommends; a person approves. It never executes trades.</p>
+</main>
+
+<dialog id="sheet" class="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-inner">
+    <button class="close" id="sheet-close" aria-label="Close">Close</button>
+    <div id="sheet-body"></div>
+  </div>
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

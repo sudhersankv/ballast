@@ -1,0 +1,3942 @@
+{
+ "playbooks": [
+  {
+   "version": 0,
+   "parent": null,
+   "yaml": "version: 0\nparent: null\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Initial guideline: read files, rebalance toward targets, output format.\"\n",
+   "changelog": "Initial guideline: read files, rebalance toward targets, output format.",
+   "status": "shipped",
+   "created_at": "2026-11-07T13:00:00+00:00"
+  },
+  {
+   "version": 1,
+   "parent": 0,
+   "yaml": "version: 1\nparent: 0\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added layoff-playbook after emergency_fund failures on layoff cases.\"\n",
+   "changelog": "Added layoff-playbook after emergency_fund failures on layoff cases.",
+   "status": "shipped",
+   "created_at": "2026-11-07T13:40:00+00:00"
+  },
+  {
+   "version": 2,
+   "parent": 1,
+   "yaml": "version: 2\nparent: 1\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Count severance from events.json toward the cash buffer.\n      2. If severance covers the gap, skip raising CASH.\n      3. Rebalance the rest toward target.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Let severance count toward the cash buffer to reduce selling.\"\n",
+   "changelog": "Let severance count toward the cash buffer to reduce selling.",
+   "status": "rejected",
+   "created_at": "2026-11-07T14:15:00+00:00"
+  },
+  {
+   "version": 3,
+   "parent": 1,
+   "yaml": "version: 3\nparent: 1\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added life-event-updates and rebalance-check for no_churn and event rules.\"\n",
+   "changelog": "Added life-event-updates and rebalance-check for no_churn and event rules.",
+   "status": "shipped",
+   "created_at": "2026-11-07T14:50:00+00:00"
+  },
+  {
+   "version": 4,
+   "parent": 3,
+   "yaml": "version: 4\nparent: 3\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\n  - name: concentration-guard\n    description: Use when holdings include a single stock.\n    body: |\n      Check each single stock's weight after trades. If any is above the house limit,\n      trim it first and move the proceeds to the most underweight class.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added concentration-guard for single-stock limits.\"\n",
+   "changelog": "Added concentration-guard for single-stock limits.",
+   "status": "rolled_back",
+   "created_at": "2026-11-07T15:30:00+00:00"
+  },
+  {
+   "version": 5,
+   "parent": 4,
+   "yaml": "version: 5\nparent: 4\nmodel: meta/muse\nprompt: |\n  You are a portfolio assistant for one client. You recommend trades; you never execute them.\n  The case files are in your working directory. When you are done, write recommendation.json there and stop.\n  Always read events.json before computing trades.\nskills:\n  - name: case-review\n    description: Use at the start of every client case to read the files and decide on trades.\n    body: |\n      1. Read client.json, holdings.json and market.json.\n      2. Run `python tools/portfolio.py allocation holdings.json` to see current weights by asset class.\n      3. Compare the weights with `targets` in client.json and decide whether to trade.\n      4. Write a draft recommendation.json, then run `python tools/portfolio.py apply holdings.json recommendation.json`.\n      5. Fix the draft if the result looks wrong, then stop.\n  - name: recommendation-format\n    description: Use before writing recommendation.json, to get the exact output format.\n    body: |\n      Write one JSON object with keys client_id, target_allocation, trades, rationale,\n      profile_updates, flags, no_action_reason. Trades net to zero. Cite every trade.\n  - name: layoff-playbook\n    description: Use when events include a layoff or job loss.\n    body: |\n      1. Compute 6 months of expenses from client.json.\n      2. Raise CASH to that level first, selling the most overweight holding.\n      3. Only then rebalance the rest toward target. Cite the event id on each trade.\n  - name: life-event-updates\n    description: Use when events include a child, marriage or job change.\n    body: |\n      - child: add an education goal 18 years after the event date.\n      - marriage: add the flag joint_profile_review; leave risk_score unchanged.\n      - job_change with higher income: raise monthly_contribution; leave risk_score unchanged.\n  - name: rebalance-check\n    description: Use before writing any trades.\n    body: |\n      Run portfolio.py allocation. If every class is within 5 points of target and there\n      are no new events, write no trades and give a no_action_reason.\n  - name: concentration-guard\n    description: Use when holdings include a single stock.\n    body: |\n      Check each single stock's weight after trades. If any is above the house limit,\n      trim it first and move the proceeds to the most underweight class.\n  - name: windfall-and-shock\n    description: Use when events include an inheritance or divorce, or when prices moved sharply.\n    body: |\n      1. Recompute weights with today's prices before anything else.\n      2. Inheritance: deploy new cash in stages toward target, keeping the cash buffer intact.\n      3. Divorce: split shared holdings per details, then recheck the cash buffer on the new expenses.\n      4. After a market drop, restore the cash buffer before buying equity.\ntools: [read, bash, write]\nmax_turns: 12\nchangelog: \"Added windfall-and-shock after drift on inheritance and market-drop cases.\"\n",
+   "changelog": "Added windfall-and-shock after drift on inheritance and market-drop cases.",
+   "status": "shipped",
+   "created_at": "2026-11-07T16:35:00+00:00"
+  }
+ ],
+ "generations": [
+  {
+   "version": 0,
+   "parent": null,
+   "mode": "training",
+   "practice": {
+    "mean_score": 0.61,
+    "pass_rate": 0.4
+   },
+   "test": {
+    "mean_score": 0.63,
+    "pass_rate": 0.45
+   },
+   "regression": {
+    "mean_score": 1.0,
+    "pass_rate": 1.0
+   },
+   "decision": "shipped",
+   "reason": "baseline",
+   "compliance": null,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "version": 1,
+   "parent": 0,
+   "mode": "training",
+   "practice": {
+    "mean_score": 0.72,
+    "pass_rate": 0.55
+   },
+   "test": {
+    "mean_score": 0.74,
+    "pass_rate": 0.6
+   },
+   "regression": {
+    "mean_score": 1.0,
+    "pass_rate": 1.0
+   },
+   "decision": "shipped",
+   "reason": "test +0.11, regression 100%",
+   "compliance": {
+    "reviewer": "gemini",
+    "verdict": "approve",
+    "note": "Adds a cash-first habit; no policy rule loosened."
+   },
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "version": 2,
+   "parent": 1,
+   "mode": "training",
+   "practice": {
+    "mean_score": 0.78,
+    "pass_rate": 0.65
+   },
+   "test": {
+    "mean_score": 0.71,
+    "pass_rate": 0.55
+   },
+   "regression": {
+    "mean_score": 0.9,
+    "pass_rate": 0.9
+   },
+   "decision": "rejected",
+   "reason": "invalid_playbook: compliance block",
+   "compliance": {
+    "reviewer": "gemini",
+    "verdict": "block",
+    "note": "Counting severance as cash weakens emergency_fund, which only counts CASH holdings."
+   },
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "version": 3,
+   "parent": 1,
+   "mode": "training",
+   "practice": {
+    "mean_score": 0.84,
+    "pass_rate": 0.75
+   },
+   "test": {
+    "mean_score": 0.86,
+    "pass_rate": 0.8
+   },
+   "regression": {
+    "mean_score": 1.0,
+    "pass_rate": 1.0
+   },
+   "decision": "shipped",
+   "reason": "test +0.12, regression 100%",
+   "compliance": {
+    "reviewer": "gemini",
+    "verdict": "approve",
+    "note": "Event habits only; thresholds untouched."
+   },
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "version": 4,
+   "parent": 3,
+   "mode": "training",
+   "practice": {
+    "mean_score": 0.88,
+    "pass_rate": 0.8
+   },
+   "test": {
+    "mean_score": 0.89,
+    "pass_rate": 0.85
+   },
+   "regression": {
+    "mean_score": 1.0,
+    "pass_rate": 1.0
+   },
+   "decision": "shipped",
+   "reason": "test +0.03, regression 100%",
+   "compliance": {
+    "reviewer": "gemini",
+    "verdict": "approve",
+    "note": "Trims single stocks; limit stays in the checker."
+   },
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "version": 5,
+   "parent": 4,
+   "mode": "drift",
+   "practice": {
+    "mean_score": 0.9,
+    "pass_rate": 0.85
+   },
+   "test": {
+    "mean_score": 0.91,
+    "pass_rate": 0.9
+   },
+   "regression": {
+    "mean_score": 1.0,
+    "pass_rate": 1.0
+   },
+   "decision": "shipped",
+   "reason": "passes 10/10 drift cases, regression 100%",
+   "compliance": {
+    "reviewer": "gemini",
+    "verdict": "approve",
+    "note": "Adds handling for new event types; no rule loosened."
+   },
+   "created_at": "2026-11-07T16:40:00+00:00"
+  }
+ ],
+ "drift_events": [
+  {
+   "time": "2026-11-07T15:38:00+00:00",
+   "level": "green",
+   "rolling_score": 0.89,
+   "baseline": 0.89,
+   "violations": [],
+   "action": "none",
+   "from_version": 4,
+   "to_version": 4,
+   "case_ids": []
+  },
+  {
+   "time": "2026-11-07T16:05:00+00:00",
+   "level": "red",
+   "rolling_score": 0.58,
+   "baseline": 0.89,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.4 months after market drop, needs 3"
+    },
+    {
+     "rule": "risk_band",
+     "severity": "hard",
+     "detail": "equity 91% after inheritance, band 50-70% for risk 3"
+    },
+    {
+     "rule": "cited",
+     "severity": "hard",
+     "detail": "trade US_EQ buy 40,000 cites event:windfall, not in events.json"
+    }
+   ],
+   "action": "rollback",
+   "from_version": 4,
+   "to_version": 3,
+   "case_ids": [
+    "d-001",
+    "d-002",
+    "d-003",
+    "d-004",
+    "d-005",
+    "d-006",
+    "d-007"
+   ]
+  },
+  {
+   "time": "2026-11-07T16:20:00+00:00",
+   "level": "red",
+   "rolling_score": 0.66,
+   "baseline": 0.89,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 2.6 months after divorce split, needs 3"
+    }
+   ],
+   "action": "realign",
+   "from_version": 3,
+   "to_version": 3,
+   "case_ids": [
+    "d-001",
+    "d-002",
+    "d-003",
+    "d-004",
+    "d-005",
+    "d-006",
+    "d-007",
+    "d-008",
+    "d-009",
+    "d-010"
+   ]
+  },
+  {
+   "time": "2026-11-07T16:42:00+00:00",
+   "level": "green",
+   "rolling_score": 0.91,
+   "baseline": 0.89,
+   "violations": [],
+   "action": "shipped_fix",
+   "from_version": 3,
+   "to_version": 5,
+   "case_ids": [
+    "d-001",
+    "d-002",
+    "d-003",
+    "d-004",
+    "d-005",
+    "d-006",
+    "d-007",
+    "d-008",
+    "d-009",
+    "d-010"
+   ]
+  }
+ ],
+ "clients": [
+  {
+   "client_id": "c-001",
+   "name": "Maya Okafor",
+   "age": 32,
+   "risk_score": 3,
+   "monthly_expenses": 6100,
+   "portfolio_value": 95000,
+   "events": [
+    {
+     "type": "layoff",
+     "date": "2026-10-04"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-001",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 30900,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 30900,
+      "reason_ref": "rule:emergency_fund"
+     },
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($36,600)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-002",
+   "name": "Jonah Lindqvist",
+   "age": 46,
+   "risk_score": 2,
+   "monthly_expenses": 7000,
+   "portfolio_value": 180000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-002",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   }
+  },
+  {
+   "client_id": "c-003",
+   "name": "Priya Raman",
+   "age": 43,
+   "risk_score": 3,
+   "monthly_expenses": 7000,
+   "portfolio_value": 180000,
+   "events": [
+    {
+     "type": "child",
+     "date": "2026-10-26"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-003",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "New child: education goal for 2044."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [
+      {
+       "type": "education",
+       "target_year": 2044
+      }
+     ],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation within 5 points of target; goal added."
+   }
+  },
+  {
+   "client_id": "c-004",
+   "name": "Theo Castillo",
+   "age": 31,
+   "risk_score": 2,
+   "monthly_expenses": 7000,
+   "portfolio_value": 180000,
+   "events": [
+    {
+     "type": "marriage",
+     "date": "2026-10-07"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-004",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Marriage: joint profile review before any risk change."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [
+     "joint_profile_review"
+    ],
+    "no_action_reason": "Holding until the joint review."
+   }
+  },
+  {
+   "client_id": "c-005",
+   "name": "Ines Weber",
+   "age": 43,
+   "risk_score": 3,
+   "monthly_expenses": 3800,
+   "portfolio_value": 95000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-005",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-006",
+   "name": "Kofi Mensah",
+   "age": 30,
+   "risk_score": 4,
+   "monthly_expenses": 4400,
+   "portfolio_value": 180000,
+   "events": [
+    {
+     "type": "job_change",
+     "date": "2026-10-14"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-006",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 7200,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 7200,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Higher income: raise monthly contribution to $2,200."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": 2200,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-007",
+   "name": "Lena Novak",
+   "age": 36,
+   "risk_score": 3,
+   "monthly_expenses": 5200,
+   "portfolio_value": 95000,
+   "events": [
+    {
+     "type": "layoff",
+     "date": "2026-10-06"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-007",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 25500,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 25500,
+      "reason_ref": "rule:emergency_fund"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($31,200)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-008",
+   "name": "Arjun Iyer",
+   "age": 31,
+   "risk_score": 4,
+   "monthly_expenses": 6100,
+   "portfolio_value": 180000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-008",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   }
+  },
+  {
+   "client_id": "c-009",
+   "name": "Sofia Brandt",
+   "age": 31,
+   "risk_score": 2,
+   "monthly_expenses": 6100,
+   "portfolio_value": 180000,
+   "events": [
+    {
+     "type": "child",
+     "date": "2026-10-17"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-009",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "New child: education goal for 2044."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [
+      {
+       "type": "education",
+       "target_year": 2044
+      }
+     ],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation within 5 points of target; goal added."
+   }
+  },
+  {
+   "client_id": "c-010",
+   "name": "Malik Haddad",
+   "age": 62,
+   "risk_score": 3,
+   "monthly_expenses": 3800,
+   "portfolio_value": 139000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-010",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 8340,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "BOND",
+      "action": "buy",
+      "amount_usd": 8340,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:glidepath",
+      "text": "Age 62: move equity to the lower half of the band."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-011",
+   "name": "Hana Sato",
+   "age": 34,
+   "risk_score": 3,
+   "monthly_expenses": 7000,
+   "portfolio_value": 180000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-011",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   }
+  },
+  {
+   "client_id": "c-012",
+   "name": "Diego Ferreira",
+   "age": 28,
+   "risk_score": 4,
+   "monthly_expenses": 6100,
+   "portfolio_value": 139000,
+   "events": [
+    {
+     "type": "marriage",
+     "date": "2026-10-27"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-012",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Marriage: joint profile review before any risk change."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [
+     "joint_profile_review"
+    ],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-013",
+   "name": "Ruth Kowalski",
+   "age": 30,
+   "risk_score": 5,
+   "monthly_expenses": 4400,
+   "portfolio_value": 120000,
+   "events": [
+    {
+     "type": "layoff",
+     "date": "2026-10-06"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-013",
+    "target_allocation": {
+     "equity": 0.93,
+     "bond": -0.03,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 19200,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 19200,
+      "reason_ref": "rule:emergency_fund"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($26,400)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-014",
+   "name": "Omar Aziz",
+   "age": 51,
+   "risk_score": 4,
+   "monthly_expenses": 4400,
+   "portfolio_value": 180000,
+   "events": [
+    {
+     "type": "job_change",
+     "date": "2026-10-08"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-014",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Higher income: raise monthly contribution to $2,200."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": 2200,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation on target; contribution raised."
+   }
+  },
+  {
+   "client_id": "c-015",
+   "name": "Elise Moreau",
+   "age": 41,
+   "risk_score": 4,
+   "monthly_expenses": 7000,
+   "portfolio_value": 120000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-015",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-016",
+   "name": "Kenji Tanaka",
+   "age": 29,
+   "risk_score": 4,
+   "monthly_expenses": 4400,
+   "portfolio_value": 120000,
+   "events": [
+    {
+     "type": "child",
+     "date": "2026-10-10"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-016",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "New child: education goal for 2044."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [
+      {
+       "type": "education",
+       "target_year": 2044
+      }
+     ],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation within 5 points of target; goal added."
+   }
+  },
+  {
+   "client_id": "c-017",
+   "name": "Nadia Petrov",
+   "age": 50,
+   "risk_score": 3,
+   "monthly_expenses": 7000,
+   "portfolio_value": 139000,
+   "events": [
+    {
+     "type": "layoff",
+     "date": "2026-10-19"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-017",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 33660,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 33660,
+      "reason_ref": "rule:emergency_fund"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($42,000)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  },
+  {
+   "client_id": "c-018",
+   "name": "Felix Huber",
+   "age": 32,
+   "risk_score": 3,
+   "monthly_expenses": 5200,
+   "portfolio_value": 120000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-018",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   }
+  },
+  {
+   "client_id": "c-019",
+   "name": "Amara Diallo",
+   "age": 40,
+   "risk_score": 2,
+   "monthly_expenses": 5200,
+   "portfolio_value": 240000,
+   "events": [
+    {
+     "type": "marriage",
+     "date": "2026-10-21"
+    }
+   ],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-019",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Marriage: joint profile review before any risk change."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [
+     "joint_profile_review"
+    ],
+    "no_action_reason": "Holding until the joint review."
+   }
+  },
+  {
+   "client_id": "c-020",
+   "name": "Wes Park",
+   "age": 60,
+   "risk_score": 3,
+   "monthly_expenses": 4400,
+   "portfolio_value": 240000,
+   "events": [],
+   "agent_version": 5,
+   "last_recommendation": {
+    "client_id": "c-020",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 14400,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "BOND",
+      "action": "buy",
+      "amount_usd": 14400,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:glidepath",
+      "text": "Age 60: move equity to the lower half of the band."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   }
+  }
+ ],
+ "runs": [
+  {
+   "run_id": "r-0001",
+   "playbook_version": 0,
+   "case_id": "c-001",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 0.9 months, needs 6 after layoff"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9771,
+   "tokens_out": 1074,
+   "seconds": 50.8,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1001",
+   "playbook_version": 1,
+   "case_id": "c-001",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13156,
+   "tokens_out": 919,
+   "seconds": 25.7,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2001",
+   "playbook_version": 2,
+   "case_id": "c-001",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    },
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 0.9 months, needs 6 after layoff (severance not counted)"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 12552,
+   "tokens_out": 1128,
+   "seconds": 27.2,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3001",
+   "playbook_version": 3,
+   "case_id": "c-001",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9743,
+   "tokens_out": 1264,
+   "seconds": 43.5,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4001",
+   "playbook_version": 4,
+   "case_id": "c-001",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15773,
+   "tokens_out": 1279,
+   "seconds": 29.7,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5001",
+   "playbook_version": 5,
+   "case_id": "c-001",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-001",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 30900,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 30900,
+      "reason_ref": "rule:emergency_fund"
+     },
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($36,600)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 10828,
+   "tokens_out": 1345,
+   "seconds": 52.9,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0002",
+   "playbook_version": 0,
+   "case_id": "c-002",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9381,
+   "tokens_out": 1270,
+   "seconds": 63.5,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1002",
+   "playbook_version": 1,
+   "case_id": "c-002",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10181,
+   "tokens_out": 1253,
+   "seconds": 29.4,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2002",
+   "playbook_version": 2,
+   "case_id": "c-002",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 15685,
+   "tokens_out": 1398,
+   "seconds": 32.3,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3002",
+   "playbook_version": 3,
+   "case_id": "c-002",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13764,
+   "tokens_out": 1284,
+   "seconds": 53.4,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4002",
+   "playbook_version": 4,
+   "case_id": "c-002",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 12050,
+   "tokens_out": 799,
+   "seconds": 49.2,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5002",
+   "playbook_version": 5,
+   "case_id": "c-002",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-002",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   },
+   "tokens_in": 9514,
+   "tokens_out": 1277,
+   "seconds": 26.7,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0003",
+   "playbook_version": 0,
+   "case_id": "c-003",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 12814,
+   "tokens_out": 1299,
+   "seconds": 66.5,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1003",
+   "playbook_version": 1,
+   "case_id": "c-003",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 11962,
+   "tokens_out": 1006,
+   "seconds": 35.4,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2003",
+   "playbook_version": 2,
+   "case_id": "c-003",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10472,
+   "tokens_out": 1415,
+   "seconds": 59.9,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3003",
+   "playbook_version": 3,
+   "case_id": "c-003",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9670,
+   "tokens_out": 1288,
+   "seconds": 37.8,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4003",
+   "playbook_version": 4,
+   "case_id": "c-003",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13055,
+   "tokens_out": 1596,
+   "seconds": 39.8,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5003",
+   "playbook_version": 5,
+   "case_id": "c-003",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-003",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "New child: education goal for 2044."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [
+      {
+       "type": "education",
+       "target_year": 2044
+      }
+     ],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation within 5 points of target; goal added."
+   },
+   "tokens_in": 12676,
+   "tokens_out": 994,
+   "seconds": 52.0,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0004",
+   "playbook_version": 0,
+   "case_id": "c-004",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10245,
+   "tokens_out": 1200,
+   "seconds": 43.4,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1004",
+   "playbook_version": 1,
+   "case_id": "c-004",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14474,
+   "tokens_out": 779,
+   "seconds": 59.2,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2004",
+   "playbook_version": 2,
+   "case_id": "c-004",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13694,
+   "tokens_out": 1508,
+   "seconds": 64.3,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3004",
+   "playbook_version": 3,
+   "case_id": "c-004",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 11570,
+   "tokens_out": 1048,
+   "seconds": 56.0,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4004",
+   "playbook_version": 4,
+   "case_id": "c-004",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13869,
+   "tokens_out": 1208,
+   "seconds": 50.7,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5004",
+   "playbook_version": 5,
+   "case_id": "c-004",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-004",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Marriage: joint profile review before any risk change."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [
+     "joint_profile_review"
+    ],
+    "no_action_reason": "Holding until the joint review."
+   },
+   "tokens_in": 12737,
+   "tokens_out": 770,
+   "seconds": 62.6,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0005",
+   "playbook_version": 0,
+   "case_id": "c-005",
+   "set": "test",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14301,
+   "tokens_out": 1291,
+   "seconds": 69.7,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1005",
+   "playbook_version": 1,
+   "case_id": "c-005",
+   "set": "test",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 11331,
+   "tokens_out": 1433,
+   "seconds": 41.7,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2005",
+   "playbook_version": 2,
+   "case_id": "c-005",
+   "set": "test",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9184,
+   "tokens_out": 1172,
+   "seconds": 40.4,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3005",
+   "playbook_version": 3,
+   "case_id": "c-005",
+   "set": "test",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14004,
+   "tokens_out": 819,
+   "seconds": 46.7,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4005",
+   "playbook_version": 4,
+   "case_id": "c-005",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 10787,
+   "tokens_out": 1486,
+   "seconds": 37.2,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5005",
+   "playbook_version": 5,
+   "case_id": "c-005",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "2 small trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": {
+    "client_id": "c-005",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 3800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 15048,
+   "tokens_out": 953,
+   "seconds": 42.3,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0006",
+   "playbook_version": 0,
+   "case_id": "c-006",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 11276,
+   "tokens_out": 840,
+   "seconds": 61.7,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1006",
+   "playbook_version": 1,
+   "case_id": "c-006",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13507,
+   "tokens_out": 985,
+   "seconds": 56.5,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2006",
+   "playbook_version": 2,
+   "case_id": "c-006",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 11939,
+   "tokens_out": 1399,
+   "seconds": 64.7,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3006",
+   "playbook_version": 3,
+   "case_id": "c-006",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10890,
+   "tokens_out": 854,
+   "seconds": 27.8,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4006",
+   "playbook_version": 4,
+   "case_id": "c-006",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 10239,
+   "tokens_out": 937,
+   "seconds": 54.3,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5006",
+   "playbook_version": 5,
+   "case_id": "c-006",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-006",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 7200,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 7200,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Higher income: raise monthly contribution to $2,200."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": 2200,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 9098,
+   "tokens_out": 1196,
+   "seconds": 62.2,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0007",
+   "playbook_version": 0,
+   "case_id": "c-007",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.1 months, needs 6 after layoff"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13379,
+   "tokens_out": 1078,
+   "seconds": 52.1,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1007",
+   "playbook_version": 1,
+   "case_id": "c-007",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 11610,
+   "tokens_out": 828,
+   "seconds": 55.8,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2007",
+   "playbook_version": 2,
+   "case_id": "c-007",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.1 months, needs 6 after layoff (severance not counted)"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13222,
+   "tokens_out": 1332,
+   "seconds": 54.1,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3007",
+   "playbook_version": 3,
+   "case_id": "c-007",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15060,
+   "tokens_out": 755,
+   "seconds": 45.0,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4007",
+   "playbook_version": 4,
+   "case_id": "c-007",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15389,
+   "tokens_out": 1595,
+   "seconds": 55.3,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5007",
+   "playbook_version": 5,
+   "case_id": "c-007",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-007",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 25500,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 25500,
+      "reason_ref": "rule:emergency_fund"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($31,200)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 13581,
+   "tokens_out": 1101,
+   "seconds": 42.3,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0008",
+   "playbook_version": 0,
+   "case_id": "c-008",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10710,
+   "tokens_out": 1151,
+   "seconds": 31.5,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1008",
+   "playbook_version": 1,
+   "case_id": "c-008",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9430,
+   "tokens_out": 804,
+   "seconds": 24.0,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2008",
+   "playbook_version": 2,
+   "case_id": "c-008",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9831,
+   "tokens_out": 1072,
+   "seconds": 52.2,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3008",
+   "playbook_version": 3,
+   "case_id": "c-008",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9576,
+   "tokens_out": 1595,
+   "seconds": 33.6,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4008",
+   "playbook_version": 4,
+   "case_id": "c-008",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 12082,
+   "tokens_out": 852,
+   "seconds": 53.2,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5008",
+   "playbook_version": 5,
+   "case_id": "c-008",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-008",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   },
+   "tokens_in": 11845,
+   "tokens_out": 1316,
+   "seconds": 40.8,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0009",
+   "playbook_version": 0,
+   "case_id": "c-009",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 11554,
+   "tokens_out": 787,
+   "seconds": 30.6,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1009",
+   "playbook_version": 1,
+   "case_id": "c-009",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 15141,
+   "tokens_out": 1050,
+   "seconds": 58.1,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2009",
+   "playbook_version": 2,
+   "case_id": "c-009",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 12920,
+   "tokens_out": 1548,
+   "seconds": 55.8,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3009",
+   "playbook_version": 3,
+   "case_id": "c-009",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13229,
+   "tokens_out": 723,
+   "seconds": 33.4,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4009",
+   "playbook_version": 4,
+   "case_id": "c-009",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13327,
+   "tokens_out": 1070,
+   "seconds": 30.7,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5009",
+   "playbook_version": 5,
+   "case_id": "c-009",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-009",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "New child: education goal for 2044."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [
+      {
+       "type": "education",
+       "target_year": 2044
+      }
+     ],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation within 5 points of target; goal added."
+   },
+   "tokens_in": 13449,
+   "tokens_out": 727,
+   "seconds": 58.9,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0010",
+   "playbook_version": 0,
+   "case_id": "c-010",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 12004,
+   "tokens_out": 871,
+   "seconds": 40.4,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1010",
+   "playbook_version": 1,
+   "case_id": "c-010",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10825,
+   "tokens_out": 1245,
+   "seconds": 48.9,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2010",
+   "playbook_version": 2,
+   "case_id": "c-010",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13118,
+   "tokens_out": 1037,
+   "seconds": 53.3,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3010",
+   "playbook_version": 3,
+   "case_id": "c-010",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14023,
+   "tokens_out": 1530,
+   "seconds": 60.3,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4010",
+   "playbook_version": 4,
+   "case_id": "c-010",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15212,
+   "tokens_out": 1573,
+   "seconds": 33.0,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5010",
+   "playbook_version": 5,
+   "case_id": "c-010",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "glidepath",
+     "severity": "soft",
+     "detail": "equity 63% at age 60, should be at or below 60%"
+    }
+   ],
+   "recommendation": {
+    "client_id": "c-010",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 8340,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "BOND",
+      "action": "buy",
+      "amount_usd": 8340,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:glidepath",
+      "text": "Age 62: move equity to the lower half of the band."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 10961,
+   "tokens_out": 1537,
+   "seconds": 42.4,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0011",
+   "playbook_version": 0,
+   "case_id": "c-011",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9228,
+   "tokens_out": 1509,
+   "seconds": 36.9,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1011",
+   "playbook_version": 1,
+   "case_id": "c-011",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14673,
+   "tokens_out": 1319,
+   "seconds": 68.0,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2011",
+   "playbook_version": 2,
+   "case_id": "c-011",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14923,
+   "tokens_out": 1057,
+   "seconds": 67.9,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3011",
+   "playbook_version": 3,
+   "case_id": "c-011",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 11987,
+   "tokens_out": 782,
+   "seconds": 34.1,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4011",
+   "playbook_version": 4,
+   "case_id": "c-011",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 10858,
+   "tokens_out": 1181,
+   "seconds": 33.0,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5011",
+   "playbook_version": 5,
+   "case_id": "c-011",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-011",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   },
+   "tokens_in": 10674,
+   "tokens_out": 1194,
+   "seconds": 52.7,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0012",
+   "playbook_version": 0,
+   "case_id": "c-012",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9694,
+   "tokens_out": 1554,
+   "seconds": 54.4,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1012",
+   "playbook_version": 1,
+   "case_id": "c-012",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 12182,
+   "tokens_out": 1501,
+   "seconds": 56.7,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2012",
+   "playbook_version": 2,
+   "case_id": "c-012",
+   "set": "test",
+   "score": 0.71,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10632,
+   "tokens_out": 1189,
+   "seconds": 64.9,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3012",
+   "playbook_version": 3,
+   "case_id": "c-012",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 12554,
+   "tokens_out": 1508,
+   "seconds": 53.2,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4012",
+   "playbook_version": 4,
+   "case_id": "c-012",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9710,
+   "tokens_out": 1520,
+   "seconds": 67.5,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5012",
+   "playbook_version": 5,
+   "case_id": "c-012",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-012",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 5560,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Marriage: joint profile review before any risk change."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [
+     "joint_profile_review"
+    ],
+    "no_action_reason": null
+   },
+   "tokens_in": 14913,
+   "tokens_out": 1105,
+   "seconds": 45.3,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0013",
+   "playbook_version": 0,
+   "case_id": "c-013",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.6 months, needs 6 after layoff"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10238,
+   "tokens_out": 1304,
+   "seconds": 65.6,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1013",
+   "playbook_version": 1,
+   "case_id": "c-013",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15606,
+   "tokens_out": 1371,
+   "seconds": 30.7,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2013",
+   "playbook_version": 2,
+   "case_id": "c-013",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.6 months, needs 6 after layoff (severance not counted)"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 15770,
+   "tokens_out": 1310,
+   "seconds": 69.1,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3013",
+   "playbook_version": 3,
+   "case_id": "c-013",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 14384,
+   "tokens_out": 1058,
+   "seconds": 31.2,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4013",
+   "playbook_version": 4,
+   "case_id": "c-013",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13491,
+   "tokens_out": 834,
+   "seconds": 25.0,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5013",
+   "playbook_version": 5,
+   "case_id": "c-013",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-013",
+    "target_allocation": {
+     "equity": 0.93,
+     "bond": -0.03,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 19200,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 19200,
+      "reason_ref": "rule:emergency_fund"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($26,400)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 15548,
+   "tokens_out": 1443,
+   "seconds": 53.9,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0014",
+   "playbook_version": 0,
+   "case_id": "c-014",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9229,
+   "tokens_out": 957,
+   "seconds": 33.8,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1014",
+   "playbook_version": 1,
+   "case_id": "c-014",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13105,
+   "tokens_out": 946,
+   "seconds": 59.1,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2014",
+   "playbook_version": 2,
+   "case_id": "c-014",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_job_change",
+     "severity": "soft",
+     "detail": "monthly_contribution unchanged at $1,500"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 11670,
+   "tokens_out": 965,
+   "seconds": 49.0,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3014",
+   "playbook_version": 3,
+   "case_id": "c-014",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15833,
+   "tokens_out": 834,
+   "seconds": 26.8,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4014",
+   "playbook_version": 4,
+   "case_id": "c-014",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15061,
+   "tokens_out": 1062,
+   "seconds": 65.3,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5014",
+   "playbook_version": 5,
+   "case_id": "c-014",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "2 small trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": {
+    "client_id": "c-014",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Higher income: raise monthly contribution to $2,200."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": 2200,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation on target; contribution raised."
+   },
+   "tokens_in": 14426,
+   "tokens_out": 1297,
+   "seconds": 61.5,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0015",
+   "playbook_version": 0,
+   "case_id": "c-015",
+   "set": "test",
+   "score": 0.67,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13182,
+   "tokens_out": 719,
+   "seconds": 64.1,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1015",
+   "playbook_version": 1,
+   "case_id": "c-015",
+   "set": "test",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13985,
+   "tokens_out": 704,
+   "seconds": 59.7,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2015",
+   "playbook_version": 2,
+   "case_id": "c-015",
+   "set": "test",
+   "score": 0.67,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    },
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 10159,
+   "tokens_out": 1184,
+   "seconds": 52.5,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3015",
+   "playbook_version": 3,
+   "case_id": "c-015",
+   "set": "test",
+   "score": 0.83,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9985,
+   "tokens_out": 1269,
+   "seconds": 26.8,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4015",
+   "playbook_version": 4,
+   "case_id": "c-015",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 14589,
+   "tokens_out": 1230,
+   "seconds": 48.4,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5015",
+   "playbook_version": 5,
+   "case_id": "c-015",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-015",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 4800,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 12952,
+   "tokens_out": 1503,
+   "seconds": 59.7,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0016",
+   "playbook_version": 0,
+   "case_id": "c-016",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 15326,
+   "tokens_out": 800,
+   "seconds": 47.4,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1016",
+   "playbook_version": 1,
+   "case_id": "c-016",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13601,
+   "tokens_out": 728,
+   "seconds": 59.0,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2016",
+   "playbook_version": 2,
+   "case_id": "c-016",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_child",
+     "severity": "soft",
+     "detail": "no education goal added for new child"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9519,
+   "tokens_out": 1153,
+   "seconds": 39.0,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3016",
+   "playbook_version": 3,
+   "case_id": "c-016",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13141,
+   "tokens_out": 1320,
+   "seconds": 47.6,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4016",
+   "playbook_version": 4,
+   "case_id": "c-016",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 14674,
+   "tokens_out": 983,
+   "seconds": 44.8,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5016",
+   "playbook_version": 5,
+   "case_id": "c-016",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-016",
+    "target_allocation": {
+     "equity": 0.77,
+     "bond": 0.13,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "New child: education goal for 2044."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [
+      {
+       "type": "education",
+       "target_year": 2044
+      }
+     ],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Allocation within 5 points of target; goal added."
+   },
+   "tokens_in": 13368,
+   "tokens_out": 1526,
+   "seconds": 46.0,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0017",
+   "playbook_version": 0,
+   "case_id": "c-017",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.2 months, needs 6 after layoff"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 15881,
+   "tokens_out": 1158,
+   "seconds": 30.3,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1017",
+   "playbook_version": 1,
+   "case_id": "c-017",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9996,
+   "tokens_out": 1101,
+   "seconds": 44.3,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2017",
+   "playbook_version": 2,
+   "case_id": "c-017",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "emergency_fund",
+     "severity": "hard",
+     "detail": "cash 1.2 months, needs 6 after layoff (severance not counted)"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9594,
+   "tokens_out": 1387,
+   "seconds": 35.1,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3017",
+   "playbook_version": 3,
+   "case_id": "c-017",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9599,
+   "tokens_out": 917,
+   "seconds": 54.8,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4017",
+   "playbook_version": 4,
+   "case_id": "c-017",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15422,
+   "tokens_out": 825,
+   "seconds": 65.3,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5017",
+   "playbook_version": 5,
+   "case_id": "c-017",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-017",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 33660,
+      "reason_ref": "event:e1"
+     },
+     {
+      "symbol": "CASH",
+      "action": "buy",
+      "amount_usd": 33660,
+      "reason_ref": "rule:emergency_fund"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Job loss: raise cash to 6 months of expenses ($42,000)."
+     },
+     {
+      "ref": "rule:emergency_fund",
+      "text": "Cash buffer comes first after a layoff."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 10265,
+   "tokens_out": 1433,
+   "seconds": 53.6,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0018",
+   "playbook_version": 0,
+   "case_id": "c-018",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9771,
+   "tokens_out": 1107,
+   "seconds": 64.7,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1018",
+   "playbook_version": 1,
+   "case_id": "c-018",
+   "set": "test",
+   "score": 0.83,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "no_churn",
+     "severity": "soft",
+     "detail": "3 trades while every class was within 5 points"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14470,
+   "tokens_out": 1552,
+   "seconds": 34.3,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2018",
+   "playbook_version": 2,
+   "case_id": "c-018",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 13223,
+   "tokens_out": 1113,
+   "seconds": 39.6,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3018",
+   "playbook_version": 3,
+   "case_id": "c-018",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 10603,
+   "tokens_out": 1065,
+   "seconds": 38.7,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4018",
+   "playbook_version": 4,
+   "case_id": "c-018",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 14915,
+   "tokens_out": 1074,
+   "seconds": 24.9,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5018",
+   "playbook_version": 5,
+   "case_id": "c-018",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-018",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": "Every class within 5 points of target and no new events."
+   },
+   "tokens_in": 13538,
+   "tokens_out": 1169,
+   "seconds": 44.3,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0019",
+   "playbook_version": 0,
+   "case_id": "c-019",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13196,
+   "tokens_out": 765,
+   "seconds": 29.2,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1019",
+   "playbook_version": 1,
+   "case_id": "c-019",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 15458,
+   "tokens_out": 934,
+   "seconds": 68.7,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2019",
+   "playbook_version": 2,
+   "case_id": "c-019",
+   "set": "test",
+   "score": 0.86,
+   "passed": true,
+   "violations": [
+    {
+     "rule": "event_marriage",
+     "severity": "soft",
+     "detail": "joint_profile_review flag missing"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9858,
+   "tokens_out": 786,
+   "seconds": 36.2,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3019",
+   "playbook_version": 3,
+   "case_id": "c-019",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 9324,
+   "tokens_out": 1497,
+   "seconds": 32.4,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4019",
+   "playbook_version": 4,
+   "case_id": "c-019",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 15191,
+   "tokens_out": 832,
+   "seconds": 61.7,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5019",
+   "playbook_version": 5,
+   "case_id": "c-019",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-019",
+    "target_allocation": {
+     "equity": 0.4,
+     "bond": 0.5,
+     "cash": 0.1
+    },
+    "trades": [],
+    "rationale": [
+     {
+      "ref": "event:e1",
+      "text": "Marriage: joint profile review before any risk change."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [
+     "joint_profile_review"
+    ],
+    "no_action_reason": "Holding until the joint review."
+   },
+   "tokens_in": 15959,
+   "tokens_out": 1392,
+   "seconds": 61.7,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  },
+  {
+   "run_id": "r-0020",
+   "playbook_version": 0,
+   "case_id": "c-020",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 13674,
+   "tokens_out": 1206,
+   "seconds": 56.2,
+   "created_at": "2026-11-07T13:05:00+00:00"
+  },
+  {
+   "run_id": "r-1020",
+   "playbook_version": 1,
+   "case_id": "c-020",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9732,
+   "tokens_out": 985,
+   "seconds": 26.6,
+   "created_at": "2026-11-07T13:45:00+00:00"
+  },
+  {
+   "run_id": "r-2020",
+   "playbook_version": 2,
+   "case_id": "c-020",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 14637,
+   "tokens_out": 887,
+   "seconds": 43.6,
+   "created_at": "2026-11-07T14:20:00+00:00"
+  },
+  {
+   "run_id": "r-3020",
+   "playbook_version": 3,
+   "case_id": "c-020",
+   "set": "test",
+   "score": 0.86,
+   "passed": false,
+   "violations": [
+    {
+     "rule": "concentration",
+     "severity": "hard",
+     "detail": "ACME 13.0% of portfolio, max 10%"
+    }
+   ],
+   "recommendation": null,
+   "tokens_in": 9593,
+   "tokens_out": 975,
+   "seconds": 67.2,
+   "created_at": "2026-11-07T14:55:00+00:00"
+  },
+  {
+   "run_id": "r-4020",
+   "playbook_version": 4,
+   "case_id": "c-020",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": null,
+   "tokens_in": 14197,
+   "tokens_out": 790,
+   "seconds": 60.9,
+   "created_at": "2026-11-07T15:35:00+00:00"
+  },
+  {
+   "run_id": "r-5020",
+   "playbook_version": 5,
+   "case_id": "c-020",
+   "set": "test",
+   "score": 1.0,
+   "passed": true,
+   "violations": [],
+   "recommendation": {
+    "client_id": "c-020",
+    "target_allocation": {
+     "equity": 0.6,
+     "bond": 0.3,
+     "cash": 0.1
+    },
+    "trades": [
+     {
+      "symbol": "US_EQ",
+      "action": "sell",
+      "amount_usd": 14400,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "BOND",
+      "action": "buy",
+      "amount_usd": 14400,
+      "reason_ref": "rule:glidepath"
+     },
+     {
+      "symbol": "ACME",
+      "action": "sell",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     },
+     {
+      "symbol": "INTL_EQ",
+      "action": "buy",
+      "amount_usd": 9600,
+      "reason_ref": "rule:concentration"
+     }
+    ],
+    "rationale": [
+     {
+      "ref": "rule:glidepath",
+      "text": "Age 60: move equity to the lower half of the band."
+     },
+     {
+      "ref": "rule:concentration",
+      "text": "ACME is 13% of the portfolio; trim to 9%."
+     }
+    ],
+    "profile_updates": {
+     "goals_add": [],
+     "monthly_contribution": null,
+     "risk_score": null
+    },
+    "flags": [],
+    "no_action_reason": null
+   },
+   "tokens_in": 9686,
+   "tokens_out": 1322,
+   "seconds": 63.4,
+   "created_at": "2026-11-07T16:40:00+00:00"
+  }
+ ]
+}
