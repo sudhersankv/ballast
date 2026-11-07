@@ -781,6 +781,7 @@
 
   // ---------- clients ----------
   function renderClients(list) {
+    if (!list.length) { $("#clients").innerHTML = `<li class="muted" style="grid-column:1/-1">No client profiles in this run's database yet. They're written when a version ships; per-client results are under Client journeys.</li>`; return; }
     $("#clients").innerHTML = list.map((c) => `<li><button data-id="${esc(c.client_id)}">
       <span class="nm">${esc(c.name)}</span><span class="sc ${c.passed === false ? "bad" : ""}">${c.score != null ? `${c.passed === false ? "✕ " : ""}${pct(c.score)}` : "–"}</span>
       <span class="meta"><span class="mono">${esc(c.client_id)}</span>, age ${esc(c.age)}, risk ${esc(c.risk_score)} ${c.events.map((e) => `<span class="chip">${esc(e.type.replace("_", " "))}</span>`).join("")}</span>
