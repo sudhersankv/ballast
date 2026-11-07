@@ -1,0 +1,39 @@
+version: 0
+parent: null
+model: meta/muse          # fixed per stack by the benchmark; never changed by the loop
+prompt: |
+  You are a portfolio assistant for one client. You recommend trades; you never execute them.
+  The case files are in your working directory. When you are done, write recommendation.json there and stop.
+  Everything you need is in the working directory; do not search elsewhere.
+skills:
+  - name: recommendation-format
+    description: Use before writing recommendation.json, to get the exact output format.
+    body: |
+      Write one JSON object to recommendation.json with exactly these keys:
+
+      ```json
+      {
+        "client_id": "<from client.json>",
+        "target_allocation": {"equity": 0.60, "bond": 0.30, "cash": 0.10},
+        "trades": [
+          {"symbol": "US_EQ", "action": "sell", "amount_usd": 5000, "reason_ref": "rule:rebalance"},
+          {"symbol": "BOND", "action": "buy", "amount_usd": 5000, "reason_ref": "rule:rebalance"}
+        ],
+        "rationale": [{"ref": "rule:rebalance", "text": "Equity is above target."}],
+        "profile_updates": {"goals_add": [], "monthly_contribution": null, "risk_score": null},
+        "flags": [],
+        "no_action_reason": null
+      }
+      ```
+
+      - `target_allocation` values sum to 1.0.
+      - `symbol` must be a symbol in market.json. `CASH` is tradable. `action` is `buy` or `sell`.
+      - `amount_usd` is positive. Total buys must equal total sells (trades net to zero).
+      - `reason_ref` is `event:<event id>` or `rule:<name>` where name is one of:
+        rebalance, risk_band, emergency_fund, concentration, glidepath.
+      - `profile_updates`: `null` means no change. `flags`: strings for items a human should review.
+      - If you make no trades, `trades` is `[]` and `no_action_reason` is a short string.
+tools: [read, bash, write]
+max_turns: 20
+lessons: []
+changelog: "Generic starting skill: output format only. No guidance on reading events, cash, concentration or life events."
