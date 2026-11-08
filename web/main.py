@@ -475,7 +475,24 @@ def connected_one(cid: str):
     c = next((x for x in CONNECTED if x["id"] == cid), None)
     if not c:
         raise HTTPException(404, f"No connected client {cid}")
-    return {**c, "job": _connected_job(c["case"])}
+    # learning on connected clients: v0 (generic) vs v1 (Muse Wonder's rewrite), and the lessons that apply to this client
+    learn = None
+    try:
+        d, _ = _db(None)
+        pick = lambda tag: d.jobs.find_one({"case": c["case"], "tag": tag, "status": {"$in": ["done", "error"]}}, {"_id": 0}, sort=[("created_at", -1)])
+        v0, v1 = pick("connected-demo"), pick("connected-demo-v1")
+        pb = d.journey_playbooks.find_one({"journey": "connected", "version": 1}, {"_id": 0, "yaml": 0})
+        if v0 or v1:
+            types = {e.get("type") for e in c.get("truth") or []}
+            rules = {x["rule"] for x in (((v0 or {}).get("result") or {}).get("check") or {}).get("violations") or []}
+            lessons = [l for l in (pb or {}).get("lessons") or [] if l.get("triggered_by") in types or l.get("rule") in rules]
+            slim = lambda j: {"job_id": j["job_id"], "model": j.get("model"), "check": ((j.get("result") or {}).get("check") or {}),
+                              "seconds": (j.get("result") or {}).get("seconds")} if j else None
+            learn = {"v0": slim(v0), "v1": slim(v1), "lessons": lessons, "changelog": (pb or {}).get("changelog"),
+                     "compliance": (pb or {}).get("compliance")}
+    except Exception:
+        learn = None
+    return {**c, "job": _connected_job(c["case"]), "learn": learn}
 
 
 @app.get("/api/playbook_versions")

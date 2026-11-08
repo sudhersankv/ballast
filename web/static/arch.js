@@ -174,6 +174,7 @@
   const H = [
     [1, "Case runner", "agent/run_case.py", "Runs one client case through Pi in a sandbox; enforces turn and time limits; records every step", "Pi (Node 22.19+), a model key, Linux user agent", ["spark"], ["runs"]],
     [2, "Portfolio calculator", "agent/tools/portfolio.py", "The agent's tool: current weights, cash in months, what trades would do. The checker uses the same math", "Python only", [], []],
+    ["2b", "Client data connectors", "agent/tools/clientdata.py", "Read-only access to the client's bank transactions, payroll, employer portal (trading windows, HR notices), calendar, messages and credit report. When a client is connected, the harness hides events.json; the agent must find the life change itself", "Client consent per source; synthetic feeds in connectors/", [], ["runs"]],
     [3, "Checker", "checker/check.py, rules.py", "Grades a recommendation: 10 rules, score, pass, violations", "Python only", [], ["runs"]],
     [4, "Drift indicator", "checker/drift.py", "Green / yellow / red from a window of graded runs", "Python only", [], ["drift_events"]],
     [5, "Backtest", "scenarios/backtest.py", "Replays the 12 held-out months: return, drawdown, cash coverage, forced sales", "Held-out market files", [], ["runs"]],
@@ -193,7 +194,7 @@
   let sel = null;
   function renderHandlers() {
     $("#hgrid").innerHTML = H.map((h, k) => `<li><button class="hcard" data-k="${k}" aria-pressed="${sel === k}">
-      <span class="h-n mono">${typeof h[0] === "number" ? String(h[0]).padStart(2, "0") : "—"}</span><span class="h-name">${esc(h[1])}</span>
+      <span class="h-n mono">${typeof h[0] === "number" ? String(h[0]).padStart(2, "0") : (h[0] === "—" ? "—" : h[0])}</span><span class="h-name">${esc(h[1])}</span>
       <span class="h-file mono">${esc(h[2])}</span><span class="h-job">${esc(h[3])}</span><span class="h-needs"><b class="mono">needs</b> ${esc(h[4])}</span></button></li>`).join("");
     $("#colls").innerHTML = COLLS.map((c) => `<li class="mono">${esc(c)}</li>`).join("");
   }
@@ -202,11 +203,11 @@
     svg.innerHTML = "";
     const mx = 16, mw = 176, hx = 300, hw = 250, cx = 676, cw = 176, top = 46;
     const hRow = 36, cRow = 40, mRow = 98;
-    const hy = (k) => top + k * hRow + (k >= 14 ? 26 : 0), cy = (k) => top + 6 + k * cRow, my = (k) => top + 30 + k * mRow;
+    const hy = (k) => top + k * hRow + (k >= 15 ? 26 : 0), cy = (k) => top + 6 + k * cRow, my = (k) => top + 30 + k * mRow;
     // frames: machines and database
     const frame = (x, y, w, h, label, color) => { el("rect", { x, y, width: w, height: h, fill: "none", stroke: tok(color), "stroke-dasharray": "6 4" }, svg); el("text", { x: x + 6, y: y - 6, class: "fl", fill: tok(color) }, svg).textContent = label; };
-    frame(hx - 12, top - 14, hw + 24, hRow * 14 + 6, "Fly machine ballast-runner (iad, Virginia)", "text-3");
-    frame(hx - 12, hy(14) - 8, hw + 24, hRow + 2, "Fly machine ballast-web", "text-3");
+    frame(hx - 12, top - 14, hw + 24, hRow * 15 + 6, "Fly machine ballast-runner (iad, Virginia)", "text-3");
+    frame(hx - 12, hy(15) - 8, hw + 24, hRow + 2, "Fly machine ballast-web", "text-3");
     frame(cx - 12, top - 8, cw + 24, cRow * COLLS.length + 8, "MongoDB Atlas", "jade");
     frame(mx - 8, top + 16, mw + 16, mRow * MODELS.length - 30, "Model APIs", "muse");
     const S = sel == null ? null : H[sel];
@@ -221,6 +222,14 @@
         el("path", { d: `M${hx + hw},${y}H${xm}V${y2}H${cx}`, fill: "none", stroke: tok(on ? "mint" : "rim"), "stroke-width": on ? 2 : 0.75, "stroke-opacity": sel == null || on ? 1 : 0.35 }, svg); });
       if (h[6].includes("*") && on) el("path", { d: `M${hx + hw},${y}H${cx - 12}`, fill: "none", stroke: tok("mint"), "stroke-width": 2 }, svg);
     });
+    // client connectors: outside our machines, read through 2b by the case runner
+    { const y = 560, i2b = H.findIndex((h) => h[0] === "2b"), on = sel === i2b || sel === 0;
+      [0, i2b].forEach((k) => { const yy = hy(k) + hRow / 2 - 4, xm = mx + mw + 40 + (k ? 16 : 0);
+        el("path", { d: `M${mx + mw},${y + 22}H${xm}V${yy}H${hx}`, fill: "none", stroke: tok(on ? "gold" : "rim"), "stroke-width": on ? 2 : 0.75, "stroke-dasharray": "4 3", "stroke-opacity": sel == null || on ? 1 : 0.35 }, svg); });
+      el("rect", { x: mx, y, width: mw, height: 44, fill: tok(on ? "gold" : "deep"), stroke: tok("gold"), "stroke-width": on ? 2 : 1 }, svg);
+      el("text", { x: mx + 10, y: y + 19, class: "nl", fill: tok(on ? "on-accent" : "text") }, svg).textContent = "Client connectors";
+      el("text", { x: mx + 10, y: y + 35, class: "ns", fill: tok(on ? "on-accent" : "text-3") }, svg).textContent = "read-only, consented";
+    }
     // nodes
     MODELS.forEach(([id, name, role, col], i) => {
       const y = my(i), on = litModel.has(id);
@@ -232,7 +241,7 @@
       const y = hy(k), on = sel === k;
       const g = el("g", { class: "hnode", "data-k": k, tabindex: -1 }, svg);
       el("rect", { x: hx, y, width: hw, height: hRow - 8, fill: tok(on ? "mint" : "deep"), stroke: tok(on ? "mint" : "rim") }, g);
-      el("text", { x: hx + 8, y: y + 18, class: "nl", fill: tok(on ? "on-accent" : "text") }, g).textContent = `${typeof h[0] === "number" ? String(h[0]).padStart(2, "0") : "--"}  ${h[1]}`;
+      el("text", { x: hx + 8, y: y + 18, class: "nl", fill: tok(on ? "on-accent" : "text") }, g).textContent = `${typeof h[0] === "number" ? String(h[0]).padStart(2, "0") : (h[0] === "—" ? "--" : h[0])}  ${h[1]}`;
       g.addEventListener("click", () => select(k));
     });
     COLLS.forEach((c, i) => {
@@ -240,7 +249,7 @@
       el("rect", { x: cx, y, width: cw, height: cRow - 12, fill: tok(on ? "jade" : "deep"), stroke: tok(on ? "jade" : "rim") }, svg);
       el("text", { x: cx + 8, y: y + 18, class: "ns", fill: tok(on ? "on-accent" : "text-2") }, svg).textContent = c;
     });
-    el("text", { x: hx, y: 632, class: "ns", fill: tok("text-3") }, svg).textContent = sel == null ? "Pick a handler card or a box to light its connections." : `${H[sel][1]}: ${H[sel][5].length} model ${H[sel][5].length === 1 ? "API" : "APIs"}, ${H[sel][6].includes("*") ? "all 13" : H[sel][6].length} ${H[sel][6].length === 1 ? "collection" : "collections"}`;
+    el("text", { x: hx, y: 672, class: "ns", fill: tok("text-3") }, svg).textContent = sel == null ? "Pick a handler card or a box to light its connections." : `${H[sel][1]}: ${H[sel][5].length} model ${H[sel][5].length === 1 ? "API" : "APIs"}, ${H[sel][6].includes("*") ? "all 13" : H[sel][6].length} ${H[sel][6].length === 1 ? "collection" : "collections"}`;
   }
   function select(k) {
     sel = sel === k ? null : k;

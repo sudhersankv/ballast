@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ballast. how it's built</title>
-<meta name="description" content="ballast., end to end: the harness, the four loops, the twelve runtime handlers, and where it all runs.">
+<meta name="description" content="ballast., end to end: the harness, the four loops, the thirteen runtime handlers, and where it all runs.">
 <meta name="theme-color" content="#0b0f14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0f14'/%3E%3Cpath d='M32 8 56 32 32 56 8 32Z' fill='none' stroke='%2378e8a8' stroke-width='5'/%3E%3Crect x='27' y='27' width='10' height='10' fill='%23e9c46a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,7 +93,12 @@
         <p class="a-p">So the output is not a black box that got better. It is a list of specific, auditable behaviors, each with the failure it came from and the evidence that it works.</p>
       </div>
     </div>
-  </section>
+      <div class="a-hard frame">
+      <h3 class="a-h3">The harder version of the problem: nobody tells the agent</h3>
+      <p class="a-p">In real life, clients rarely tell their advisor that something changed. The signal is in their data: paychecks stop, a home-care payment appears, an HR portal posts a desk wind-down. So the agent is <b>connected</b> to the client's accounts (read-only, with consent, every read logged) and has to <b>discover</b> what changed before it can act. The grader still knows the truth, so we can score whether it noticed.</p>
+      <p class="a-p"><a href="/live#connected">See the five connected clients, what the agent read, and what it learned from v0 to v1 →</a></p>
+    </div>
+</section>
 
   <!-- 3 -->
   <section class="a-sec" aria-labelledby="s3">
@@ -134,11 +139,11 @@
   <!-- 6 -->
   <section class="a-sec" aria-labelledby="s6">
     <div class="sec-head"><h2 class="sec-h" id="s6">The runtime: every handler</h2>
-      <p class="sec-sub">"Handler" here means a piece of the system with one job, its inputs, and its outputs. There are <b>12 runtime handlers</b> plus the web app. Pick one to light its connections on the map.</p></div>
+      <p class="sec-sub">"Handler" here means a piece of the system with one job, its inputs, and its outputs. There are <b>13 runtime handlers</b> plus the web app. Pick one to light its connections on the map.</p></div>
     <ol class="hgrid" id="hgrid"></ol>
     <div class="smap-wrap frame">
       <p class="viz-k">System map <span>handlers, MongoDB collections, Fly machines, model APIs</span></p>
-      <div class="lmap-scroll" tabindex="0" aria-label="System map, scroll sideways"><svg id="smap" class="smap" viewBox="0 0 1000 640" role="img" aria-label="System map"></svg></div>
+      <div class="lmap-scroll" tabindex="0" aria-label="System map, scroll sideways"><svg id="smap" class="smap" viewBox="0 0 1000 680" role="img" aria-label="System map"></svg></div>
     </div>
     <div class="a-two a-gap">
       <div class="panel">

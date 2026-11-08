@@ -83,6 +83,30 @@
       JSON.stringify(rec.profile_updates || {}), JSON.stringify(rec.inferred_events || rec.detected_events || [])].join(" \n ");
   }
 
+  // v0 (generic playbook) vs v1 (Muse's rewrite after reading the v0 failures on connected clients)
+  function learnHTML(L) {
+    if (!L || !(L.v0 || L.v1)) return "";
+    const ck = (j) => (j && j.check) || {};
+    const side = (k, j) => { const ch = ck(j);
+      return `<div class="lv"><p class="mono muted csm">${k}</p>${j ? `<p class="lv-n ${ch.passed ? "pos" : "neg"}">${ch.score != null ? Number(ch.score).toFixed(3) : "—"}</p><p class="mono csm ${ch.passed ? "pos" : "neg"}">${ch.passed ? "✓ passed" : "✕ failed"}</p>
+        ${(ch.violations || []).map((x) => `<p class="lv-viol mono">✕ ${esc(x.rule)}${x.detail ? `: ${esc(clip(x.detail, 140))}` : ""}</p>`).join("") || `<p class="mono muted csm">no violations</p>`}
+        <button class="btn small" type="button" data-rj="${esc(j.job_id)}">Replay</button>` : `<p class="muted">Not run yet.</p>`}</div>`; };
+    const r0 = new Set((ck(L.v0).violations || []).map((x) => x.rule)), r1 = new Set((ck(L.v1).violations || []).map((x) => x.rule));
+    const gone = [...r0].filter((r) => !r1.has(r)), added = [...r1].filter((r) => !r0.has(r));
+    const s0 = ck(L.v0).score, s1 = ck(L.v1).score;
+    const d = s0 != null && s1 != null ? s1 - s0 : null;
+    const lessons = L.lessons || [];
+    return `<section class="panel a-gap clearn"><h3 class="panel-h">What it learned: v0 → v1</h3>
+      <p class="muted csm">Muse read the v0 failures on connected clients and rewrote the playbook once. Gemini reviewed it${L.compliance && L.compliance.approved === false ? " and flagged it" : ""}. Same client, same data, re-run on v1.</p>
+      ${L.changelog ? `<p class="csm lnote"><span class="mono muted">v1 changelog</span> ${esc(typeof L.changelog === "string" ? L.changelog : JSON.stringify(L.changelog))}</p>` : ""}
+      <div class="lgrid">${side("v0, generic playbook", L.v0)}<div class="larrow mono ${d == null ? "muted" : d > 0 ? "pos" : d < 0 ? "neg" : "muted"}">${d == null ? "→" : d === 0 ? "= 0.000" : `${d > 0 ? "▲ +" : "▼ −"}${Math.abs(d).toFixed(3)}`}</div>${side("v1, after learning", L.v1)}</div>
+      ${gone.length ? `<p class="mono pos csm lnote">✓ Gone on v1: ${gone.map(esc).join(", ")}</p>` : ""}${added.length ? `<p class="mono neg csm lnote">✕ New on v1: ${added.map(esc).join(", ")}</p>` : ""}
+      ${lessons.length ? `<p class="cmeta mono">Lessons in v1 that target this client</p><ul class="llist">${lessons.map((l) => `<li><p class="mono csm"><span class="chip">${esc(l.triggered_by || "any event")}</span> <span class="chip">${esc(l.rule || "")}</span>${l.skill ? ` <span class="muted">skill ${esc(l.skill)}</span>` : ""}</p>
+        <p>${esc(l.lesson || "")}</p>${l.root_cause ? `<p class="muted csm">Root cause: ${esc(l.root_cause)}</p>` : ""}</li>`).join("")}</ul>`
+        : `<p class="muted csm lnote">No v1 lesson targets this client's events or its v0 violations.${d != null && d < 0 ? " The drop comes from the shared playbook rewrite, not from a lesson about this client. The ship gate exists to catch this." : ""}</p>`}
+    </section>`;
+  }
+
   async function show(id) {
     const v = $("#cview");
     v.innerHTML = `<p class="muted">Loading ${esc(id)}.</p>`;
@@ -114,11 +138,13 @@
           <p class="muted csm" style="margin-top:8px">Truth comes from the hidden events.json the grader uses; matching is by keyword in what the agent said, cited and flagged.</p>
         </section>
       </div>
+      ${learnHTML(c.learn)}
       <section class="panel a-gap"><h3 class="panel-h">Verdict</h3>
         ${job ? `${window.ballastVerdict ? window.ballastVerdict(job.result) : ""}<p style="margin-top:12px"><button class="btn small primary" type="button" id="c-replay">Replay this run</button> <span class="muted mono csm">${esc(job.model || "")}, ${esc(job.job_id)}</span></p>`
           : `<p class="muted">Not run yet.</p><p style="margin-top:10px"><button class="btn small primary" type="button" id="c-run">Pick this client in Run it</button></p>`}
       </section>`;
     $("#c-replay")?.addEventListener("click", () => window.ballastReplay && window.ballastReplay("job", job.job_id));
+    v.querySelectorAll("button[data-rj]").forEach((b) => b.addEventListener("click", () => window.ballastReplay && window.ballastReplay("job", b.dataset.rj)));
     $("#c-run")?.addEventListener("click", () => window.ballastPickCase && window.ballastPickCase(c.case));
   }
 
