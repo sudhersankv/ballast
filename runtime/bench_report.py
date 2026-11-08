@@ -395,6 +395,141 @@ def subq_feedback(m: dict, s: dict) -> tuple[list[str], dict]:
     return L, json.loads(json.dumps(data, default=str))
 
 
+PRICE = {  # $ per 1M tokens (input, output); None = not published
+    "muse": (1.25, 4.25), "mixed": (1.25, 4.25), "subq": None,
+    "gemini": None,
+}
+SNAP_PRICE_IN = 0.04
+
+
+def pctl(xs: list[float], q: float):
+    if not xs:
+        return None
+    xs = sorted(xs)
+    return xs[min(len(xs) - 1, int(round(q * (len(xs) - 1))))]
+
+
+def headline_metrics(stack: str, d: dict) -> dict:
+    S, runs = d["summary"], d["runs"]
+    fin_v = S["final_version"]
+    test_v0 = [r for r in runs if r.get("set") == "test" and r.get("playbook_version") == 0]
+    test_fin = [r for r in runs if r.get("set") == "test" and r.get("playbook_version") == fin_v]
+    agent_runs = [r for r in runs]
+    tin = sum(r.get("tokens_in") or 0 for r in agent_runs)
+    tout = sum(r.get("tokens_out") or 0 for r in agent_runs)
+    co = S["cost"]
+    mt_in, mt_out = co["mentor_tokens_in"], co["mentor_tokens_out"]
+    price = PRICE.get(stack)
+
+    def dollars(i, o):
+        return None if price is None else round(i / 1e6 * price[0] + o / 1e6 * price[1], 4)
+
+    def per_pass(rs):
+        p = sum(1 for r in rs if r.get("passed"))
+        i = sum(r.get("tokens_in") or 0 for r in rs)
+        o = sum(r.get("tokens_out") or 0 for r in rs)
+        return {"passing_runs": p, "tokens_per_pass": round((i + o) / p) if p else None,
+                "usd_per_pass": (None if dollars(i, o) is None or not p else round(dollars(i, o) / p, 4))}
+
+    def consistency(rs):
+        g: dict[str, list] = {}
+        for r in rs:
+            g.setdefault(r["case_id"], []).append(r)
+        multi = {c: v for c, v in g.items() if len(v) > 1}
+        if not multi:
+            return {"identical_share": None, "mean_score_std": None}
+        same = sum(1 for v in multi.values() if len({bool(x.get("passed")) for x in v}) == 1)
+        stds = [statistics.pstdev([x.get("score") or 0 for x in v]) for v in multi.values()]
+        return {"identical_share": round(same / len(multi), 3), "mean_score_std": round(statistics.mean(stds), 3)}
+
+    def hard_rate(rs):
+        return round(sum(1 for r in rs if any(v.get("severity") == "hard" for v in r.get("violations") or [])) / len(rs), 3) if rs else None
+
+    secs = [r.get("seconds") or 0 for r in runs if r.get("set") != "journey"]
+    logs = [x["msg"] for x in d["store"].find("loop_log")]
+    bench_first_bad = sum(1 for m_ in logs if m_.startswith("[bench") and "mentor attempt 1 invalid" in m_)
+    bench_seq = sum(1 for g in S["generations"] if g.get("mode") in ("training", "control"))
+    j_first_bad = sum(1 for m_ in logs if m_.startswith("[journey") and "mentor attempt 1 invalid" in m_)
+    j_seq = sum(1 for m_ in logs if m_.startswith("[journey") and (" LEARNED " in m_ or " rejected " in m_)) + \
+        sum(1 for m_ in logs if m_.startswith("[journey") and "mentor attempt 2 invalid" in m_)
+    seq = bench_seq + j_seq
+    tr = [g for g in S["generations"] if g.get("mode") == "training"]
+    shipped = [g for g in tr if g.get("decision") == "shipped"]
+    ctrl = (S.get("control") or {}).get("gain")
+    snap_tokens = sum(e.get("input_tokens") or 0 for e in ((S["drift"].get("snap") or {}).get("event_gates") or []))
+    snap_tokens += ((S["drift"].get("snap") or {}).get("window") or {}).get("input_tokens") or 0
+    js = d["jsumm"]
+    improved = sum(1 for j in js if (j["holdout_mean_final"] or 0) > (j["holdout_mean_start"] or 0) + 1e-9)
+    worse = sum(1 for j in js if (j["holdout_mean_final"] or 0) < (j["holdout_mean_start"] or 0) - 1e-9)
+    an = S["drift"].get("analysis") or {}
+    return {
+        "cost": {"agent_tokens_in": tin, "agent_tokens_out": tout, "mentor_tokens_in": mt_in, "mentor_tokens_out": mt_out,
+                 "agent_usd": dollars(tin, tout), "mentor_usd": dollars(mt_in, mt_out),
+                 "snap_tokens": snap_tokens, "snap_usd": round(snap_tokens / 1e6 * SNAP_PRICE_IN, 5) if snap_tokens else None,
+                 "v0": per_pass(test_v0), "final": per_pass(test_fin)},
+        "consistency": {"v0": consistency(test_v0), "final": consistency(test_fin)},
+        "latency": {"p50": pctl(secs, 0.5), "p95": pctl(secs, 0.95)},
+        "hard_violation_rate": {"v0": hard_rate(test_v0), "final": hard_rate(test_fin)},
+        "pass_rate_runs": {"v0": S["v0"]["test"]["run_pass_rate"], "final": S["final_test"]["run_pass_rate"]},
+        "mentor": {"valid_first_try": round(1 - (bench_first_bad + j_first_bad) / seq, 3) if seq else None,
+                   "proposal_sequences": seq, "ship_rate": f"{len(shipped)}/{len(tr)}",
+                   "mean_gain_shipped": round(statistics.mean(g["gain"] for g in shipped), 4) if shipped else None,
+                   "control_gain": ctrl,
+                   "regressions_blocked": sum(len(g.get("lost") or []) for g in tr if g.get("decision") != "shipped")
+                   + sum(1 for m_ in logs if "broke earlier" in m_),
+                   "regressions_shipped": sum(len(g.get("lost") or []) for g in shipped)},
+        "journeys": {"improved": improved, "same": len(js) - improved - worse, "worse": worse},
+        "analyst": {k: an.get(k) for k in ("provider", "model", "runs_read", "tokens_read", "seconds")},
+    }
+
+
+def headline_section(stacks: dict[str, dict]) -> list[str]:
+    H = {k: headline_metrics(k, v) for k, v in stacks.items()}
+    names = list(stacks)
+
+    def r(label, f):
+        return "| " + label + " | " + " | ".join(f(H[n]) for n in names) + " |"
+    usd = lambda x: "–" if x is None else f"${x:,.4f}"
+    L = ["## Headline metrics per stack", "",
+         "| Metric | " + " | ".join(stacks[n]["summary"]["label"].split(" (")[0] for n in names) + " |",
+         "|---|" + "---|" * len(names),
+         r("Run pass rate on unseen test, v0 → final", lambda h: f"{pct(h['pass_rate_runs']['v0'])} → {pct(h['pass_rate_runs']['final'])}"),
+         r("Hard-rule violation rate, v0 → final", lambda h: f"{pct(h['hard_violation_rate']['v0'])} → {pct(h['hard_violation_rate']['final'])}"),
+         r("Consistency: cases identical across repeats, v0 → final", lambda h: f"{pct(h['consistency']['v0']['identical_share'])} → {pct(h['consistency']['final']['identical_share'])}"),
+         r("Mean per-case score std-dev, v0 → final", lambda h: f"{fmt(h['consistency']['v0']['mean_score_std'])} → {fmt(h['consistency']['final']['mean_score_std'])}"),
+         r("Latency per case p50 / p95 (s)", lambda h: f"{fmt(h['latency']['p50'], 1)} / {fmt(h['latency']['p95'], 1)}"),
+         r("Tokens per passing case (final)", lambda h: f"{h['cost']['final']['tokens_per_pass']:,}" if h['cost']['final']['tokens_per_pass'] else "–"),
+         r("Cost per passing recommendation (final)", lambda h: usd(h['cost']['final']['usd_per_pass'])),
+         r("Agent tokens in / out (whole run)", lambda h: f"{h['cost']['agent_tokens_in']:,} / {h['cost']['agent_tokens_out']:,}"),
+         r("Agent cost (whole run)", lambda h: usd(h['cost']['agent_usd'])),
+         r("Mentor tokens in / out, cost", lambda h: f"{h['cost']['mentor_tokens_in']:,} / {h['cost']['mentor_tokens_out']:,}, {usd(h['cost']['mentor_usd'])}"),
+         r("Snap tokens, cost", lambda h: f"{h['cost']['snap_tokens']:,}, {usd(h['cost']['snap_usd'])}" if h['cost']['snap_tokens'] else "not used"),
+         r("Mentor valid on first try", lambda h: f"{pct(h['mentor']['valid_first_try'])} of {h['mentor']['proposal_sequences']}"),
+         r("Fleet versions shipped / tried", lambda h: h['mentor']['ship_rate']),
+         r("Mean gain per shipped version vs own control arm", lambda h: f"{fmt(h['mentor']['mean_gain_shipped'], sign=True)} vs {fmt(h['mentor']['control_gain'], sign=True)}"),
+         r("Regressions blocked by gates / shipped", lambda h: f"{h['mentor']['regressions_blocked']} / {h['mentor']['regressions_shipped']}"),
+         r("Journeys improved / same / worse (holdout mean)", lambda h: f"{h['journeys']['improved']} / {h['journeys']['same']} / {h['journeys']['worse']}"),
+         r("Drift analyst: runs read, tokens, seconds", lambda h: f"{h['analyst'].get('runs_read')}, {h['analyst'].get('tokens_read')}, {h['analyst'].get('seconds')} ({h['analyst'].get('model')})"),
+         "",
+         "Pricing: Muse at $1.25 / 1M input and $4.25 / 1M output (published Spark pricing; Wonder assumed the same). SubQ Preview and Gemini 3.8 Flash prices "
+         "were not published to us, so their $ cells are blank and tokens are reported instead. Snap at $0.04 / 1M input, output free. Tokenizers differ between "
+         "providers and reasoning tokens are included in output counts, so tokens are comparable within a stack, not exactly across stacks.", ""]
+    return L, H
+
+
+FAIRNESS = ["## Fairness controls", "",
+            "Every stack ran under identical conditions; only the model behind the agent and the mentor changed:",
+            "- **Harness:** the same Pi coding-agent setup (tools `read`, `bash`, `write`; same sandbox user; same turn and time limits).",
+            "- **Prompts:** the same generic starting playbook (`agent/playbooks/v000-generic.yaml`), the same task message, the same mentor prompt (`runtime/prompts/mentor.md`).",
+            "- **Data and seeds:** the same cases, the same held-out market months, the same journeys, the same shuffling seed for the control arm.",
+            "- **Gates:** the same paired gate (mean gain ≥ 0.02, bootstrap 90% CI above zero, no lost test client, regression flips re-checked, backtest not worse) and the same validator.",
+            "- **Repeats:** the same number of runs per test client.",
+            "- **Reviewer:** Gemini is the only compliance reviewer for every stack.",
+            "",
+            "SubQ Preview is a long-context model. The agent role (short cases, many tool turns) does not play to that strength; the drift-analyst role, "
+            "which reads every run in one call, is the better test of it. Its analyst run is reported under each stack's drift section.", ""]
+
+
 def main() -> None:
     m, s = load_stack("muse"), load_stack("subq")
     if not (m["summary"] and s["summary"]):
@@ -436,7 +571,9 @@ def main() -> None:
         L.append(f"| {a.get('client') or b.get('client')} | {a.get('holdout_pass_start', '–')} → {a.get('holdout_pass_final', '–')} ({a.get('lessons', 0)} lessons) | "
                  f"{b.get('holdout_pass_start', '–')} → {b.get('holdout_pass_final', '–')} ({b.get('lessons', 0)} lessons) |")
     fb_lines, fb_data = subq_feedback(m, s)
-    L += [""] + side_by_side(m, s) + [""] + section_stack("muse", m) + section_stack("subq", s) + fb_lines
+    hl_lines, hl_data = headline_section({"muse": m, "subq": s})
+    L = L[:6] + FAIRNESS + L[6:]
+    L += [""] + hl_lines + side_by_side(m, s) + [""] + section_stack("muse", m) + section_stack("subq", s) + fb_lines
     L += ["## Method notes", "",
           "- Policy rules and thresholds are illustrative; clients are synthetic; market returns are real monthly data (Kenneth French library, FRED).",
           "- The mentor sees violation details for practice clients only; test, regression, drift and journey holdout quarters are never shown to it.",
@@ -449,7 +586,8 @@ def main() -> None:
     Store().insert("benchmarks", {"kind": "comparison",
                                   "stacks": {"muse": json.loads(json.dumps({k: v for k, v in M.items() if k != "drift"}, default=str)),
                                              "subq": json.loads(json.dumps({k: v for k, v in Q.items() if k != "drift"}, default=str))},
-                                  "subq_feedback": fb_data, "markdown_path": "docs/BENCHMARK.md"})
+                                  "subq_feedback": fb_data, "headline": json.loads(json.dumps(hl_data, default=str)),
+                                  "markdown_path": "docs/BENCHMARK.md"})
     print("wrote", out)
 
 
