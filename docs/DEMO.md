@@ -59,6 +59,42 @@ Scroll to **Proof** on the home page:
 | Test data | 60 cases, 6 journeys through real 2000–2023 markets, 300 stress clients with 54 event types incl. trading-firm collapses |
 | Harness | 13 handlers; each run sandboxed; 10 policy rules (+6 for new events) hidden from the agent |
 
+## Models: why each one, what it does
+
+| Model | Role | Why this model | Input | Output |
+| --- | --- | --- | --- | --- |
+| **Muse Spark 1.3** (Meta) | The client's agent | Fast, reliable tool use in the harness; the model we're improving | Client files + data feeds, skills, tools | `recommendation.json`: trades with reasons, profile updates, flags |
+| **Muse Wonder 1.0** (Meta) | The teacher (mentor) | Deeper reasoning for diagnosing root causes and rewriting skills | The current skills + up to 8 failures (events, trades, exact violations) | New skills + plain-English lessons, max 3 changes |
+| **Gemini 3.8 Flash** (Google) | Independent compliance reviewer | A different model family, so it isn't grading its own work | Old skills vs new skills | Approve or block, with a one-line reason |
+| **SubQ Snap** (Subquadratic) | Decision gates (early warning) | Built for fast, calibrated yes/no and multiple-choice decisions: ~0.8 s, $0.04 per million tokens | Client state + new life event + the agent's current skills | Probabilities per question (below) |
+| **SubQ Preview** (Subquadratic) | Long-context drift analyst | Reads all runs at once, no chunking | Every run, client timeline and skill version | Named failure patterns handed to Muse |
+
+## How drift is measured
+
+1. **Ground truth is the rule checker.** Every run is scored on 10 fixed rules (5 hard, 5 soft).
+2. **Trusted rules:** the hard rules the shipped version passed 100% of the time when it was verified.
+3. **Red** = any recent run breaks a trusted rule. **Yellow** = the rolling score drops 0.05 below the shipped baseline, or soft violations rise. **Green** otherwise.
+4. On red: roll back to the last good version, turn the failed cases into tests, have the analyst name the pattern, and have Muse write a fix through the same gate. After 3 failed fixes, escalate to a human.
+
+## The decision model (SubQ Snap): what we feed it, what we get, what we compare it to
+
+**Gate 1, on each new life event (before the agent runs).** Triggered by a MongoDB change stream when an event lands.
+- **Input:** the client's profile, holdings, the new event and earlier events, and a summary of the agent's current skills.
+- **Questions:** one yes/no per rule ("is this rule now at risk?"), one yes/no on whether the skills cover this kind of event, and an urgency score from 0 to 3.
+- **Output, real example (Miguel's layoff):** emergency_fund at risk **0.999**, skills cover it **0.017**, so **re-run this client now**.
+- **Use:** risky, uncovered events get re-run first: an early warning before a bad recommendation goes out.
+
+**Gate 2, after a batch of runs.**
+- **Input:** the last 10 scored runs, labelled [R1]…[R10] with their violations, plus the baseline and the trusted rules.
+- **Questions:** roll back? drift level (green/yellow/red)? which rule is at risk (with a "none" option)? is this a new kind of situation or the agent forgetting? how urgent?
+- **Output:** probabilities for each. It's a second opinion; the rule checker stays the authority.
+
+**What we compare it against:** the rule checker. We labelled ground truth by running the checker on real cases, then measured Snap against those labels:
+- Event gate: **F1 0.94** (precision 0.98, recall 0.90) over 39 events, threshold 0.6.
+- Window verdict: matched the checker's drift level on **14 of 14** windows and named the failing rule on **6 of 6** red ones.
+- It separates noise from pattern: one isolated failure gets a rollback probability of 0.17–0.31; a real pattern gets 0.99 or higher.
+- One known miss: on the layoff case it rated risk_band at 0.13 when equity was already over the band.
+
 ## If they ask
 
 - **"Is it just learning the test?"** The rules are hidden; the reviewer blocks client-specific shortcuts; every upgrade is scored on unseen clients; the control arm with shuffled failures gained nothing.
