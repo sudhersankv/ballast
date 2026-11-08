@@ -162,6 +162,7 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_s
         env["HOME"] = os.environ.get("HOME", os.environ.get("USERPROFILE", ""))
 
     turns = tin = tout = 0
+    provider_error = None  # set when the model API itself fails mid-run (rate limit, 5xx)
     error = None
     steps: list[dict] = []  # compact per-step trace for the live UI
 
@@ -195,6 +196,8 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_s
                 if kind == "message_end" and (ev.get("message") or {}).get("role") == "assistant":
                     a, b = _usage(ev)
                     tin, tout = tin + a, tout + b
+                    if ev["message"].get("stopReason") == "error":
+                        provider_error = str(ev["message"].get("errorMessage") or "provider error")[:300]
                     said = " ".join(c.get("text", "") for c in ev["message"].get("content", [])
                                     if isinstance(c, dict) and c.get("type") == "text").strip()
                     if said:
@@ -225,7 +228,8 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_s
         except json.JSONDecodeError as e:
             error = error or f"recommendation.json is not valid JSON: {e}"
     elif error is None:
-        error = "agent did not write recommendation.json"
+        error = (f"provider error: {provider_error}" if provider_error
+                 else "agent did not write recommendation.json")
 
     shutil.rmtree(tmp, ignore_errors=True)
     if not keep_workdir:

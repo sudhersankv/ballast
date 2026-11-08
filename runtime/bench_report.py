@@ -446,6 +446,13 @@ def headline_metrics(stack: str, d: dict) -> dict:
         return round(sum(1 for r in rs if any(v.get("severity") == "hard" for v in r.get("violations") or [])) / len(rs), 3) if rs else None
 
     secs = [r.get("seconds") or 0 for r in runs if r.get("set") != "journey"]
+
+    def infra(r):  # the model API failed mid-run (rate limit / 5xx), not an agent decision
+        e = r.get("error") or ""
+        return e.startswith("provider error") or (e == "agent did not write recommendation.json"
+                                                   and (r.get("turns") or 0) <= 2 and (r.get("tokens_out") or 0) < 400)
+    infra_n = sum(1 for r in runs if infra(r))
+    agent_err_n = sum(1 for r in runs if r.get("error") and not infra(r))
     logs = [x["msg"] for x in d["store"].find("loop_log")]
     bench_first_bad = sum(1 for m_ in logs if m_.startswith("[bench") and "mentor attempt 1 invalid" in m_)
     bench_seq = sum(1 for g in S["generations"] if g.get("mode") in ("training", "control"))
@@ -469,6 +476,8 @@ def headline_metrics(stack: str, d: dict) -> dict:
                  "v0": per_pass(test_v0), "final": per_pass(test_fin)},
         "consistency": {"v0": consistency(test_v0), "final": consistency(test_fin)},
         "latency": {"p50": pctl(secs, 0.5), "p95": pctl(secs, 0.95)},
+        "errors": {"runs": len(runs), "infra": infra_n, "agent": agent_err_n,
+                   "max_turns": sum(1 for r in runs if (r.get("error") or "").startswith("max_turns"))},
         "hard_violation_rate": {"v0": hard_rate(test_v0), "final": hard_rate(test_fin)},
         "pass_rate_runs": {"v0": S["v0"]["test"]["run_pass_rate"], "final": S["final_test"]["run_pass_rate"]},
         "mentor": {"valid_first_try": round(1 - (bench_first_bad + j_first_bad) / seq, 3) if seq else None,
@@ -633,6 +642,7 @@ def report2() -> None:
          row("Regressions blocked / shipped", lambda k: f"{H[k]['mentor']['regressions_blocked']} / {H[k]['mentor']['regressions_shipped']}"),
          row("Journeys improved / same / worse", lambda k: f"{H[k]['journeys']['improved']} / {H[k]['journeys']['same']} / {H[k]['journeys']['worse']}"),
          row("Latency p50 / p95 (s)", lambda k: f"{fmt(H[k]['latency']['p50'], 1)} / {fmt(H[k]['latency']['p95'], 1)}"),
+         row("Errors: agent (of which out of turns) / provider-side, of runs", lambda k: f"{H[k]['errors']['agent']} ({H[k]['errors']['max_turns']}) / {H[k]['errors']['infra']} of {H[k]['errors']['runs']}"),
          row("Agent tokens in / out", lambda k: f"{H[k]['cost']['agent_tokens_in']:,} / {H[k]['cost']['agent_tokens_out']:,}"),
          row("Agent cost", lambda k: "–" if H[k]['cost']['agent_usd'] is None else f"${H[k]['cost']['agent_usd']:,.2f}"),
          row("Wall clock", lambda k: f"{S[k]['cost']['wall_minutes']} min"), ""]
