@@ -19,6 +19,7 @@
   <nav class="nav" aria-label="Sections">
     <a href="/#genome">Genome</a>
     <a href="/#journeys">Journeys</a>
+    <a href="#chat">Chat</a>
     <a href="/architecture">How it's built</a>
     <a href="/live" class="live-link" aria-current="page"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
@@ -28,6 +29,14 @@
 </header>
 
 <main id="main" class="live-main">
+  <section class="fchat" id="chat" aria-labelledby="chat-h" style="margin-bottom:56px">
+    <div class="live-head"><div>
+      <h2 class="sec-h" id="chat-h">Chat with your agent</h2>
+      <p class="sec-sub">The ballast. agent is live on Fetch.ai. A client says what happened in plain words; the agent works out the life event, runs a real job on the worker and replies with trades, reasons and its policy score.</p>
+    </div></div>
+    <div data-fetch-chat><p class="muted">Loading chats.</p></div>
+  </section>
+
   <section class="runp" id="run-it" aria-labelledby="run-h">
     <div class="live-head">
       <div>
@@ -144,5 +153,6 @@
 <script src="/static/run.js"></script>
 <script src="/static/connected.js"></script>
 <script src="/static/live.js"></script>
+<script src="/static/chat.js"></script>
 </body>
 </html>

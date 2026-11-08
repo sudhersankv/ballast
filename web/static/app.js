@@ -62,6 +62,14 @@
             body: "The advisory team's first playbook: read the case, rebalance to target. It has no habits for life events. On a layoff it rebalanced to normal targets and left about 2.7 months of cash where 6 were needed.",
             gate: gateBaseline(g), stamp: ["Baseline", "hold"], mut: { mode: "base" } });
           live = g.version;
+        } else if (g.mode === "control") {
+          // the control arm: same mentor, shuffled failures. Never meant to ship; it shows the real gain isn't a reroll
+          const ci = g.ci ? ` (90% CI ${sd(g.ci[0])} to ${sd(g.ci[1])})` : "";
+          Object.assign(s, { kind: "reject", label: `v${g.version} control`, title: `v${g.version}: the control arm`,
+            body: `Same mentor, same budget, but fed shuffled failures. Paired gain ${sd(g.gain ?? 0)}${ci}: no real improvement, so it is not shipped. Any gain the trained version shows has to beat this.`,
+            gate: [chk((g.gain ?? 0) >= 0.02, "Paired gain on unseen clients", sd(g.gain ?? 0), `needs +0.020${ci}`), chk(g.ci ? g.ci[0] > 0 : null, "90% CI above zero", g.ci ? sd(g.ci[0]) : "—", "lower bound"),
+              chk(null, "Purpose", "Control", "never ships; measures what a reroll does")],
+            stamp: ["Control", "hold"], strand: "rejected", mut: { mode: "gen" } });
         } else if (g.decision === "rejected") {
           const blocked = g.compliance && g.compliance.verdict === "block";
           Object.assign(s, { kind: "reject", label: `v${g.version} blocked`, title: `v${g.version} doesn't survive`,
@@ -152,7 +160,7 @@
   const cv = (c) => (c ? (c.verdict === "approve" ? "Approved" : "Blocked") : "Skipped");
   function gateBaseline(g) {
     return [chk(null, "Beats parent on unseen clients", "Baseline", "every upgrade must beat this"),
-      chk(g.regression.pass_rate >= 1, "Regression set", `${pct(g.regression.pass_rate)}%`, "clients that must always pass"),
+      g.regression ? chk(g.regression.pass_rate >= 1, "Regression set", `${pct(g.regression.pass_rate)}%`, "clients that must always pass") : chk(null, "Regression set", "—", "not run"),
       chk(null, "Gemini compliance review", "Not needed", "nothing changed yet")];
   }
   function gateTraining(g, p) {
@@ -163,7 +171,8 @@
   }
   // the regression gate: an upgrade must hold its parent's regression pass rate (no lost ground)
   function regHold(g, p) {
-    const floor = p ? p.regression.pass_rate : g.regression.pass_rate;
+    if (!g.regression) return chk(null, "Regression held", "—", "no regression run for this version");
+    const floor = p && p.regression ? p.regression.pass_rate : g.regression.pass_rate;
     return chk(g.regression.pass_rate >= floor, "Regression held", `${g.regression.pass_rate.toFixed(2)}`, `pass rate; parent ${floor.toFixed(2)}, must not drop`);
   }
   function gateDriftFix(g) {
@@ -684,7 +693,7 @@
 
   // ---------- stack ----------
   const TECH = [
-    { id: "fetch", name: "Fetch.ai Agentverse", role: "Client chat, Next: not built yet", color: "amber", next: true, job: "Planned: each client's agent as a uAgent on Agentverse, so a client can chat with their own agent. Not built yet; no Agentverse key." },
+    { id: "fetch", name: "Fetch.ai uAgents", role: "Client chat, live", color: "amber", job: "The ballast. chat agent runs on Fly (ballast-fetch), speaks the Agent Chat Protocol 0.3.0 and is registered on the Almanac. A client messages it in plain language from ASI:One or Agentverse; Muse classifies the life event, a real job runs on the worker, and the agent replies with trades, reasons, advisor flags and the policy score." },
     { id: "mongo", name: "MongoDB Atlas", role: "Memory and triggers", color: "jade", job: "Stores clients, runs, versions, lessons, jobs and drift events. Change streams fire a drift check when a life event lands and start live runs from the website. Next: vector search over past drift cases." },
     { id: "gemini", name: "Gemini", role: "Google DeepMind, compliance reviewer", color: "gold", wide: true, job: "Independent compliance reviewer in both stacks. Example: it blocked a Muse change that hard-coded \"$600 monthly contribution\" copied from one client's violation." },
     { id: "snap", name: "SubQ Snap", role: "Subquadratic, decision gates", color: "subq", job: "Scores every new life event in under a second: which rules are at risk, whether the playbook covers it, whether to re-run now. Gate F1 0.94 over 39 events, $0.04 per 1M input tokens. A second opinion on every drift window; the rules stay the source of truth." },

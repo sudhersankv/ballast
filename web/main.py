@@ -426,6 +426,65 @@ def lineage(db: str | None = None, demo: int = 0):
     return out
 
 
+# ---------- the proof: latest shipped generation vs its parent, plus the control arm ----------
+def _gen_slim(g, key="test"):
+    t = (g or {}).get(key) or {}
+    bt = t.get("backtest") or {}
+    return {"n_cases": t.get("n_cases"), "n_runs": t.get("n_runs"), "pass_rate": t.get("pass_rate"), "mean_score": t.get("mean_score"),
+            "case_breaches": bt.get("case_breaches"), "case_forced_sales": bt.get("case_forced_sales"), "breach_runs": bt.get("breach_runs"),
+            "forced_sale_usd": bt.get("forced_sale_usd"), "rule_fail_rate": t.get("rule_fail_rate") or {},
+            "mean_seconds": (t.get("agent") or {}).get("mean_seconds")} if t else None
+
+
+@app.get("/api/proof")
+def proof():
+    for name in [x.strip() for x in os.environ.get("STORY_DB", "ballast_bench_muse,ballast_muse").split(",") if x.strip()]:
+        try:
+            d, _ = _db(name)
+            g = d.generations.find_one({"decision": "shipped", "parent": {"$ne": None}, "test": {"$exists": True}}, {"_id": 0, "lessons_new": 0}, sort=[("version", -1)])
+            if not g:
+                continue
+            base = d.generations.find_one({"version": g.get("parent")}, {"_id": 0})
+            ctrl = d.generations.find_one({"mode": "control", "parent": g.get("parent")}, {"_id": 0, "version": 1, "gain": 1, "ci": 1, "decision": 1, "test": 1})
+            return {"db": name, "version": g["version"], "parent": g.get("parent"), "decision": g.get("decision"), "reason": g.get("reason"),
+                    "gain": g.get("gain"), "ci": g.get("ci"), "checks": g.get("checks"), "lost": g.get("lost") or [],
+                    "reg_flips": g.get("reg_flips") or [], "reg_confirmed": g.get("reg_confirmed") or [], "compliance": g.get("compliance"),
+                    "changelog": g.get("changelog"), "created_at": g.get("created_at"),
+                    "base": _gen_slim(base), "cand": _gen_slim(g),
+                    "control": {"version": ctrl.get("version"), "gain": ctrl.get("gain"), "ci": ctrl.get("ci"), "decision": ctrl.get("decision"),
+                                "test": _gen_slim(ctrl)} if ctrl else None}
+        except HTTPException:
+            raise
+        except Exception:
+            continue
+    return None
+
+
+# ---------- Fetch.ai chat agent: identity + latest conversations ----------
+@app.get("/api/fetch")
+def fetch_chat(limit: int = 4):
+    d, _ = _db(os.environ.get("LIVE_DB", "ballast_muse"))
+    agent = d.fetch_agent.find_one({}, {"_id": 0}) or None
+    msgs = list(d.fetch_chats.find({}, {"_id": 0}).sort("created_at", -1).limit(200))
+    convs = {}
+    for m in reversed(msgs):
+        convs.setdefault(m.get("sender") or "?", []).append(m)
+    order = sorted(convs.items(), key=lambda kv: kv[1][-1].get("created_at") or "", reverse=True)[:max(1, min(limit, 10))]
+    jobs = {}
+    ids = [m["job_id"] for _, ms in order for m in ms if m.get("job_id")]
+    for j in d.jobs.find({"job_id": {"$in": ids}}, {"_id": 0, "steps": 0}):
+        r = j.get("result") or {}
+        ch = r.get("check") or {}
+        jobs[j["job_id"]] = {"job_id": j["job_id"], "case": j.get("case"), "model": j.get("model"), "playbook_version": j.get("playbook_version"),
+                             "event": (j.get("chat") or {}).get("event"), "score": ch.get("score"), "passed": ch.get("passed"),
+                             "seconds": r.get("seconds"), "trades": (r.get("recommendation") or {}).get("trades") or []}
+    out = []
+    for sender, ms in order:
+        out.append({"sender": sender, "messages": [{"role": m.get("role"), "text": m.get("text"), "job_id": m.get("job_id"),
+                                                     "created_at": m.get("created_at"), "job": jobs.get(m.get("job_id"))} for m in ms]})
+    return {"agent": agent, "conversations": out}
+
+
 @app.get("/live")
 def live_page():
     return FileResponse(HERE / "static" / "live.html")

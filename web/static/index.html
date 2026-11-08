@@ -20,10 +20,12 @@
 <header class="top">
   <a class="wordmark" href="#top" aria-label="ballast. home">ballast<span>.</span></a>
   <nav class="nav" aria-label="Sections">
+    <a href="#proof">Proof</a>
     <a href="#genome">Genome</a>
     <a href="#learned">Lessons</a>
     <a href="#journeys">Journeys</a>
     <a href="#how">The loop</a>
+    <a href="#chat">Chat</a>
     <a href="/architecture">How it's built</a>
     <a href="/live" class="live-link"><span class="live-dot" aria-hidden="true"></span>Live</a>
   </nav>
@@ -49,6 +51,8 @@
     </dl>
     <p class="meta-row"><span>Hackathon track: gets measurably better with every run</span><span>Powered by <b class="muse-t">Muse</b>, Meta Model API</span></p>
   </section>
+
+  <section id="proof" class="proof frame" aria-label="Proof: the shipped playbook on unseen clients" hidden></section>
 
   <section id="genome" class="genome-sec" aria-labelledby="genome-h">
     <div class="sec-head">
@@ -190,6 +194,11 @@
       <p class="panel-sub" id="bench-sub">Same playbook, same 20 unseen clients, a different model running the agent. Every run records its model.</p>
       <table class="bench-t" id="bench"></table>
     </div>
+    <div class="panel fchat" id="chat">
+      <h3 class="panel-h">Chat with your agent <span class="mono pos csm">Fetch.ai, live</span></h3>
+      <p class="panel-sub">Clients don't fill in forms. They message their agent in plain language through the Fetch.ai Agent Chat Protocol, and it answers with a real, graded recommendation.</p>
+      <div data-fetch-chat><p class="muted">Loading chats.</p></div>
+    </div>
   </section>
 
   <section id="clients-sec" class="clients-sec" aria-labelledby="clients-h">
@@ -214,5 +223,7 @@
 </dialog>
 
 <script src="/static/app.js"></script>
+<script src="/static/proof.js"></script>
+<script src="/static/chat.js"></script>
 </body>
 </html>
