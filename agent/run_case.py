@@ -109,9 +109,17 @@ def run_case(playbook_path: str, case_dir: str, keep_workdir: bool = False, on_s
 
     # Case workdir and harness/config live in separate temp roots so `ls ..` from the
     # case dir reveals nothing about the harness or credentials.
-    tmp = Path(tempfile.mkdtemp(prefix="bh-"))
+    # On the Linux runner, concurrent runs share one unprivileged user, so they must not be able
+    # to discover each other: every run lives under a root-owned, non-listable directory (0711).
+    # An agent can reach its own paths but `find /tmp` / `ls` cannot reveal other runs' folders.
+    box = None
+    if _sandbox_user():
+        box = Path(os.environ.get("BALLAST_SANDBOX_ROOT", "/sandbox"))
+        box.mkdir(mode=0o711, exist_ok=True)
+        os.chmod(box, 0o711)
+    tmp = Path(tempfile.mkdtemp(prefix="bh-", dir=box))
     harness, agent_dir = tmp / "harness", tmp / "agent"
-    work = Path(tempfile.mkdtemp(prefix="case-")) / case_id
+    work = Path(tempfile.mkdtemp(prefix="case-", dir=box)) / case_id
     shutil.copytree(case_dir_p, work)
     (work / "tools").mkdir(exist_ok=True)
     shutil.copy(TOOLS, work / "tools" / "portfolio.py")

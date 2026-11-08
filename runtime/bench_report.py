@@ -591,5 +591,131 @@ def main() -> None:
     print("wrote", out)
 
 
+def load_stack2(stack: str) -> dict:
+    os.environ["MONGODB_DB"] = f"ballast_bench2_{stack}"
+    s = Store()
+    summ = s.find("benchmarks", {"kind": "stack"}, sort="created_at", desc=True, limit=1)
+    return {"store": s, "summary": summ[0] if summ else None, "runs": s.find("runs"),
+            "gens": s.find("generations", sort="created_at"), "jsteps": s.find("journey_steps", sort="created_at"),
+            "jsumm": s.find("journey_summaries")}
+
+
+def report2() -> None:
+    order = ["muse", "subq", "gemini", "mixed"]
+    D = {k: load_stack2(k) for k in order}
+    D = {k: v for k, v in D.items() if v["summary"]}
+    if not D:
+        print("no phase-2 summaries yet")
+        return
+    names = list(D)
+    lab = {k: D[k]["summary"]["label"].split(" (")[0] for k in names}
+    H = {k: headline_metrics(k, D[k]) for k in names}
+
+    def row(label, f):
+        return "| " + label + " | " + " | ".join(f(k) for k in names) + " |"
+    S = {k: D[k]["summary"] for k in names}
+    L = ["", "---", "", "# Framework across models (phase 2: harder data)", "",
+         "Same protocol for every model on the harder data: 300 stress cases with a 54-type event taxonomy (financial-services crises such as a firm "
+         "collapse, deferred-compensation loss, trading blackout windows and margin calls; cascading health, family and debt events), split by a fixed seed "
+         "into 60 practice and 60 test cases stratified by event family, plus the original 10 regression cases. Unseen test = 60 clients × 2 runs. "
+         "The mentor uses structured JSON output for every model. Gemini reviews every stack, including its own (self-review caveat for the Gemini stack).", "",
+         "| | " + " | ".join(lab[k] for k in names) + " |", "|---|" + "---|" * len(names),
+         row("Agent / mentor", lambda k: f"{S[k]['agent_model']} / {S[k]['mentor']}"),
+         row("Unseen test mean, generic v0 → final", lambda k: f"{fmt(S[k]['v0']['test']['mean_score'])} → {fmt(S[k]['final_test']['mean_score'])} (v{S[k]['final_version']})"),
+         row("Paired gain, 90% CI", lambda k: f"{fmt(S[k]['final_gain_vs_v0'][0], sign=True)} ({fmt(S[k]['final_gain_vs_v0'][1], sign=True)}…{fmt(S[k]['final_gain_vs_v0'][2], sign=True)})"),
+         row("Control arm gain (shuffled failures)", lambda k: fmt((S[k].get('control') or {}).get('gain'), sign=True)),
+         row("Clients passing, v0 → final", lambda k: f"{pct(S[k]['v0']['test']['pass_rate'])} → {pct(S[k]['final_test']['pass_rate'])}"),
+         row("Hard-rule violation rate, v0 → final", lambda k: f"{pct(H[k]['hard_violation_rate']['v0'])} → {pct(H[k]['hard_violation_rate']['final'])}"),
+         row("Consistency across repeats, v0 → final", lambda k: f"{pct(H[k]['consistency']['v0']['identical_share'])} → {pct(H[k]['consistency']['final']['identical_share'])}"),
+         row("Backtest breaches / forced sales, v0 → final", lambda k: f"{S[k]['v0']['test']['backtest']['case_breaches']}/{S[k]['v0']['test']['backtest']['case_forced_sales']} → {S[k]['final_test']['backtest']['case_breaches']}/{S[k]['final_test']['backtest']['case_forced_sales']}"),
+         row("Versions shipped / tried", lambda k: H[k]['mentor']['ship_rate']),
+         row("Mentor valid on first try", lambda k: pct(H[k]['mentor']['valid_first_try'])),
+         row("Regressions blocked / shipped", lambda k: f"{H[k]['mentor']['regressions_blocked']} / {H[k]['mentor']['regressions_shipped']}"),
+         row("Journeys improved / same / worse", lambda k: f"{H[k]['journeys']['improved']} / {H[k]['journeys']['same']} / {H[k]['journeys']['worse']}"),
+         row("Latency p50 / p95 (s)", lambda k: f"{fmt(H[k]['latency']['p50'], 1)} / {fmt(H[k]['latency']['p95'], 1)}"),
+         row("Agent tokens in / out", lambda k: f"{H[k]['cost']['agent_tokens_in']:,} / {H[k]['cost']['agent_tokens_out']:,}"),
+         row("Agent cost", lambda k: "–" if H[k]['cost']['agent_usd'] is None else f"${H[k]['cost']['agent_usd']:,.2f}"),
+         row("Wall clock", lambda k: f"{S[k]['cost']['wall_minutes']} min"), ""]
+    total_tokens = sum(H[k]["cost"]["agent_tokens_in"] + H[k]["cost"]["agent_tokens_out"] + H[k]["cost"]["mentor_tokens_in"] + H[k]["cost"]["mentor_tokens_out"] for k in names)
+    L += [f"Total tokens across all phase-2 stacks: {total_tokens:,}.", ""]
+
+    fams = sorted({f for k in names for f in (S[k].get("families") or {})})
+    L += ["## Where each model adapts or struggles (unseen test pass rate by event family, v0 → final)", "",
+          "| Family | n | " + " | ".join(lab[k] for k in names) + " |", "|---|---|" + "---|" * len(names)]
+    for f in fams:
+        n = next((S[k]["families"][f].get("v0", {}).get("n_cases") for k in names if f in (S[k].get("families") or {})), "")
+        cells = []
+        for k in names:
+            x = (S[k].get("families") or {}).get(f, {})
+            a, b = x.get("v0", {}).get("pass_rate"), x.get("final", {}).get("pass_rate")
+            arrow = "" if a is None or b is None else (" ▲" if b > a else (" ▼" if b < a else ""))
+            cells.append(f"{pct(a)} → {pct(b)}{arrow}")
+        L.append(f"| {f} | {n} | " + " | ".join(cells) + " |")
+    L += ["", "Top failing rules per family at the final version:", ""]
+    for f in fams:
+        parts = []
+        for k in names:
+            tf = ((S[k].get("families") or {}).get(f, {}).get("final") or {}).get("top_fail") or []
+            if tf:
+                parts.append(f"{lab[k]}: " + ", ".join(f"`{r}` {c}" for r, c in tf))
+        if parts:
+            L.append(f"- **{f}** — " + "; ".join(parts))
+    L += ["", "## Gate decisions per model", ""]
+    for k in names:
+        L.append(f"**{lab[k]}**")
+        for g in S[k]["generations"]:
+            if g.get("mode") == "baseline":
+                continue
+            L.append(f"- v{g['version']} {g.get('mode')}: {g.get('decision', '').upper()} — {g.get('reason', '')}")
+        L.append("")
+    L += ["## Lessons per model (final playbook)", ""]
+    for k in names:
+        L.append(f"**{lab[k]}**")
+        for les in S[k].get("lessons") or []:
+            L.append(f"- \"{les.get('lesson')}\" — triggered by {les.get('triggered_by')}, rule `{les.get('rule')}`")
+        if not S[k].get("lessons"):
+            L.append("- (none shipped)")
+        L.append("")
+    L += ["## Journeys per model (holdout quarters: generic agent → client's own agent)", "",
+          "| Journey | " + " | ".join(lab[k] for k in names) + " |", "|---|" + "---|" * len(names)]
+    js = sorted({j["journey"] for k in names for j in D[k]["jsumm"]})
+    for jid in js:
+        cells = []
+        client = ""
+        for k in names:
+            j = next((x for x in D[k]["jsumm"] if x["journey"] == jid), None)
+            if j:
+                client = j.get("client") or client
+                cells.append(f"{j['holdout_pass_start']}→{j['holdout_pass_final']} ({fmt(j['holdout_mean_start'], 2)}→{fmt(j['holdout_mean_final'], 2)}, {j['lessons']} lessons)")
+            else:
+                cells.append("–")
+        L.append(f"| {jid} {client} | " + " | ".join(cells) + " |")
+    L += ["", "## Specific failures on the harder data (generic v0, first run)", ""]
+    for k in names:
+        L.append(f"**{lab[k]}**")
+        bad = [r for r in D[k]["runs"] if r.get("set") == "test" and r.get("playbook_version") == 0 and not r.get("passed") and r.get("rep", 0) == 0]
+        bad.sort(key=lambda r: r.get("score") or 0)
+        for r in bad[:4]:
+            v = "; ".join(f"`{x['rule']}`: {x['detail']}" for x in r.get("violations", []))
+            L.append(f"- `{r['case_id']}` ({r.get('family')}) — agent did: {trades_text(r.get('recommendation'))} — {v}")
+        L.append("")
+    L += ["Notes: the Gemini stack is reviewed by Gemini, so its compliance gate is a self-review; the other gates (paired gain, CI, lost clients, "
+          "regression re-checks, backtest) are model-independent. Prices are only published for Muse; other stacks report tokens.", ""]
+    out = ROOT / "docs" / "BENCHMARK.md"
+    text = out.read_text(encoding="utf-8") if out.exists() else ""
+    marker = "\n---\n\n# Framework across models (phase 2"
+    if marker in text:
+        text = text[: text.index(marker)]
+    out.write_text(text.rstrip("\n") + "\n" + "\n".join(L) + "\n", encoding="utf-8")
+    os.environ["MONGODB_DB"] = "ballast_muse"
+    Store().insert("benchmarks", {"kind": "framework_across_models", "phase": "2",
+                                  "stacks": {k: json.loads(json.dumps({x: y for x, y in S[k].items() if x not in ("drift",)}, default=str)) for k in names},
+                                  "headline": json.loads(json.dumps(H, default=str)), "markdown_path": "docs/BENCHMARK.md"})
+    print("appended phase 2 to", out)
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "phase2":
+        report2()
+    else:
+        main()

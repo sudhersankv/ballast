@@ -486,9 +486,9 @@ def run_stack(stack: str) -> None:
 if __name__ == "__main__":
     if len(sys.argv) >= 3 and sys.argv[1] == "run":
         run_stack(sys.argv[2])
-    elif len(sys.argv) >= 2 and sys.argv[1] == "report":
+    elif len(sys.argv) >= 2 and sys.argv[1] in ("report", "report2"):
         sys.path.insert(0, str(Path(__file__).resolve().parent))
         import bench_report
-        bench_report.main()
+        bench_report.main() if sys.argv[1] == "report" else bench_report.report2()
     else:
         print(__doc__)
