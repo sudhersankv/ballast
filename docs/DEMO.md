@@ -48,7 +48,10 @@ Scroll to **Proof** on the home page:
 
 | What | Number |
 | --- | --- |
-| Muse v2 on 20 unseen clients ×3 | pass 65% → 95%, mean 0.818 → 0.923, cash breaches 3 → 0, forced sales 2 → 0 |
+| Muse v2 on 20 unseen clients ×3 | pass 65% → 95%, mean 0.818 → 0.923, cash breaches 3 → 0, forced sales 2 → 0, hard-rule violations 25% → 7%, consistent across repeats 75% → 95% |
+| Same framework on SubQ Preview | 0.812 → 0.912, pass 65% → 85%; ~2× faster, ~half the tokens; control arm +0.069 (weaker proof) |
+| Harder data (300 stress clients, starting skills only, partial run) | Muse 57%, SubQ 53%, Gemini 28%, naive rebalancer 34%, do-nothing 18%; trading-firm crises hardest (~47–50%) |
+| Cost | $0.057 of Muse per passing recommendation |
 | Gain vs control arm | +0.105 (90% CI +0.053 to +0.160) vs +0.003 with shuffled failures |
 | Connected clients v0 → v1 | mean 0.821 → 0.960; 4 of 5 to 1.00; Priya 1.00 → 0.80 |
 | Fetch.ai chat (Miguel) | 49 s on Muse, policy 1.00, $26K to cash, COBRA in the math |
