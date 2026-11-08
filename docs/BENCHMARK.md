@@ -537,3 +537,126 @@ Journeys (holdout quarters, generic agent → client's own agent):
 - The mentor sees violation details for practice clients only; test, regression, drift and journey holdout quarters are never shown to it.
 - Run-to-run noise is real: the same agent and case can pass once and fail the next run. That is why every gate decision uses 3 runs per client and a paired confidence interval, and regression flips are re-run before they count.
 - The control arm uses the same mentor and gate with shuffled evidence; a real effect should beat it.
+
+---
+
+# Framework across models (phase 2: harder data) — PARTIAL
+
+**Partial result.** Phase 2 was stopped before any stack finished: Muse and the mixed stack for budget, SubQ when its credit ran out (HTTP 402 `insufficient_credits`), Gemini for budget. No training generation completed in phase 2, so there are no phase-2 gate decisions or fleet gains to report. What follows is the generic-v0 behavior on the harder data and the per-client journey learning that did complete.
+
+Setup: 300 stress cases (54 event types, incl. financial-services crises: firm collapse, deferred-comp loss, blackout windows, margin calls; cascading health/family/debt events), fixed-seed 60/60 practice/test split stratified by event family; journeys j-008, j-012, j-015, j-018, j-020, j-021, j-024, j-027. Same harness, structured-JSON mentor, Gemini reviewer.
+
+| Stack | Status |
+|---|---|
+| Muse (Spark agent, Wonder mentor) | stopped for budget (Muse credit cap ~$100) |
+| SubQ Preview | stopped: SubQ credit ran out (402 insufficient_credits from stress case s-074); runs after that excluded |
+| Gemini 3.8 Flash | stopped for budget after the sandbox fix restart (v0 evaluation incomplete) |
+| mixed | stopped for budget during v0 (Muse agent); its database was reset when SubQ credit ran out, so its runs are not in this report |
+
+## Generic v0 on unseen stress cases (runs completed before the stop)
+
+| | Muse (Spark agent, Wonder mentor) | SubQ Preview | Gemini 3.8 Flash |
+|---|---|---|---|
+| Test runs scored | 120 | 120 | 43 |
+| Run pass rate | 57% | 53% | 28% |
+| Mean score | 0.805 | 0.772 | 0.323 |
+| Hard-rule violation rate | 42% | 43% | 67% |
+| Ran out of turns / timed out (all runs) | 0 / 1 of 265 | 0 / 0 of 260 | 39 / 6 of 69 |
+| Provider-side errors (excluded) | 0 | 0 | 0 |
+| Latency p50 / p95 (s) | 68.0 / 127.5 | 30.5 / 106.5 | 149.9 / 262.0 |
+
+For reference, on the same stress cases the scenario generator's naive rebalancer passes 34% and doing nothing passes 18%.
+
+### By event family (generic v0, run pass rate, n runs)
+
+| Family | Muse (Spark agent, Wonder mentor) | SubQ Preview | Gemini 3.8 Flash |
+|---|---|---|---|
+| debt | 100% (2) | 0% (2) | 100% (1) |
+| family | 60% (10) | 70% (10) | 0% (3) |
+| fs_crisis | 47% (32) | 50% (32) | 18% (11) |
+| health | 67% (18) | 50% (18) | 17% (6) |
+| housing | 33% (6) | 0% (6) | 0% (2) |
+| legal | 100% (4) | 75% (4) | 0% (2) |
+| loss | 25% (8) | 25% (8) | 0% (4) |
+| no_event | 100% (6) | 100% (6) | 67% (3) |
+| windfall | 75% (8) | 75% (8) | 67% (3) |
+| work | 50% (26) | 58% (26) | 50% (8) |
+
+### Specific failures (generic v0)
+
+**Muse (Spark agent, Wonder mentor)**
+- `s-081` (fs_crisis) — agent did: no trades (Paused trading pending Chapter 7 bankruptcy clearance; referred for human and attorney review.) — `risk_band`: equity 24.2% outside 30.0%-50.0% for risk 2; `emergency_fund`: cash 0.7 months, needs 3; `review_flag`: missing flag(s): legal_review
+- `s-081` (fs_crisis) — agent did: no trades (Pause all trading pending trustee/attorney clearance after recent Chapter 7 filing.) — `risk_band`: equity 24.2% outside 30.0%-50.0% for risk 2; `emergency_fund`: cash 0.7 months, needs 3; `review_flag`: missing flag(s): legal_review
+- `s-170` (work) — agent did: sell CASH $16,665 [rule:emergency_fund]; buy BOND $12,339 [rule:rebalance]; buy US_EQ $3,200 [rule:rebalance]; buy INTL_EQ $1,126 [rule:rebalance] — `emergency_fund`: cash 5.5 months, needs 6 after layoff; `income_shock_fund`: cash 5.5 months, needs 6 after income shock (furlough); `review_flag`: missing flag(s): debt_review
+- `s-294` (family) — agent did: sell BOND $17,180 [rule:rebalance]; buy US_EQ $9,275 [rule:rebalance]; buy CASH $7,905 [event:e2] — `emergency_fund`: cash 2.5 months, needs 3; `event_marriage`: missing joint_profile_review flag; `known_cash_need`: cash 29,707 USD, needs 45,150 (3 months expenses + 9,900 due within 12 months)
+
+**SubQ Preview**
+- `s-090` (fs_crisis) — agent did: sell BOND $41,720 [rule:emergency_fund]; buy CASH $41,720 [rule:emergency_fund]; sell BOND $37,000 [event:e3]; buy CASH $37,000 [event:e3] — `valid_output`: profile_updates.goals_add must be a list of objects with type
+- `s-230` (health) — agent did: sell US_EQ $13,400 [rule:rebalance]; sell INTL_EQ $4,271 [rule:rebalance]; buy BOND $6,228 [rule:rebalance]; buy CASH $11,443 [rule:rebalance] — `valid_output`: profile_updates.goals_add must be a list of objects with type
+- `s-256` (fs_crisis) — agent did: sell BOND $23,442 [rule:emergency_fund]; buy CASH $23,442 [rule:emergency_fund] — `valid_output`: profile_updates.goals_add must be a list of objects with type
+- `s-031` (health) — agent did: sell US_EQ $4,767 [rule:rebalance]; sell BOND $9,000 [rule:emergency_fund]; buy CASH $13,767 [rule:emergency_fund] — `valid_output`: profile_updates.goals_add must be a list of objects with type
+
+**Gemini 3.8 Flash**
+- `s-020` (fs_crisis) — agent did: no trades — `valid_output`: run failed: max_turns (20) reached
+- `s-049` (family) — agent did: no trades — `valid_output`: run failed: max_turns (20) reached
+- `s-031` (health) — agent did: no trades (Asset allocation drift is modest (+2.3% equity, -2.7% bond, +0.5% cash) and well within typical 5% rebalancing tolerance bands. Existing cash reserves of $26,290 sufficiently cover the $9,100 medical out-of-pocket maximum. The recent cancer diagnosis and external crypto loss require human advisor consultation before modifying portfolio targets or liquidating assets.) — `valid_output`: run failed: timeout after 180s
+- `s-066` (loss) — agent did: sell US_EQ $22,638 [rule:rebalance]; buy BOND $8,621 [rule:rebalance]; buy CASH $14,017 [rule:rebalance] — `valid_output`: run failed: max_turns (20) reached
+
+### Per-client learning in journeys (completed checkpoints)
+
+**Muse (Spark agent, Wonder mentor)** — 6 lessons learned, 8 candidate changes rejected by the gate, 22 holdout checkpoints scored.
+- j-020 at t01 (t01 score 0.80->1.00; earlier checkpoints held): "I fund cash to the required months of expenses before using any sale proceeds to rebalance into bonds or other assets." — triggered by cash reserves below the required emergency-fund months
+- j-027 at t01 (t01 score 0.80->1.00; earlier checkpoints held): "I fund cash to the required months of expenses first, before using any sale proceeds to rebalance or reduce concentration." — triggered by A concentrated holding sale while cash was below the required emergency level, with no life event.
+- j-018 at t03 (t03 score 0.75->1.00; earlier checkpoints held): "After an income shock, I build cash to six months of expenses before putting sale proceeds into bonds or equities." — triggered by regulatory_ban
+- j-018 at t03 (t03 score 0.75->1.00; earlier checkpoints held): "When an event raises regulatory, insider, restricted-list, or pre-clearance issues, I add a legal_review flag for a human to check." — triggered by regulatory_ban, insider_status
+- j-012 at t05 (t05 score 0.71->1.00; earlier checkpoints held): "After a disability or other income shock, I build cash to six months of my new monthly expenses before buying equities again." — triggered by disability
+- j-012 at t05 (t05 score 0.71->1.00; earlier checkpoints held): "When care costs raise my monthly spending, I recalculate my cash buffer using the increased expenses, not the old ones." — triggered by disability with monthly cost increase
+- j-027 at t02 (t02 score 0.57->1.00; earlier checkpoints held): "After an income shock, I build six months of cash before rebalancing anything else." — triggered by An income shock event such as a desk shutdown or furlough
+- j-027 at t02 (t02 score 0.57->1.00; earlier checkpoints held): "When I sell a concentrated equity holding, I replace enough of it with diversified equity to keep total equity inside the client's risk band." — triggered by A concentrated equity sale that would move post-trade equity outside the risk band
+- j-027 at t02 (t02 score 0.57->1.00; earlier checkpoints held): "When I see a credit card debt event, I add the debt_review flag for human review." — triggered by A credit_card_debt event
+- j-015 at t04 (t04 score 0.80->1.00; earlier checkpoints held): "When cash is short of the required emergency fund, I put sale proceeds into cash first and verify I finish clearly above the minimum, not just at it, before buying anything else." — triggered by Low cash relative to monthly expenses with no life events reported
+- rejected at j-027 t01: t01 score 0.80->0.80; earlier checkpoints held
+- rejected at j-021 t02: t02 score 0.75->0.88; earlier checkpoints held
+- rejected at j-015 t02: t02 score 0.83->0.83; earlier checkpoints held
+- rejected at j-015 t02: t02 score 0.83->0.83; earlier checkpoints held
+
+**SubQ Preview** — 7 lessons learned, 21 candidate changes rejected by the gate, 27 holdout checkpoints scored.
+- j-012 at t01 (t01 score 0.80->1.00; earlier checkpoints held): "When a holding is over its concentration cap, I compute the exact dollar excess from the portfolio total and re-check the post-trade weight before I write the trade." — triggered by A single holding sitting above the concentration cap in a case with no life events to distract from the arithmetic.
+- j-008 at t02 (t02 score 0.83->1.00; earlier checkpoints held): "When a client needs cash for a dated expense, I fund it from cash and from positions that are already over their target or over their cap, and I recheck every holding's weight before I write the recommendation." — triggered by home_purchase event with a large amount due
+- j-021 at t04 (t04 score 0.86->1.00; earlier checkpoints held): "After an income shock, I check the client's cash runway against the required months and top up cash before doing other rebalancing." — triggered by firm_collapse and gig_income events
+- j-012 at t04 (t04 score 0.60->1.00; earlier checkpoints held): "Even when a case is dominated by life events, I still screen every holding against its concentration cap before I decide on trades." — triggered by A case carrying several life events (high-interest debt, a deferred comp clawback) and no obvious rebalance trigger, so the agent concluded 'no trades' without checking caps first.
+- j-012 at t04 (t04 score 0.60->1.00; earlier checkpoints held): "When a case has high-interest debt or a legal or conduct event, I add the matching review flag even if I recommend no trades." — triggered by A credit card debt event and a deferred compensation clawback for a conduct review.
+- j-027 at t03 (t03 score 0.67->1.00; earlier checkpoints held): "Before I recommend any trade, I check how many months of expenses the client's cash covers, and if it is short I top up cash first instead of buying bonds." — triggered by any trade recommendation, especially one triggered by a concentration or rebalance signal while cash is thin
+- j-027 at t03 (t03 score 0.67->1.00; earlier checkpoints held): "When a client changes jobs and earns more, I set a positive monthly contribution from the new income instead of leaving it null." — triggered by job_change event with a higher new_income
+- j-008 at t03 (t03 score 0.67->1.00; earlier checkpoints held): "When a client has dated cash needs, I reserve cash for the emergency-fund floor and every known amount due before I buy any non-cash asset." — triggered by multiple dated cash needs (tax bill and relocation) due within the policy horizon, rule: emergency_fund, skill: life-event-cash-needs
+- j-012 at t05 (t05 score 0.71->1.00; earlier checkpoints held): "When a case has an income shock or a new recurring cost, I compute months of cash coverage against post-event expenses and size the cash reserve before I finalize any trade." — triggered by A long-term disability event that cut income to a share of its former level and added a monthly care cost on top of existing expenses.
+- rejected at j-027 t01: t01 score 0.60->0.60; earlier checkpoints held
+- rejected at j-020 t01: t01 score 0.80->0.80; earlier checkpoints held
+- rejected at j-027 t01: t01 score 0.60->0.80; earlier checkpoints held
+- rejected at j-020 t01: t01 score 0.80->0.80; earlier checkpoints held
+
+**Gemini 3.8 Flash** — 0 lessons learned, 13 candidate changes rejected by the gate, 0 holdout checkpoints scored.
+- rejected at j-020 t01: t01 score 0.00->0.00; earlier checkpoints held
+- rejected at j-027 t01: t01 score 0.00->0.50; earlier checkpoints held
+- rejected at j-020 t01: t01 score 0.00->0.00; earlier checkpoints held
+- rejected at j-018 t01: t01 score 0.00->0.00; earlier checkpoints held
+
+## Muse spend recorded today (phase 1 + phase 2 + other runs)
+
+Priced at $1.25 / 1M input and $4.25 / 1M output tokens. Mentor tokens are stored as one total, so they are priced at the output rate (an upper bound).
+
+| Database | Muse agent runs | Tokens in | Tokens out | Agent $ | Mentor tokens | Mentor $ (max) |
+|---|---|---|---|---|---|---|
+| ballast_bench2_muse | 265 | 4,619,218 | 1,893,405 | $13.82 | 105,202 | $0.45 |
+| ballast_bench_muse | 514 | 9,269,659 | 3,207,600 | $25.22 | 85,728 | $0.36 |
+| ballast_muse | 299 | 4,883,998 | 1,192,633 | $11.17 | 47,627 | $0.20 |
+| **Total** | | | | **$50.21** | | **$1.01** |
+
+Not included: the mixed stack's phase-2 runs (Muse agent; its database was reset before the budget stop, so its tokens were not kept — roughly 75–100 runs, about $3–5 at the phase-1 Muse rate per run), and any Muse calls made outside the harness (direct tests, website live runs that were not logged to these databases).
+
+### Also found and fixed during phase 2
+
+- **Run isolation.** Concurrent runs on one machine shared `/tmp` and one unprivileged user. Under the generic v0, Gemini agents ran `find /tmp` and read other concurrent runs' skill files (8 of its first 22 runs). Phase 1 had 0 such runs; Muse, SubQ and mixed in phase 2 had none that read another run's skills. Fixed by placing every run under a root-owned, non-listable `/sandbox` (verified: the agent user gets Permission denied and finds no `SKILL.md`); Gemini was restarted on the fixed image and those contaminated runs were discarded.
+- **Provider errors.** The harness now records the model API's own error (e.g. 402 or 429) instead of "did not write recommendation.json", so provider failures are reported separately from agent failures.
+- **Gemini under a generic skill file** ran out of its 20 turns or the 3-minute limit on most cases once it could no longer find other runs' files. That is a real behavior; whether the mentor can teach it to be decisive was the next thing phase 2 would have measured.
+

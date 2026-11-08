@@ -724,8 +724,154 @@ def report2() -> None:
     print("appended phase 2 to", out)
 
 
+def muse_spend() -> dict:
+    """All Muse usage recorded in MongoDB today: agent runs with a meta/ model + mentor tokens."""
+    from pymongo import MongoClient
+    c = MongoClient(os.environ["MONGODB_URI"])
+    rows = []
+    for name in sorted(c.list_database_names()):
+        if not name.startswith("ballast"):
+            continue
+        db = c[name]
+        if "runs" not in db.list_collection_names():
+            continue
+        agg = list(db.runs.aggregate([{"$match": {"model": {"$regex": "^meta/"}}},
+                                      {"$group": {"_id": None, "n": {"$sum": 1}, "i": {"$sum": "$tokens_in"}, "o": {"$sum": "$tokens_out"}}}]))
+        mt = 0
+        muse_mentor_dbs = {"ballast_bench_muse", "ballast_bench2_muse", "ballast_muse"}  # the other DBs used SubQ/Gemini mentors
+        for coll in (("generations", "journey_steps") if name in muse_mentor_dbs else ()):
+            if coll in db.list_collection_names():
+                for g in db[coll].find({"mentor_tokens": {"$exists": True}}, {"mentor_tokens": 1}):
+                    mt += g.get("mentor_tokens") or 0
+        if name == "ballast_bench_muse":
+            s = db.benchmarks.find_one({"kind": "stack"}) or {}
+            co = s.get("cost") or {}
+            mt += (co.get("mentor_tokens_in") or 0) + (co.get("mentor_tokens_out") or 0)
+        if agg or mt:
+            a = agg[0] if agg else {"n": 0, "i": 0, "o": 0}
+            rows.append({"db": name, "runs": a["n"], "tokens_in": a["i"], "tokens_out": a["o"], "mentor_tokens": mt})
+    for r in rows:
+        r["agent_usd"] = round(r["tokens_in"] / 1e6 * 1.25 + r["tokens_out"] / 1e6 * 4.25, 2)
+        r["mentor_usd_max"] = round(r["mentor_tokens"] / 1e6 * 4.25, 2)  # in/out split not stored: priced at the output rate (upper bound)
+    return {"rows": rows, "agent_usd": round(sum(r["agent_usd"] for r in rows), 2),
+            "mentor_usd_max": round(sum(r["mentor_usd_max"] for r in rows), 2)}
+
+
+def partial2() -> None:
+    """Phase 2 stopped early (budget / credits). Summarize what was collected from raw runs."""
+    labels = {"muse": "Muse (Spark agent, Wonder mentor)", "subq": "SubQ Preview", "gemini": "Gemini 3.8 Flash"}
+    status = {"muse": "stopped for budget (Muse credit cap ~$100)",
+              "subq": "stopped: SubQ credit ran out (402 insufficient_credits from stress case s-074); runs after that excluded",
+              "gemini": "stopped for budget after the sandbox fix restart (v0 evaluation incomplete)",
+              "mixed": "stopped for budget during v0 (Muse agent); its database was reset when SubQ credit ran out, so its runs are not in this report"}
+    L = ["", "---", "", "# Framework across models (phase 2: harder data) — PARTIAL", "",
+         "**Partial result.** Phase 2 was stopped before any stack finished: Muse and the mixed stack for budget, SubQ when its credit ran out "
+         "(HTTP 402 `insufficient_credits`), Gemini for budget. No training generation completed in phase 2, so there are no phase-2 gate decisions or "
+         "fleet gains to report. What follows is the generic-v0 behavior on the harder data and the per-client journey learning that did complete.", "",
+         "Setup: 300 stress cases (54 event types, incl. financial-services crises: firm collapse, deferred-comp loss, blackout windows, margin calls; "
+         "cascading health/family/debt events), fixed-seed 60/60 practice/test split stratified by event family; journeys j-008, j-012, j-015, j-018, "
+         "j-020, j-021, j-024, j-027. Same harness, structured-JSON mentor, Gemini reviewer.", "",
+         "| Stack | Status |", "|---|---|"] + [f"| {labels.get(k, k)} | {v} |" for k, v in status.items()] + [""]
+    from pymongo import MongoClient
+    c = MongoClient(os.environ["MONGODB_URI"])
+
+    def infra(r):
+        e = r.get("error") or ""
+        return e.startswith("provider error") or (e == "agent did not write recommendation.json"
+                                                   and (r.get("turns") or 0) <= 2 and (r.get("tokens_out") or 0) < 400)
+    out = {}
+    for k in ("muse", "subq", "gemini"):
+        db = c[f"ballast_bench2_{k}"]
+        runs = list(db.runs.find({}, {"steps": 0}).sort("created_at", 1))
+        if k == "subq":
+            first_bad = next((r["created_at"] for r in runs if infra(r)), None)
+            runs = [r for r in runs if not first_bad or r["created_at"] < first_bad]
+        t0 = [r for r in runs if r.get("set") == "test" and r.get("playbook_version") == 0 and not infra(r)]
+        fam: dict[str, list] = {}
+        for r in t0:
+            fam.setdefault(r.get("family") or "unknown", []).append(r)
+        hard = sum(1 for r in t0 if any(v.get("severity") == "hard" for v in r.get("violations") or []))
+        steps = list(db.journey_steps.find({}, {"_id": 0}).sort("created_at", 1))
+        out[k] = {"runs": len(runs), "t0": t0, "fam": fam, "hard": hard, "steps": steps,
+                  "errors": {"max_turns": sum(1 for r in runs if (r.get("error") or "").startswith("max_turns")),
+                             "timeout": sum(1 for r in runs if (r.get("error") or "").startswith("timeout")),
+                             "infra": sum(1 for r in runs if infra(r)),
+                             "other": sum(1 for r in runs if r.get("error") and not infra(r) and not (r.get("error") or "").startswith(("max_turns", "timeout")))},
+                  "secs": [r.get("seconds") or 0 for r in runs]}
+    ks = list(out)
+    L += ["## Generic v0 on unseen stress cases (runs completed before the stop)", "",
+          "| | " + " | ".join(labels[k] for k in ks) + " |", "|---|" + "---|" * len(ks),
+          "| Test runs scored | " + " | ".join(str(len(out[k]["t0"])) for k in ks) + " |",
+          "| Run pass rate | " + " | ".join(pct(sum(1 for r in out[k]["t0"] if r.get("passed")) / len(out[k]["t0"])) if out[k]["t0"] else "–" for k in ks) + " |",
+          "| Mean score | " + " | ".join(fmt(statistics.mean(r.get("score") or 0 for r in out[k]["t0"])) if out[k]["t0"] else "–" for k in ks) + " |",
+          "| Hard-rule violation rate | " + " | ".join(pct(out[k]["hard"] / len(out[k]["t0"])) if out[k]["t0"] else "–" for k in ks) + " |",
+          "| Ran out of turns / timed out (all runs) | " + " | ".join(f"{out[k]['errors']['max_turns']} / {out[k]['errors']['timeout']} of {out[k]['runs']}" for k in ks) + " |",
+          "| Provider-side errors (excluded) | " + " | ".join(str(out[k]["errors"]["infra"]) for k in ks) + " |",
+          "| Latency p50 / p95 (s) | " + " | ".join(f"{fmt(pctl(out[k]['secs'], .5), 1)} / {fmt(pctl(out[k]['secs'], .95), 1)}" for k in ks) + " |", "",
+          "For reference, on the same stress cases the scenario generator's naive rebalancer passes 34% and doing nothing passes 18%.", "",
+          "### By event family (generic v0, run pass rate, n runs)", "", "| Family | " + " | ".join(labels[k] for k in ks) + " |", "|---|" + "---|" * len(ks)]
+    for f in sorted({f for k in ks for f in out[k]["fam"]}):
+        cells = []
+        for k in ks:
+            g = out[k]["fam"].get(f, [])
+            cells.append(f"{pct(sum(1 for r in g if r.get('passed')) / len(g))} ({len(g)})" if g else "–")
+        L.append(f"| {f} | " + " | ".join(cells) + " |")
+    L += ["", "### Specific failures (generic v0)", ""]
+    for k in ks:
+        bad = sorted([r for r in out[k]["t0"] if not r.get("passed")], key=lambda r: r.get("score") or 0)[:4]
+        if bad:
+            L.append(f"**{labels[k]}**")
+            for r in bad:
+                v = "; ".join(f"`{x['rule']}`: {x['detail']}" for x in r.get("violations", [])) or (r.get("error") or "")
+                L.append(f"- `{r['case_id']}` ({r.get('family')}) — agent did: {trades_text(r.get('recommendation'))} — {v}")
+            L.append("")
+    L += ["### Per-client learning in journeys (completed checkpoints)", ""]
+    for k in ks:
+        learned = [s for s in out[k]["steps"] if s.get("action") == "learn"]
+        rejected = [s for s in out[k]["steps"] if s.get("action") == "reject"]
+        proved = [s for s in out[k]["steps"] if s.get("action") == "prove"]
+        L.append(f"**{labels[k]}** — {len(learned)} lessons learned, {len(rejected)} candidate changes rejected by the gate, {len(proved)} holdout checkpoints scored.")
+        for s in learned[:8]:
+            for les in s.get("lessons") or []:
+                L.append(f"- {s['journey']} at {s['checkpoint']} ({s.get('reason')}): \"{les.get('lesson')}\" — triggered by {les.get('triggered_by')}")
+        for s in rejected[:4]:
+            L.append(f"- rejected at {s['journey']} {s['checkpoint']}: {s.get('reason')}")
+        L.append("")
+    sp = muse_spend()
+    L += ["## Muse spend recorded today (phase 1 + phase 2 + other runs)", "",
+          "Priced at $1.25 / 1M input and $4.25 / 1M output tokens. Mentor tokens are stored as one total, so they are priced at the output rate (an upper bound).", "",
+          "| Database | Muse agent runs | Tokens in | Tokens out | Agent $ | Mentor tokens | Mentor $ (max) |", "|---|---|---|---|---|---|---|"]
+    for r in sp["rows"]:
+        L.append(f"| {r['db']} | {r['runs']:,} | {r['tokens_in']:,} | {r['tokens_out']:,} | ${r['agent_usd']:,.2f} | {r['mentor_tokens']:,} | ${r['mentor_usd_max']:,.2f} |")
+    L += [f"| **Total** | | | | **${sp['agent_usd']:,.2f}** | | **${sp['mentor_usd_max']:,.2f}** |", "",
+          "Not included: the mixed stack's phase-2 runs (Muse agent; its database was reset before the budget stop, so its tokens were not kept — "
+          "roughly 75–100 runs, about $3–5 at the phase-1 Muse rate per run), and any Muse calls made outside the harness (direct tests, website live runs "
+          "that were not logged to these databases).", "",
+          "### Also found and fixed during phase 2", "",
+          "- **Run isolation.** Concurrent runs on one machine shared `/tmp` and one unprivileged user. Under the generic v0, Gemini agents ran `find /tmp` and read "
+          "other concurrent runs' skill files (8 of its first 22 runs). Phase 1 had 0 such runs; Muse, SubQ and mixed in phase 2 had none that read another run's "
+          "skills. Fixed by placing every run under a root-owned, non-listable `/sandbox` (verified: the agent user gets Permission denied and finds no `SKILL.md`); "
+          "Gemini was restarted on the fixed image and those contaminated runs were discarded.",
+          "- **Provider errors.** The harness now records the model API's own error (e.g. 402 or 429) instead of \"did not write recommendation.json\", so provider "
+          "failures are reported separately from agent failures.",
+          "- **Gemini under a generic skill file** ran out of its 20 turns or the 3-minute limit on most cases once it could no longer find other runs' files. That is "
+          "a real behavior; whether the mentor can teach it to be decisive was the next thing phase 2 would have measured.", ""]
+    path = ROOT / "docs" / "BENCHMARK.md"
+    text = path.read_text(encoding="utf-8")
+    marker = "\n---\n\n# Framework across models (phase 2"
+    if marker in text:
+        text = text[: text.index(marker)]
+    path.write_text(text.rstrip("\n") + "\n" + "\n".join(L) + "\n", encoding="utf-8")
+    os.environ["MONGODB_DB"] = "ballast_muse"
+    Store().insert("benchmarks", {"kind": "phase2_partial", "status": status, "muse_spend": sp,
+                                  "v0": {k: {"runs": len(out[k]["t0"]), "pass": sum(1 for r in out[k]["t0"] if r.get("passed"))} for k in ks}})
+    print("partial phase 2 written; Muse agent $", sp["agent_usd"], "mentor max $", sp["mentor_usd_max"])
+
+
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "phase2":
+    if len(sys.argv) > 1 and sys.argv[1] == "partial2":
+        partial2()
+    elif len(sys.argv) > 1 and sys.argv[1] == "phase2":
         report2()
     else:
         main()
