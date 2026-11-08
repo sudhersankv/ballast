@@ -61,6 +61,31 @@ def playbook_file(job: dict) -> Path:
     return p
 
 
+def with_chat(src: Path, chat: dict) -> Path:
+    """Copy the case and fold in what the client said in chat (Fetch.ai / Agentverse):
+    the text lands in connectors/messages.json (the agent must find it there); the classified
+    event goes to events.json for the grader only (hidden from connected agents)."""
+    import json
+    import shutil
+    from datetime import date
+    dst = Path(tempfile.mkdtemp(prefix="chat-")) / src.name
+    shutil.copytree(src, dst)
+    msgs_path = dst / "connectors" / "messages.json"
+    msgs_path.parent.mkdir(exist_ok=True)
+    msgs = json.loads(msgs_path.read_text(encoding="utf-8")) if msgs_path.exists() else {"messages": []}
+    msgs.setdefault("messages", []).append({"date": date.today().isoformat(), "text": chat.get("message", ""),
+                                            "channel": "Agentverse chat"})
+    msgs_path.write_text(json.dumps(msgs, indent=1), encoding="utf-8")
+    if chat.get("event"):
+        ev_path = dst / "events.json"
+        ev = json.loads(ev_path.read_text(encoding="utf-8")) if ev_path.exists() else {"events": []}
+        e = {"id": f"chat{len(ev['events']) + 1}", **chat["event"]}
+        e.setdefault("date", date.today().isoformat())
+        ev["events"].append(e)
+        ev_path.write_text(json.dumps(ev, indent=1), encoding="utf-8")
+    return dst
+
+
 def update(job_id: str, fields: dict, push_step: dict | None = None) -> None:
     upd = {"$set": fields}
     if push_step is not None:
@@ -75,6 +100,8 @@ def run_job(job: dict) -> None:
             if job.get("model") not in ALLOWED_MODELS:
                 raise ValueError(f"model not allowed: {job.get('model')}")
             d = case_dir(job["case"])
+            if job.get("chat"):
+                d = with_chat(d, job["chat"])
             pb = playbook_file(job)
             update(jid, {"status": "running", "started_at": now(), "steps": []})
             res = run_case(str(pb), str(d), on_step=lambda s: update(jid, {"updated_at": now()}, push_step=s),
